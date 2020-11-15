@@ -1,17 +1,16 @@
 /**
  * External dependencies
  */
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
-/**
- * WordPress dependencies
- */
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 
 /**
  * Internal dependencies
@@ -54,7 +53,7 @@ const cssLoaders = [
 ];
 
 const config = {
-	devtool: 'inline-cheap-module-source-map',
+	devtool: isProduction ? false : 'source-map',
 	mode,
 	entry: getBuildFiles(),
 	output: {
@@ -65,6 +64,10 @@ const config = {
 		alias: {
 			'lodash-es': 'lodash',
 		},
+	},
+	externals: {
+		jquery: 'jQuery',
+		lodash: 'lodash',
 	},
 	performance: {
 		maxAssetSize: 100000,
@@ -97,6 +100,7 @@ const config = {
 						loader: require.resolve('eslint-loader'),
 						options: {
 							enforce: 'pre',
+							emitWarning: true,
 							...(!hasEslintConfig() && {
 								configFile: fromConfigRoot('.eslintrc.js'),
 							}),
@@ -129,9 +133,19 @@ const config = {
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
-			new LiveReloadPlugin({
-				port: process.env.TENUP_LIVE_RELOAD_PORT || 35729,
-			}),
+			new BrowserSyncPlugin(
+				{
+					host: 'localhost',
+					port: 3000,
+					proxy: 'http://tenup-scaffold.test',
+					open: false,
+					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
+				},
+				{
+					injectCss: true,
+					reload: false,
+				},
+			),
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), './assets/css'),
@@ -145,15 +159,67 @@ const config = {
 		// TENUP_NO_EXTERNALS global variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		!process.env.TENUP_NO_EXTERNALS &&
-			new DependencyExtractionWebpackPlugin({ injectPolyfill: false }),
+			new DependencyExtractionWebpackPlugin({
+				injectPolyfill: true,
+			}),
+		new CleanExtractedDeps(),
 	].filter(Boolean),
 	stats: {
-		children: false,
+		// Copied from `'minimal'`.
+		all: false,
+		errors: true,
+		maxModules: 0,
+		modules: true,
+		warnings: true,
+		// Our additional options.
+		assets: true,
+		errorDetails: true,
+		excludeAssets: /\.(jpe?g|png|gif|svg|woff|woff2)$/i,
+		moduleTrace: true,
+		performance: true,
+	},
+	optimization: {
+		concatenateModules: isProduction,
+		minimizer: [
+			new TerserPlugin({
+				cache: true,
+				parallel: true,
+				sourceMap: !isProduction,
+				terserOptions: {
+					parse: {
+						// We want terser to parse ecma 8 code. However, we don't want it
+						// to apply any minfication steps that turns valid ecma 5 code
+						// into invalid ecma 5 code. This is why the 'compress' and 'output'
+						// sections only apply transformations that are ecma 5 safe
+						// https://github.com/facebook/create-react-app/pull/4234
+						ecma: 8,
+					},
+					compress: {
+						ecma: 5,
+						warnings: false,
+						// Disabled because of an issue with Uglify breaking seemingly valid code:
+						// https://github.com/facebook/create-react-app/issues/2376
+						// Pending further investigation:
+						// https://github.com/mishoo/UglifyJS2/issues/2011
+						comparisons: false,
+						// Disabled because of an issue with Terser breaking valid code:
+						// https://github.com/facebook/create-react-app/issues/5250
+						// Pending futher investigation:
+						// https://github.com/terser-js/terser/issues/120
+						inline: 2,
+					},
+					output: {
+						ecma: 5,
+						comments: false,
+					},
+					ie8: false,
+				},
+			}),
+		],
 	},
 };
 
 if (!isProduction) {
-	config.devtool = 'source-map';
 	config.module.rules.unshift({
 		test: /\.js$/,
 		exclude: [/node_modules/],

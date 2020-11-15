@@ -3,6 +3,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "author": {
+    "name": "10up",
+    "email": "info@10up.com",
+    "url": "https://10up.com"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/10up/10up-scripts.git",
@@ -16,13 +21,14 @@
   "dependencies": {
     "@10up/babel-preset-default": "^1.0.3",
     "@10up/eslint-config": "^2.0.0",
-    "@10up/stylelint-config": "^1.0.9",
+    "@10up/stylelint-config": "^1.0.11",
     "@svgr/webpack": "^5.2.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
     "@wordpress/jest-preset-default": "^6.5.0",
-    "@wordpress/prettier-config": "^0.4.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
     "babel-loader": "^8.1.0",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "chalk": "^4.0.0",
     "check-node-version": "^3.1.1",
     "clean-webpack-plugin": "^3.0.0",
@@ -31,7 +37,6 @@
     "dir-glob": "^3.0.1",
     "eslint": "^7.1.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-markdown": "^1.0.2",
     "ignore-emit-webpack-plugin": "2.0.3",
     "jest": "^25.3.0",
     "mini-css-extract-plugin": "^0.9.0",
@@ -53,7 +58,7 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
     "webpack-fix-style-only-entries": "^0.6.0",
-    "webpack-livereload-plugin": "^2.3.0",
+    "webpack-sources": "^2.2.0",
     "webpackbar": "^5.0.0-3"
   },
   "description": "Collection of reusable scripts for 10up development.",
