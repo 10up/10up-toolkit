@@ -24,6 +24,13 @@ const {
 	hasEslintConfig,
 } = require('../utils');
 
+const buildFiles = getBuildFiles();
+
+if (!Object.keys(buildFiles).length) {
+	console.error('No files to build!');
+	process.exit(1);
+}
+
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
 
@@ -55,7 +62,7 @@ const cssLoaders = [
 const config = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
-	entry: getBuildFiles(),
+	entry: buildFiles,
 	output: {
 		filename: '[name].js',
 		path: path.resolve(process.cwd(), 'dist'),
