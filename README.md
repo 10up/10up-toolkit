@@ -1,7 +1,7 @@
 # 10up Scripts
 
 ```
-npm install -g -i @10up/scripts
+npm install --save-dev @10up/scripts
 ```
 
 ```
