@@ -24,6 +24,7 @@
     "@10up/stylelint-config": "^1.0.11",
     "@svgr/webpack": "^5.2.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
+    "@wordpress/eslint-plugin": "^7.3.0",
     "@wordpress/jest-preset-default": "^6.5.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.3.0",
