@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-scripts.git",
     "directory": "packages/scripts"
   },
-  "version": "1.0.5",
+  "version": "1.0.6",
   "bin": {
     "10up-scripts": "bin/10up-scripts.js"
   },

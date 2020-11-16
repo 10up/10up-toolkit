@@ -1,102 +1,54 @@
 /**
  * External dependencies
  */
-const { exit, stdout } = require('process');
-
-/**
- * External dependencies
- */
-const chalk = require('chalk');
 const { sync: spawn } = require('cross-spawn');
 const { sync: resolveBin } = require('resolve-bin');
-const { sync: dirGlob } = require('dir-glob');
-const { sync: readPkgUp } = require('read-pkg-up');
 
 /**
  * Internal dependencies
  */
 const {
 	fromConfigRoot,
-	fromProjectRoot,
-	getArgFromCLI,
-	getFileArgsFromCLI,
+	getArgsFromCLI,
 	hasArgInCLI,
-	hasPrettierConfig,
+	hasFileArgInCLI,
+	hasPackageProp,
 	hasProjectFile,
 } = require('../utils');
 
-// Check if the project has wp-prettier installed and if the project has a Prettier config
-function checkPrettier() {
-	try {
-		const prettierResolvePath = require.resolve('prettier');
-		const prettierPackageJson = readPkgUp({ cwd: prettierResolvePath });
-		const prettierPackageName = prettierPackageJson.pkg.name;
+const args = getArgsFromCLI();
 
-		if (!['wp-prettier', '@wordpress/prettier'].includes(prettierPackageName)) {
-			return {
-				success: false,
-				message:
-					`${chalk.red(
-						'Incompatible version of Prettier was found in your project\n',
-					)}You need to install the 'wp-prettier' package to get ` +
-					`code formatting compliant with the WordPress coding standards.\n\n`,
-			};
-		}
-	} catch {
-		return {
-			success: false,
-			message:
-				`${chalk.red(
-					"The 'prettier' package was not found in your project\n",
-				)}You need to install the 'wp-prettier' package under an alias to get ` +
-				`code formatting compliant with the WordPress coding standards.\n\n`,
-		};
-	}
+const defaultFilesArgs = hasFileArgInCLI() ? [] : ['.'];
 
-	return { success: true };
-}
+// See: https://eslint.org/docs/user-guide/configuring#using-configuration-files-1.
+const hasLintConfig =
+	hasArgInCLI('-c') ||
+	hasArgInCLI('--config') ||
+	hasProjectFile('.eslintrc.js') ||
+	hasProjectFile('.eslintrc.json') ||
+	hasProjectFile('.eslintrc.yaml') ||
+	hasProjectFile('.eslintrc.yml') ||
+	hasProjectFile('eslintrc.config.js') ||
+	hasProjectFile('.eslintrc') ||
+	hasPackageProp('eslintConfig');
 
-const checkResult = checkPrettier();
-if (!checkResult.success) {
-	stdout.write(checkResult.message);
-	exit(1);
-}
+// When a configuration is not provided by the project, use from the default
+// provided with the scripts module. Instruct ESLint to avoid discovering via
+// the `--no-eslintrc` flag, as otherwise it will still merge with inherited.
+const defaultConfigArgs = !hasLintConfig
+	? ['--no-eslintrc', '--config', fromConfigRoot('.eslintrc.js')]
+	: [];
 
-// Check for existing config in project, if it exists no command-line args are
-// needed for config, otherwise pass in args to default config in packages
-// See: https://prettier.io/docs/en/configuration.html
-let configArgs = [];
-if (!hasPrettierConfig()) {
-	configArgs = ['--config', require.resolve('@wordpress/prettier-config')];
-}
+// See: https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories.
+const hasIgnoredFiles = hasArgInCLI('--ignore-path') || hasProjectFile('.eslintignore');
 
-// If `--ignore-path` is not explicitly specified, use the project's or global .eslintignore
-let ignorePath = getArgFromCLI('--ignore-path');
-if (!ignorePath) {
-	if (hasProjectFile('.eslintignore')) {
-		ignorePath = fromProjectRoot('.eslintignore');
-	} else {
-		ignorePath = fromConfigRoot('.eslintignore');
-	}
-}
-const ignoreArgs = ['--ignore-path', ignorePath];
-
-// forward the --require-pragma option that formats only files that already have the @format
-// pragma in the first docblock.
-const pragmaArgs = hasArgInCLI('--require-pragma') ? ['--require-pragma'] : [];
-
-// Get the files and directories to format and convert them to globs
-let fileArgs = getFileArgsFromCLI();
-if (fileArgs.length === 0) {
-	fileArgs = ['.'];
-}
-
-// Converts `foo/bar` directory to `foo/bar/**/*.js`
-const globArgs = dirGlob(fileArgs, { extensions: ['js', 'jsx'] });
+const defaultIgnoreArgs = !hasIgnoredFiles
+	? ['--ignore-path', fromConfigRoot('.eslintignore')]
+	: [];
 
 const result = spawn(
-	resolveBin('prettier'),
-	['--write', ...configArgs, ...ignoreArgs, ...pragmaArgs, ...globArgs],
+	resolveBin('eslint'),
+	['--fix', ...defaultConfigArgs, ...defaultIgnoreArgs, ...args, ...defaultFilesArgs],
 	{ stdio: 'inherit' },
 );
 

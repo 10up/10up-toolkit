@@ -31,7 +31,7 @@ const hasLintConfig =
 	hasProjectFile('.stylelintrc') ||
 	hasPackageProp('stylelint');
 
-const defaultConfigArgs = !hasLintConfig ? ['--config', fromConfigRoot('.stylelintrc.json')] : [];
+const defaultConfigArgs = !hasLintConfig ? ['--config', fromConfigRoot('stylelint.config.js')] : [];
 
 // See: https://github.com/stylelint/stylelint/blob/master/docs/user-guide/configuration.md#stylelintignore.
 const hasIgnoredFiles = hasArgInCLI('--ignore-path') || hasProjectFile('.stylelintignore');
