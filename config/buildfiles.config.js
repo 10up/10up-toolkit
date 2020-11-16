@@ -1,10 +1,9 @@
 module.exports = {
 	admin: './assets/js/admin/admin.js',
-	blocks: './assets/js/blocks/blocks.js',
+	blocks: './includes/blocks/blocks.js',
 	frontend: './assets/js/frontend/frontend.js',
 	shared: './assets/js/shared/shared.js',
 	styleguide: './assets/js/styleguide/styleguide.js',
-	'blocks-editor': './includes/blocks/blocks-editor.js',
 
 	'admin-style': './assets/css/admin/admin-style.css',
 	'editor-style': './assets/css/frontend/editor-style.css',
