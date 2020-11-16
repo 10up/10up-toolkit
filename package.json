@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-scripts.git",
     "directory": "packages/scripts"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "bin": {
     "10up-scripts": "bin/10up-scripts.js"
   },
@@ -42,6 +42,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
     "ignore-emit-webpack-plugin": "2.0.3",
     "jest": "^25.3.0",
     "mini-css-extract-plugin": "^0.9.0",
@@ -50,7 +51,7 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "npm:wp-prettier@2.0.5",
+    "prettier": "npm:wp-prettier@^2.0.5",
     "read-pkg-up": "^1.0.1",
     "resolve-bin": "^0.4.0",
     "source-map-loader": "^0.2.4",
