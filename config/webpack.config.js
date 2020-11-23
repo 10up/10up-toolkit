@@ -10,7 +10,9 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanExtractedDeps = require('../utils/clean-extracted-deps');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 /**
  * Internal dependencies
@@ -70,6 +72,13 @@ const config = {
 		filename: (pathData) => {
 			return pathData.chunk.name.includes('block') ? filenames.block : filenames.js;
 		},
+		/**
+		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
+		 * there is a risk of conflicts of on-demand chunks in the global namespace.
+		 *
+		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
+		 */
+		jsonpFunction: '__TenUpScaffold_webpackJsonp',
 	},
 	resolve: {
 		alias: {
@@ -139,9 +148,11 @@ const config = {
 		new FixStyleOnlyEntriesPlugin({
 			silent: true,
 		}),
+
 		// During rebuilds, all webpack assets that are not used anymore
 		// will be removed automatically.
 		new CleanWebpackPlugin(),
+
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
 			esModule: false,
@@ -150,6 +161,23 @@ const config = {
 				name.includes('block') ? filenames.blockCSS : filenames.css,
 			chunkFilename: '[id].css',
 		}),
+
+		// Copy static assets to the `dist` folder.
+		new CopyWebpackPlugin([
+			{
+				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+				to: '[path][name].[ext]',
+				context: path.resolve(process.cwd(), './assets/'),
+			},
+		]),
+
+		// Compress images
+		// Must happen after CopyWebpackPlugin
+		new ImageminPlugin({
+			disable: !isProduction,
+			test: /\.(jpe?g|png|gif|svg)$/i,
+		}),
+
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
