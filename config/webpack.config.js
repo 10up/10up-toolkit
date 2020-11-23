@@ -70,7 +70,7 @@ const config = {
 	output: {
 		path: path.resolve(process.cwd(), 'dist'),
 		filename: (pathData) => {
-			return pathData.chunk.name.includes('block') ? filenames.block : filenames.js;
+			return pathData.chunk.name.match(/-block$/) ? filenames.block : filenames.js;
 		},
 		/**
 		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
@@ -158,7 +158,7 @@ const config = {
 			esModule: false,
 			filename: filenames.css,
 			moduleFilename: ({ name }) =>
-				name.includes('block') ? filenames.blockCSS : filenames.css,
+				name.match(/-block$/) ? filenames.blockCSS : filenames.css,
 			chunkFilename: '[id].css',
 		}),
 
