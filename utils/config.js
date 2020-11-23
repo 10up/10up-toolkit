@@ -122,6 +122,17 @@ const getBuildFiles = () => {
 	return entries;
 };
 
+const getFilenames = () => {
+	const packageJson = getPackage();
+
+	const defaultFilenames = require(fromConfigRoot('filenames.config.js'));
+
+	return {
+		...defaultFilenames,
+		...packageJson.filenames,
+	};
+};
+
 /**
  * Converts CLI arguments to the format which webpack understands.
  *
@@ -181,6 +192,7 @@ module.exports = {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
+	getFilenames,
 	hasEslintignoreConfig,
 	hasEslintConfig,
 };

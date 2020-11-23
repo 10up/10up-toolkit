@@ -20,11 +20,13 @@ const {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
+	getFilenames,
 	fromConfigRoot,
 	hasEslintConfig,
 } = require('../utils');
 
 const buildFiles = getBuildFiles();
+const filenames = getFilenames();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -64,8 +66,10 @@ const config = {
 	mode,
 	entry: buildFiles,
 	output: {
-		filename: '[name].js',
 		path: path.resolve(process.cwd(), 'dist'),
+		filename: (pathData) => {
+			return pathData.chunk.name.includes('block') ? filenames.block : filenames.js;
+		},
 	},
 	resolve: {
 		alias: {
@@ -121,7 +125,10 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				include: path.resolve(process.cwd(), './assets/css'),
+				include: [
+					path.resolve(process.cwd(), './assets/css'),
+					path.resolve(process.cwd(), './includes/blocks'),
+				],
 				use: cssLoaders,
 			},
 		],
@@ -136,7 +143,13 @@ const config = {
 		// will be removed automatically.
 		new CleanWebpackPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin({ esModule: false, filename: '[name].css' }),
+		new MiniCSSExtractPlugin({
+			esModule: false,
+			filename: filenames.css,
+			moduleFilename: ({ name }) =>
+				name.includes('block') ? filenames.blockCSS : filenames.css,
+			chunkFilename: '[id].css',
+		}),
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
