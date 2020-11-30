@@ -80,7 +80,7 @@ const config = {
 		 *
 		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
 		 */
-		jsonpFunction: '__TenUpScaffold_webpackJsonp',
+		jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
