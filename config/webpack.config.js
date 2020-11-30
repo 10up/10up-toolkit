@@ -70,7 +70,9 @@ const config = {
 	output: {
 		path: path.resolve(process.cwd(), 'dist'),
 		filename: (pathData) => {
-			return pathData.chunk.name.match(/-block$/) ? filenames.block : filenames.js;
+			return buildFiles[pathData.chunk.name].match(/\/blocks\//)
+				? filenames.block
+				: filenames.js;
 		},
 		/**
 		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
