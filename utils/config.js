@@ -133,6 +133,22 @@ const getFilenames = () => {
 	};
 };
 
+const getPaths = () => {
+	const packageJson = getPackage();
+
+	const defaultPaths = require(fromConfigRoot('paths.config.js'));
+
+	return {
+		...defaultPaths,
+		...packageJson.paths,
+	};
+};
+
+const getLocalDevURL = () => {
+	const packageJson = getPackage();
+	return packageJson.devURL || false;
+};
+
 /**
  * Converts CLI arguments to the format which webpack understands.
  *
@@ -193,6 +209,8 @@ module.exports = {
 	hasStylelintConfig,
 	getBuildFiles,
 	getFilenames,
+	getPaths,
+	getLocalDevURL,
 	hasEslintignoreConfig,
 	hasEslintConfig,
 };

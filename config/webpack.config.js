@@ -23,12 +23,17 @@ const {
 	hasStylelintConfig,
 	getBuildFiles,
 	getFilenames,
+	getPaths,
+	getLocalDevURL,
 	fromConfigRoot,
 	hasEslintConfig,
 } = require('../utils');
 
 const buildFiles = getBuildFiles();
 const filenames = getFilenames();
+const configPaths = getPaths();
+
+const localDevURL = getLocalDevURL();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -136,10 +141,9 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				include: [
-					path.resolve(process.cwd(), './assets/css'),
-					path.resolve(process.cwd(), './includes/blocks'),
-				],
+				include: configPaths.cssLoaderPaths.map((cssPath) =>
+					path.resolve(process.cwd(), cssPath),
+				),
 				use: cssLoaders,
 			},
 		],
@@ -169,7 +173,7 @@ const config = {
 			{
 				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
 				to: '[path][name].[ext]',
-				context: path.resolve(process.cwd(), './assets/'),
+				context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
 			},
 		]),
 
@@ -183,11 +187,12 @@ const config = {
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
+			localDevURL &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
 					port: 3000,
-					proxy: 'http://tenup-scaffold.test',
+					proxy: localDevURL,
 					open: false,
 					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
 				},
@@ -198,7 +203,7 @@ const config = {
 			),
 		// Lint CSS.
 		new StyleLintPlugin({
-			context: path.resolve(process.cwd(), './assets/css'),
+			context: path.resolve(process.cwd(), configPaths.srcDir),
 			files: '**/*.css',
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
