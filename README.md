@@ -2,7 +2,6 @@
 
 A collection of bundled scripts for 10up development.
 
-
 ## Install
 ```
 npm install --save-dev @10up/scripts
@@ -55,6 +54,28 @@ Verify the Node and npm satisfy minimum `package.json` versions.
 *Project is a fork of [wp-scripts](https://github.com/WordPress/gutenberg/tree/master/packages/scripts)*
 
 ## Configuration and Extension
+
+Under the hood 10up-scripts uses Webpack, Postcss, Stylelint, Jest, Babel, and Eslint. By default the package uses 10up standard configurations for all of these tools. However, configuration can be overrided or extended for each tool.
+
+### Webpack
+
+10up-scripts will use 10up standard Webpack configuration located in [/config/webpack.config.js](https://github.com/10up/10up-scripts/blob/master/config/webpack.config.js) UNLESS you define a Webpack config file in your project e.g. you have a `webpack.config.js` in your project root. If you just need to change entry points, see the Entry Points section below.
+
+### ESLint
+
+10up-scripts will use 10up standard ESLint configuration located in [/config/.eslintrc.js](https://github.com/10up/10up-scripts/blob/master/config/.eslintrc.js) which extends [@10up/eslint-config](https://github.com/10up/eslint-config) UNLESS you define a ESLint config file in your project e.g. you have a `.eslintrc.js` in your project root. 
+
+### Stylelint
+
+10up-scripts will use 10up standard Stylelint configuration located in [/config/stylelint.config.js](https://github.com/10up/10up-scripts/blob/master/config/stylelint.config.js) which extends [@10up/stylelint-config](https://github.com/10up/stylelint-config) UNLESS you define a Stylelint config file in your project e.g. you have a `stylelint.config.js` in your project root.
+
+### PostCSS
+
+10up-scripts will use 10up standard PostCSS configuration located in [/config/postcss.config.js](https://github.com/10up/10up-scripts/blob/master/config/postcss.config.js) UNLESS you define a PostCSS config file in your project e.g. you have a `postcss.config.js` in your project root.
+
+### Babel
+
+10up-scripts will use 10up standard Babel configuration of [@10up/babel-preset-default](https://github.com/10up/babel-preset-default) UNLESS you define a Babel config file in your project e.g. you have a `.babelrc` in your project root.
 
 ### Entry points
 
