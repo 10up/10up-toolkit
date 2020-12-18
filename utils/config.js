@@ -105,14 +105,14 @@ const getBuildFiles = () => {
 
 	const defaultBuildFiles = require(fromConfigRoot('buildfiles.config.js'));
 
-	if (!packageJson.build) {
-		packageJson.build = defaultBuildFiles;
+	if (!packageJson['@10up/scripts'] || !packageJson['@10up/scripts'].entry) {
+		packageJson['@10up/scripts'].entry = defaultBuildFiles;
 	}
 
 	const entries = {};
 
-	Object.keys(packageJson.build).forEach((key) => {
-		const filePath = path.resolve(process.cwd(), packageJson.build[key]);
+	Object.keys(packageJson['@10up/scripts'].entry).forEach((key) => {
+		const filePath = path.resolve(process.cwd(), packageJson['@10up/scripts'].entry[key]);
 
 		if (fileExists(filePath)) {
 			entries[key] = filePath;
