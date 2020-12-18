@@ -137,16 +137,20 @@ const getPaths = () => {
 	const packageJson = getPackage();
 
 	const defaultPaths = require(fromConfigRoot('paths.config.js'));
+	const customPaths = (packageJson['@10up/scripts'] && packageJson['@10up/scripts'].paths) || {};
 
 	return {
 		...defaultPaths,
-		...packageJson.paths,
+		...customPaths,
 	};
 };
 
 const getLocalDevURL = () => {
 	const packageJson = getPackage();
-	return packageJson.devURL || false;
+	if (!packageJson['@10up/scripts'] || !packageJson['@10up/scripts'].devURL) {
+		return false;
+	}
+	return packageJson['@10up/scripts'].devURL;
 };
 
 /**
