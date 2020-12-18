@@ -54,6 +54,39 @@ Verify the Node and npm satisfy minimum `package.json` versions.
 
 *Project is a fork of [wp-scripts](https://github.com/WordPress/gutenberg/tree/master/packages/scripts)*
 
+## Configuration and Extension
+
+### Entry points
+
+This package uses Webpack under the hood and uses the following entry points:
+```
+{
+    admin: './assets/js/admin/admin.js',
+    blocks: './includes/blocks/blocks.js',
+    frontend: './assets/js/frontend/frontend.js',
+    shared: './assets/js/shared/shared.js',
+    styleguide: './assets/js/styleguide/styleguide.js',
+
+    'admin-style': './assets/css/admin/admin-style.css',
+    'editor-style': './assets/css/frontend/editor-style.css',
+    'shared-style': './assets/css/shared/shared-style.css',
+    style: './assets/css/frontend/style.css',
+    'styleguide-style': './assets/css/styleguide/styleguide.css'
+}
+```
+
+To override you will need to define `@10up/scripts.entry` in your `package.json` file. For example:
+
+```json
+{
+    "@10up/scripts": {
+        "entry": {
+            "myEntry: "..."
+        }
+    }
+}
+```
+
 ## Support Level
 
 **Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
