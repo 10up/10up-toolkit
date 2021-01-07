@@ -205,6 +205,7 @@ const config = {
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), configPaths.srcDir),
 			files: '**/*.css',
+			allowEmptyInput: true,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
 			}),
