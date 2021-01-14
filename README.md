@@ -61,6 +61,18 @@ Under the hood 10up-scripts uses Webpack, Postcss, Stylelint, Jest, Babel, and E
 
 10up-scripts will use 10up standard Webpack configuration located in [/config/webpack.config.js](https://github.com/10up/10up-scripts/blob/master/config/webpack.config.js) UNLESS you define a Webpack config file in your project e.g. you have a `webpack.config.js` in your project root. If you just need to change entry points, see the Entry Points section below.
 
+Here's an example `webpack.config.js` you could add to the root of your project to extend `10up/scripts` Webpack.
+
+```js
+const defaultConfig = require('@10up/scripts/config/webpack.config');
+module.exports = {
+	...defaultConfig,
+	myObject: {
+        stuffHere: true
+    }
+};
+```
+
 ### ESLint
 
 10up-scripts will use 10up standard ESLint configuration located in [/config/.eslintrc.js](https://github.com/10up/10up-scripts/blob/master/config/.eslintrc.js) which extends [@10up/eslint-config](https://github.com/10up/eslint-config) UNLESS you define a ESLint config file in your project e.g. you have a `.eslintrc.js` in your project root. 
