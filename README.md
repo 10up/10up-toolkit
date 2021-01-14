@@ -13,7 +13,7 @@ npm install --save-dev @10up/scripts
 10up-scripts build
 ```
 
-Builds CSS and JavaScript files. This uses the 10up configuration for Webpack.
+Builds CSS and JavaScript files. This uses the 10up configuration for Webpack. Check out the entry points below to see what is built.
 
 ```
 10up-scripts start

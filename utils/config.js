@@ -104,8 +104,10 @@ const getBuildFiles = () => {
 	const packageJson = getPackage();
 
 	const defaultBuildFiles = require(fromConfigRoot('buildfiles.config.js'));
-
-	if (!packageJson['@10up/scripts'] || !packageJson['@10up/scripts'].entry) {
+	if (!packageJson['@10up/scripts']) {
+		packageJson['@10up/scripts'] = {};
+	}
+	if (!packageJson['@10up/scripts'].entry) {
 		packageJson['@10up/scripts'].entry = defaultBuildFiles;
 	}
 
