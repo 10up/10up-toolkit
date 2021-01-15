@@ -17,6 +17,8 @@ const getArgFromCLI = (arg) => {
 			return value || null;
 		}
 	}
+
+	return null;
 };
 
 const hasArgInCLI = (arg) => getArgFromCLI(arg) !== undefined;
@@ -64,9 +66,7 @@ const spawnScript = (scriptName, args = [], nodeArgs = []) => {
 
 	if (!hasScriptFile(scriptName)) {
 		// eslint-disable-next-line no-console
-		console.log(
-			`Unknown script "${scriptName}". ` + `Perhaps you need to update @10up/scripts?`,
-		);
+		console.log(`Unknown script "${scriptName}". Perhaps you need to update @10up/scripts?`);
 		exit(1);
 	}
 

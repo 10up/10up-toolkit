@@ -146,12 +146,13 @@ const getWebpackArgs = () => {
 		 */
 		const pathToEntry = (path) => {
 			const entry = basename(path, '.js');
+			let webpackPath = path;
 
 			if (!path.startsWith('./')) {
-				path = `./${path}`;
+				webpackPath = `./${path}`;
 			}
 
-			return [entry, path].join('=');
+			return [entry, webpackPath].join('=');
 		};
 
 		// The following handles the support for multiple entry points in webpack, e.g.:
