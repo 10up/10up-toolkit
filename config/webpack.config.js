@@ -11,8 +11,8 @@ const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 
 /**
  * Internal dependencies
@@ -123,6 +123,7 @@ const config = {
 							}),
 						},
 					},
+					// TODO: Remove this
 					{
 						loader: require.resolve('eslint-loader'),
 						options: {

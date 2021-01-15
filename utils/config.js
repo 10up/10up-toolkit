@@ -21,39 +21,6 @@ const hasBabelConfig = () =>
 	hasProjectFile('.babelrc') ||
 	hasPackageProp('babel');
 
-/**
- * Returns path to a Jest configuration which should be provided as the explicit
- * configuration when there is none available for discovery by Jest in the
- * project environment. Returns undefined if Jest should be allowed to discover
- * an available configuration.
- *
- * This can be used in cases where multiple possible configurations are
- * supported. Since Jest will only discover `jest.config.js`, or `jest` package
- * directive, such custom configurations must be specified explicitly.
- *
- * @param {"e2e"|"unit"} suffix Suffix of configuration file to accept.
- *
- * @returns {string=} Override or fallback configuration file path.
- */
-function getJestOverrideConfigFile(suffix) {
-	if (hasArgInCLI('-c') || hasArgInCLI('--config')) {
-		return;
-	}
-
-	if (hasProjectFile(`jest-${suffix}.config.js`)) {
-		return fromProjectRoot(`jest-${suffix}.config.js`);
-	}
-
-	if (!hasJestConfig()) {
-		return fromConfigRoot(`jest-${suffix}.config.js`);
-	}
-}
-
-const hasJestConfig = () =>
-	hasProjectFile('jest.config.js') ||
-	hasProjectFile('jest.config.json') ||
-	hasPackageProp('jest');
-
 // See https://prettier.io/docs/en/configuration.html.
 const hasPrettierConfig = () =>
 	hasProjectFile('.prettierrc.js') ||
@@ -98,6 +65,41 @@ const hasEslintConfig = () =>
 	hasProjectFile('.eslintrc') ||
 	hasPackageProp('eslintConfig');
 
+const hasJestConfig = () =>
+	hasProjectFile('jest.config.js') ||
+	hasProjectFile('jest.config.json') ||
+	hasPackageProp('jest');
+
+/**
+ * Returns path to a Jest configuration which should be provided as the explicit
+ * configuration when there is none available for discovery by Jest in the
+ * project environment. Returns undefined if Jest should be allowed to discover
+ * an available configuration.
+ *
+ * This can be used in cases where multiple possible configurations are
+ * supported. Since Jest will only discover `jest.config.js`, or `jest` package
+ * directive, such custom configurations must be specified explicitly.
+ *
+ * @param {"e2e"|"unit"} suffix Suffix of configuration file to accept.
+ *
+ * @returns {string} Override or fallback configuration file path.
+ */
+function getJestOverrideConfigFile(suffix) {
+	if (hasArgInCLI('-c') || hasArgInCLI('--config')) {
+		return undefined;
+	}
+
+	if (hasProjectFile(`jest-${suffix}.config.js`)) {
+		return fromProjectRoot(`jest-${suffix}.config.js`);
+	}
+
+	if (!hasJestConfig()) {
+		return fromConfigRoot(`jest-${suffix}.config.js`);
+	}
+
+	return undefined;
+}
+
 const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
 const getBuildFiles = () => {
@@ -128,10 +130,12 @@ const getFilenames = () => {
 	const packageJson = getPackage();
 
 	const defaultFilenames = require(fromConfigRoot('filenames.config.js'));
+	const customFilenames =
+		(packageJson['@10up/scripts'] && packageJson['@10up/scripts'].getFilenames) || {};
 
 	return {
 		...defaultFilenames,
-		...packageJson.filenames,
+		...customFilenames,
 	};
 };
 
