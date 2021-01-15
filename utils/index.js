@@ -21,6 +21,9 @@ const {
 	hasEslintignoreConfig,
 	hasPostCSSConfig,
 	getBuildFiles,
+	getFilenames,
+	getPaths,
+	getLocalDevURL,
 	hasStylelintConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
@@ -49,5 +52,8 @@ module.exports = {
 	spawnScript,
 	getPackagePath,
 	getBuildFiles,
+	getFilenames,
+	getPaths,
+	getLocalDevURL,
 	getPackage,
 };

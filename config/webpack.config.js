@@ -10,7 +10,9 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanExtractedDeps = require('../utils/clean-extracted-deps');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 /**
  * Internal dependencies
@@ -20,11 +22,18 @@ const {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
+	getFilenames,
+	getPaths,
+	getLocalDevURL,
 	fromConfigRoot,
 	hasEslintConfig,
 } = require('../utils');
 
 const buildFiles = getBuildFiles();
+const filenames = getFilenames();
+const configPaths = getPaths();
+
+const localDevURL = getLocalDevURL();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -64,8 +73,19 @@ const config = {
 	mode,
 	entry: buildFiles,
 	output: {
-		filename: '[name].js',
 		path: path.resolve(process.cwd(), 'dist'),
+		filename: (pathData) => {
+			return buildFiles[pathData.chunk.name].match(/\/blocks\//)
+				? filenames.block
+				: filenames.js;
+		},
+		/**
+		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
+		 * there is a risk of conflicts of on-demand chunks in the global namespace.
+		 *
+		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
+		 */
+		jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
@@ -121,7 +141,9 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				include: path.resolve(process.cwd(), './assets/css'),
+				include: configPaths.cssLoaderPaths.map((cssPath) =>
+					path.resolve(process.cwd(), cssPath),
+				),
 				use: cssLoaders,
 			},
 		],
@@ -132,19 +154,45 @@ const config = {
 		new FixStyleOnlyEntriesPlugin({
 			silent: true,
 		}),
+
 		// During rebuilds, all webpack assets that are not used anymore
 		// will be removed automatically.
 		new CleanWebpackPlugin(),
+
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
-		new MiniCSSExtractPlugin({ esModule: false, filename: '[name].css' }),
+		new MiniCSSExtractPlugin({
+			esModule: false,
+			filename: filenames.css,
+			moduleFilename: ({ name }) =>
+				name.match(/-block$/) ? filenames.blockCSS : filenames.css,
+			chunkFilename: '[id].css',
+		}),
+
+		// Copy static assets to the `dist` folder.
+		new CopyWebpackPlugin([
+			{
+				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+				to: '[path][name].[ext]',
+				context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
+			},
+		]),
+
+		// Compress images
+		// Must happen after CopyWebpackPlugin
+		new ImageminPlugin({
+			disable: !isProduction,
+			test: /\.(jpe?g|png|gif|svg)$/i,
+		}),
+
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
+			localDevURL &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
 					port: 3000,
-					proxy: 'http://tenup-scaffold.test',
+					proxy: localDevURL,
 					open: false,
 					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
 				},
@@ -155,8 +203,9 @@ const config = {
 			),
 		// Lint CSS.
 		new StyleLintPlugin({
-			context: path.resolve(process.cwd(), './assets/css'),
+			context: path.resolve(process.cwd(), configPaths.srcDir),
 			files: '**/*.css',
+			allowEmptyInput: true,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
 			}),
