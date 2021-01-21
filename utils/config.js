@@ -131,7 +131,7 @@ const getFilenames = () => {
 
 	const defaultFilenames = require(fromConfigRoot('filenames.config.js'));
 	const customFilenames =
-		(packageJson['@10up/scripts'] && packageJson['@10up/scripts'].getFilenames) || {};
+		(packageJson['@10up/scripts'] && packageJson['@10up/scripts'].filenames) || {};
 
 	return {
 		...defaultFilenames,

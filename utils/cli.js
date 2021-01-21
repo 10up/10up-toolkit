@@ -18,7 +18,7 @@ const getArgFromCLI = (arg) => {
 		}
 	}
 
-	return null;
+	return undefined;
 };
 
 const hasArgInCLI = (arg) => getArgFromCLI(arg) !== undefined;
