@@ -27,7 +27,7 @@ const {
 	hasStylelintConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
-const { hasPackageProp, getPackagePath, getPackage } = require('./package');
+const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
 
 module.exports = {
 	fromProjectRoot,
@@ -56,4 +56,5 @@ module.exports = {
 	getPaths,
 	getLocalDevURL,
 	getPackage,
+	getPackageVersion,
 };
