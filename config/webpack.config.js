@@ -123,7 +123,6 @@ const config = {
 							}),
 						},
 					},
-					// TODO: Remove this
 					{
 						loader: require.resolve('eslint-loader'),
 						options: {
