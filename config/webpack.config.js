@@ -161,21 +161,21 @@ const config = {
 
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			esModule: false,
-			filename: filenames.css,
-			moduleFilename: ({ name }) =>
-				name.match(/-block$/) ? filenames.blockCSS : filenames.css,
+			// esModule: false,
+			filename: ({ name }) => (name.match(/-block$/) ? filenames.blockCSS : filenames.css),
 			chunkFilename: '[id].css',
 		}),
 
 		// Copy static assets to the `dist` folder.
-		new CopyWebpackPlugin([
-			{
-				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
-				to: '[path][name].[ext]',
-				context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
-			},
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+					to: '[path][name].[ext]',
+					context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
+				},
+			],
+		}),
 
 		// Compress images
 		// Must happen after CopyWebpackPlugin
@@ -202,14 +202,14 @@ const config = {
 				},
 			),
 		// Lint CSS.
-		new StyleLintPlugin({
-			context: path.resolve(process.cwd(), configPaths.srcDir),
-			files: '**/*.css',
-			allowEmptyInput: true,
-			...(!hasStylelintConfig() && {
-				configFile: fromConfigRoot('stylelint.config.js'),
-			}),
-		}),
+		// new StyleLintPlugin({
+		// 	context: path.resolve(process.cwd(), configPaths.srcDir),
+		// 	files: '**/*.css',
+		// 	allowEmptyInput: true,
+		// 	...(!hasStylelintConfig() && {
+		// 		configFile: fromConfigRoot('stylelint.config.js'),
+		// 	}),
+		// }),
 		// Fancy WebpackBar.
 		new WebpackBar(),
 		// TENUP_NO_EXTERNALS global variable controls whether scripts' assets get
@@ -238,9 +238,7 @@ const config = {
 		concatenateModules: isProduction,
 		minimizer: [
 			new TerserPlugin({
-				cache: true,
 				parallel: true,
-				sourceMap: !isProduction,
 				terserOptions: {
 					parse: {
 						// We want terser to parse ecma 8 code. However, we don't want it
