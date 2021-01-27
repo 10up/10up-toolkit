@@ -1,2 +1,4 @@
 node_modules
+examples
+dist
 .vscode
