@@ -103,7 +103,7 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /node_modules\/(?!(@10up\/block\-components)\/).*/,
 				use: [
 					require.resolve('thread-loader'),
 					{
