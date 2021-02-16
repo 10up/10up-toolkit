@@ -56,14 +56,13 @@ const cssLoaders = [
 	{
 		loader: require.resolve('postcss-loader'),
 		options: {
-			// Provide a fallback configuration if there's not
-			// one explicitly available in the project.
-			...(!hasPostCSSConfig() && {
-				ident: 'postcss',
-				config: {
-					path: fromConfigRoot('postcss.config.js'),
-				},
-			}),
+			postcssOptions: {
+				// Provide a fallback configuration if there's not
+				// one explicitly available in the project.
+				...(!hasPostCSSConfig() && {
+					config: fromConfigRoot('postcss.config.js'),
+				}),
+			},
 		},
 	},
 ];
@@ -103,7 +102,7 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules\/(?!(@10up\/block\-components)\/).*/,
+				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
 				use: [
 					require.resolve('thread-loader'),
 					{
