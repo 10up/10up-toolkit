@@ -57,6 +57,52 @@ Verify the Node and npm satisfy minimum `package.json` versions.
 
 Under the hood 10up-scripts uses Webpack, Postcss, Stylelint, Jest, Babel, and Eslint. By default the package uses 10up standard configurations for all of these tools. However, configuration can be overrided or extended for each tool.
 
+
+
+### Entry points
+
+This package uses Webpack under the hood and uses the following entry points:
+```
+{
+    admin: './assets/js/admin/admin.js',
+    blocks: './includes/blocks/blocks.js',
+    frontend: './assets/js/frontend/frontend.js',
+    shared: './assets/js/shared/shared.js',
+    styleguide: './assets/js/styleguide/styleguide.js',
+
+    'admin-style': './assets/css/admin/admin-style.css',
+    'editor-style': './assets/css/frontend/editor-style.css',
+    'shared-style': './assets/css/shared/shared-style.css',
+    style: './assets/css/frontend/style.css',
+    'styleguide-style': './assets/css/styleguide/styleguide.css'
+}
+```
+
+To override you will need to define `@10up/scripts.entry` in your `package.json` file. For example:
+
+```json
+{
+    "@10up/scripts": {
+        "entry": {
+            "myEntry: ...
+        }
+	...
+    }
+}
+```
+
+### Browsersync
+
+10up Scripts starts Browsersync automatically. All you need to do is change `@10up/scripts.devURL` in your `package.json` to point to your local development URL:
+```json
+{
+    "@10up/scripts": {
+        "devURL": "https://project.test",
+	...
+    }
+}
+```
+
 ### Webpack
 
 10up-scripts will use 10up standard Webpack configuration located in [/config/webpack.config.js](https://github.com/10up/10up-scripts/blob/master/config/webpack.config.js) UNLESS you define a Webpack config file in your project e.g. you have a `webpack.config.js` in your project root. If you just need to change entry points, see the Entry Points section below.
@@ -88,37 +134,6 @@ module.exports = {
 ### Babel
 
 10up-scripts will use 10up standard Babel configuration of [@10up/babel-preset-default](https://github.com/10up/babel-preset-default) UNLESS you define a Babel config file in your project e.g. you have a `.babelrc` in your project root.
-
-### Entry points
-
-This package uses Webpack under the hood and uses the following entry points:
-```
-{
-    admin: './assets/js/admin/admin.js',
-    blocks: './includes/blocks/blocks.js',
-    frontend: './assets/js/frontend/frontend.js',
-    shared: './assets/js/shared/shared.js',
-    styleguide: './assets/js/styleguide/styleguide.js',
-
-    'admin-style': './assets/css/admin/admin-style.css',
-    'editor-style': './assets/css/frontend/editor-style.css',
-    'shared-style': './assets/css/shared/shared-style.css',
-    style: './assets/css/frontend/style.css',
-    'styleguide-style': './assets/css/styleguide/styleguide.css'
-}
-```
-
-To override you will need to define `@10up/scripts.entry` in your `package.json` file. For example:
-
-```json
-{
-    "@10up/scripts": {
-        "entry": {
-            "myEntry: "..."
-        }
-    }
-}
-```
 
 ## Support Level
 
