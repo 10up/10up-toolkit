@@ -118,7 +118,12 @@ const config = {
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
-								presets: [require.resolve('@10up/babel-preset-default')],
+								presets: [
+									[
+										require.resolve('@10up/babel-preset-default'),
+										{ wordpress: true },
+									],
+								],
 							}),
 						},
 					},
