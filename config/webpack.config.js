@@ -142,11 +142,13 @@ const config = {
 			},
 		],
 	},
+
 	plugins: [
 		new ESLintPlugin({
 			failOnError: false,
 			fix: false,
 		}),
+
 		// Remove the extra JS files Webpack creates for CSS entries.
 		// This should be fixed in Webpack 5.
 		new FixStyleOnlyEntriesPlugin({

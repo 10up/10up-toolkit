@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-scripts.git",
     "directory": "packages/scripts"
   },
-  "version": "1.1.1",
+  "version": "1.1.1-rc.2",
   "bin": {
     "10up-scripts": "bin/10up-scripts.js"
   },
@@ -30,7 +30,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "@10up/babel-preset-default": "^1.1.0",
-    "@10up/eslint-config": "^2.3.0",
+    "@10up/eslint-config": "^2.3.1-rc.1",
     "@10up/stylelint-config": "^1.0.11",
     "@babel/core": "^7.2.0",
     "@babel/eslint-parser": "^7.12.13",
