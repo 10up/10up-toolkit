@@ -12,6 +12,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ESLintPlugin = require('eslint-webpack-plugin');
 const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 
 /**
@@ -26,7 +27,6 @@ const {
 	getPaths,
 	getLocalDevURL,
 	fromConfigRoot,
-	hasEslintConfig,
 } = require('../utils');
 
 const buildFiles = getBuildFiles();
@@ -118,17 +118,12 @@ const config = {
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
-								presets: [require.resolve('@10up/babel-preset-default')],
-							}),
-						},
-					},
-					{
-						loader: require.resolve('eslint-loader'),
-						options: {
-							enforce: 'pre',
-							emitWarning: true,
-							...(!hasEslintConfig() && {
-								configFile: fromConfigRoot('.eslintrc.js'),
+								presets: [
+									[
+										require.resolve('@10up/babel-preset-default'),
+										{ wordpress: true },
+									],
+								],
 							}),
 						},
 					},
@@ -147,7 +142,13 @@ const config = {
 			},
 		],
 	},
+
 	plugins: [
+		new ESLintPlugin({
+			failOnError: false,
+			fix: false,
+		}),
+
 		// Remove the extra JS files Webpack creates for CSS entries.
 		// This should be fixed in Webpack 5.
 		new FixStyleOnlyEntriesPlugin({
