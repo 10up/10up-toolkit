@@ -21,12 +21,11 @@ const {
 	hasEslintignoreConfig,
 	hasPostCSSConfig,
 	getBuildFiles,
-	getFilenames,
-	getPaths,
-	getLocalDevURL,
 	hasStylelintConfig,
+	getTenUpScriptsConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
+
 const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
 
 module.exports = {
@@ -52,9 +51,7 @@ module.exports = {
 	spawnScript,
 	getPackagePath,
 	getBuildFiles,
-	getFilenames,
-	getPaths,
-	getLocalDevURL,
 	getPackage,
 	getPackageVersion,
+	getTenUpScriptsConfig,
 };

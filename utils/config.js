@@ -102,21 +102,53 @@ function getJestOverrideConfigFile(suffix) {
 
 const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
-const getBuildFiles = () => {
+/**
+ * Returns 10up-scripts config from package.json with default values
+ *
+ * @returns {object}
+ */
+const getTenUpScriptsConfig = () => {
 	const packageJson = getPackage();
+	const config = packageJson['@10up/scripts'];
 
-	const defaultBuildFiles = require(fromConfigRoot('buildfiles.config.js'));
-	if (!packageJson['@10up/scripts']) {
-		packageJson['@10up/scripts'] = {};
+	const defaultConfig = {
+		entry: require(fromConfigRoot('buildfiles.config.js')),
+		filenames: require(fromConfigRoot('filenames.config.js')),
+		paths: require(fromConfigRoot('paths.config.js')),
+		// true by default (if TENUP_NO_EXTERNALS is not set)
+		// if TENUP_NO_EXTERNALS is truthy then dependecyExternals is false
+		wpDependencyExternals:
+			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
+			!process.env.TENUP_NO_EXTERNALS,
+	};
+
+	if (!config) {
+		return defaultConfig;
 	}
-	if (!packageJson['@10up/scripts'].entry) {
-		packageJson['@10up/scripts'].entry = defaultBuildFiles;
-	}
+
+	return {
+		// override default configs with user-defined config
+		...defaultConfig,
+		...config,
+		// these properties must be merged
+		filenames: {
+			...defaultConfig.filenames,
+			...config.filenames,
+		},
+		paths: {
+			...defaultConfig.paths,
+			...config.paths,
+		},
+	};
+};
+
+const getBuildFiles = () => {
+	const { entry } = getTenUpScriptsConfig();
 
 	const entries = {};
 
-	Object.keys(packageJson['@10up/scripts'].entry).forEach((key) => {
-		const filePath = path.resolve(process.cwd(), packageJson['@10up/scripts'].entry[key]);
+	Object.keys(entry).forEach((key) => {
+		const filePath = path.resolve(process.cwd(), entry[key]);
 
 		if (fileExists(filePath)) {
 			entries[key] = filePath;
@@ -124,39 +156,6 @@ const getBuildFiles = () => {
 	});
 
 	return entries;
-};
-
-const getFilenames = () => {
-	const packageJson = getPackage();
-
-	const defaultFilenames = require(fromConfigRoot('filenames.config.js'));
-	const customFilenames =
-		(packageJson['@10up/scripts'] && packageJson['@10up/scripts'].filenames) || {};
-
-	return {
-		...defaultFilenames,
-		...customFilenames,
-	};
-};
-
-const getPaths = () => {
-	const packageJson = getPackage();
-
-	const defaultPaths = require(fromConfigRoot('paths.config.js'));
-	const customPaths = (packageJson['@10up/scripts'] && packageJson['@10up/scripts'].paths) || {};
-
-	return {
-		...defaultPaths,
-		...customPaths,
-	};
-};
-
-const getLocalDevURL = () => {
-	const packageJson = getPackage();
-	if (!packageJson['@10up/scripts'] || !packageJson['@10up/scripts'].devURL) {
-		return false;
-	}
-	return packageJson['@10up/scripts'].devURL;
 };
 
 /**
@@ -219,9 +218,7 @@ module.exports = {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
-	getFilenames,
-	getPaths,
-	getLocalDevURL,
 	hasEslintignoreConfig,
 	hasEslintConfig,
+	getTenUpScriptsConfig,
 };
