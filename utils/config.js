@@ -102,16 +102,8 @@ function getJestOverrideConfigFile(suffix) {
 
 const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
-/**
- * Returns 10up-scripts config from package.json with default values
- *
- * @returns {object}
- */
-const getTenUpScriptsConfig = () => {
-	const packageJson = getPackage();
-	const config = packageJson['@10up/scripts'];
-
-	const defaultConfig = {
+const getDefaultConfig = () => {
+	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
 		filenames: require(fromConfigRoot('filenames.config.js')),
 		paths: require(fromConfigRoot('paths.config.js')),
@@ -121,6 +113,17 @@ const getTenUpScriptsConfig = () => {
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
 	};
+};
+
+/**
+ * Returns 10up-scripts config from package.json with default values
+ *
+ * @returns {object}
+ */
+const getTenUpScriptsConfig = () => {
+	const packageJson = getPackage();
+	const config = packageJson['@10up/scripts'];
+	const defaultConfig = getDefaultConfig();
 
 	if (!config) {
 		return defaultConfig;
@@ -221,4 +224,5 @@ module.exports = {
 	hasEslintignoreConfig,
 	hasEslintConfig,
 	getTenUpScriptsConfig,
+	getDefaultConfig,
 };

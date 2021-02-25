@@ -23,6 +23,7 @@ jest.mock('../package', () => {
 
 	jest.spyOn(module, 'getPackagePath');
 	jest.spyOn(module, 'hasPackageProp');
+	jest.spyOn(module, 'getPackage');
 
 	return module;
 });
