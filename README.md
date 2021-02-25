@@ -91,9 +91,27 @@ To override you will need to define `@10up/scripts.entry` in your `package.json`
 }
 ```
 
+### WordPress Dependecy Extraction
+
+10up scripts will automatically run the [dependecy extraction plugin](https://developer.wordpress.org/block-editor/packages/packages-dependency-extraction-webpack-plugin/). If you don't want to run the dependecy extraction plugin you can disable it by setting a ENV var `TENUP_NO_EXTERNAL` or by setting the `wpDependencyExternals` setting to false in package.json.
+
+```json
+{
+    "@10up/scripts": {
+        "entry": {
+            "myEntry: ...
+        },
+        "wpDependencyExternals": false
+	...
+    }
+}
+```
+
+
 ### Browsersync
 
 10up Scripts starts Browsersync automatically. All you need to do is change `@10up/scripts.devURL` in your `package.json` to point to your local development URL:
+
 ```json
 {
     "@10up/scripts": {

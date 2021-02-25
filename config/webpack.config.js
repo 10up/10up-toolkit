@@ -23,17 +23,18 @@ const {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
-	getFilenames,
-	getPaths,
-	getLocalDevURL,
 	fromConfigRoot,
+	getTenUpScriptsConfig,
 } = require('../utils');
 
-const buildFiles = getBuildFiles();
-const filenames = getFilenames();
-const configPaths = getPaths();
+const {
+	filenames,
+	paths: configPaths,
+	devURL: localDevURL,
+	wpDependencyExternals,
+} = getTenUpScriptsConfig();
 
-const localDevURL = getLocalDevURL();
+const buildFiles = getBuildFiles();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -212,9 +213,9 @@ const config = {
 		}),
 		// Fancy WebpackBar.
 		new WebpackBar(),
-		// TENUP_NO_EXTERNALS global variable controls whether scripts' assets get
+		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
-		!process.env.TENUP_NO_EXTERNALS &&
+		wpDependencyExternals &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
 			}),
