@@ -12,6 +12,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ESLintPlugin = require('eslint-webpack-plugin');
 const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 
 /**
@@ -22,18 +23,18 @@ const {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
-	getFilenames,
-	getPaths,
-	getLocalDevURL,
 	fromConfigRoot,
-	hasEslintConfig,
+	getTenUpScriptsConfig,
 } = require('../utils');
 
-const buildFiles = getBuildFiles();
-const filenames = getFilenames();
-const configPaths = getPaths();
+const {
+	filenames,
+	paths: configPaths,
+	devURL: localDevURL,
+	wpDependencyExternals,
+} = getTenUpScriptsConfig();
 
-const localDevURL = getLocalDevURL();
+const buildFiles = getBuildFiles();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -56,14 +57,13 @@ const cssLoaders = [
 	{
 		loader: require.resolve('postcss-loader'),
 		options: {
-			// Provide a fallback configuration if there's not
-			// one explicitly available in the project.
-			...(!hasPostCSSConfig() && {
-				ident: 'postcss',
-				config: {
-					path: fromConfigRoot('postcss.config.js'),
-				},
-			}),
+			postcssOptions: {
+				// Provide a fallback configuration if there's not
+				// one explicitly available in the project.
+				...(!hasPostCSSConfig() && {
+					config: fromConfigRoot('postcss.config.js'),
+				}),
+			},
 		},
 	},
 ];
@@ -103,7 +103,7 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
 				use: [
 					require.resolve('thread-loader'),
 					{
@@ -119,17 +119,12 @@ const config = {
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
-								presets: [require.resolve('@10up/babel-preset-default')],
-							}),
-						},
-					},
-					{
-						loader: require.resolve('eslint-loader'),
-						options: {
-							enforce: 'pre',
-							emitWarning: true,
-							...(!hasEslintConfig() && {
-								configFile: fromConfigRoot('.eslintrc.js'),
+								presets: [
+									[
+										require.resolve('@10up/babel-preset-default'),
+										{ wordpress: true },
+									],
+								],
 							}),
 						},
 					},
@@ -148,7 +143,13 @@ const config = {
 			},
 		],
 	},
+
 	plugins: [
+		new ESLintPlugin({
+			failOnError: false,
+			fix: false,
+		}),
+
 		// Remove the extra JS files Webpack creates for CSS entries.
 		// This should be fixed in Webpack 5.
 		new FixStyleOnlyEntriesPlugin({
@@ -212,9 +213,9 @@ const config = {
 		// }),
 		// Fancy WebpackBar.
 		new WebpackBar(),
-		// TENUP_NO_EXTERNALS global variable controls whether scripts' assets get
+		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
-		!process.env.TENUP_NO_EXTERNALS &&
+		wpDependencyExternals &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
 			}),

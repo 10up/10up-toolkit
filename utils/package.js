@@ -23,6 +23,8 @@ const hasPackageProp = (prop) => pkg && Object.prototype.hasOwnProperty.call(pkg
 
 /**
  * Returns the 10up scripts version directly from package.json
+ *
+ * @returns {number}
  */
 const getPackageVersion = async () => {
 	const pkg = await readPkg({ cwd: path.dirname(__dirname) });
