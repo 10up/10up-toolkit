@@ -9,6 +9,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -85,7 +86,7 @@ const config = {
 		 *
 		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
 		 */
-		jsonpFunction: '__TenUpScripts_webpackJsonp',
+		// jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
@@ -163,7 +164,9 @@ const config = {
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
 			// esModule: false,
-			filename: ({ name }) => (name.match(/-block$/) ? filenames.blockCSS : filenames.css),
+			filename: (options) => {
+				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
+			},
 			chunkFilename: '[id].css',
 		}),
 
@@ -203,14 +206,14 @@ const config = {
 				},
 			),
 		// Lint CSS.
-		// new StyleLintPlugin({
-		// 	context: path.resolve(process.cwd(), configPaths.srcDir),
-		// 	files: '**/*.css',
-		// 	allowEmptyInput: true,
-		// 	...(!hasStylelintConfig() && {
-		// 		configFile: fromConfigRoot('stylelint.config.js'),
-		// 	}),
-		// }),
+		new StyleLintPlugin({
+			context: path.resolve(process.cwd(), configPaths.srcDir),
+			files: '**/*.css',
+			allowEmptyInput: true,
+			...(!hasStylelintConfig() && {
+				configFile: fromConfigRoot('stylelint.config.js'),
+			}),
+		}),
 		// Fancy WebpackBar.
 		new WebpackBar(),
 		// dependecyExternals variable controls whether scripts' assets get
@@ -225,7 +228,6 @@ const config = {
 		// Copied from `'minimal'`.
 		all: false,
 		errors: true,
-		maxModules: 0,
 		modules: true,
 		warnings: true,
 		// Our additional options.
@@ -263,11 +265,6 @@ const config = {
 						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
 					},
-					output: {
-						ecma: 5,
-						comments: false,
-					},
-					ie8: false,
 				},
 			}),
 		],
