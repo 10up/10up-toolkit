@@ -6,7 +6,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -149,12 +148,6 @@ const config = {
 		new ESLintPlugin({
 			failOnError: false,
 			fix: false,
-		}),
-
-		// Remove the extra JS files Webpack creates for CSS entries.
-		// This should be fixed in Webpack 5.
-		new FixStyleOnlyEntriesPlugin({
-			silent: true,
 		}),
 
 		// During rebuilds, all webpack assets that are not used anymore
