@@ -162,6 +162,7 @@ const config = {
 				{
 					from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
 					to: '[path][name].[ext]',
+					noErrorOnMissing: true,
 					context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
 				},
 			],
