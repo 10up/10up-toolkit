@@ -79,13 +79,6 @@ const config = {
 				? filenames.block
 				: filenames.js;
 		},
-		/**
-		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
-		 * there is a risk of conflicts of on-demand chunks in the global namespace.
-		 *
-		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
-		 */
-		// jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
