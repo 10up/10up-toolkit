@@ -19,6 +19,9 @@ if (hasArgInCLI('--webpack-bundle-analyzer')) {
 	process.env.WP_BUNDLE_ANALYZER = true;
 }
 
+// disable webpack 5 deprecation warnings as some plugins still need to catch up
+process.env.NODE_OPTIONS = '--no-deprecation';
+
 const { status } = spawn(resolveBin('webpack'), getWebpackArgs(), {
 	stdio: 'inherit',
 });

@@ -6,9 +6,9 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -79,13 +79,6 @@ const config = {
 				? filenames.block
 				: filenames.js;
 		},
-		/**
-		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
-		 * there is a risk of conflicts of on-demand chunks in the global namespace.
-		 *
-		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
-		 */
-		jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
@@ -150,33 +143,30 @@ const config = {
 			fix: false,
 		}),
 
-		// Remove the extra JS files Webpack creates for CSS entries.
-		// This should be fixed in Webpack 5.
-		new FixStyleOnlyEntriesPlugin({
-			silent: true,
-		}),
-
 		// During rebuilds, all webpack assets that are not used anymore
 		// will be removed automatically.
 		new CleanWebpackPlugin(),
 
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			esModule: false,
-			filename: filenames.css,
-			moduleFilename: ({ name }) =>
-				name.match(/-block$/) ? filenames.blockCSS : filenames.css,
+			// esModule: false,
+			filename: (options) => {
+				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
+			},
 			chunkFilename: '[id].css',
 		}),
 
 		// Copy static assets to the `dist` folder.
-		new CopyWebpackPlugin([
-			{
-				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
-				to: '[path][name].[ext]',
-				context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
-			},
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+					to: '[path][name].[ext]',
+					noErrorOnMissing: true,
+					context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
+				},
+			],
+		}),
 
 		// Compress images
 		// Must happen after CopyWebpackPlugin
@@ -225,7 +215,6 @@ const config = {
 		// Copied from `'minimal'`.
 		all: false,
 		errors: true,
-		maxModules: 0,
 		modules: true,
 		warnings: true,
 		// Our additional options.
@@ -239,9 +228,7 @@ const config = {
 		concatenateModules: isProduction,
 		minimizer: [
 			new TerserPlugin({
-				cache: true,
 				parallel: true,
-				sourceMap: !isProduction,
 				terserOptions: {
 					parse: {
 						// We want terser to parse ecma 8 code. However, we don't want it
@@ -265,11 +252,6 @@ const config = {
 						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
 					},
-					output: {
-						ecma: 5,
-						comments: false,
-					},
-					ie8: false,
 				},
 			}),
 		],

@@ -22,7 +22,8 @@ if (hasArgInCLI('--webpack--devtool')) {
 }
 
 process.env.NODE_ENV = 'development';
-
+// disable webpack 5 deprecation warnings as some plugins still need to catch up
+process.env.NODE_OPTIONS = '--no-deprecation';
 const { status } = spawn(resolveBin('webpack'), [...getWebpackArgs(), '--watch'], {
 	stdio: 'inherit',
 });
