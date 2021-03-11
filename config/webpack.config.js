@@ -258,13 +258,4 @@ const config = {
 	},
 };
 
-if (!isProduction) {
-	config.module.rules.unshift({
-		test: /\.js$/,
-		exclude: [/node_modules/],
-		use: require.resolve('source-map-loader'),
-		enforce: 'pre',
-	});
-}
-
 module.exports = config;
