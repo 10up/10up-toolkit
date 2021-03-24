@@ -21,39 +21,6 @@ const hasBabelConfig = () =>
 	hasProjectFile('.babelrc') ||
 	hasPackageProp('babel');
 
-/**
- * Returns path to a Jest configuration which should be provided as the explicit
- * configuration when there is none available for discovery by Jest in the
- * project environment. Returns undefined if Jest should be allowed to discover
- * an available configuration.
- *
- * This can be used in cases where multiple possible configurations are
- * supported. Since Jest will only discover `jest.config.js`, or `jest` package
- * directive, such custom configurations must be specified explicitly.
- *
- * @param {"e2e"|"unit"} suffix Suffix of configuration file to accept.
- *
- * @returns {string=} Override or fallback configuration file path.
- */
-function getJestOverrideConfigFile(suffix) {
-	if (hasArgInCLI('-c') || hasArgInCLI('--config')) {
-		return;
-	}
-
-	if (hasProjectFile(`jest-${suffix}.config.js`)) {
-		return fromProjectRoot(`jest-${suffix}.config.js`);
-	}
-
-	if (!hasJestConfig()) {
-		return fromConfigRoot(`jest-${suffix}.config.js`);
-	}
-}
-
-const hasJestConfig = () =>
-	hasProjectFile('jest.config.js') ||
-	hasProjectFile('jest.config.json') ||
-	hasPackageProp('jest');
-
 // See https://prettier.io/docs/en/configuration.html.
 const hasPrettierConfig = () =>
 	hasProjectFile('.prettierrc.js') ||
@@ -98,21 +65,93 @@ const hasEslintConfig = () =>
 	hasProjectFile('.eslintrc') ||
 	hasPackageProp('eslintConfig');
 
+const hasJestConfig = () =>
+	hasProjectFile('jest.config.js') ||
+	hasProjectFile('jest.config.json') ||
+	hasPackageProp('jest');
+
+/**
+ * Returns path to a Jest configuration which should be provided as the explicit
+ * configuration when there is none available for discovery by Jest in the
+ * project environment. Returns undefined if Jest should be allowed to discover
+ * an available configuration.
+ *
+ * This can be used in cases where multiple possible configurations are
+ * supported. Since Jest will only discover `jest.config.js`, or `jest` package
+ * directive, such custom configurations must be specified explicitly.
+ *
+ * @param {"e2e"|"unit"} suffix Suffix of configuration file to accept.
+ *
+ * @returns {string} Override or fallback configuration file path.
+ */
+function getJestOverrideConfigFile(suffix) {
+	if (hasArgInCLI('-c') || hasArgInCLI('--config')) {
+		return undefined;
+	}
+
+	if (hasProjectFile(`jest-${suffix}.config.js`)) {
+		return fromProjectRoot(`jest-${suffix}.config.js`);
+	}
+
+	if (!hasJestConfig()) {
+		return fromConfigRoot(`jest-${suffix}.config.js`);
+	}
+
+	return undefined;
+}
+
 const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
-const getBuildFiles = () => {
+const getDefaultConfig = () => {
+	return {
+		entry: require(fromConfigRoot('buildfiles.config.js')),
+		filenames: require(fromConfigRoot('filenames.config.js')),
+		paths: require(fromConfigRoot('paths.config.js')),
+		// true by default (if TENUP_NO_EXTERNALS is not set)
+		// if TENUP_NO_EXTERNALS is truthy then dependecyExternals is false
+		wpDependencyExternals:
+			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
+			!process.env.TENUP_NO_EXTERNALS,
+	};
+};
+
+/**
+ * Returns 10up-scripts config from package.json with default values
+ *
+ * @returns {object}
+ */
+const getTenUpScriptsConfig = () => {
 	const packageJson = getPackage();
+	const config = packageJson['@10up/scripts'];
+	const defaultConfig = getDefaultConfig();
 
-	const defaultBuildFiles = require(fromConfigRoot('buildfiles.config.js'));
-
-	if (!packageJson['@10up/scripts'] || !packageJson['@10up/scripts'].entry) {
-		packageJson['@10up/scripts'].entry = defaultBuildFiles;
+	if (!config) {
+		return defaultConfig;
 	}
+
+	return {
+		// override default configs with user-defined config
+		...defaultConfig,
+		...config,
+		// these properties must be merged
+		filenames: {
+			...defaultConfig.filenames,
+			...config.filenames,
+		},
+		paths: {
+			...defaultConfig.paths,
+			...config.paths,
+		},
+	};
+};
+
+const getBuildFiles = () => {
+	const { entry } = getTenUpScriptsConfig();
 
 	const entries = {};
 
-	Object.keys(packageJson['@10up/scripts'].entry).forEach((key) => {
-		const filePath = path.resolve(process.cwd(), packageJson['@10up/scripts'].entry[key]);
+	Object.keys(entry).forEach((key) => {
+		const filePath = path.resolve(process.cwd(), entry[key]);
 
 		if (fileExists(filePath)) {
 			entries[key] = filePath;
@@ -120,17 +159,6 @@ const getBuildFiles = () => {
 	});
 
 	return entries;
-};
-
-const getFilenames = () => {
-	const packageJson = getPackage();
-
-	const defaultFilenames = require(fromConfigRoot('filenames.config.js'));
-
-	return {
-		...defaultFilenames,
-		...packageJson.filenames,
-	};
 };
 
 /**
@@ -157,12 +185,13 @@ const getWebpackArgs = () => {
 		 */
 		const pathToEntry = (path) => {
 			const entry = basename(path, '.js');
+			let webpackPath = path;
 
 			if (!path.startsWith('./')) {
-				path = `./${path}`;
+				webpackPath = `./${path}`;
 			}
 
-			return [entry, path].join('=');
+			return [entry, webpackPath].join('=');
 		};
 
 		// The following handles the support for multiple entry points in webpack, e.g.:
@@ -192,7 +221,8 @@ module.exports = {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
-	getFilenames,
 	hasEslintignoreConfig,
 	hasEslintConfig,
+	getTenUpScriptsConfig,
+	getDefaultConfig,
 };

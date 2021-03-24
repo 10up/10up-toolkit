@@ -23,6 +23,7 @@ jest.mock('../package', () => {
 
 	jest.spyOn(module, 'getPackagePath');
 	jest.spyOn(module, 'hasPackageProp');
+	jest.spyOn(module, 'getPackage');
 
 	return module;
 });
@@ -107,13 +108,13 @@ describe('utils', () => {
 		it('should return undefined if --config flag is present', () => {
 			getArgsFromCLIMock.mockReturnValue(['--config=test']);
 
-			expect(getJestOverrideConfigFile('e2e')).toBe(undefined);
+			expect(getJestOverrideConfigFile('e2e')).toBeUndefined();
 		});
 
 		it('should return undefined if -c flag is present', () => {
 			getArgsFromCLIMock.mockReturnValue(['-c=test']);
 
-			expect(getJestOverrideConfigFile('e2e')).toBe(undefined);
+			expect(getJestOverrideConfigFile('e2e')).toBeUndefined();
 		});
 
 		it('should return variant project configuration if present', () => {
@@ -125,19 +126,19 @@ describe('utils', () => {
 		it('should return undefined if jest.config.js available', () => {
 			hasProjectFileMock.mockImplementation((file) => file === 'jest.config.js');
 
-			expect(getJestOverrideConfigFile('e2e')).toBe(undefined);
+			expect(getJestOverrideConfigFile('e2e')).toBeUndefined();
 		});
 
 		it('should return undefined if jest.config.json available', () => {
 			hasProjectFileMock.mockImplementation((file) => file === 'jest.config.json');
 
-			expect(getJestOverrideConfigFile('e2e')).toBe(undefined);
+			expect(getJestOverrideConfigFile('e2e')).toBeUndefined();
 		});
 
 		it('should return undefined if jest package directive specified', () => {
 			hasPackagePropMock.mockImplementation((prop) => prop === 'jest');
 
-			expect(getJestOverrideConfigFile('e2e')).toBe(undefined);
+			expect(getJestOverrideConfigFile('e2e')).toBeUndefined();
 		});
 
 		it('should return default configuration if nothing available', () => {

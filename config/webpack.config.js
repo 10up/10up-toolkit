@@ -6,13 +6,14 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ESLintPlugin = require('eslint-webpack-plugin');
+const CleanExtractedDeps = require('../utils/clean-extracted-deps');
 
 /**
  * Internal dependencies
@@ -22,13 +23,18 @@ const {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
-	getFilenames,
 	fromConfigRoot,
-	hasEslintConfig,
+	getTenUpScriptsConfig,
 } = require('../utils');
 
+const {
+	filenames,
+	paths: configPaths,
+	devURL: localDevURL,
+	wpDependencyExternals,
+} = getTenUpScriptsConfig();
+
 const buildFiles = getBuildFiles();
-const filenames = getFilenames();
 
 if (!Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -51,14 +57,13 @@ const cssLoaders = [
 	{
 		loader: require.resolve('postcss-loader'),
 		options: {
-			// Provide a fallback configuration if there's not
-			// one explicitly available in the project.
-			...(!hasPostCSSConfig() && {
-				ident: 'postcss',
-				config: {
-					path: fromConfigRoot('postcss.config.js'),
-				},
-			}),
+			postcssOptions: {
+				// Provide a fallback configuration if there's not
+				// one explicitly available in the project.
+				...(!hasPostCSSConfig() && {
+					config: fromConfigRoot('postcss.config.js'),
+				}),
+			},
 		},
 	},
 ];
@@ -74,13 +79,6 @@ const config = {
 				? filenames.block
 				: filenames.js;
 		},
-		/**
-		 * If multiple webpack runtimes (from different compilations) are used on the same webpage,
-		 * there is a risk of conflicts of on-demand chunks in the global namespace.
-		 *
-		 * @see (@link https://webpack.js.org/configuration/output/#outputjsonpfunction)
-		 */
-		jsonpFunction: '__TenUpScripts_webpackJsonp',
 	},
 	resolve: {
 		alias: {
@@ -98,7 +96,7 @@ const config = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/,
+				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
 				use: [
 					require.resolve('thread-loader'),
 					{
@@ -114,17 +112,12 @@ const config = {
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
-								presets: [require.resolve('@10up/babel-preset-default')],
-							}),
-						},
-					},
-					{
-						loader: require.resolve('eslint-loader'),
-						options: {
-							enforce: 'pre',
-							emitWarning: true,
-							...(!hasEslintConfig() && {
-								configFile: fromConfigRoot('.eslintrc.js'),
+								presets: [
+									[
+										require.resolve('@10up/babel-preset-default'),
+										{ wordpress: true },
+									],
+								],
 							}),
 						},
 					},
@@ -136,19 +129,18 @@ const config = {
 			},
 			{
 				test: /\.css$/,
-				include: [
-					path.resolve(process.cwd(), './assets/css'),
-					path.resolve(process.cwd(), './includes/blocks'),
-				],
+				include: configPaths.cssLoaderPaths.map((cssPath) =>
+					path.resolve(process.cwd(), cssPath),
+				),
 				use: cssLoaders,
 			},
 		],
 	},
+
 	plugins: [
-		// Remove the extra JS files Webpack creates for CSS entries.
-		// This should be fixed in Webpack 5.
-		new FixStyleOnlyEntriesPlugin({
-			silent: true,
+		new ESLintPlugin({
+			failOnError: false,
+			fix: false,
 		}),
 
 		// During rebuilds, all webpack assets that are not used anymore
@@ -157,21 +149,24 @@ const config = {
 
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			esModule: false,
-			filename: filenames.css,
-			moduleFilename: ({ name }) =>
-				name.match(/-block$/) ? filenames.blockCSS : filenames.css,
+			// esModule: false,
+			filename: (options) => {
+				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
+			},
 			chunkFilename: '[id].css',
 		}),
 
 		// Copy static assets to the `dist` folder.
-		new CopyWebpackPlugin([
-			{
-				from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
-				to: '[path][name].[ext]',
-				context: path.resolve(process.cwd(), './assets/'),
-			},
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+					to: '[path][name].[ext]',
+					noErrorOnMissing: true,
+					context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
+				},
+			],
+		}),
 
 		// Compress images
 		// Must happen after CopyWebpackPlugin
@@ -183,11 +178,12 @@ const config = {
 		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
 		// works when running watch mode.
 		!isProduction &&
+			localDevURL &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
 					port: 3000,
-					proxy: 'http://tenup-scaffold.test',
+					proxy: localDevURL,
 					open: false,
 					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
 				},
@@ -198,17 +194,18 @@ const config = {
 			),
 		// Lint CSS.
 		new StyleLintPlugin({
-			context: path.resolve(process.cwd(), './assets/css'),
+			context: path.resolve(process.cwd(), configPaths.srcDir),
 			files: '**/*.css',
+			allowEmptyInput: true,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
 			}),
 		}),
 		// Fancy WebpackBar.
 		new WebpackBar(),
-		// TENUP_NO_EXTERNALS global variable controls whether scripts' assets get
+		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
-		!process.env.TENUP_NO_EXTERNALS &&
+		wpDependencyExternals &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
 			}),
@@ -218,7 +215,6 @@ const config = {
 		// Copied from `'minimal'`.
 		all: false,
 		errors: true,
-		maxModules: 0,
 		modules: true,
 		warnings: true,
 		// Our additional options.
@@ -232,9 +228,7 @@ const config = {
 		concatenateModules: isProduction,
 		minimizer: [
 			new TerserPlugin({
-				cache: true,
 				parallel: true,
-				sourceMap: !isProduction,
 				terserOptions: {
 					parse: {
 						// We want terser to parse ecma 8 code. However, we don't want it
@@ -258,24 +252,10 @@ const config = {
 						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
 					},
-					output: {
-						ecma: 5,
-						comments: false,
-					},
-					ie8: false,
 				},
 			}),
 		],
 	},
 };
-
-if (!isProduction) {
-	config.module.rules.unshift({
-		test: /\.js$/,
-		exclude: [/node_modules/],
-		use: require.resolve('source-map-loader'),
-		enforce: 'pre',
-	});
-}
 
 module.exports = config;
