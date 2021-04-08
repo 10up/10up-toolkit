@@ -1,0 +1,32 @@
+{
+	"title": "{{title}}",
+	"description": "{{desc}}",
+	"text-domain": "{{textDomain}}",
+	"name": "{{name}}",
+	"icon": "{{icon}}",
+	"category": "{{category}}",
+	"attributes":{},
+	"example": {},
+	"supports": {
+		"align": false,
+		"alignWide": false,
+		"anchor": false,
+		"color":{
+			"gradients": false,
+			"background": false,
+			"text": false
+		},
+		"customClassName": false,
+		"defaultStylePicker": false,
+		"fontSize": false,
+		"html": false,
+		"inserter": true,
+		"lineHeight": true,
+		"multiple": true,
+		"reusable": false,
+		"spacing": {
+			"padding": false
+		}
+	},
+	"editorScript": "file:../../../dist/blocks/{{name}}/editor.js"
+}
