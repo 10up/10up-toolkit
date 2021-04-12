@@ -104,6 +104,7 @@ const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
 const getDefaultConfig = () => {
 	return {
+		isPackage: false,
 		entry: require(fromConfigRoot('buildfiles.config.js')),
 		filenames: require(fromConfigRoot('filenames.config.js')),
 		paths: require(fromConfigRoot('paths.config.js')),
@@ -142,6 +143,39 @@ const getTenUpScriptsConfig = () => {
 			...defaultConfig.paths,
 			...config.paths,
 		},
+	};
+};
+
+/**
+ * Returns 10up-scripts configs for package builds. If 10up-scripts is not configured for building packages,
+ * this returns false.
+ *
+ * @returns {object | boolean}
+ */
+const getTenUpScriptsPackageBuildConfig = () => {
+	const packageJson = getPackage();
+	const { isPackage } = getTenUpScriptsConfig();
+
+	if (!isPackage) {
+		return false;
+	}
+
+	const { source, main } = packageJson;
+	const umd = packageJson.unpkg || packageJson['umd:main'];
+
+	// source and main are required
+	if (!source || !main) {
+		return false;
+	}
+
+	// TODO: build externals arrays
+	const externals = [];
+
+	return {
+		source,
+		main,
+		umd,
+		externals,
 	};
 };
 
@@ -225,4 +259,5 @@ module.exports = {
 	hasEslintConfig,
 	getTenUpScriptsConfig,
 	getDefaultConfig,
+	getTenUpScriptsPackageBuildConfig,
 };
