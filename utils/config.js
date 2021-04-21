@@ -161,15 +161,17 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	}
 
 	const { source, main } = packageJson;
-	const umd = packageJson.unpkg || packageJson['umd:main'];
+	const umd = packageJson.unpkg || packageJson['umd:main'] || false;
 
 	// source and main are required
 	if (!source || !main) {
 		return false;
 	}
 
-	// TODO: build externals arrays
-	const externals = [];
+	let externals = [];
+	if (packageJson.dependencies) {
+		externals = Object.keys(packageJson.dependencies);
+	}
 
 	return {
 		source,

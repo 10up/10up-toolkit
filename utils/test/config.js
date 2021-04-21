@@ -1,4 +1,8 @@
-import { getDefaultConfig, getTenUpScriptsConfig } from '../config';
+import {
+	getDefaultConfig,
+	getTenUpScriptsConfig,
+	getTenUpScriptsPackageBuildConfig,
+} from '../config';
 import { getPackage as getPackageMock } from '../package';
 
 jest.mock('../package', () => {
@@ -50,6 +54,35 @@ describe('getTenUpScriptsConfig', () => {
 				...defaultConfig.paths,
 				srcDir: './assets2/',
 			},
+		});
+	});
+});
+
+describe('getTenUpScriptsPackageBuildConfig', () => {
+	afterEach(() => {
+		getPackageMock.mockReset();
+	});
+
+	it('returns valid package build config', () => {
+		getPackageMock.mockReturnValue({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'src/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			'@10up/scripts': {
+				isPackage: true,
+			},
+		});
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: 'src/index.umd.js',
+			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 		});
 	});
 });

@@ -25,6 +25,7 @@ const {
 	getBuildFiles,
 	fromConfigRoot,
 	getTenUpScriptsConfig,
+	getTenUpScriptsPackageBuildConfig,
 } = require('../utils');
 
 const {
@@ -32,7 +33,10 @@ const {
 	paths: configPaths,
 	devURL: localDevURL,
 	wpDependencyExternals,
+	isPackage,
 } = getTenUpScriptsConfig();
+
+const { source, main, externals } = getTenUpScriptsPackageBuildConfig();
 
 const buildFiles = getBuildFiles();
 
@@ -68,27 +72,38 @@ const cssLoaders = [
 	},
 ];
 
+const entry = isPackage ? source : buildFiles;
+const output = isPackage
+	? { filename: main }
+	: {
+			path: path.resolve(process.cwd(), 'dist'),
+			filename: (pathData) => {
+				return buildFiles[pathData.chunk.name].match(/\/blocks\//)
+					? filenames.block
+					: filenames.js;
+			},
+	  };
+const externalsArray = isPackage
+	? externals.reduce((acc, current) => {
+			acc[current] = current;
+			return acc;
+	  }, {})
+	: {
+			jquery: 'jQuery',
+			lodash: 'lodash',
+	  };
+
 const config = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
-	entry: buildFiles,
-	output: {
-		path: path.resolve(process.cwd(), 'dist'),
-		filename: (pathData) => {
-			return buildFiles[pathData.chunk.name].match(/\/blocks\//)
-				? filenames.block
-				: filenames.js;
-		},
-	},
+	entry,
+	output,
 	resolve: {
 		alias: {
 			'lodash-es': 'lodash',
 		},
 	},
-	externals: {
-		jquery: 'jQuery',
-		lodash: 'lodash',
-	},
+	externals: externalsArray,
 	performance: {
 		maxAssetSize: 100000,
 	},
