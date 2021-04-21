@@ -1,14 +1,17 @@
 module.exports = ( { file, options, env } ) => ( { /* eslint-disable-line */
 	plugins: {
 		'postcss-import': {},
+		'postcss-mixins': {},
+		'postcss-nesting': {},
 		'postcss-preset-env': {
 			stage: 0,
 			autoprefixer: {
 				grid: true,
 			},
 		},
+		'postcss-object-fit-images': {},
 		// Prefix editor styles with class `editor-styles-wrapper`.
-		'postcss-editor-styles':
+		'postcss-editor-styles': (file) =>
 			file.basename === 'editor-style.css'
 				? {
 						scopeTo: '.editor-styles-wrapper',
