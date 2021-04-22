@@ -30,7 +30,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "@10up/babel-preset-default": "^1.1.0",
-    "@10up/eslint-config": "^2.3.3",
+    "@10up/eslint-config": "^2.3.4",
     "@10up/stylelint-config": "^1.0.11",
     "@babel/core": "^7.2.0",
     "@babel/eslint-parser": "^7.12.13",
