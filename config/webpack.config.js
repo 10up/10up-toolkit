@@ -44,6 +44,8 @@ if (!Object.keys(buildFiles).length) {
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
 
+const defaultTargets = ['> 1%', 'ie >= 11', 'Firefox ESR', 'last 2 versions'];
+
 const cssLoaders = [
 	{
 		loader: MiniCSSExtractPlugin.loader,
@@ -72,6 +74,7 @@ const config = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
 	entry: buildFiles,
+	target: `browserslist:${defaultTargets.join(', ')}`,
 	output: {
 		path: path.resolve(process.cwd(), 'dist'),
 		filename: (pathData) => {
@@ -115,7 +118,7 @@ const config = {
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
-										{ wordpress: true },
+										{ wordpress: true, targets: defaultTargets },
 									],
 								],
 							}),
