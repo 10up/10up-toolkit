@@ -54,6 +54,8 @@ const cssLoaders = [
 		loader: require.resolve('css-loader'),
 		options: {
 			sourceMap: !isProduction,
+			// Local files like fonts etc. are copied using CopyWebpackPlugin.
+			url: false,
 		},
 	},
 	{
