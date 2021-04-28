@@ -33,16 +33,16 @@ const {
 	paths: configPaths,
 	devURL: localDevURL,
 	wpDependencyExternals,
-	isPackage,
 } = getTenUpScriptsConfig();
 
 const { source, main, externals } = getTenUpScriptsPackageBuildConfig();
+const isPackage = source && main;
 
 const buildFiles = getBuildFiles();
 
-if (!Object.keys(buildFiles).length) {
+if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
-	process.exit(1);
+	// process.exit(1);
 }
 
 const isProduction = process.env.NODE_ENV === 'production';

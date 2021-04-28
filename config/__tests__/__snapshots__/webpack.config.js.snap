@@ -1,0 +1,477 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`webpack.config.js returns proper configs for package config 1`] = `
+Object {
+  "devtool": "source-map",
+  "entry": "src/index.js",
+  "externals": Object {
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "include": Array [
+          "/assets/css",
+          "/includes/blocks",
+        ],
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin {
+        "options": Object {
+          "exclude": undefined,
+          "extractComments": true,
+          "include": undefined,
+          "minify": undefined,
+          "parallel": true,
+          "terserOptions": Object {
+            "compress": Object {
+              "comparisons": false,
+              "ecma": 5,
+              "inline": 2,
+              "warnings": false,
+            },
+            "parse": Object {
+              "ecma": 8,
+            },
+          },
+          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        },
+      },
+    ],
+  },
+  "output": Object {
+    "filename": "dist/index.js",
+  },
+  "performance": Object {
+    "maxAssetSize": 100000,
+  },
+  "plugins": Array [
+    ESLintWebpackPlugin {
+      "options": Object {
+        "emitError": true,
+        "emitWarning": true,
+        "extensions": "js",
+        "failOnError": false,
+        "fix": false,
+      },
+      "run": [Function],
+    },
+    CleanWebpackPlugin {
+      "apply": [Function],
+      "cleanAfterEveryBuildPatterns": Array [],
+      "cleanOnceBeforeBuildPatterns": Array [
+        "**/*",
+      ],
+      "cleanStaleWebpackAssets": true,
+      "currentAssets": Array [],
+      "dangerouslyAllowCleanPatternsOutsideProject": false,
+      "dry": false,
+      "handleDone": [Function],
+      "handleInitial": [Function],
+      "initialClean": false,
+      "outputPath": "",
+      "protectWebpackAssets": true,
+      "removeFiles": [Function],
+      "verbose": false,
+    },
+    MiniCssExtractPlugin {
+      "_sortedModulesCache": WeakMap {},
+      "options": Object {
+        "chunkFilename": "[id].css",
+        "filename": [Function],
+        "ignoreOrder": false,
+      },
+      "runtimeOptions": Object {
+        "attributes": undefined,
+        "insert": undefined,
+        "linkType": "text/css",
+      },
+    },
+    CopyPlugin {
+      "options": Object {},
+      "patterns": Array [
+        Object {
+          "context": "/assets",
+          "from": "**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}",
+          "noErrorOnMissing": true,
+          "to": "[path][name].[ext]",
+        },
+      ],
+    },
+    ImageminPlugin {
+      "options": Object {
+        "cacheFolder": null,
+        "disable": true,
+        "externalImages": Object {
+          "context": ".",
+          "destination": ".",
+          "fileName": null,
+          "sources": Array [],
+        },
+        "imageminOptions": Object {
+          "plugins": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+        },
+        "maxConcurrency": 4,
+        "testFunction": [Function],
+      },
+    },
+    StylelintWebpackPlugin {
+      "options": Object {
+        "allowEmptyInput": true,
+        "configFile": "/config/stylelint.config.js",
+        "context": "/assets",
+        "files": "**/*.css",
+        "formatter": [Function],
+        "stylelintPath": "stylelint",
+      },
+    },
+    WebpackBarPlugin {
+      "dependenciesCount": 10000,
+      "handler": [Function],
+      "modulesCount": 5000,
+      "options": Object {
+        "color": "green",
+        "name": "webpack",
+        "reporter": null,
+        "reporters": Array [
+          "basic",
+        ],
+      },
+      "percentBy": undefined,
+      "profile": false,
+      "reporters": Array [
+        SimpleReporter {},
+      ],
+      "showActiveModules": true,
+      "showDependencies": true,
+      "showEntries": true,
+      "showModules": true,
+    },
+    DependencyExtractionWebpackPlugin {
+      "externalizedDeps": Set {},
+      "externalsPlugin": ExternalsPlugin {
+        "externals": [Function],
+        "type": "window",
+      },
+      "options": Object {
+        "combineAssets": false,
+        "combinedOutputFile": null,
+        "injectPolyfill": true,
+        "outputFormat": "php",
+        "useDefaults": true,
+      },
+    },
+    CleanExtractedDeps {
+      "options": undefined,
+    },
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+}
+`;
+
+exports[`webpack.config.js returns proper configs for project configs 1`] = `
+Object {
+  "devtool": "source-map",
+  "entry": Object {
+    "entry1": "entry1.js",
+    "entry2": "entry2.js",
+    "entry3": "entry3.js",
+  },
+  "externals": Object {
+    "jquery": "jQuery",
+    "lodash": "lodash",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "include": Array [
+          "/assets2/css",
+          "/includes2/blocks",
+        ],
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin {
+        "options": Object {
+          "exclude": undefined,
+          "extractComments": true,
+          "include": undefined,
+          "minify": undefined,
+          "parallel": true,
+          "terserOptions": Object {
+            "compress": Object {
+              "comparisons": false,
+              "ecma": 5,
+              "inline": 2,
+              "warnings": false,
+            },
+            "parse": Object {
+              "ecma": 8,
+            },
+          },
+          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        },
+      },
+    ],
+  },
+  "output": Object {
+    "filename": [Function],
+    "path": "/dist",
+  },
+  "performance": Object {
+    "maxAssetSize": 100000,
+  },
+  "plugins": Array [
+    ESLintWebpackPlugin {
+      "options": Object {
+        "emitError": true,
+        "emitWarning": true,
+        "extensions": "js",
+        "failOnError": false,
+        "fix": false,
+      },
+      "run": [Function],
+    },
+    CleanWebpackPlugin {
+      "apply": [Function],
+      "cleanAfterEveryBuildPatterns": Array [],
+      "cleanOnceBeforeBuildPatterns": Array [
+        "**/*",
+      ],
+      "cleanStaleWebpackAssets": true,
+      "currentAssets": Array [],
+      "dangerouslyAllowCleanPatternsOutsideProject": false,
+      "dry": false,
+      "handleDone": [Function],
+      "handleInitial": [Function],
+      "initialClean": false,
+      "outputPath": "",
+      "protectWebpackAssets": true,
+      "removeFiles": [Function],
+      "verbose": false,
+    },
+    MiniCssExtractPlugin {
+      "_sortedModulesCache": WeakMap {},
+      "options": Object {
+        "chunkFilename": "[id].css",
+        "filename": [Function],
+        "ignoreOrder": false,
+      },
+      "runtimeOptions": Object {
+        "attributes": undefined,
+        "insert": undefined,
+        "linkType": "text/css",
+      },
+    },
+    CopyPlugin {
+      "options": Object {},
+      "patterns": Array [
+        Object {
+          "context": "/assets2",
+          "from": "**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}",
+          "noErrorOnMissing": true,
+          "to": "[path][name].[ext]",
+        },
+      ],
+    },
+    ImageminPlugin {
+      "options": Object {
+        "cacheFolder": null,
+        "disable": true,
+        "externalImages": Object {
+          "context": ".",
+          "destination": ".",
+          "fileName": null,
+          "sources": Array [],
+        },
+        "imageminOptions": Object {
+          "plugins": Array [
+            [Function],
+            [Function],
+            [Function],
+            [Function],
+          ],
+        },
+        "maxConcurrency": 4,
+        "testFunction": [Function],
+      },
+    },
+    StylelintWebpackPlugin {
+      "options": Object {
+        "allowEmptyInput": true,
+        "configFile": "/config/stylelint.config.js",
+        "context": "/assets2",
+        "files": "**/*.css",
+        "formatter": [Function],
+        "stylelintPath": "stylelint",
+      },
+    },
+    WebpackBarPlugin {
+      "dependenciesCount": 10000,
+      "handler": [Function],
+      "modulesCount": 5000,
+      "options": Object {
+        "color": "green",
+        "name": "webpack",
+        "reporter": null,
+        "reporters": Array [
+          "basic",
+        ],
+      },
+      "percentBy": undefined,
+      "profile": false,
+      "reporters": Array [
+        SimpleReporter {},
+      ],
+      "showActiveModules": true,
+      "showDependencies": true,
+      "showEntries": true,
+      "showModules": true,
+    },
+    DependencyExtractionWebpackPlugin {
+      "externalizedDeps": Set {},
+      "externalsPlugin": ExternalsPlugin {
+        "externals": [Function],
+        "type": "window",
+      },
+      "options": Object {
+        "combineAssets": false,
+        "combinedOutputFile": null,
+        "injectPolyfill": true,
+        "outputFormat": "php",
+        "useDefaults": true,
+      },
+    },
+    CleanExtractedDeps {
+      "options": undefined,
+    },
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+}
+`;

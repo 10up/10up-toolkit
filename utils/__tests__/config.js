@@ -73,9 +73,6 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 				'read-pkg-up': '^1.0.1',
 				'resolve-bin': '^0.4.0',
 			},
-			'@10up/scripts': {
-				isPackage: true,
-			},
 		});
 
 		expect(getTenUpScriptsPackageBuildConfig()).toEqual({

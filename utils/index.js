@@ -23,6 +23,7 @@ const {
 	getBuildFiles,
 	hasStylelintConfig,
 	getTenUpScriptsConfig,
+	getTenUpScriptsPackageBuildConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
@@ -54,4 +55,5 @@ module.exports = {
 	getPackage,
 	getPackageVersion,
 	getTenUpScriptsConfig,
+	getTenUpScriptsPackageBuildConfig,
 };
