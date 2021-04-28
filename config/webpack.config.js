@@ -42,7 +42,7 @@ const buildFiles = getBuildFiles();
 
 if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
-	// process.exit(1);
+	process.exit(1);
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
