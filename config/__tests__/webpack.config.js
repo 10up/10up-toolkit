@@ -55,6 +55,7 @@ describe('webpack.config.js', () => {
 	});
 
 	it('returns proper configs for package config', () => {
+		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			source: 'src/index.js',
 			main: 'dist/index.js',

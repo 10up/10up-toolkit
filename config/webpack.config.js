@@ -36,9 +36,10 @@ const {
 } = getTenUpScriptsConfig();
 
 const { source, main, externals } = getTenUpScriptsPackageBuildConfig();
-const isPackage = source && main;
-
 const buildFiles = getBuildFiles();
+
+// assume it's a package if there's source and main but no buildFiles (multiple custom entry points)
+const isPackage = source && main && !Object.keys(buildFiles).length;
 
 if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
