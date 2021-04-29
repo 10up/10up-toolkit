@@ -68,27 +68,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin {
-        "options": Object {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minify": undefined,
-          "parallel": true,
-          "terserOptions": Object {
-            "compress": Object {
-              "comparisons": false,
-              "ecma": 5,
-              "inline": 2,
-              "warnings": false,
-            },
-            "parse": Object {
-              "ecma": 8,
-            },
-          },
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
     ],
   },
   "output": Object {
@@ -102,85 +82,13 @@ Object {
     "maxAssetSize": 100000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin {
-      "options": Object {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-      },
-      "run": [Function],
-    },
-    CleanWebpackPlugin {
-      "apply": [Function],
-      "cleanAfterEveryBuildPatterns": Array [],
-      "cleanOnceBeforeBuildPatterns": Array [
-        "**/*",
-      ],
-      "cleanStaleWebpackAssets": true,
-      "currentAssets": Array [],
-      "dangerouslyAllowCleanPatternsOutsideProject": false,
-      "dry": false,
-      "handleDone": [Function],
-      "handleInitial": [Function],
-      "initialClean": false,
-      "outputPath": "",
-      "protectWebpackAssets": true,
-      "removeFiles": [Function],
-      "verbose": false,
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": Object {
-        "chunkFilename": "[id].css",
-        "filename": [Function],
-        "ignoreOrder": false,
-      },
-      "runtimeOptions": Object {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    ImageminPlugin {
-      "options": {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    },
-    StylelintWebpackPlugin {
-      "options": Object {
-        "allowEmptyInput": true,
-        "configFile": "/config/stylelint.config.js",
-        "context": "/assets",
-        "files": "**/*.css",
-        "formatter": [Function],
-        "stylelintPath": "stylelint",
-      },
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": Object {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": Array [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": Array [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    CleanWebpackPlugin: {},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    ImageminPlugin: {"disable":true,"maxConcurrency":4,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
+    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    CleanExtractedDeps: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -269,27 +177,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin {
-        "options": Object {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minify": undefined,
-          "parallel": true,
-          "terserOptions": Object {
-            "compress": Object {
-              "comparisons": false,
-              "ecma": 5,
-              "inline": 2,
-              "warnings": false,
-            },
-            "parse": Object {
-              "ecma": 8,
-            },
-          },
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
     ],
   },
   "output": Object {
@@ -300,110 +188,15 @@ Object {
     "maxAssetSize": 100000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin {
-      "options": Object {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-      },
-      "run": [Function],
-    },
-    CleanWebpackPlugin {
-      "apply": [Function],
-      "cleanAfterEveryBuildPatterns": Array [],
-      "cleanOnceBeforeBuildPatterns": Array [
-        "**/*",
-      ],
-      "cleanStaleWebpackAssets": true,
-      "currentAssets": Array [],
-      "dangerouslyAllowCleanPatternsOutsideProject": false,
-      "dry": false,
-      "handleDone": [Function],
-      "handleInitial": [Function],
-      "initialClean": false,
-      "outputPath": "",
-      "protectWebpackAssets": true,
-      "removeFiles": [Function],
-      "verbose": false,
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": Object {
-        "chunkFilename": "[id].css",
-        "filename": [Function],
-        "ignoreOrder": false,
-      },
-      "runtimeOptions": Object {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    CopyPlugin {
-      "options": Object {},
-      "patterns": Array [
-        Object {
-          "context": "/assets2",
-          "from": "**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}",
-          "noErrorOnMissing": true,
-          "to": "[path][name].[ext]",
-        },
-      ],
-    },
-    ImageminPlugin {
-      "options": {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    },
-    StylelintWebpackPlugin {
-      "options": Object {
-        "allowEmptyInput": true,
-        "configFile": "/config/stylelint.config.js",
-        "context": "/assets2",
-        "files": "**/*.css",
-        "formatter": [Function],
-        "stylelintPath": "stylelint",
-      },
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": Object {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": Array [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": Array [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    DependencyExtractionWebpackPlugin {
-      "externalizedDeps": Set {},
-      "externalsPlugin": ExternalsPlugin {
-        "externals": [Function],
-        "type": "window",
-      },
-      "options": Object {
-        "combineAssets": false,
-        "combinedOutputFile": null,
-        "injectPolyfill": true,
-        "outputFormat": "php",
-        "useDefaults": true,
-      },
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    CleanWebpackPlugin: {},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    CopyPlugin: {},
+    ImageminPlugin: {"disable":true,"maxConcurrency":4,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
+    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
+    CleanExtractedDeps: {},
   ],
   "resolve": Object {
     "alias": Object {
