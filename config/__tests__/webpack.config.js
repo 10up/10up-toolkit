@@ -57,6 +57,7 @@ describe('webpack.config.js', () => {
 	it('returns proper configs for package config', () => {
 		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			'umd:main': 'src/index.umd.js',

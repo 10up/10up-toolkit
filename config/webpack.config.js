@@ -35,7 +35,7 @@ const {
 	wpDependencyExternals,
 } = getTenUpScriptsConfig();
 
-const { source, main, externals } = getTenUpScriptsPackageBuildConfig();
+const { source, main, externals, libraryName } = getTenUpScriptsPackageBuildConfig();
 const buildFiles = getBuildFiles();
 
 // assume it's a package if there's source and main but no buildFiles (multiple custom entry points)
@@ -75,7 +75,7 @@ const cssLoaders = [
 
 const entry = isPackage ? source : buildFiles;
 const output = isPackage
-	? { filename: main }
+	? { filename: main, library: libraryName }
 	: {
 			path: path.resolve(process.cwd(), 'dist'),
 			filename: (pathData) => {

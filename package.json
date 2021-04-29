@@ -43,6 +43,7 @@
     "babel-loader": "^8.2.2",
     "browser-sync": "^2.26.13",
     "browser-sync-webpack-plugin": "^2.3.0",
+    "camelcase": "^6.2.0",
     "chalk": "^4.1.0",
     "check-node-version": "^4.0.3",
     "clean-webpack-plugin": "^3.0.0",

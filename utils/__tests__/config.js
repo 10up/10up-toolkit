@@ -65,6 +65,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 
 	it('returns valid package build config', () => {
 		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			'umd:main': 'src/index.umd.js',
@@ -80,6 +81,32 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			main: 'dist/index.js',
 			umd: 'src/index.umd.js',
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
+			libraryName: 'componentLibrary',
+		});
+
+		getPackageMock.mockReset();
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'src/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			'@10up/scripts': {
+				libraryName: 'myComponentLibrary',
+			},
+		});
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: 'src/index.umd.js',
+			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
+			libraryName: 'myComponentLibrary',
 		});
 	});
 });

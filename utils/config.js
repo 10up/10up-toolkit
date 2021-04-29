@@ -8,6 +8,7 @@ const { basename } = require('path');
  */
 const { existsSync: fileExists } = require('fs');
 const path = require('path');
+const camelcase = require('camelcase');
 const { getArgsFromCLI, getFileArgsFromCLI, hasArgInCLI, hasFileArgInCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');
@@ -145,6 +146,15 @@ const getTenUpScriptsConfig = () => {
 	};
 };
 
+const removeScope = (name) => name.replace(/^@.*\//, '');
+
+const safeVariableName = (name) => {
+	const INVALID_ES3_IDENT = /((^[^a-zA-Z]+)|[^\w.-])|([^a-zA-Z0-9]+$)/g;
+	const normalized = removeScope(name).toLowerCase();
+	const identifier = normalized.replace(INVALID_ES3_IDENT, '');
+	return camelcase(identifier);
+};
+
 /**
  * Returns 10up-scripts configs for package builds. If 10up-scripts is not configured for building packages,
  * this returns false.
@@ -153,8 +163,8 @@ const getTenUpScriptsConfig = () => {
  */
 const getTenUpScriptsPackageBuildConfig = () => {
 	const packageJson = getPackage();
-
-	const { source, main } = packageJson;
+	const config = getTenUpScriptsConfig();
+	const { name = 'default-package', source, main } = packageJson;
 	const umd = packageJson.unpkg || packageJson['umd:main'] || false;
 
 	// source and main are required
@@ -172,6 +182,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		main,
 		umd,
 		externals,
+		libraryName: config.libraryName ? config.libraryName : safeVariableName(name),
 	};
 };
 
