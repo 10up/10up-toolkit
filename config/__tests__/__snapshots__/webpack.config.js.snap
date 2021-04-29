@@ -88,7 +88,10 @@ Object {
   },
   "output": Object {
     "filename": "dist/index.js",
-    "library": "componentLibrary",
+    "library": Object {
+      "name": "componentLibrary",
+      "type": "umd",
+    },
   },
   "performance": Object {
     "maxAssetSize": 100000,
@@ -134,17 +137,6 @@ Object {
         "insert": undefined,
         "linkType": "text/css",
       },
-    },
-    CopyPlugin {
-      "options": Object {},
-      "patterns": Array [
-        Object {
-          "context": "/assets",
-          "from": "**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}",
-          "noErrorOnMissing": true,
-          "to": "[path][name].[ext]",
-        },
-      ],
     },
     ImageminPlugin {
       "options": Object {
@@ -199,20 +191,6 @@ Object {
       "showDependencies": true,
       "showEntries": true,
       "showModules": true,
-    },
-    DependencyExtractionWebpackPlugin {
-      "externalizedDeps": Set {},
-      "externalsPlugin": ExternalsPlugin {
-        "externals": [Function],
-        "type": "window",
-      },
-      "options": Object {
-        "combineAssets": false,
-        "combinedOutputFile": null,
-        "injectPolyfill": true,
-        "outputFormat": "php",
-        "useDefaults": true,
-      },
     },
     CleanExtractedDeps {
       "options": undefined,

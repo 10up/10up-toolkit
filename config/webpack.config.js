@@ -39,8 +39,8 @@ const { source, main, externals, libraryName } = getTenUpScriptsPackageBuildConf
 const buildFiles = getBuildFiles();
 
 // assume it's a package if there's source and main but no buildFiles (multiple custom entry points)
-const isPackage = source && main && !Object.keys(buildFiles).length;
-
+const isPackage = source && main;
+// console.log('ispackage', isPackage);
 if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
 	process.exit(1);
@@ -75,7 +75,7 @@ const cssLoaders = [
 
 const entry = isPackage ? source : buildFiles;
 const output = isPackage
-	? { filename: main, library: libraryName }
+	? { filename: main, library: { name: libraryName, type: 'umd' } }
 	: {
 			path: path.resolve(process.cwd(), 'dist'),
 			filename: (pathData) => {
@@ -172,17 +172,18 @@ const config = {
 			chunkFilename: '[id].css',
 		}),
 
-		// Copy static assets to the `dist` folder.
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
-					to: '[path][name].[ext]',
-					noErrorOnMissing: true,
-					context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
-				},
-			],
-		}),
+		!isPackage &&
+			// Copy static assets to the `dist` folder.
+			new CopyWebpackPlugin({
+				patterns: [
+					{
+						from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
+						to: '[path][name].[ext]',
+						noErrorOnMissing: true,
+						context: path.resolve(process.cwd(), configPaths.copyAssetsDir),
+					},
+				],
+			}),
 
 		// Compress images
 		// Must happen after CopyWebpackPlugin
@@ -222,6 +223,7 @@ const config = {
 		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
+			!isPackage &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
 			}),
