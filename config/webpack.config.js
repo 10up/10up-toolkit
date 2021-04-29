@@ -39,7 +39,7 @@ const { source, main, externals, libraryName } = getTenUpScriptsPackageBuildConf
 const buildFiles = getBuildFiles();
 
 // assume it's a package if there's source and main
-const isPackage = source && main;
+const isPackage = typeof source !== 'undefined' && typeof main !== 'undefined';
 
 if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
@@ -49,6 +49,8 @@ if (!isPackage && !Object.keys(buildFiles).length) {
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
 
+const defaultTargets = ['> 1%', 'ie >= 11', 'Firefox ESR', 'last 2 versions'];
+
 const cssLoaders = [
 	{
 		loader: MiniCSSExtractPlugin.loader,
@@ -57,6 +59,8 @@ const cssLoaders = [
 		loader: require.resolve('css-loader'),
 		options: {
 			sourceMap: !isProduction,
+			// Local files like fonts etc. are copied using CopyWebpackPlugin when in project mode.
+			url: isPackage,
 		},
 	},
 	{
@@ -99,6 +103,7 @@ const config = {
 	mode,
 	entry,
 	output,
+	target: `browserslist:${defaultTargets.join(', ')}`,
 	resolve: {
 		alias: {
 			'lodash-es': 'lodash',
@@ -131,7 +136,7 @@ const config = {
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
-										{ wordpress: true },
+										{ wordpress: true, targets: defaultTargets },
 									],
 								],
 							}),
@@ -150,7 +155,12 @@ const config = {
 				),
 				use: cssLoaders,
 			},
-		],
+			// when in package module only include referenced resources
+			isPackage && {
+				test: /\.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}/,
+				type: 'asset/resource',
+			},
+		].filter(Boolean),
 	},
 
 	plugins: [

@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-scripts.git",
     "directory": "packages/scripts"
   },
-  "version": "1.3.1",
+  "version": "1.3.3",
   "bin": {
     "10up-scripts": "bin/10up-scripts.js"
   },
@@ -30,7 +30,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "@10up/babel-preset-default": "^1.1.0",
-    "@10up/eslint-config": "^2.3.3",
+    "@10up/eslint-config": "^2.3.4",
     "@10up/stylelint-config": "^1.0.11",
     "@babel/core": "^7.2.0",
     "@babel/eslint-parser": "^7.12.13",
@@ -73,9 +73,13 @@
     "mini-css-extract-plugin": "^1.3.4",
     "minimist": "^1.2.5",
     "postcss": "^8.2.6",
+    "postcss-css-variables": "^0.17.0",
     "postcss-editor-styles": "^0.3.0",
     "postcss-import": "^14.0.0",
     "postcss-loader": "^5.0.0",
+    "postcss-mixins": "^7.0.3",
+    "postcss-nested": "^5.0.5",
+    "postcss-object-fit-images": "^1.1.2",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.2.1",
     "read-pkg": "^5.2.0",

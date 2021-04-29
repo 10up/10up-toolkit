@@ -46,6 +46,7 @@ Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
               "sourceMap": true,
+              "url": true,
             },
           },
           Object {
@@ -57,6 +58,10 @@ Object {
             },
           },
         ],
+      },
+      Object {
+        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "type": "asset/resource",
       },
     ],
   },
@@ -212,6 +217,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
+  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
 }
 `;
 
@@ -264,6 +270,7 @@ Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
               "sourceMap": true,
+              "url": false,
             },
           },
           Object {
@@ -452,5 +459,6 @@ Object {
     "performance": true,
     "warnings": true,
   },
+  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
 }
 `;
