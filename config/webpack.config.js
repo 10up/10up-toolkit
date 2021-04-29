@@ -38,9 +38,9 @@ const {
 const { source, main, externals, libraryName } = getTenUpScriptsPackageBuildConfig();
 const buildFiles = getBuildFiles();
 
-// assume it's a package if there's source and main but no buildFiles (multiple custom entry points)
+// assume it's a package if there's source and main
 const isPackage = source && main;
-// console.log('ispackage', isPackage);
+
 if (!isPackage && !Object.keys(buildFiles).length) {
 	console.error('No files to build!');
 	process.exit(1);
