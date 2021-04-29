@@ -49,7 +49,7 @@ const printWebPackPlugin = (plugin) => {
 	const options = plugin?.options || {};
 
 	['maxConcurrency', 'experimentalUseImportModule'].forEach((key) => {
-		if (options[key]) {
+		if (typeof options[key] !== 'undefined') {
 			delete options[key];
 		}
 	});
