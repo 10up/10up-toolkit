@@ -144,26 +144,7 @@ Object {
       },
     },
     ImageminPlugin {
-      "options": Object {
-        "cacheFolder": null,
-        "disable": true,
-        "externalImages": Object {
-          "context": ".",
-          "destination": ".",
-          "fileName": null,
-          "sources": Array [],
-        },
-        "imageminOptions": Object {
-          "plugins": Array [
-            [Function],
-            [Function],
-            [Function],
-            [Function],
-          ],
-        },
-        "maxConcurrency": 4,
-        "testFunction": [Function],
-      },
+      "options": {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     },
     StylelintWebpackPlugin {
       "options": Object {
@@ -372,26 +353,7 @@ Object {
       ],
     },
     ImageminPlugin {
-      "options": Object {
-        "cacheFolder": null,
-        "disable": true,
-        "externalImages": Object {
-          "context": ".",
-          "destination": ".",
-          "fileName": null,
-          "sources": Array [],
-        },
-        "imageminOptions": Object {
-          "plugins": Array [
-            [Function],
-            [Function],
-            [Function],
-            [Function],
-          ],
-        },
-        "maxConcurrency": 4,
-        "testFunction": [Function],
-      },
+      "options": {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     },
     StylelintWebpackPlugin {
       "options": Object {

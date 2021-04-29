@@ -1,9 +1,34 @@
+const isString = (val) => val && typeof val === 'string';
+
+const hasLocalPath = (val) => val.indexOf(process.cwd()) !== -1;
+
+const isSpecialWebpackPlugin = (val) => {
+	return (
+		typeof val === 'object' &&
+		(val?.key || val?.experimentalUseImportModule || val?.maxConcurrency)
+	);
+};
+
 module.exports = {
 	serialize(val) {
-		return `"${val.replace(process.cwd(), '')}"`;
+		if (isString(val) && hasLocalPath(val)) {
+			return `"${val.replace(process.cwd(), '')}"`;
+		}
+
+		if (isSpecialWebpackPlugin(val)) {
+			delete val?.key;
+			delete val?.experimentalUseImportModule;
+			delete val?.maxConcurrency;
+			return JSON.stringify(val);
+		}
+
+		return val;
 	},
 
 	test(val) {
-		return val && typeof val === 'string' && val.indexOf(process.cwd()) !== -1;
+		let shouldProcess = isString(val) && hasLocalPath(val);
+		shouldProcess ||= isSpecialWebpackPlugin(val);
+
+		return shouldProcess;
 	},
 };
