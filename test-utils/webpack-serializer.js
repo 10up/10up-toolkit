@@ -5,7 +5,10 @@ const hasLocalPath = (val) => val.indexOf(process.cwd()) !== -1;
 const isSpecialWebpackPlugin = (val) => {
 	return (
 		typeof val === 'object' &&
-		(val?.key || val?.experimentalUseImportModule || val?.maxConcurrency)
+		(val?.key ||
+			val?.experimentalUseImportModule ||
+			val?.maxConcurrency ||
+			val?.options?.experimentalUseImportModule)
 	);
 };
 
@@ -19,6 +22,7 @@ module.exports = {
 			delete val?.key;
 			delete val?.experimentalUseImportModule;
 			delete val?.maxConcurrency;
+			delete val?.options?.experimentalUseImportModule;
 			return JSON.stringify(val);
 		}
 
