@@ -82,6 +82,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			umd: 'src/index.umd.js',
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 			libraryName: 'componentLibrary',
+			packageType: 'umd',
 		});
 
 		getPackageMock.mockReset();
@@ -107,6 +108,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			umd: 'src/index.umd.js',
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 			libraryName: 'myComponentLibrary',
+			packageType: 'umd',
 		});
 	});
 });

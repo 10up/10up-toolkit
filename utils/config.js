@@ -9,7 +9,13 @@ const { basename } = require('path');
 const { existsSync: fileExists } = require('fs');
 const path = require('path');
 const camelcase = require('camelcase');
-const { getArgsFromCLI, getFileArgsFromCLI, hasArgInCLI, hasFileArgInCLI } = require('./cli');
+const {
+	getArgsFromCLI,
+	getFileArgsFromCLI,
+	hasArgInCLI,
+	hasFileArgInCLI,
+	getArgFromCLI,
+} = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');
 
@@ -173,9 +179,23 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	}
 
 	let externals = [];
-	if (packageJson.dependencies) {
-		externals = Object.keys(packageJson.dependencies);
+
+	if (hasArgInCLI('--external')) {
+		const external = getArgFromCLI('--external');
+		if (external !== 'none') {
+			externals = external.split(',');
+		}
+	} else {
+		if (packageJson.dependencies) {
+			externals = Object.keys(packageJson.dependencies);
+		}
+
+		if (packageJson.peerDependencies) {
+			externals = [...externals, ...Object.keys(packageJson.peerDependencies)];
+		}
 	}
+
+	const packageType = getArgFromCLI('-f') || getArgFromCLI('--format') || 'umd';
 
 	return {
 		source,
@@ -183,6 +203,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		umd,
 		externals,
 		libraryName: config.libraryName ? config.libraryName : safeVariableName(name),
+		packageType,
 	};
 };
 
