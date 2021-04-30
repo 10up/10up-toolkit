@@ -114,7 +114,7 @@ describe('webpack.config.js', () => {
 		expect(webpackConfig).toMatchSnapshot();
 	});
 
-	it('properly detects user config files', () => {
+	it('properly detects user config files in package mode', () => {
 		hasProjectFileMock.mockReturnValue(true);
 		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
@@ -133,6 +133,33 @@ describe('webpack.config.js', () => {
 			'@10up/scripts': {},
 		});
 
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+	});
+
+	it('properly detects user config files in project mode', () => {
+		hasProjectFileMock.mockReturnValue(true);
+		const entryBuildFiles = {
+			entry1: 'entry1.js',
+			entry2: 'entry2.js',
+			entry3: 'entry3.js',
+		};
+		getBuildFilesMock.mockReturnValue(entryBuildFiles);
+		getPackageMock.mockReturnValue({
+			'@10up/scripts': {
+				entry: entryBuildFiles,
+				paths: {
+					srcDir: './assets2/',
+					cssLoaderPaths: ['./assets2/css', './includes2/blocks'],
+					copyAssetsDir: './assets2/',
+				},
+			},
+		});
 		let webpackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
