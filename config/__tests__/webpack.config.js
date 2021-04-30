@@ -52,6 +52,7 @@ describe('webpack.config.js', () => {
 					cssLoaderPaths: ['./assets2/css', './includes2/blocks'],
 					copyAssetsDir: './assets2/',
 				},
+				devURL: 'http://project.test',
 			},
 		});
 		let webpackConfig;

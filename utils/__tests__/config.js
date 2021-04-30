@@ -111,4 +111,8 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			packageType: 'umd',
 		});
 	});
+
+	it('builds config taking cli args into account', () => {
+		// TODO: implement
+	});
 });

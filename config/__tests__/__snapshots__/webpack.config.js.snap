@@ -529,6 +529,7 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
+    BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
     StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
