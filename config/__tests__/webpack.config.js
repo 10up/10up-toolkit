@@ -1,4 +1,5 @@
 import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
+import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
 import webpackSerializer from '../../test-utils/webpack-serializer';
 
@@ -14,6 +15,14 @@ jest.mock('../../utils/config', () => {
 	const module = jest.requireActual('../../utils/config');
 
 	jest.spyOn(module, 'getBuildFiles');
+
+	return module;
+});
+
+jest.mock('../../utils/file', () => {
+	const module = jest.requireActual('../../utils/file');
+
+	jest.spyOn(module, 'hasProjectFile');
 
 	return module;
 });
@@ -79,6 +88,34 @@ describe('webpack.config.js', () => {
 	});
 
 	it('returns proper configs for package config with peer deps', () => {
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'src/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			peerDependencies: {
+				lodash: '^5.4.3',
+			},
+			'@10up/scripts': {},
+		});
+
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+	});
+
+	it('properly detects user config files', () => {
+		hasProjectFileMock.mockReturnValue(true);
 		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',

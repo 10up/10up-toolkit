@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = ( { file, options, env } ) => { /* eslint-disable-line */
+module.exports = ({ file, env }) => {
 	const config = {
 		plugins: {
 			'postcss-import': {},
