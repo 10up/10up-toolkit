@@ -7,6 +7,7 @@ const getOptimization = require('./optimization');
 const getModules = require('./modules');
 const getResolve = require('./resolve');
 const getTarget = require('./target');
+const getPerfomance = require('./perfomance');
 
 module.exports = {
 	getEntryPoints,
@@ -18,4 +19,5 @@ module.exports = {
 	getModules,
 	getResolve,
 	getTarget,
+	getPerfomance,
 };

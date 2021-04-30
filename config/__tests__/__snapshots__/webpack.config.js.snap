@@ -79,7 +79,9 @@ Object {
     },
   },
   "performance": Object {
-    "maxAssetSize": 100000,
+    "hints": "warning",
+    "maxAssetSize": 102400,
+    "maxEntrypointSize": 409600,
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
@@ -190,7 +192,9 @@ Object {
     },
   },
   "performance": Object {
-    "maxAssetSize": 100000,
+    "hints": "warning",
+    "maxAssetSize": 102400,
+    "maxEntrypointSize": 409600,
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
@@ -296,7 +300,9 @@ Object {
     "path": "/dist",
   },
   "performance": Object {
-    "maxAssetSize": 100000,
+    "hints": "warning",
+    "maxAssetSize": 102400,
+    "maxEntrypointSize": 409600,
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},

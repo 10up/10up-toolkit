@@ -17,6 +17,7 @@ const {
 	getModules,
 	getResolve,
 	getTarget,
+	getPerfomance,
 } = require('./webpack');
 
 const projectConfig = getTenUpScriptsConfig();
@@ -50,9 +51,7 @@ module.exports = {
 	target: getTarget(config),
 	resolve: getResolve(config),
 	externals: getExternals(config),
-	performance: {
-		maxAssetSize: 100000,
-	},
+	performance: getPerfomance(config),
 	module: getModules(config),
 	plugins: getPlugins(config),
 	stats: getStats(config),
