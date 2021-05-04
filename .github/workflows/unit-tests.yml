@@ -1,14 +1,6 @@
 name: unit tests
 
-on:
-  push:
-    branches:
-      - trunk
-      - develop
-  pull_request:
-    branches:
-      - trunk
-      - develop
+on: [pull_request]
 
 jobs:
   unit-tests:
