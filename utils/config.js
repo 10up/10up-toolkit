@@ -178,13 +178,13 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	const config = getTenUpScriptsConfig();
 	const { name = 'default-package', style } = packageJson;
 	const packageType = normalizePackageType(
-		getArgFromCLI('-f') || getArgFromCLI('--format') || config.packageType || 'umd',
+		getArgFromCLI('-f') || getArgFromCLI('--format') || config.packageType || 'all',
 	);
 	const source = getArgFromCLI('-i') || getArgFromCLI('--input') || packageJson.source;
 	const main = getArgFromCLI('-o') || getArgFromCLI('--output') || packageJson.main;
 
 	let umd = false;
-	if (packageType === 'umd') {
+	if (packageType === 'umd' || packageType === 'all') {
 		umd = packageJson.unpkg || packageJson['umd:main'] || false;
 	}
 

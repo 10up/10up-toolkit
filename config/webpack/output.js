@@ -4,7 +4,6 @@ module.exports = ({ isPackage, projectConfig: { filenames }, buildFiles }) => {
 	if (isPackage) {
 		return {
 			path: path.resolve(process.cwd(), 'dist'),
-			clean: true,
 		};
 	}
 

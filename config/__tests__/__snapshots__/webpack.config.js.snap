@@ -20,12 +20,15 @@ Object {
       },
     },
   },
-  "externals": Object {
-    "lodash": "lodash",
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
-  },
+  "externals": Array [
+    Object {
+      "lodash": "lodash",
+      "read-pkg": "read-pkg",
+      "read-pkg-up": "read-pkg-up",
+      "resolve-bin": "resolve-bin",
+    },
+    /\\^core-js/,
+  ],
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -84,7 +87,6 @@ Object {
     ],
   },
   "output": Object {
-    "clean": true,
     "path": "/dist",
   },
   "performance": Object {
@@ -250,11 +252,14 @@ Object {
       },
     },
   },
-  "externals": Object {
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
-  },
+  "externals": Array [
+    Object {
+      "read-pkg": "read-pkg",
+      "read-pkg-up": "read-pkg-up",
+      "resolve-bin": "resolve-bin",
+    },
+    /\\^core-js/,
+  ],
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -331,7 +336,6 @@ Object {
     ],
   },
   "output": Object {
-    "clean": true,
     "path": "/dist",
   },
   "performance": Object {
@@ -379,11 +383,14 @@ Object {
       },
     },
   },
-  "externals": Object {
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
-  },
+  "externals": Array [
+    Object {
+      "read-pkg": "read-pkg",
+      "read-pkg-up": "read-pkg-up",
+      "resolve-bin": "resolve-bin",
+    },
+    /\\^core-js/,
+  ],
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -460,7 +467,6 @@ Object {
     ],
   },
   "output": Object {
-    "clean": true,
     "path": "/dist",
   },
   "performance": Object {
@@ -516,12 +522,15 @@ Object {
       },
     },
   },
-  "externals": Object {
-    "lodash": "lodash",
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
-  },
+  "externals": Array [
+    Object {
+      "lodash": "lodash",
+      "read-pkg": "read-pkg",
+      "read-pkg-up": "read-pkg-up",
+      "resolve-bin": "resolve-bin",
+    },
+    /\\^core-js/,
+  ],
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -598,7 +607,6 @@ Object {
     ],
   },
   "output": Object {
-    "clean": true,
     "path": "/dist",
   },
   "performance": Object {
