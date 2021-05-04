@@ -15,6 +15,7 @@
   },
   "version": "1.4.0-rc1",
   "bin": {
+    "10up-toolkit": "bin/10up-toolkit.js",
     "10up-scripts": "bin/10up-scripts.js"
   },
   "husky": {

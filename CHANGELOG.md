@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.3.4
+- Deprecate 10up-scripts command and exposes a new 10up-toolkit command.
+
 ## 1.3.3
 - Disables webpack css-loader url resolution [#39](https://github.com/10up/10up-scripts/pull/39)
 - Only load and run the postcss-editor-styles plugin when processing editor-style.css [#41](https://github.com/10up/10up-scripts/pull/41)
