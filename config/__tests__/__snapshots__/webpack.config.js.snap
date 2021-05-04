@@ -269,7 +269,23 @@ Object {
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "presets": Array [
+                Array [
+                  "/node_modules/@10up/babel-preset-default/index.js",
+                  Object {
+                    "targets": Array [
+                      "> 1%",
+                      "ie >= 11",
+                      "Firefox ESR",
+                      "last 2 versions",
+                    ],
+                    "wordpress": true,
+                  },
+                ],
+              ],
             },
           },
         ],
@@ -385,7 +401,23 @@ Object {
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "presets": Array [
+                Array [
+                  "/node_modules/@10up/babel-preset-default/index.js",
+                  Object {
+                    "targets": Array [
+                      "> 1%",
+                      "ie >= 11",
+                      "Firefox ESR",
+                      "last 2 versions",
+                    ],
+                    "wordpress": true,
+                  },
+                ],
+              ],
             },
           },
         ],
@@ -510,7 +542,23 @@ Object {
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "presets": Array [
+                Array [
+                  "/node_modules/@10up/babel-preset-default/index.js",
+                  Object {
+                    "targets": Array [
+                      "> 1%",
+                      "ie >= 11",
+                      "Firefox ESR",
+                      "last 2 versions",
+                    ],
+                    "wordpress": true,
+                  },
+                ],
+              ],
             },
           },
         ],
@@ -621,7 +669,23 @@ Object {
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "presets": Array [
+                Array [
+                  "/node_modules/@10up/babel-preset-default/index.js",
+                  Object {
+                    "targets": Array [
+                      "> 1%",
+                      "ie >= 11",
+                      "Firefox ESR",
+                      "last 2 versions",
+                    ],
+                    "wordpress": true,
+                  },
+                ],
+              ],
             },
           },
         ],

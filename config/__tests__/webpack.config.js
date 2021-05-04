@@ -35,6 +35,7 @@ describe('webpack.config.js', () => {
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();
+		hasProjectFileMock.mockReset();
 	});
 
 	it('returns proper configs for project configs', () => {

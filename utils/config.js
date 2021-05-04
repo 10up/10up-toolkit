@@ -103,6 +103,7 @@ const getDefaultConfig = () => {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
 		filenames: require(fromConfigRoot('filenames.config.js')),
 		paths: require(fromConfigRoot('paths.config.js')),
+		wordpress: true,
 		// true by default (if TENUP_NO_EXTERNALS is not set)
 		// if TENUP_NO_EXTERNALS is truthy then dependecyExternals is false
 		wpDependencyExternals:

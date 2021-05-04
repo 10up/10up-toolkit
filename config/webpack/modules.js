@@ -3,7 +3,12 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
 
-module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { paths } }) => {
+module.exports = ({
+	isProduction,
+	isPackage,
+	defaultTargets,
+	projectConfig: { wordpress, paths },
+}) => {
 	const cssLoaders = [
 		{
 			loader: MiniCSSExtractPlugin.loader,
@@ -53,7 +58,7 @@ module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { pa
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
-										{ wordpress: true, targets: defaultTargets },
+										{ wordpress, targets: defaultTargets },
 									],
 								],
 							}),
