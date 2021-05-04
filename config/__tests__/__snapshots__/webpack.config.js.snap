@@ -50,10 +50,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets/css",
-          "/includes/blocks",
-        ],
+        "include": undefined,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -298,10 +295,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets/css",
-          "/includes/blocks",
-        ],
+        "include": undefined,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -430,10 +424,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets/css",
-          "/includes/blocks",
-        ],
+        "include": undefined,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -571,10 +562,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets/css",
-          "/includes/blocks",
-        ],
+        "include": undefined,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {

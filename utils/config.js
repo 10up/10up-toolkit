@@ -176,10 +176,12 @@ const normalizePackageType = (type) => {
 const getTenUpScriptsPackageBuildConfig = () => {
 	const packageJson = getPackage();
 	const config = getTenUpScriptsConfig();
-	const { name = 'default-package', source, main } = packageJson;
+	const { name = 'default-package', style } = packageJson;
 	const packageType = normalizePackageType(
 		getArgFromCLI('-f') || getArgFromCLI('--format') || config.packageType || 'umd',
 	);
+	const source = getArgFromCLI('-i') || getArgFromCLI('--input') || packageJson.source;
+	const main = getArgFromCLI('-o') || getArgFromCLI('--output') || packageJson.main;
 
 	let umd = false;
 	if (packageType === 'umd') {
@@ -213,6 +215,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		source,
 		main,
 		umd,
+		style,
 		externals,
 		libraryName: config.libraryName ? config.libraryName : safeVariableName(name),
 		packageType,

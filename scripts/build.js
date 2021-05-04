@@ -14,6 +14,11 @@ const {
 	displayWebpackStats,
 } = require('../utils');
 
+if (hasArgInCLI('--watch')) {
+	require('./watch');
+	return;
+}
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 if (hasArgInCLI('--webpack-no-externals')) {

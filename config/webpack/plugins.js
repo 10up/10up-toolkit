@@ -11,10 +11,15 @@ const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
 const { hasStylelintConfig, fromConfigRoot } = require('../../utils');
 
+const removeDistFolder = (file) => {
+	return file.replace(/(^\.\/dist\/)|^dist\//, '');
+};
+
 module.exports = ({
 	isPackage,
 	isProduction,
 	projectConfig: { filenames, devURL, paths, wpDependencyExternals },
+	packageConfig: { style },
 }) => {
 	return [
 		new ESLintPlugin({
@@ -26,6 +31,10 @@ module.exports = ({
 		new MiniCSSExtractPlugin({
 			// esModule: false,
 			filename: (options) => {
+				if (isPackage) {
+					return removeDistFolder(style);
+				}
+
 				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
 			},
 			chunkFilename: '[id].css',

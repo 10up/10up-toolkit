@@ -92,6 +92,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			'umd:main': 'dist/index.umd.js',
+			style: 'dist/index.css',
 			dependencies: {
 				'read-pkg': '^5.2.0',
 				'read-pkg-up': '^1.0.1',
@@ -106,6 +107,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			umd: 'dist/index.umd.js',
+			style: 'dist/index.css',
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 			libraryName: 'myComponentLibrary',
 			packageType: 'umd',
@@ -174,6 +176,18 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
 			source: 'src/index.js',
 			main: 'dist/index.js',
+			umd: false,
+			externals: [],
+			libraryName: 'myComponentLibrary',
+			packageType: 'commonjs2',
+		});
+
+		process.argv.push('-i=src/index.umd.js');
+		process.argv.push('-o=dist/index.umd.js');
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.umd.js',
+			main: 'dist/index.umd.js',
 			umd: false,
 			externals: [],
 			libraryName: 'myComponentLibrary',

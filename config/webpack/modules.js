@@ -72,9 +72,9 @@ module.exports = ({
 			},
 			{
 				test: /\.css$/,
-				include: paths.cssLoaderPaths.map((cssPath) =>
-					path.resolve(process.cwd(), cssPath),
-				),
+				include: isPackage
+					? undefined
+					: paths.cssLoaderPaths.map((cssPath) => path.resolve(process.cwd(), cssPath)),
 				use: cssLoaders,
 			},
 			// when in package module only include referenced resources
