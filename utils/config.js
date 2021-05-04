@@ -211,13 +211,15 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		}
 	}
 
+	const libraryName = getArgFromCLI('--name') || config.libraryName || safeVariableName(name);
+
 	return {
 		source,
 		main,
 		umd,
 		style,
 		externals,
-		libraryName: config.libraryName ? config.libraryName : safeVariableName(name),
+		libraryName,
 		packageType,
 	};
 };

@@ -184,13 +184,14 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 
 		process.argv.push('-i=src/index.umd.js');
 		process.argv.push('-o=dist/index.umd.js');
+		process.argv.push('--name=ComponentLibrary');
 
 		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
 			source: 'src/index.umd.js',
 			main: 'dist/index.umd.js',
 			umd: false,
 			externals: [],
-			libraryName: 'myComponentLibrary',
+			libraryName: 'ComponentLibrary',
 			packageType: 'commonjs2',
 		});
 	});
