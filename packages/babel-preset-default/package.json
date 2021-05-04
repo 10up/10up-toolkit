@@ -1,0 +1,38 @@
+{
+  "name": "@10up/babel-preset-default",
+  "version": "1.1.0",
+  "description": "10up's default babel preset",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "eslint --fix .",
+    "test": "jest",
+    "test:update": "jest --updateSnapshot"
+  },
+  "keywords": [
+    "10up",
+    "babel",
+    "preset"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/babel-preset-default.git"
+  },
+  "bugs": {
+    "url": "https://github.com/10up/babel-preset-default/issues"
+  },
+  "homepage": "https://github.com/10up/babel-preset-default#readme",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "@babel/helper-plugin-utils": "^7.10.4",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@wordpress/babel-preset-default": "^4.11.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "core-js": "^3.8.2"
+  },
+  "devDependencies": {
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3"
+  }
+}

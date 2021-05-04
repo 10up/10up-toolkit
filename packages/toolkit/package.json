@@ -1,0 +1,111 @@
+{
+  "name": "10up-toolkit",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "10up",
+    "email": "info@10up.com",
+    "url": "https://10up.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/10up-scripts.git",
+    "directory": "packages/scripts"
+  },
+  "version": "1.4.0-rc1",
+  "bin": {
+    "10up-toolkit": "bin/10up-toolkit.js",
+    "10up-scripts": "bin/10up-scripts.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@10up/babel-preset-default": "^1.1.0",
+    "@10up/eslint-config": "^2.3.4",
+    "@10up/stylelint-config": "^1.0.11",
+    "@babel/core": "^7.2.0",
+    "@babel/eslint-parser": "^7.12.13",
+    "@svgr/webpack": "^5.5.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^3.0.1",
+    "@wordpress/eslint-plugin": "^8.0.0",
+    "@wordpress/jest-preset-default": "^7.0.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "browser-sync": "^2.26.13",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "camelcase": "^6.2.0",
+    "chalk": "^4.1.0",
+    "check-node-version": "^4.0.3",
+    "copy-webpack-plugin": "^6.4.1",
+    "core-js": "^3.9.0",
+    "cross-spawn": "^7.0.3",
+    "css-loader": "^5.0.1",
+    "cssnano": "^4.1.10",
+    "dir-glob": "^3.0.1",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-jsdoc": "^31.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-webpack-plugin": "^2.5.2",
+    "husky": "^4.3.8",
+    "ignore-emit-webpack-plugin": "2.0.6",
+    "imagemin-webpack-plugin": "^2.4.2",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.3",
+    "mini-css-extract-plugin": "^1.3.4",
+    "minimist": "^1.2.5",
+    "postcss": "^8.2.6",
+    "postcss-css-variables": "^0.17.0",
+    "postcss-editor-styles": "^0.3.0",
+    "postcss-import": "^14.0.0",
+    "postcss-loader": "^5.0.0",
+    "postcss-mixins": "^7.0.3",
+    "postcss-nested": "^5.0.5",
+    "postcss-object-fit-images": "^1.1.2",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.2.1",
+    "read-pkg": "^5.2.0",
+    "read-pkg-up": "^1.0.1",
+    "resolve-bin": "^0.4.0",
+    "stylelint": "^13.9.0",
+    "stylelint-webpack-plugin": "^2.1.1",
+    "thread-loader": "^3.0.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.24.2",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-sources": "^2.2.0",
+    "webpackbar": "^5.0.0-3"
+  },
+  "description": "Collection of reusable scripts for 10up development.",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6.9"
+  },
+  "scripts": {
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch"
+  },
+  "keywords": [
+    "wordpress",
+    "scripts"
+  ],
+  "license": "GPL-2.0-or-later"
+}

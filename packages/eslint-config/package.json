@@ -1,0 +1,63 @@
+{
+  "name": "@10up/eslint-config",
+  "version": "2.3.4",
+  "description": "A shareable ESLint configuration",
+  "scripts": {
+    "lint": "eslint .",
+		"test": "npm run test:index && npm run test:react && npm run test:wordpress && npm run test:node",
+    "test:index": "node fixtures/test-eslint-config --config-file=./index.js",
+    "test:react": "node fixtures/test-eslint-config --config-file=./react.js",
+    "test:wordpress": "node fixtures/test-eslint-config --config-file=./wordpress.js",
+    "test:node": "node fixtures/test-eslint-config --config-file=./node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10up/eslint-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/10up/eslint-config/issues"
+  },
+  "author": "10up <info@10up.com> (https://10up.com)",
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/10up/eslint-config#readme",
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "10up"
+  ],
+  "dependencies": {
+    "@10up/babel-preset-default": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/eslint-parser": "^7.12.13",
+    "@wordpress/eslint-plugin": "^4.0.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-jsdoc": "^31.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4 || ^3 || ^2.3.0 || ^1.7.0",
+    "prettier": "^2.2.1"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/eslint-parser": "^7.12.13",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsdoc": "^31.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4 || ^3 || ^2.3.0 || ^1.7.0",
+    "prettier": "^2.2.1"
+  }
+}

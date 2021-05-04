@@ -1,0 +1,816 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Babel preset default transpiles ES6+ code properly 1`] = `
+"\\"use strict\\";
+
+require(\\"core-js/modules/es.object.to-string.js\\");
+
+require(\\"core-js/modules/es.promise.js\\");
+
+require(\\"regenerator-runtime/runtime.js\\");
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === \\"undefined\\" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \\"number\\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\\"Invalid attempt to iterate non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"next\\", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"throw\\", err); } _next(undefined); }); }; }
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(generator);
+
+var constVar = 'someConstVar';
+var promise = new Promise(function (resolve) {
+  setTimeout(function () {
+    resolve(\\"Resolving \\".concat(constVar));
+  }, 100);
+});
+
+function generator() {
+  return regeneratorRuntime.wrap(function generator$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return 1;
+
+        case 2:
+          _context.next = 4;
+          return 2;
+
+        case 4:
+          _context.next = 6;
+          return 3;
+
+        case 6:
+        case \\"end\\":
+          return _context.stop();
+      }
+    }
+  }, _marked);
+}
+
+var object = {
+  a: {
+    b: 'b'
+  },
+  b: {
+    a: 'a'
+  }
+};
+
+var init = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var _object$a;
+
+    var result, _iterator, _step, a;
+
+    return regeneratorRuntime.wrap(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return promise();
+
+          case 2:
+            result = _context2.sent;
+            _iterator = _createForOfIteratorHelper(generator());
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                a = _step.value;
+                console.log(a);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            console.log(object === null || object === void 0 ? void 0 : (_object$a = object.a) === null || _object$a === void 0 ? void 0 : _object$a.b);
+            return _context2.abrupt(\\"return\\", result);
+
+          case 7:
+          case \\"end\\":
+            return _context2.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function init() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+init().then(function (result) {
+  console.log(result);
+});"
+`;
+
+exports[`Babel preset default transpiles ES6+ code properly with runtimeESModules set to true 1`] = `
+"\\"use strict\\";
+
+require(\\"core-js/modules/es.object.to-string.js\\");
+
+require(\\"core-js/modules/es.promise.js\\");
+
+require(\\"regenerator-runtime/runtime.js\\");
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === \\"undefined\\" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \\"number\\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\\"Invalid attempt to iterate non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"next\\", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"throw\\", err); } _next(undefined); }); }; }
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(generator);
+
+var constVar = 'someConstVar';
+var promise = new Promise(function (resolve) {
+  setTimeout(function () {
+    resolve(\\"Resolving \\".concat(constVar));
+  }, 100);
+});
+
+function generator() {
+  return regeneratorRuntime.wrap(function generator$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return 1;
+
+        case 2:
+          _context.next = 4;
+          return 2;
+
+        case 4:
+          _context.next = 6;
+          return 3;
+
+        case 6:
+        case \\"end\\":
+          return _context.stop();
+      }
+    }
+  }, _marked);
+}
+
+var object = {
+  a: {
+    b: 'b'
+  },
+  b: {
+    a: 'a'
+  }
+};
+
+var init = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var _object$a;
+
+    var result, _iterator, _step, a;
+
+    return regeneratorRuntime.wrap(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return promise();
+
+          case 2:
+            result = _context2.sent;
+            _iterator = _createForOfIteratorHelper(generator());
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                a = _step.value;
+                console.log(a);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            console.log(object === null || object === void 0 ? void 0 : (_object$a = object.a) === null || _object$a === void 0 ? void 0 : _object$a.b);
+            return _context2.abrupt(\\"return\\", result);
+
+          case 7:
+          case \\"end\\":
+            return _context2.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function init() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+init().then(function (result) {
+  console.log(result);
+});"
+`;
+
+exports[`Babel preset default transpiles react code properly 1`] = `
+"\\"use strict\\";
+
+function _typeof(obj) { \\"@babel/helpers - typeof\\"; if (typeof Symbol === \\"function\\" && typeof Symbol.iterator === \\"symbol\\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \\"function\\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \\"symbol\\" : typeof obj; }; } return _typeof(obj); }
+
+require(\\"core-js/modules/es.symbol.js\\");
+
+require(\\"core-js/modules/es.symbol.description.js\\");
+
+require(\\"core-js/modules/es.object.get-prototype-of.js\\");
+
+require(\\"core-js/modules/es.object.set-prototype-of.js\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require(\\"react\\");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\\"value\\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== \\"function\\" && superClass !== null) { throw new TypeError(\\"Super expression must either be null or a function\\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \\"object\\" || typeof call === \\"function\\")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\\"this hasn't been initialised - super() hasn't been called\\"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// eslint-disable-line import/no-extraneous-dependencies
+var FCComponent = function FCComponent(_ref) {
+  var title = _ref.title,
+      url = _ref.url,
+      description = _ref.description;
+  return /*#__PURE__*/React.createElement(\\"div\\", {
+    className: \\"component-test-babel\\"
+  }, /*#__PURE__*/React.createElement(\\"a\\", {
+    href: url,
+    title: title
+  }, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
+};
+
+FCComponent.defaultProps = {
+  title: '',
+  url: '',
+  description: ''
+};
+
+var ClassComponent = /*#__PURE__*/function (_Component) {
+  _inherits(ClassComponent, _Component);
+
+  var _super = _createSuper(ClassComponent);
+
+  function ClassComponent() {
+    _classCallCheck(this, ClassComponent);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ClassComponent, [{
+    key: \\"componentDidMount\\",
+    value: function componentDidMount() {// doing something
+    }
+  }, {
+    key: \\"render\\",
+    value: function render() {
+      var title = this.props.title;
+      return /*#__PURE__*/React.createElement(\\"div\\", {
+        className: \\"Class Component\\"
+      }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
+    }
+  }]);
+
+  return ClassComponent;
+}(_react.Component);
+
+var _default = FCComponent;
+exports.default = _default;"
+`;
+
+exports[`Babel preset default transpiles without removing proptypes in dev mode 1`] = `
+"\\"use strict\\";
+
+function _typeof(obj) { \\"@babel/helpers - typeof\\"; if (typeof Symbol === \\"function\\" && typeof Symbol.iterator === \\"symbol\\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \\"function\\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \\"symbol\\" : typeof obj; }; } return _typeof(obj); }
+
+require(\\"core-js/modules/es.symbol.js\\");
+
+require(\\"core-js/modules/es.symbol.description.js\\");
+
+require(\\"core-js/modules/es.object.get-prototype-of.js\\");
+
+require(\\"core-js/modules/es.object.set-prototype-of.js\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require(\\"react\\");
+
+var _propTypes = _interopRequireDefault(require(\\"prop-types\\"));
+
+var _jsxFileName = \\"\\",
+    _this = void 0;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\\"value\\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== \\"function\\" && superClass !== null) { throw new TypeError(\\"Super expression must either be null or a function\\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \\"object\\" || typeof call === \\"function\\")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\\"this hasn't been initialised - super() hasn't been called\\"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// eslint-disable-line import/no-extraneous-dependencies
+var FCComponent = function FCComponent(_ref) {
+  var title = _ref.title,
+      url = _ref.url,
+      description = _ref.description;
+  return /*#__PURE__*/React.createElement(\\"div\\", {
+    className: \\"component-test-babel\\",
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5,
+      columnNumber: 2
+    }
+  }, /*#__PURE__*/React.createElement(\\"a\\", {
+    href: url,
+    title: title,
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 3
+    }
+  }, /*#__PURE__*/React.createElement(\\"h1\\", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 4
+    }
+  }, title)), /*#__PURE__*/React.createElement(\\"p\\", {
+    __self: _this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9,
+      columnNumber: 3
+    }
+  }, description));
+};
+
+FCComponent.propTypes = {
+  title: _propTypes.default.string,
+  url: _propTypes.default.string,
+  description: _propTypes.default.string
+};
+FCComponent.defaultProps = {
+  title: '',
+  url: '',
+  description: ''
+};
+
+var ClassComponent = /*#__PURE__*/function (_Component) {
+  _inherits(ClassComponent, _Component);
+
+  var _super = _createSuper(ClassComponent);
+
+  function ClassComponent() {
+    _classCallCheck(this, ClassComponent);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ClassComponent, [{
+    key: \\"componentDidMount\\",
+    value: function componentDidMount() {// doing something
+    }
+  }, {
+    key: \\"render\\",
+    value: function render() {
+      var title = this.props.title;
+      return /*#__PURE__*/React.createElement(\\"div\\", {
+        className: \\"Class Component\\",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 33,
+          columnNumber: 4
+        }
+      }, /*#__PURE__*/React.createElement(\\"h1\\", {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 34,
+          columnNumber: 5
+        }
+      }, title));
+    }
+  }]);
+
+  return ClassComponent;
+}(_react.Component);
+
+ClassComponent.propTypes = {
+  title: _propTypes.default.string.isRequired
+};
+var _default = FCComponent;
+exports.default = _default;"
+`;
+
+exports[`Babel preset default transpiles without transforming es6 imports 1`] = `
+"import \\"core-js/modules/es.object.to-string.js\\";
+import \\"core-js/modules/es.promise.js\\";
+import \\"regenerator-runtime/runtime.js\\";
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === \\"undefined\\" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \\"number\\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\\"Invalid attempt to iterate non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \\"string\\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \\"Object\\" && o.constructor) n = o.constructor.name; if (n === \\"Map\\" || n === \\"Set\\") return Array.from(o); if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"next\\", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, \\"throw\\", err); } _next(undefined); }); }; }
+
+var _marked = /*#__PURE__*/regeneratorRuntime.mark(generator);
+
+var constVar = 'someConstVar';
+var promise = new Promise(function (resolve) {
+  setTimeout(function () {
+    resolve(\\"Resolving \\".concat(constVar));
+  }, 100);
+});
+
+function generator() {
+  return regeneratorRuntime.wrap(function generator$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return 1;
+
+        case 2:
+          _context.next = 4;
+          return 2;
+
+        case 4:
+          _context.next = 6;
+          return 3;
+
+        case 6:
+        case \\"end\\":
+          return _context.stop();
+      }
+    }
+  }, _marked);
+}
+
+var object = {
+  a: {
+    b: 'b'
+  },
+  b: {
+    a: 'a'
+  }
+};
+
+var init = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var _object$a;
+
+    var result, _iterator, _step, a;
+
+    return regeneratorRuntime.wrap(function _callee$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return promise();
+
+          case 2:
+            result = _context2.sent;
+            _iterator = _createForOfIteratorHelper(generator());
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                a = _step.value;
+                console.log(a);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            console.log(object === null || object === void 0 ? void 0 : (_object$a = object.a) === null || _object$a === void 0 ? void 0 : _object$a.b);
+            return _context2.abrupt(\\"return\\", result);
+
+          case 7:
+          case \\"end\\":
+            return _context2.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function init() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+init().then(function (result) {
+  console.log(result);
+});"
+`;
+
+exports[`Babel preset default transpiles wordpress code properly 1`] = `
+"\\"use strict\\";
+
+var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+require(\\"core-js/modules/es.symbol.js\\");
+
+require(\\"core-js/modules/es.symbol.description.js\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+
+var _element = require(\\"@wordpress/element\\");
+
+var _classCallCheck2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/classCallCheck\\"));
+
+var _createClass2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/createClass\\"));
+
+var _inherits2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/inherits\\"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/possibleConstructorReturn\\"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/getPrototypeOf\\"));
+
+var _react = require(\\"react\\");
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2.default)(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+// eslint-disable-line import/no-extraneous-dependencies
+var FCComponent = function FCComponent(_ref) {
+  var title = _ref.title,
+      url = _ref.url,
+      description = _ref.description;
+  return (0, _element.createElement)(\\"div\\", {
+    className: \\"component-test-babel\\"
+  }, (0, _element.createElement)(\\"a\\", {
+    href: url,
+    title: title
+  }, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
+};
+
+FCComponent.defaultProps = {
+  title: '',
+  url: '',
+  description: ''
+};
+
+var ClassComponent = /*#__PURE__*/function (_Component) {
+  (0, _inherits2.default)(ClassComponent, _Component);
+
+  var _super = _createSuper(ClassComponent);
+
+  function ClassComponent() {
+    (0, _classCallCheck2.default)(this, ClassComponent);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(ClassComponent, [{
+    key: \\"componentDidMount\\",
+    value: function componentDidMount() {// doing something
+    }
+  }, {
+    key: \\"render\\",
+    value: function render() {
+      var title = this.props.title;
+      return (0, _element.createElement)(\\"div\\", {
+        className: \\"Class Component\\"
+      }, (0, _element.createElement)(\\"h1\\", null, title));
+    }
+  }]);
+  return ClassComponent;
+}(_react.Component);
+
+var _default = FCComponent;
+exports.default = _default;"
+`;
+
+exports[`Babel preset default with automatic runtime transpiles react code properly with automatic runtime 1`] = `
+"\\"use strict\\";
+
+function _typeof(obj) { \\"@babel/helpers - typeof\\"; if (typeof Symbol === \\"function\\" && typeof Symbol.iterator === \\"symbol\\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \\"function\\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \\"symbol\\" : typeof obj; }; } return _typeof(obj); }
+
+require(\\"core-js/modules/es.symbol.js\\");
+
+require(\\"core-js/modules/es.symbol.description.js\\");
+
+require(\\"core-js/modules/es.object.get-prototype-of.js\\");
+
+require(\\"core-js/modules/es.object.set-prototype-of.js\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require(\\"react\\");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\\"Cannot call a class as a function\\"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\\"value\\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== \\"function\\" && superClass !== null) { throw new TypeError(\\"Super expression must either be null or a function\\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \\"object\\" || typeof call === \\"function\\")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\\"this hasn't been initialised - super() hasn't been called\\"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// eslint-disable-line import/no-extraneous-dependencies
+var FCComponent = function FCComponent(_ref) {
+  var title = _ref.title,
+      url = _ref.url,
+      description = _ref.description;
+  return /*#__PURE__*/React.createElement(\\"div\\", {
+    className: \\"component-test-babel\\"
+  }, /*#__PURE__*/React.createElement(\\"a\\", {
+    href: url,
+    title: title
+  }, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
+};
+
+FCComponent.defaultProps = {
+  title: '',
+  url: '',
+  description: ''
+};
+
+var ClassComponent = /*#__PURE__*/function (_Component) {
+  _inherits(ClassComponent, _Component);
+
+  var _super = _createSuper(ClassComponent);
+
+  function ClassComponent() {
+    _classCallCheck(this, ClassComponent);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ClassComponent, [{
+    key: \\"componentDidMount\\",
+    value: function componentDidMount() {// doing something
+    }
+  }, {
+    key: \\"render\\",
+    value: function render() {
+      var title = this.props.title;
+      return /*#__PURE__*/React.createElement(\\"div\\", {
+        className: \\"Class Component\\"
+      }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
+    }
+  }]);
+
+  return ClassComponent;
+}(_react.Component);
+
+var _default = FCComponent;
+exports.default = _default;"
+`;
+
+exports[`Babel preset default with automatic runtime transpiles wordpress code properly even when jsx-runtime.js is present 1`] = `
+"\\"use strict\\";
+
+var _interopRequireDefault = require(\\"@babel/runtime/helpers/interopRequireDefault\\");
+
+require(\\"core-js/modules/es.symbol.js\\");
+
+require(\\"core-js/modules/es.symbol.description.js\\");
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.default = void 0;
+
+var _element = require(\\"@wordpress/element\\");
+
+var _classCallCheck2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/classCallCheck\\"));
+
+var _createClass2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/createClass\\"));
+
+var _inherits2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/inherits\\"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/possibleConstructorReturn\\"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require(\\"@babel/runtime/helpers/getPrototypeOf\\"));
+
+var _react = require(\\"react\\");
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2.default)(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2.default)(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2.default)(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === \\"undefined\\" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === \\"function\\") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+// eslint-disable-line import/no-extraneous-dependencies
+var FCComponent = function FCComponent(_ref) {
+  var title = _ref.title,
+      url = _ref.url,
+      description = _ref.description;
+  return (0, _element.createElement)(\\"div\\", {
+    className: \\"component-test-babel\\"
+  }, (0, _element.createElement)(\\"a\\", {
+    href: url,
+    title: title
+  }, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
+};
+
+FCComponent.defaultProps = {
+  title: '',
+  url: '',
+  description: ''
+};
+
+var ClassComponent = /*#__PURE__*/function (_Component) {
+  (0, _inherits2.default)(ClassComponent, _Component);
+
+  var _super = _createSuper(ClassComponent);
+
+  function ClassComponent() {
+    (0, _classCallCheck2.default)(this, ClassComponent);
+    return _super.apply(this, arguments);
+  }
+
+  (0, _createClass2.default)(ClassComponent, [{
+    key: \\"componentDidMount\\",
+    value: function componentDidMount() {// doing something
+    }
+  }, {
+    key: \\"render\\",
+    value: function render() {
+      var title = this.props.title;
+      return (0, _element.createElement)(\\"div\\", {
+        className: \\"Class Component\\"
+      }, (0, _element.createElement)(\\"h1\\", null, title));
+    }
+  }]);
+  return ClassComponent;
+}(_react.Component);
+
+var _default = FCComponent;
+exports.default = _default;"
+`;

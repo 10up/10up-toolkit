@@ -1,5 +1,8 @@
 module.exports = {
-	extends: ['@10up/eslint-config', '@10up/eslint-config/jest'],
+	extends: [
+		require.resolve('./packages/eslint-config/react'),
+		require.resolve('./packages/eslint-config/jest'),
+	],
 	rules: {
 		'import/no-dynamic-require': [0],
 		'global-require': [0],
