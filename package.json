@@ -13,8 +13,9 @@
     "url": "git+https://github.com/10up/10up-scripts.git",
     "directory": "packages/scripts"
   },
-  "version": "1.3.3",
+  "version": "1.3.4",
   "bin": {
+    "10up-toolkit": "bin/10up-toolkit.js",
     "10up-scripts": "bin/10up-scripts.js"
   },
   "husky": {

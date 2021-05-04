@@ -1,20 +1,7 @@
 #!/usr/bin/env node
 
-/**
- * Internal dependencies
- */
-const { getNodeArgsFromCLI, spawnScript, getPackageVersion } = require('../utils');
-const { exit } = require('../utils/process');
+console.warn(
+	'Please use 10up-toolkit command, the 10up-scripts command is deprecated and will be removed soon!',
+);
 
-const { scriptName, scriptArgs, nodeArgs } = getNodeArgsFromCLI();
-
-(async () => {
-	if (scriptArgs.includes('--version') || (scriptArgs.includes('-v') && !scriptName)) {
-		const version = await getPackageVersion();
-		// eslint-disable-next-line no-console
-		console.log('Version:', version);
-		exit(0);
-	}
-
-	spawnScript(scriptName, scriptArgs, nodeArgs);
-})();
+require('./10up-toolkit');
