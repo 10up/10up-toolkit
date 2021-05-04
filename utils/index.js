@@ -12,7 +12,6 @@ const {
 } = require('./cli');
 
 const {
-	getWebpackArgs,
 	hasBabelConfig,
 	getJestOverrideConfigFile,
 	hasJestConfig,
@@ -40,7 +39,6 @@ module.exports = {
 	getFileArgsFromCLI,
 	getNodeArgsFromCLI,
 	hasStylelintConfig,
-	getWebpackArgs,
 	hasBabelConfig,
 	hasArgInCLI,
 	hasFileArgInCLI,

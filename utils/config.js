@@ -1,21 +1,10 @@
 /**
- * External dependencies
- */
-const { basename } = require('path');
-
-/**
  * Internal dependencies
  */
 const { existsSync: fileExists } = require('fs');
 const path = require('path');
 const camelcase = require('camelcase');
-const {
-	getArgsFromCLI,
-	getFileArgsFromCLI,
-	hasArgInCLI,
-	hasFileArgInCLI,
-	getArgFromCLI,
-} = require('./cli');
+const { hasArgInCLI, getArgFromCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');
 
@@ -245,58 +234,7 @@ const getBuildFiles = () => {
 	return entries;
 };
 
-/**
- * Converts CLI arguments to the format which webpack understands.
- *
- * @see https://webpack.js.org/api/cli/#usage-with-config-file
- *
- * @returns {Array} The list of CLI arguments to pass to webpack CLI.
- */
-const getWebpackArgs = () => {
-	let webpackArgs = getArgsFromCLI(['--webpack']);
-
-	const hasWebpackOutputOption = hasArgInCLI('-o') || hasArgInCLI('--output');
-	if (hasFileArgInCLI() && !hasWebpackOutputOption) {
-		/**
-		 * Converts a path to the entry format supported by webpack, e.g.:
-		 * `./entry-one.js` -> `entry-one=./entry-one.js`
-		 * `entry-two.js` -> `entry-two=./entry-two.js`
-		 *
-		 * @param {string} path The path provided.
-		 *
-		 * @returns {string} The entry format supported by webpack.
-		 */
-		const pathToEntry = (path) => {
-			const entry = basename(path, '.js');
-			let webpackPath = path;
-
-			if (!path.startsWith('./')) {
-				webpackPath = `./${path}`;
-			}
-
-			return [entry, webpackPath].join('=');
-		};
-
-		// The following handles the support for multiple entry points in webpack, e.g.:
-		// `wp-scripts build one.js custom=./two.js` -> `webpack one=./one.js custom=./two.js`
-		webpackArgs = webpackArgs.map((cliArg) => {
-			if (getFileArgsFromCLI().includes(cliArg) && !cliArg.includes('=')) {
-				return pathToEntry(cliArg);
-			}
-
-			return cliArg;
-		});
-	}
-
-	if (!hasWebpackConfig()) {
-		webpackArgs.push('--config', fromConfigRoot('webpack.config.js'));
-	}
-
-	return webpackArgs;
-};
-
 module.exports = {
-	getWebpackArgs,
 	hasBabelConfig,
 	getJestOverrideConfigFile,
 	hasJestConfig,

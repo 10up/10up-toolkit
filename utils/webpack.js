@@ -6,15 +6,6 @@ const displayWebpackStats = (err, stats) => {
 		}
 		return;
 	}
-	const info = stats.toJson();
-
-	if (stats.hasErrors()) {
-		console.error(info.errors);
-	}
-
-	if (stats.hasWarnings()) {
-		console.warn(info.warnings);
-	}
 
 	process.stdout.write(`${stats.toString({ colors: true })}\n`);
 };
