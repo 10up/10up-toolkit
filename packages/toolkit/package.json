@@ -10,13 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10up/10up-scripts.git",
-    "directory": "packages/scripts"
+    "url": "git+https://github.com/10up/10up-toolkit.git",
+    "directory": "packages/toolkit"
   },
   "version": "1.4.0-rc1",
   "bin": {
-    "10up-toolkit": "bin/10up-toolkit.js",
-    "10up-scripts": "bin/10up-scripts.js"
+    "10up-toolkit": "bin/10up-toolkit.js"
   },
   "husky": {
     "hooks": {
