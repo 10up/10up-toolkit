@@ -99,8 +99,8 @@
     "npm": ">=6.9"
   },
   "scripts": {
-    "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "wordpress",
