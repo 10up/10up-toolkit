@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>10up Component Library | Accordion</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="../dist/index.css" rel="stylesheet">
+		<style>
+			.accordion {margin-bottom: 1em;}
+			.accordion .accordion {padding: 1em;}
+		</style>
+	</head>
+	<body>
+		<div class="accordion accordion--parent">
+			<button id="header1" class="accordion-header" type="button">Accordion Header 1</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 1st tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header 2</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Parent Accordion Heading</h2>
+				<p>here the content of 2nd tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header with Nested Accordion</button>
+			<div class="accordion-content">
+				<div class="accordion">
+					<button id="header2" class="accordion-header" type="button">Nested Accordion Header</button>
+					<div class="accordion-content">
+						<h2 class="accordion-label">Nested Accordion Heading</h2>
+						<p>here the content of 1st tab <a href="#">link</a></p>
+					</div> <!-- //.accordion-content -->
+
+					<button class="accordion-header" type="button">Nested Accordion Header</button>
+					<div class="accordion-content">
+						<h2 class="accordion-label">Nested Accordion Heading</h2>
+						<p>here the content of 2nd tab <a href="#">link</a></p>
+					</div> <!-- //.accordion-content -->
+				</div> <!-- //.accordion -->
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 4th tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+		</div> <!-- //.accordion -->
+
+		<div class="accordion">
+			<button id="header3" class="accordion-header" type="button">Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 1st tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 2nd tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 3rd tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+			<button class="accordion-header" type="button">Accordion Header</button>
+			<div class="accordion-content">
+				<h2 class="accordion-label">Accordion Heading</h2>
+				<p>here the content of 4th tab <a href="#">link</a></p>
+			</div> <!-- //.accordion-content -->
+
+		</div> <!-- //.accordion -->
+
+		<script src="../dist/index.umd.js"></script>
+		<script type="text/javascript">
+			var myAccordion = new window.TenUp.Accordion( '.accordion', {
+				onCreate: function() {
+					console.log( 'onCreated' )
+				},
+				onOpen: function() {
+					console.log( 'onOpen' )
+				},
+				onClose: function() {
+					console.log( 'onClose' )
+				},
+				onToggle: function() {
+					console.log( 'onToggle' )
+				}
+			} );
+		</script>
+	</body>
+</html>

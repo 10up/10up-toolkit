@@ -58,7 +58,11 @@ module.exports = ({
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
-										{ wordpress, targets: defaultTargets },
+										{
+											wordpress,
+											useBuiltIns: isPackage ? false : 'usage',
+											targets: defaultTargets,
+										},
 									],
 								],
 							}),

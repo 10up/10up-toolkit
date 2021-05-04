@@ -9,6 +9,7 @@ module.exports = declare((api, options) => {
 		debug = false,
 		removePropTypes = {},
 		targets = defaultTargets,
+		useBuiltIns = 'usage',
 	} = options;
 
 	const hasJsxRuntime = (() => {
@@ -28,8 +29,8 @@ module.exports = declare((api, options) => {
 			require.resolve('@babel/preset-env'),
 			{
 				debug,
-				useBuiltIns: 'usage',
-				corejs: { version: 3, proposals: true },
+				useBuiltIns,
+				corejs: useBuiltIns ? { version: 3, proposals: true } : undefined,
 				bugfixes: true,
 				modules,
 				targets,
