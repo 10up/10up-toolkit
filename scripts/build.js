@@ -1,13 +1,18 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require('cross-spawn');
-const { sync: resolveBin } = require('resolve-bin');
+const webpack = require('webpack');
 
 /**
  * Internal dependencies
  */
-const { getWebpackArgs, hasArgInCLI } = require('../utils');
+const {
+	hasArgInCLI,
+	fromConfigRoot,
+	fromProjectRoot,
+	hasWebpackConfig,
+	displayWebpackStats,
+} = require('../utils');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
@@ -19,10 +24,22 @@ if (hasArgInCLI('--webpack-bundle-analyzer')) {
 	process.env.WP_BUNDLE_ANALYZER = true;
 }
 
-// disable webpack 5 deprecation warnings as some plugins still need to catch up
-process.env.NODE_OPTIONS = '--no-deprecation';
+let configPath = fromConfigRoot('webpack.config.js');
 
-const { status } = spawn(resolveBin('webpack'), getWebpackArgs(), {
-	stdio: 'inherit',
+if (hasWebpackConfig()) {
+	configPath = fromProjectRoot('webpack.config.js');
+}
+
+const config = require(configPath);
+
+const compiler = webpack(config);
+
+compiler.run((err, stats) => {
+	displayWebpackStats(err, stats);
+
+	compiler.close((closedErr) => {
+		if (closedErr) {
+			console.error(closedErr);
+		}
+	});
 });
-process.exit(status);

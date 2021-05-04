@@ -24,10 +24,13 @@ const {
 	hasStylelintConfig,
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
+	hasWebpackConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
 const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
+
+const { displayWebpackStats } = require('./webpack');
 
 module.exports = {
 	fromProjectRoot,
@@ -56,4 +59,6 @@ module.exports = {
 	getPackageVersion,
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
+	hasWebpackConfig,
+	displayWebpackStats,
 };

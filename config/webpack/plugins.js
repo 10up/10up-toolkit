@@ -2,7 +2,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -22,10 +21,6 @@ module.exports = ({
 			failOnError: false,
 			fix: false,
 		}),
-
-		// During rebuilds, all webpack assets that are not used anymore
-		// will be removed automatically.
-		new CleanWebpackPlugin(),
 
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
 		new MiniCSSExtractPlugin({

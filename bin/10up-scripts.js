@@ -7,6 +7,8 @@ const { getNodeArgsFromCLI, spawnScript, getPackageVersion } = require('../utils
 const { exit } = require('../utils/process');
 
 const { scriptName, scriptArgs, nodeArgs } = getNodeArgsFromCLI();
+// disable webpack 5 deprecation warnings as some plugins still need to catch up
+process.env.NODE_OPTIONS = '--no-deprecation';
 
 (async () => {
 	if (scriptArgs.includes('--version') || (scriptArgs.includes('-v') && !scriptName)) {

@@ -1,13 +1,19 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require('cross-spawn');
-const { sync: resolveBin } = require('resolve-bin');
+const webpack = require('webpack');
 
 /**
  * Internal dependencies
  */
-const { getArgFromCLI, getWebpackArgs, hasArgInCLI } = require('../utils');
+const {
+	hasArgInCLI,
+	fromConfigRoot,
+	fromProjectRoot,
+	hasWebpackConfig,
+	getArgFromCLI,
+	displayWebpackStats,
+} = require('../utils');
 
 if (hasArgInCLI('--webpack-no-externals')) {
 	process.env.TENUP_NO_EXTERNALS = true;
@@ -21,10 +27,27 @@ if (hasArgInCLI('--webpack--devtool')) {
 	process.env.TENUP_DEVTOOL = getArgFromCLI('--webpack--devtool');
 }
 
-process.env.NODE_ENV = 'development';
-// disable webpack 5 deprecation warnings as some plugins still need to catch up
-process.env.NODE_OPTIONS = '--no-deprecation';
-const { status } = spawn(resolveBin('webpack'), [...getWebpackArgs(), '--watch'], {
-	stdio: 'inherit',
-});
-process.exit(status);
+let configPath = fromConfigRoot('webpack.config.js');
+
+if (hasWebpackConfig()) {
+	configPath = fromProjectRoot('webpack.config.js');
+}
+
+const config = require(configPath);
+
+const compiler = webpack(config);
+
+compiler.watch(
+	{
+		aggregateTimeout: 600,
+	},
+	(err, stats) => {
+		displayWebpackStats(err, stats);
+
+		compiler.close((closedErr) => {
+			if (closedErr) {
+				console.error(closedErr);
+			}
+		});
+	},
+);

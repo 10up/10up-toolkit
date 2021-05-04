@@ -190,6 +190,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	const packageType = normalizePackageType(
 		getArgFromCLI('-f') || getArgFromCLI('--format') || config.packageType || 'umd',
 	);
+
 	let umd = false;
 	if (packageType === 'umd') {
 		umd = packageJson.unpkg || packageJson['umd:main'] || false;
@@ -252,7 +253,6 @@ const getBuildFiles = () => {
  * @returns {Array} The list of CLI arguments to pass to webpack CLI.
  */
 const getWebpackArgs = () => {
-	// Gets all args from CLI without those prefixed with `--webpack`.
 	let webpackArgs = getArgsFromCLI(['--webpack']);
 
 	const hasWebpackOutputOption = hasArgInCLI('-o') || hasArgInCLI('--output');
@@ -309,4 +309,5 @@ module.exports = {
 	getTenUpScriptsConfig,
 	getDefaultConfig,
 	getTenUpScriptsPackageBuildConfig,
+	hasWebpackConfig,
 };
