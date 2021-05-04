@@ -3,7 +3,23 @@
 exports[`webpack.config.js properly detects user config files in package mode 1`] = `
 Object {
   "devtool": "source-map",
-  "entry": "src/index.js",
+  "entry": Object {
+    "main": Object {
+      "filename": "index.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "type": "commonjs2",
+      },
+    },
+    "umd": Object {
+      "filename": "index.umd.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "name": "componentLibrary",
+        "type": "umd",
+      },
+    },
+  },
   "externals": Object {
     "lodash": "lodash",
     "read-pkg": "read-pkg",
@@ -71,11 +87,7 @@ Object {
     ],
   },
   "output": Object {
-    "filename": "dist/index.js",
-    "library": Object {
-      "name": "componentLibrary",
-      "type": "umd",
-    },
+    "path": "/dist",
   },
   "performance": Object {
     "hints": "warning",
@@ -180,7 +192,9 @@ Object {
     ],
   },
   "output": Object {
-    "filename": [Function],
+    "filename": function filename(pathData) {
+      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+    },
     "path": "/dist",
   },
   "performance": Object {
@@ -222,7 +236,23 @@ Object {
 exports[`webpack.config.js returns proper configs for package config 1`] = `
 Object {
   "devtool": "source-map",
-  "entry": "src/index.js",
+  "entry": Object {
+    "main": Object {
+      "filename": "index.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "type": "commonjs2",
+      },
+    },
+    "umd": Object {
+      "filename": "index.umd.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "name": "componentLibrary",
+        "type": "umd",
+      },
+    },
+  },
   "externals": Object {
     "read-pkg": "read-pkg",
     "read-pkg-up": "read-pkg-up",
@@ -291,11 +321,123 @@ Object {
     ],
   },
   "output": Object {
-    "filename": "dist/index.js",
-    "library": Object {
-      "name": "componentLibrary",
-      "type": "umd",
+    "path": "/dist",
+  },
+  "performance": Object {
+    "hints": "warning",
+    "maxAssetSize": 102400,
+    "maxEntrypointSize": 409600,
+  },
+  "plugins": Array [
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    CleanWebpackPlugin: {},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
+    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    CleanExtractedDeps: {},
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
     },
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+}
+`;
+
+exports[`webpack.config.js returns proper configs for package config with commonjs2 format 1`] = `
+Object {
+  "devtool": "source-map",
+  "entry": Object {
+    "main": Object {
+      "filename": "index.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "type": "commonjs2",
+      },
+    },
+  },
+  "externals": Object {
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\\\\\.js\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "include": Array [
+          "/assets/css",
+          "/includes/blocks",
+        ],
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "type": "asset/resource",
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+    ],
+  },
+  "output": Object {
+    "path": "/dist",
   },
   "performance": Object {
     "hints": "warning",
@@ -334,7 +476,23 @@ Object {
 exports[`webpack.config.js returns proper configs for package config with peer deps 1`] = `
 Object {
   "devtool": "source-map",
-  "entry": "src/index.js",
+  "entry": Object {
+    "main": Object {
+      "filename": "index.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "type": "commonjs2",
+      },
+    },
+    "umd": Object {
+      "filename": "index.umd.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "name": "componentLibrary",
+        "type": "umd",
+      },
+    },
+  },
   "externals": Object {
     "lodash": "lodash",
     "read-pkg": "read-pkg",
@@ -404,11 +562,7 @@ Object {
     ],
   },
   "output": Object {
-    "filename": "dist/index.js",
-    "library": Object {
-      "name": "componentLibrary",
-      "type": "umd",
-    },
+    "path": "/dist",
   },
   "performance": Object {
     "hints": "warning",
@@ -515,7 +669,9 @@ Object {
     ],
   },
   "output": Object {
-    "filename": [Function],
+    "filename": function filename(pathData) {
+      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+    },
     "path": "/dist",
   },
   "performance": Object {

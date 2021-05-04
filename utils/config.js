@@ -162,6 +162,22 @@ const safeVariableName = (name) => {
 };
 
 /**
+ * Normalize the package type
+ *
+ * @param {string} type The user input package type
+ *
+ * @returns {string} normalized
+ */
+const normalizePackageType = (type) => {
+	switch (type) {
+		case 'commonjs':
+			return 'commonjs2';
+		default:
+			return type;
+	}
+};
+
+/**
  * Returns 10up-scripts configs for package builds. If 10up-scripts is not configured for building packages,
  * this returns false.
  *
@@ -171,7 +187,13 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	const packageJson = getPackage();
 	const config = getTenUpScriptsConfig();
 	const { name = 'default-package', source, main } = packageJson;
-	const umd = packageJson.unpkg || packageJson['umd:main'] || false;
+	const packageType = normalizePackageType(
+		getArgFromCLI('-f') || getArgFromCLI('--format') || config.packageType || 'umd',
+	);
+	let umd = false;
+	if (packageType === 'umd') {
+		umd = packageJson.unpkg || packageJson['umd:main'] || false;
+	}
 
 	// source and main are required
 	if (!source || !main) {
@@ -182,7 +204,8 @@ const getTenUpScriptsPackageBuildConfig = () => {
 
 	if (hasArgInCLI('--external')) {
 		const external = getArgFromCLI('--external');
-		if (external !== 'none') {
+
+		if (external && external !== 'none') {
 			externals = external.split(',');
 		}
 	} else {
@@ -194,8 +217,6 @@ const getTenUpScriptsPackageBuildConfig = () => {
 			externals = [...externals, ...Object.keys(packageJson.peerDependencies)];
 		}
 	}
-
-	const packageType = getArgFromCLI('-f') || getArgFromCLI('--format') || 'umd';
 
 	return {
 		source,

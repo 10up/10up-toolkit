@@ -69,12 +69,17 @@ module.exports = {
 			return printWebPackPlugin(val);
 		}
 
+		if (typeof val === 'function') {
+			return val.toString();
+		}
+
 		return val;
 	},
 
 	test(val) {
 		let shouldProcess = isString(val) && hasLocalPath(val);
 		shouldProcess ||= isWebPackPlugin(val);
+		shouldProcess ||= typeof val === 'function';
 
 		return shouldProcess;
 	},

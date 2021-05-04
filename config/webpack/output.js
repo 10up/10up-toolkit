@@ -1,13 +1,10 @@
 const path = require('path');
 
-module.exports = ({
-	isPackage,
-	projectConfig: { filenames },
-	packageConfig: { main, libraryName, packageType },
-	buildFiles,
-}) => {
+module.exports = ({ isPackage, projectConfig: { filenames }, buildFiles }) => {
 	if (isPackage) {
-		return { filename: main, library: { name: libraryName, type: packageType } };
+		return {
+			path: path.resolve(process.cwd(), 'dist'),
+		};
 	}
 
 	return {
