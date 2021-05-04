@@ -13,7 +13,7 @@
   "scripts": {
     "prepare": "lerna bootstrap --hoist",
     "reinstall": "lerna clean --yes && npm run prepare",
-    "test": "lerna run test",
+    "test": "lerna run test --stream",
     "clean": "lerna clean"
   },
   "husky": {
