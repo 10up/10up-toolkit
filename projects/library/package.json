@@ -11,8 +11,6 @@
   "style": "./dist/index.css",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
     "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
     "build": "npm run build:modern && npm run build:umd",
     "build:modern": "10up-toolkit build -f=commonjs",
