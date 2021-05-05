@@ -20,15 +20,12 @@ Object {
       },
     },
   },
-  "externals": Array [
-    Object {
-      "lodash": "lodash",
-      "read-pkg": "read-pkg",
-      "read-pkg-up": "read-pkg-up",
-      "resolve-bin": "resolve-bin",
-    },
-    /\\^core-js/,
-  ],
+  "externals": Object {
+    "lodash": "lodash",
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -252,14 +249,11 @@ Object {
       },
     },
   },
-  "externals": Array [
-    Object {
-      "read-pkg": "read-pkg",
-      "read-pkg-up": "read-pkg-up",
-      "resolve-bin": "resolve-bin",
-    },
-    /\\^core-js/,
-  ],
+  "externals": Object {
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -284,6 +278,7 @@ Object {
                       "Firefox ESR",
                       "last 2 versions",
                     ],
+                    "useBuiltIns": false,
                     "wordpress": true,
                   },
                 ],
@@ -383,14 +378,11 @@ Object {
       },
     },
   },
-  "externals": Array [
-    Object {
-      "read-pkg": "read-pkg",
-      "read-pkg-up": "read-pkg-up",
-      "resolve-bin": "resolve-bin",
-    },
-    /\\^core-js/,
-  ],
+  "externals": Object {
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -415,6 +407,7 @@ Object {
                       "Firefox ESR",
                       "last 2 versions",
                     ],
+                    "useBuiltIns": false,
                     "wordpress": true,
                   },
                 ],
@@ -522,15 +515,12 @@ Object {
       },
     },
   },
-  "externals": Array [
-    Object {
-      "lodash": "lodash",
-      "read-pkg": "read-pkg",
-      "read-pkg-up": "read-pkg-up",
-      "resolve-bin": "resolve-bin",
-    },
-    /\\^core-js/,
-  ],
+  "externals": Object {
+    "lodash": "lodash",
+    "read-pkg": "read-pkg",
+    "read-pkg-up": "read-pkg-up",
+    "resolve-bin": "resolve-bin",
+  },
   "mode": "development",
   "module": Object {
     "rules": Array [
@@ -555,6 +545,7 @@ Object {
                       "Firefox ESR",
                       "last 2 versions",
                     ],
+                    "useBuiltIns": false,
                     "wordpress": true,
                   },
                 ],
@@ -678,6 +669,7 @@ Object {
                       "Firefox ESR",
                       "last 2 versions",
                     ],
+                    "useBuiltIns": "usage",
                     "wordpress": true,
                   },
                 ],

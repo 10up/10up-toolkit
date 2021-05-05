@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.0
+
+- Adds support for authoring libraries.
+
+## Pre 10up-toolkit
+
 ## 1.3.4
 - Deprecate 10up-scripts command and exposes a new 10up-toolkit command.
 
