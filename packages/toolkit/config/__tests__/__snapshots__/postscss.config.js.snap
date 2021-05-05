@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=development 1`] = `
+Object {
+  "plugins": Object {
+    "cssnano": false,
+    "postcss-import": Object {},
+    "postcss-mixins": Object {},
+    "postcss-nesting": Object {},
+    "postcss-object-fit-images": Object {},
+    "postcss-preset-env": Object {
+      "autoprefixer": Object {
+        "grid": true,
+      },
+      "stage": 0,
+    },
+  },
+}
+`;
+
+exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=production 1`] = `
+Object {
+  "plugins": Object {
+    "cssnano": Object {
+      "preset": Array [
+        "default",
+        Object {
+          "autoprefixer": false,
+          "calc": Object {
+            "precision": 8,
+          },
+          "convertValues": true,
+          "discardComments": Object {
+            "removeAll": true,
+          },
+          "mergeLonghand": false,
+          "zindex": false,
+        },
+      ],
+    },
+    "postcss-import": Object {},
+    "postcss-mixins": Object {},
+    "postcss-nesting": Object {},
+    "postcss-object-fit-images": Object {},
+    "postcss-preset-env": Object {
+      "autoprefixer": Object {
+        "grid": true,
+      },
+      "stage": 0,
+    },
+  },
+}
+`;
+
+exports[`postcss.config.js builds a proper postcss config file for editor styles: env=development 1`] = `
+Object {
+  "plugins": Object {
+    "cssnano": false,
+    "postcss-editor-styles": Object {
+      "ignore": Array [
+        ":root",
+        ".edit-post-visual-editor.editor-styles-wrapper",
+        ".wp-toolbar",
+      ],
+      "remove": Array [
+        "html",
+        ":disabled",
+        "[readonly]",
+        "[disabled]",
+      ],
+      "scopeTo": ".editor-styles-wrapper",
+      "tags": Array [
+        "button",
+        "input",
+        "label",
+        "select",
+        "textarea",
+        "form",
+      ],
+    },
+    "postcss-import": Object {},
+    "postcss-mixins": Object {},
+    "postcss-nesting": Object {},
+    "postcss-object-fit-images": Object {},
+    "postcss-preset-env": Object {
+      "autoprefixer": Object {
+        "grid": true,
+      },
+      "stage": 0,
+    },
+  },
+}
+`;
+
+exports[`postcss.config.js builds a proper postcss config file for editor styles: env=production 1`] = `
+Object {
+  "plugins": Object {
+    "cssnano": Object {
+      "preset": Array [
+        "default",
+        Object {
+          "autoprefixer": false,
+          "calc": Object {
+            "precision": 8,
+          },
+          "convertValues": true,
+          "discardComments": Object {
+            "removeAll": true,
+          },
+          "mergeLonghand": false,
+          "zindex": false,
+        },
+      ],
+    },
+    "postcss-editor-styles": Object {
+      "ignore": Array [
+        ":root",
+        ".edit-post-visual-editor.editor-styles-wrapper",
+        ".wp-toolbar",
+      ],
+      "remove": Array [
+        "html",
+        ":disabled",
+        "[readonly]",
+        "[disabled]",
+      ],
+      "scopeTo": ".editor-styles-wrapper",
+      "tags": Array [
+        "button",
+        "input",
+        "label",
+        "select",
+        "textarea",
+        "form",
+      ],
+    },
+    "postcss-import": Object {},
+    "postcss-mixins": Object {},
+    "postcss-nesting": Object {},
+    "postcss-object-fit-images": Object {},
+    "postcss-preset-env": Object {
+      "autoprefixer": Object {
+        "grid": true,
+      },
+      "stage": 0,
+    },
+  },
+}
+`;

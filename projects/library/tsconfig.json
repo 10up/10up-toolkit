@@ -1,0 +1,8 @@
+{
+  "module": "ESNext",
+  "target": "ESNext",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationDir": null
+  }
+}
