@@ -66,7 +66,7 @@ const spawnScript = (scriptName, args = [], nodeArgs = []) => {
 
 	if (!hasScriptFile(scriptName)) {
 		// eslint-disable-next-line no-console
-		console.log(`Unknown script "${scriptName}". Perhaps you need to update @10up/scripts?`);
+		console.log(`Unknown script "${scriptName}". Perhaps you need to update 10up-toolkit?`);
 		exit(1);
 	}
 

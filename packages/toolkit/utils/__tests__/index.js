@@ -169,7 +169,7 @@ describe('utils', () => {
 		test('should exit when an unknown script name provided', () => {
 			expect(() => spawnScript('unknown-script')).toThrow('Exit code: 1.');
 			expect(console).toHaveLoggedWith(
-				'Unknown script "unknown-script". Perhaps you need to update @10up/scripts?',
+				'Unknown script "unknown-script". Perhaps you need to update 10up-toolkit?',
 			);
 		});
 

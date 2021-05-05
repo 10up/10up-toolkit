@@ -26,7 +26,7 @@ describe('getTenUpScriptsConfig', () => {
 
 	it('overrides and merges config properly', () => {
 		getPackageMock.mockReturnValueOnce({
-			'@10up/scripts': {
+			'10up-toolkit': {
 				entry: {
 					'entry1.js': 'dist/output.js',
 				},
@@ -98,7 +98,7 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 				'read-pkg-up': '^1.0.1',
 				'resolve-bin': '^0.4.0',
 			},
-			'@10up/scripts': {
+			'10up-toolkit': {
 				libraryName: 'myComponentLibrary',
 			},
 		});

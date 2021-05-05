@@ -119,7 +119,7 @@ const getDefaultConfig = () => {
  */
 const getTenUpScriptsConfig = () => {
 	const packageJson = getPackage();
-	const config = packageJson['@10up/scripts'];
+	const config = packageJson['10up-toolkit'] || packageJson['@10up/scripts'];
 	const defaultConfig = getDefaultConfig();
 
 	if (!config) {
