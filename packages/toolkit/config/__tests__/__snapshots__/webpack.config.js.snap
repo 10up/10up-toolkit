@@ -324,7 +324,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/node_modules/@10up/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -482,7 +482,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/node_modules/@10up/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -649,7 +649,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/node_modules/@10up/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -802,7 +802,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/node_modules/@10up/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
