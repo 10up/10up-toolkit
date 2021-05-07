@@ -188,6 +188,7 @@ Object {
     ],
   },
   "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": function filename(pathData) {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
@@ -721,6 +722,7 @@ Object {
     ],
   },
   "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": function filename(pathData) {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
