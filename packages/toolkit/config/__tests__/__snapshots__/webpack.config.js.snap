@@ -188,6 +188,7 @@ Object {
     ],
   },
   "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": function filename(pathData) {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
@@ -270,7 +271,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/packages/babel-preset-default/index.js",
+                  "/node_modules/@10up/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -399,7 +400,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/packages/babel-preset-default/index.js",
+                  "/node_modules/@10up/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -537,7 +538,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/packages/babel-preset-default/index.js",
+                  "/node_modules/@10up/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -661,7 +662,7 @@ Object {
               "configFile": false,
               "presets": Array [
                 Array [
-                  "/packages/babel-preset-default/index.js",
+                  "/node_modules/@10up/babel-preset-default/index.js",
                   Object {
                     "targets": Array [
                       "> 1%",
@@ -721,6 +722,7 @@ Object {
     ],
   },
   "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": function filename(pathData) {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
