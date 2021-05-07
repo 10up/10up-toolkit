@@ -81,6 +81,18 @@ module.exports = ({
 					: paths.cssLoaderPaths.map((cssPath) => path.resolve(process.cwd(), cssPath)),
 				use: cssLoaders,
 			},
+			{
+				test: /\.(sc|sa)ss$/,
+				use: [
+					...cssLoaders,
+					{
+						loader: require.resolve( 'sass-loader' ),
+						options: {
+							sourceMap: ! isProduction,
+						},
+					},
+				],
+			},
 			// when in package module only include referenced resources
 			isPackage && {
 				test: /\.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}/,
