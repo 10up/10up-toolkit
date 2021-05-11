@@ -43,6 +43,8 @@ module.exports = declare((api, options) => {
 		{ development, runtime: hasJsxRuntime && !wordpress ? 'automatic' : 'classic' },
 	]);
 
+	presets.push([require.resolve('@babel/preset-typescript')]);
+
 	if (wordpress) {
 		presets.push(require.resolve('@wordpress/babel-preset-default'));
 	}
