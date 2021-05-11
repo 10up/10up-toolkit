@@ -18,7 +18,7 @@ const {
 
 const args = getArgsFromCLI();
 
-const defaultFilesArgs = hasFileArgInCLI() ? [] : ['**/*.css'];
+const defaultFilesArgs = hasFileArgInCLI() ? [] : ['**/*.(s(c|a)ss|css)'];
 
 // See: https://stylelint.io/user-guide/configuration
 const hasLintConfig =

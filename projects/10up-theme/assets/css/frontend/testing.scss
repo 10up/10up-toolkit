@@ -1,0 +1,7 @@
+.test-class {
+	color: --c-black;
+
+	&.sub-class {
+		color: --c-white;
+	}
+}

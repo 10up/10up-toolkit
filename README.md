@@ -8,6 +8,7 @@
 
 * [@10up/babel-preset-default](packages/babel-preset-default/README.md)
 * [@10up/eslint-config](packages/eslint-config/README.md)
+* [@10up/stylelint-config](packages/stylelint-config/README.md)
 * [10up-toolkit](packages/toolkit/README.md)
 
 ## Support Level
