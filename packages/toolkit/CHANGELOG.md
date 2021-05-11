@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.1
+- Adds cache busting to chunk files generated via Webpack code splitting.
+- Added support for SCSS and Sass files.
+
 ## 1.0.0
 
 - Adds support for authoring libraries.

@@ -67,9 +67,8 @@ export default class Accordion {
 		this.removeAllEventListeners();
 
 		this.$accordions.forEach((accordionArea) => {
-			const [accordionLinks, accordionContent] = this.getAccordionLinksAndContent(
-				accordionArea,
-			);
+			const [accordionLinks, accordionContent] =
+				this.getAccordionLinksAndContent(accordionArea);
 
 			accordionLinks.forEach((accordionLink) => {
 				accordionLink.removeAttribute('id');

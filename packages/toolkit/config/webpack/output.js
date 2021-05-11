@@ -10,6 +10,7 @@ module.exports = ({ isPackage, projectConfig: { filenames }, buildFiles }) => {
 	return {
 		clean: true,
 		path: path.resolve(process.cwd(), 'dist'),
+		chunkFilename: filenames.jsChunk,
 		filename: (pathData) => {
 			return buildFiles[pathData.chunk.name].match(/\/blocks\//)
 				? filenames.block

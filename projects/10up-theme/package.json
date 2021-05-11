@@ -14,7 +14,7 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "1.0.0"
+    "10up-toolkit": "1.0.1"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
@@ -34,7 +34,8 @@
       "style": "./assets/css/frontend/style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js"
+      "example-block": "./includes/blocks/example-block/index.js",
+      "test-style": "./assets/css/frontend/testing.scss"
     }
   }
 }

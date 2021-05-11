@@ -14,8 +14,7 @@
     "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
     "build": "npm run build:modern && npm run build:umd",
     "build:modern": "10up-toolkit build -f=commonjs",
-    "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none",
-    "prepare": "npm run build"
+    "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
   },
   "browserslist": [
     "> 1%",
@@ -37,7 +36,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/user-event": "^12.6.3",
     "jest-axe": "^4.1.0",
-    "10up-toolkit": "1.0.0",
+    "10up-toolkit": "1.0.1",
     "concurrently": "^5.3.0"
   },
   "@10up/scripts": {
