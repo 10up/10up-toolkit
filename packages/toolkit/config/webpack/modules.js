@@ -86,9 +86,9 @@ module.exports = ({
 				use: [
 					...cssLoaders,
 					{
-						loader: require.resolve( 'sass-loader' ),
+						loader: require.resolve('sass-loader'),
 						options: {
-							sourceMap: ! isProduction,
+							sourceMap: !isProduction,
 						},
 					},
 				],
