@@ -84,6 +84,8 @@
     "read-pkg": "^5.2.0",
     "read-pkg-up": "^1.0.1",
     "resolve-bin": "^0.4.0",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.1.1",
     "stylelint": "^13.9.0",
     "stylelint-webpack-plugin": "^2.1.1",
     "thread-loader": "^3.0.1",

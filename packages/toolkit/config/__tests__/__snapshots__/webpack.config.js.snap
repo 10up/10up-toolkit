@@ -72,6 +72,33 @@ Object {
         ],
       },
       Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
         "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
         "type": "asset/resource",
       },
@@ -95,7 +122,7 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
   ],
@@ -179,6 +206,33 @@ Object {
           },
         ],
       },
+      Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
     ],
   },
   "optimization": Object {
@@ -205,7 +259,7 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
     CleanExtractedDeps: {},
@@ -320,6 +374,35 @@ Object {
         ],
       },
       Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
         "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
         "type": "asset/resource",
       },
@@ -343,7 +426,7 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
   ],
@@ -449,6 +532,35 @@ Object {
         ],
       },
       Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
         "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
         "type": "asset/resource",
       },
@@ -472,7 +584,7 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
   ],
@@ -587,6 +699,35 @@ Object {
         ],
       },
       Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
         "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
         "type": "asset/resource",
       },
@@ -610,7 +751,7 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
   ],
@@ -713,6 +854,35 @@ Object {
           },
         ],
       },
+      Object {
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
     ],
   },
   "optimization": Object {
@@ -740,7 +910,7 @@ Object {
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
-    StylelintWebpackPlugin: {"files":"**/*.css","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets2","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
     CleanExtractedDeps: {},

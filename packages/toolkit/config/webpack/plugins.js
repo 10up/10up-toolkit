@@ -80,7 +80,7 @@ module.exports = ({
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), paths.srcDir),
-			files: '**/*.css',
+			files: '**/*.(s(c|a)ss|css)',
 			allowEmptyInput: true,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
