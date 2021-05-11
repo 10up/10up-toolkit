@@ -1,5 +1,5 @@
 module.exports = {
-	extends: 'stylelint-config-wordpress',
+	extends: '@wordpress/stylelint-config',
 	plugins: ['stylelint-declaration-use-variable', 'stylelint-order'],
 	rules: {
 		'sh-waqar/declaration-use-variable': [
