@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
+        "allowJs": true,
         "declaration": true,
         "emitDeclarationOnly": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "outDir": "dist"
     }
 }

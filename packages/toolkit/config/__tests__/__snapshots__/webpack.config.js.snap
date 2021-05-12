@@ -43,6 +43,15 @@ Object {
         ],
       },
       Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "happyPackMode": true,
+          },
+        },
+      },
+      Object {
         "test": /\\\\\\.svg\\$/,
         "use": Array [
           "@svgr/webpack",
@@ -178,6 +187,15 @@ Object {
             },
           },
         ],
+      },
+      Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "happyPackMode": true,
+          },
+        },
       },
       Object {
         "test": /\\\\\\.svg\\$/,
@@ -353,6 +371,16 @@ Object {
         ],
       },
       Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "configFile": "/config/default-tsconfig.json",
+            "happyPackMode": true,
+          },
+        },
+      },
+      Object {
         "test": /\\\\\\.svg\\$/,
         "use": Array [
           "@svgr/webpack",
@@ -514,6 +542,16 @@ Object {
             },
           },
         ],
+      },
+      Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "configFile": "/config/default-tsconfig.json",
+            "happyPackMode": true,
+          },
+        },
       },
       Object {
         "test": /\\\\\\.svg\\$/,
@@ -688,6 +726,16 @@ Object {
         ],
       },
       Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "configFile": "/config/default-tsconfig.json",
+            "happyPackMode": true,
+          },
+        },
+      },
+      Object {
         "test": /\\\\\\.svg\\$/,
         "use": Array [
           "@svgr/webpack",
@@ -844,6 +892,16 @@ Object {
             },
           },
         ],
+      },
+      Object {
+        "test": /\\.tsx\\?\\$/,
+        "use": Object {
+          "loader": "/node_modules/ts-loader/index.js",
+          "options": Object {
+            "configFile": "/config/default-tsconfig.json",
+            "happyPackMode": true,
+          },
+        },
       },
       Object {
         "test": /\\\\\\.svg\\$/,

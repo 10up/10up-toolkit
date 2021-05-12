@@ -71,11 +71,13 @@ module.exports = ({
 					},
 				],
 			},
-			isPackage && {
-				test: '/.tsx?$/',
+			{
+				// Match all js/jsx/ts/tsx files except TS definition files
+				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				use: {
 					loader: require.resolve('ts-loader'),
 					options: {
+						happyPackMode: true,
 						...(!hasTsConfig() && {
 							configFile: fromConfigRoot('default-tsconfig.json'),
 						}),
