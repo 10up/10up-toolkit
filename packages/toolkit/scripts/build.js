@@ -46,14 +46,14 @@ const compiler = webpack(config);
 compiler.run((err, stats) => {
 	displayWebpackStats(err, stats);
 
-	// run tsc to generate type defs
-	spawn(resolveBin('typescript', { executable: 'tsc' }), tscConfigArgs, {
-		stdio: 'inherit',
-	});
-
 	compiler.close((closedErr) => {
 		if (closedErr) {
 			console.error(closedErr);
 		}
+	});
+
+	// run tsc to generate type defs
+	spawn(resolveBin('typescript', { executable: 'tsc' }), tscConfigArgs, {
+		stdio: 'inherit',
 	});
 });

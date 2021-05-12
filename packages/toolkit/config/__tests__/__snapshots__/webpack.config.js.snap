@@ -30,15 +30,6 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "happyPackMode": true,
-          },
-        },
-      },
-      Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
@@ -175,15 +166,6 @@ Object {
   "mode": "development",
   "module": Object {
     "rules": Array [
-      Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "happyPackMode": true,
-          },
-        },
-      },
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
@@ -340,23 +322,6 @@ Object {
   "mode": "development",
   "module": Object {
     "rules": Array [
-      Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "compilerOptions": Object {
-              "allowJs": true,
-              "declaration": true,
-              "emitDeclarationOnly": true,
-              "isolatedModules": true,
-              "outDir": "./dist",
-            },
-            "configFile": "/config/default-tsconfig.json",
-            "happyPackMode": true,
-          },
-        },
-      },
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
@@ -520,23 +485,6 @@ Object {
   "mode": "development",
   "module": Object {
     "rules": Array [
-      Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "compilerOptions": Object {
-              "allowJs": true,
-              "declaration": true,
-              "emitDeclarationOnly": true,
-              "isolatedModules": true,
-              "outDir": "./dist",
-            },
-            "configFile": "/config/default-tsconfig.json",
-            "happyPackMode": true,
-          },
-        },
-      },
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
@@ -710,23 +658,6 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "compilerOptions": Object {
-              "allowJs": true,
-              "declaration": true,
-              "emitDeclarationOnly": true,
-              "isolatedModules": true,
-              "outDir": "./dist",
-            },
-            "configFile": "/config/default-tsconfig.json",
-            "happyPackMode": true,
-          },
-        },
-      },
-      Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
@@ -884,23 +815,6 @@ Object {
   "mode": "development",
   "module": Object {
     "rules": Array [
-      Object {
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Object {
-          "loader": "/node_modules/ts-loader/index.js",
-          "options": Object {
-            "compilerOptions": Object {
-              "allowJs": true,
-              "declaration": true,
-              "emitDeclarationOnly": true,
-              "isolatedModules": true,
-              "outDir": "./dist",
-            },
-            "configFile": "/config/default-tsconfig.json",
-            "happyPackMode": true,
-          },
-        },
-      },
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
