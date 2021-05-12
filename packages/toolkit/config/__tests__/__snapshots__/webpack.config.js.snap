@@ -31,7 +31,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -130,6 +130,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
@@ -163,7 +168,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -268,6 +273,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
@@ -314,7 +324,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -434,6 +444,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
@@ -472,7 +487,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -592,6 +607,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
@@ -639,7 +659,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -759,6 +779,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
@@ -792,7 +817,7 @@ Object {
     "rules": Array [
       Object {
         "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\\\\\.js\\$/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
           Object {
@@ -919,6 +944,11 @@ Object {
     "alias": Object {
       "lodash-es": "lodash",
     },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
   },
   "stats": Object {
     "all": false,
