@@ -66,6 +66,8 @@ const hasJestConfig = () =>
 	hasProjectFile('jest.config.json') ||
 	hasPackageProp('jest');
 
+const hasTsConfig = () => hasProjectFile('tsconfig.json');
+
 /**
  * Returns path to a Jest configuration which should be provided as the explicit
  * configuration when there is none available for discovery by Jest in the
@@ -254,4 +256,5 @@ module.exports = {
 	getDefaultConfig,
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
+	hasTsConfig,
 };

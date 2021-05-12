@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
-const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
+const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot, hasTsConfig } = require('../../utils');
 
 module.exports = ({
 	isProduction,
@@ -70,6 +70,17 @@ module.exports = ({
 						},
 					},
 				],
+			},
+			isPackage && {
+				test: '/.tsx?$/',
+				use: {
+					loader: require.resolve('ts-loader'),
+					options: {
+						...(!hasTsConfig() && {
+							configFile: fromConfigRoot('default-tsconfig.json'),
+						}),
+					},
+				},
 			},
 			{
 				test: /\.svg$/,
