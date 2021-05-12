@@ -1,11 +1,10 @@
 {
-    "include": ["./src/**/*"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules"],
     "compilerOptions": {
         "allowJs": true,
         "declaration": true,
         "emitDeclarationOnly": true,
-        "isolatedModules": true,
         "outDir": "dist",
         "skipLibCheck": true
     }

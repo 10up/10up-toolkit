@@ -1,7 +1,9 @@
 /**
  * External dependencies
  */
+const spawn = require('cross-spawn');
 const webpack = require('webpack');
+const { sync: resolveBin } = require('resolve-bin');
 
 /**
  * Internal dependencies
@@ -12,6 +14,7 @@ const {
 	fromProjectRoot,
 	hasWebpackConfig,
 	displayWebpackStats,
+	hasTsConfig,
 } = require('../utils');
 
 if (hasArgInCLI('--watch')) {
@@ -35,12 +38,18 @@ if (hasWebpackConfig()) {
 	configPath = fromProjectRoot('webpack.config.js');
 }
 
-const config = require(configPath);
+const tscConfigArgs = !hasTsConfig() ? ['--project', fromConfigRoot('default-tsconfig.json')] : [];
 
+const config = require(configPath);
 const compiler = webpack(config);
 
 compiler.run((err, stats) => {
 	displayWebpackStats(err, stats);
+
+	// run tsc to generate type defs
+	spawn(resolveBin('typescript', { executable: 'tsc' }), tscConfigArgs, {
+		stdio: 'inherit',
+	});
 
 	compiler.close((closedErr) => {
 		if (closedErr) {
