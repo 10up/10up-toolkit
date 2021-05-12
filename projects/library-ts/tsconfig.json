@@ -1,11 +1,6 @@
 {
-    "include": ["src/**/*"],
-    "exclude": ["node_modules"],
+    "extends": "./node_modules/10up-toolkit/config/default-tsconfig.json",
     "compilerOptions": {
-        "allowJs": true,
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "outDir": "dist",
-        "skipLibCheck": true
+        "outDir": "./dist"
     }
 }

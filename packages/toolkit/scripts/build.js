@@ -38,8 +38,6 @@ if (hasWebpackConfig()) {
 	configPath = fromProjectRoot('webpack.config.js');
 }
 
-const tscConfigArgs = !hasTsConfig() ? ['--project', fromConfigRoot('default-tsconfig.json')] : [];
-
 const config = require(configPath);
 const compiler = webpack(config);
 
@@ -52,8 +50,10 @@ compiler.run((err, stats) => {
 		}
 	});
 
-	// run tsc to generate type defs
-	spawn(resolveBin('typescript', { executable: 'tsc' }), tscConfigArgs, {
-		stdio: 'inherit',
-	});
+	// run tsc
+	if (hasTsConfig()) {
+		spawn(resolveBin('typescript', { executable: 'tsc' }), [], {
+			stdio: 'inherit',
+		});
+	}
 });
