@@ -85,6 +85,7 @@ module.exports = {
 					},
 				],
 				'jsdoc/require-param-type': 0,
+				'no-restricted-globals': 0,
 			},
 		},
 	],
