@@ -1,20 +1,17 @@
 {
-  "name": "@10up/component-accordion",
+  "name": "@10up/library-ts-test",
   "version": "2.0.1",
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "dist/index.js",
   "exports": "./dist/index.modern.js",
-  "umd:main": "dist/index.umd.js",
   "module": "dist/index.module.js",
-  "source": "src/index.js",
+  "source": "src/index.ts",
   "style": "./dist/index.css",
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
-    "build": "npm run build:modern && npm run build:umd",
-    "build:modern": "10up-toolkit build -f=commonjs",
-    "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
+    "watch": "10up-toolkit build --watch",
+    "build": "10up-toolkit build"
   },
   "browserslist": [
     "> 1%",
@@ -32,14 +29,9 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "@testing-library/dom": "^7.29.4",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/user-event": "^12.6.3",
-    "jest-axe": "^4.1.0",
-    "10up-toolkit": "1.0.2",
-    "concurrently": "^5.3.0"
+    "10up-toolkit": "1.0.2"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "libraryName": "TenUpAccordion"
   }
 }

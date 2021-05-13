@@ -899,3 +899,11 @@ var ClassComponent = /*#__PURE__*/function (_Component) {
 var _default = FCComponent;
 exports.default = _default;"
 `;
+
+exports[`compiles typescript transpiles typescript code properly 1`] = `
+"\\"use strict\\";
+
+function helloTypeScript(name) {
+  return \\"Hello \\".concat(name, \\", this is TypeScript!\\");
+}"
+`;

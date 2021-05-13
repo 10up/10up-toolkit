@@ -1,0 +1,4 @@
+{
+    "extends": "./node_modules/10up-toolkit/config/default-tsconfig.json",
+    "include": ["src/**/*.ts"],
+}

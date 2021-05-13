@@ -14,7 +14,7 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "1.0.1"
+    "10up-toolkit": "1.0.2"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
@@ -25,7 +25,7 @@
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
-      "frontend": "./assets/js/frontend/frontend.js",
+      "frontend": "./assets/js/frontend/frontend.ts",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "admin-style": "./assets/css/admin/admin-style.css",
