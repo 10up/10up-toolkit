@@ -5,4 +5,3 @@ export function sayHello(name: string) {
 export function sayGoodbye(name: string) {
 	console.log(`Goodbye ${name}`);
 }
-  
