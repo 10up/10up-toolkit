@@ -1,6 +1,4 @@
 {
     "extends": "./node_modules/10up-toolkit/config/default-tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./dist"
-    }
+    "include": ["src/**/*.ts"],
 }

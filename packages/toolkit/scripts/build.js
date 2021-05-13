@@ -52,8 +52,12 @@ compiler.run((err, stats) => {
 
 	// run tsc
 	if (hasTsConfig()) {
-		spawn(resolveBin('typescript', { executable: 'tsc' }), [], {
-			stdio: 'inherit',
-		});
+		spawn(
+			resolveBin('typescript', { executable: 'tsc' }),
+			['--project', fromProjectRoot('tsconfig.json'), '--outDir', fromProjectRoot('dist')],
+			{
+				stdio: 'inherit',
+			},
+		);
 	}
 });
