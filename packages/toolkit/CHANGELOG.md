@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
-## 1.0.2
+## 1.0.3
 - Update @10up/eslint-config to 2.3.5
 - Update @10up/babel-preset-defaylt to 1.1.2
 - Add TypeScript support
