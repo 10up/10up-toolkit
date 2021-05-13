@@ -24,6 +24,7 @@ const {
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
+	hasTsConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
@@ -50,6 +51,7 @@ module.exports = {
 	hasEslintignoreConfig,
 	hasPostCSSConfig,
 	hasProjectFile,
+	hasTsConfig,
 	spawnScript,
 	getPackagePath,
 	getBuildFiles,

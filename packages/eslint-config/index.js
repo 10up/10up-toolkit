@@ -62,6 +62,8 @@ module.exports = {
 	},
 	overrides: [
 		{
+			parser: '@typescript-eslint/parser',
+			plugins: ['@typescript-eslint'],
 			files: ['*.ts', '*.tsx'],
 			rules: {
 				// not needed for typescript
@@ -83,6 +85,7 @@ module.exports = {
 					},
 				],
 				'jsdoc/require-param-type': 0,
+				'no-restricted-globals': 0,
 			},
 		},
 	],

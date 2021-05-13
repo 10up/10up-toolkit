@@ -8,6 +8,7 @@ const reactPath = path.dirname(require.resolve('react'));
 
 const es6Input = fs.readFileSync(path.join(__dirname, '../fixtures/es6+.js'));
 const reactInput = fs.readFileSync(path.join(__dirname, '../fixtures/react.js'));
+const tsInput = fs.readFileSync(path.join(__dirname, '../fixtures/typescript.ts'));
 
 describe('Babel preset default', () => {
 	beforeEach(() => {
@@ -113,6 +114,18 @@ describe('Babel preset default with automatic runtime', () => {
 			configFile: false,
 			envName: 'production',
 			presets: [[babelPresetDefault, { wordpress: true }]],
+		});
+
+		expect(output.code).toMatchSnapshot();
+	});
+});
+
+describe('compiles typescript', () => {
+	test('transpiles typescript code properly', () => {
+		const output = babel.transform(tsInput, {
+			configFile: false,
+			envName: 'production',
+			presets: [babelPresetDefault],
 		});
 
 		expect(output.code).toMatchSnapshot();
