@@ -50,6 +50,10 @@ compiler.run((err, stats) => {
 		}
 	});
 
+	if (err || stats.hasErrors()) {
+		process.exit(1);
+	}
+
 	// run tsc
 	if (hasTsConfig()) {
 		spawn(
