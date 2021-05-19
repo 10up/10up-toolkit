@@ -50,14 +50,19 @@ compiler.run((err, stats) => {
 		}
 	});
 
+	if (err || stats.hasErrors()) {
+		process.exit(1);
+	}
+
 	// run tsc
 	if (hasTsConfig()) {
-		spawn(
+		const result = spawn(
 			resolveBin('typescript', { executable: 'tsc' }),
 			['--project', fromProjectRoot('tsconfig.json'), '--outDir', fromProjectRoot('dist')],
 			{
 				stdio: 'inherit',
 			},
 		);
+		process.exit(result.status);
 	}
 });
