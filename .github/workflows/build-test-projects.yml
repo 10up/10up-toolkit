@@ -1,4 +1,4 @@
-name: unit tests
+name: projects builds
 
 on: [pull_request]
 
