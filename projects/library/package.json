@@ -39,7 +39,7 @@
     "10up-toolkit": "1.0.4",
     "concurrently": "^5.3.0"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "libraryName": "TenUpAccordion"
   }
 }
