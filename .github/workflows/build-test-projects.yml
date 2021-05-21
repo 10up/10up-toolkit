@@ -28,9 +28,9 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install dependencies
         run: npm install --legacy-peer-deps
-      - name: build 10up theme
-        run: (cd projects/10up-theme && npm run build)
       - name: build library
         run: (cd projects/library && npm run build)
       - name: build ts library
         run: (cd projects/library-ts && npm run build)
+      - name: build 10up theme
+        run: (cd projects/10up-theme && npm run build)
