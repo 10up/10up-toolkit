@@ -26,7 +26,7 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 		sass && {
 			loader: require.resolve('sass-loader'),
 			options: {
-				sourceMap: options?.sourceMap,
+				sourceMap: options ? options.sourceMap : false,
 			},
 		},
 	].filter(Boolean);
