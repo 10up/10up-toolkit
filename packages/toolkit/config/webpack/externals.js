@@ -1,7 +1,7 @@
 module.exports = ({ isPackage, packageConfig: { externals } }) => {
 	if (isPackage) {
 		return externals.reduce((acc, current) => {
-			acc[current] = current;
+			acc[current] = { commonjs: current, commonjs2: current, amd: current };
 			return acc;
 		}, {});
 	}

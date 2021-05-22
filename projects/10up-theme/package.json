@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "@10up/component-accordion": "2.0.1"
   },
   "@10up/scripts": {
     "devURL": "https://my-project.test",

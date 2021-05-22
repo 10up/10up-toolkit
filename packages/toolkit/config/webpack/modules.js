@@ -56,6 +56,7 @@ module.exports = ({
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
+								sourceType: 'unambiguous',
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
@@ -96,7 +97,7 @@ module.exports = ({
 			},
 			// when in package module only include referenced resources
 			isPackage && {
-				test: /\.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}/,
+				test: /\.(woff(2)?|ttf|eot|svg|jpg|jpeg|png|giff|webp)(\?v=\d+\.\d+\.\d+)?$/,
 				type: 'asset/resource',
 			},
 		].filter(Boolean),

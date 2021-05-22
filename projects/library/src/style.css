@@ -1,5 +1,21 @@
 @import url('assets/core.css');
 
+:root {
+    --primary-font: 'Mr George', Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+    font-family: 'Mr George';
+    src: url('./assets/fonts/MrGeorgeHeavy.ttf') format('truetype');
+    font-weight: 900
+}
+
+@font-face {
+    font-family: 'Mr George';
+    src: url('./assets/fonts/MrGeorge.ttf') format('truetype');
+    font-weight: 400
+}
+
 .accordion-header {
   border-bottom: 1px solid #303030;
   cursor: pointer;
