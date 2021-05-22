@@ -56,6 +56,7 @@ module.exports = ({
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
+								sourceType: 'unambiguous',
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
