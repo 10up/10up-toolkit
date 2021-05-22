@@ -66,7 +66,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -88,6 +88,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -96,6 +97,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -203,10 +227,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets2/css",
-          "/includes2/blocks",
-        ],
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -228,6 +249,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -236,6 +258,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": false,
             },
@@ -389,7 +434,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -413,6 +458,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -421,6 +467,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -565,7 +634,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -589,6 +658,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -597,6 +667,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -754,7 +847,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -778,6 +871,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -786,6 +880,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -913,10 +1030,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets2/css",
-          "/includes2/blocks",
-        ],
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -940,6 +1054,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -948,6 +1063,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": false,
             },
