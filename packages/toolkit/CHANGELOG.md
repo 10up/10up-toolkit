@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.5
+- Fixed: Regex in asset/resources. [#63](https://github.com/10up/10up-toolkit/pull/63)
+- Fixed: Babel transpilation for publishing packages `["sourceType": "unambiguous"]`. [#63](https://github.com/10up/10up-toolkit/pull/63)
+- Fixed: Webpack Externals definition [#63](https://github.com/10up/10up-toolkit/pull/63)
+- Update: Prettier to 1.3.0 and stop using version range. [#64](https://github.com/10up/10up-toolkit/pull/64)
+- Added: Support for CSS Modules. [#65](https://github.com/10up/10up-toolkit/pull/65)
+
 ## 1.0.4
 - Exit with an error code if build fails
 

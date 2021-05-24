@@ -21,10 +21,26 @@ Object {
     },
   },
   "externals": Object {
-    "lodash": "lodash",
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
+    "lodash": Object {
+      "amd": "lodash",
+      "commonjs": "lodash",
+      "commonjs2": "lodash",
+    },
+    "read-pkg": Object {
+      "amd": "read-pkg",
+      "commonjs": "read-pkg",
+      "commonjs2": "read-pkg",
+    },
+    "read-pkg-up": Object {
+      "amd": "read-pkg-up",
+      "commonjs": "read-pkg-up",
+      "commonjs2": "read-pkg-up",
+    },
+    "resolve-bin": Object {
+      "amd": "resolve-bin",
+      "commonjs": "resolve-bin",
+      "commonjs2": "resolve-bin",
+    },
   },
   "mode": "development",
   "module": Object {
@@ -50,7 +66,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -72,6 +88,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -80,6 +97,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -99,7 +139,7 @@ Object {
         ],
       },
       Object {
-        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
         "type": "asset/resource",
       },
     ],
@@ -187,10 +227,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets2/css",
-          "/includes2/blocks",
-        ],
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -212,6 +249,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -220,6 +258,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": false,
             },
@@ -315,9 +376,21 @@ Object {
     },
   },
   "externals": Object {
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
+    "read-pkg": Object {
+      "amd": "read-pkg",
+      "commonjs": "read-pkg",
+      "commonjs2": "read-pkg",
+    },
+    "read-pkg-up": Object {
+      "amd": "read-pkg-up",
+      "commonjs": "read-pkg-up",
+      "commonjs2": "read-pkg-up",
+    },
+    "resolve-bin": Object {
+      "amd": "resolve-bin",
+      "commonjs": "resolve-bin",
+      "commonjs2": "resolve-bin",
+    },
   },
   "mode": "development",
   "module": Object {
@@ -348,6 +421,7 @@ Object {
                   },
                 ],
               ],
+              "sourceType": "unambiguous",
             },
           },
         ],
@@ -360,7 +434,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -384,6 +458,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -392,6 +467,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -413,7 +511,7 @@ Object {
         ],
       },
       Object {
-        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
         "type": "asset/resource",
       },
     ],
@@ -478,9 +576,21 @@ Object {
     },
   },
   "externals": Object {
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
+    "read-pkg": Object {
+      "amd": "read-pkg",
+      "commonjs": "read-pkg",
+      "commonjs2": "read-pkg",
+    },
+    "read-pkg-up": Object {
+      "amd": "read-pkg-up",
+      "commonjs": "read-pkg-up",
+      "commonjs2": "read-pkg-up",
+    },
+    "resolve-bin": Object {
+      "amd": "resolve-bin",
+      "commonjs": "resolve-bin",
+      "commonjs2": "resolve-bin",
+    },
   },
   "mode": "development",
   "module": Object {
@@ -511,6 +621,7 @@ Object {
                   },
                 ],
               ],
+              "sourceType": "unambiguous",
             },
           },
         ],
@@ -523,7 +634,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -547,6 +658,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -555,6 +667,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -576,7 +711,7 @@ Object {
         ],
       },
       Object {
-        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
         "type": "asset/resource",
       },
     ],
@@ -649,10 +784,26 @@ Object {
     },
   },
   "externals": Object {
-    "lodash": "lodash",
-    "read-pkg": "read-pkg",
-    "read-pkg-up": "read-pkg-up",
-    "resolve-bin": "resolve-bin",
+    "lodash": Object {
+      "amd": "lodash",
+      "commonjs": "lodash",
+      "commonjs2": "lodash",
+    },
+    "read-pkg": Object {
+      "amd": "read-pkg",
+      "commonjs": "read-pkg",
+      "commonjs2": "read-pkg",
+    },
+    "read-pkg-up": Object {
+      "amd": "read-pkg-up",
+      "commonjs": "read-pkg-up",
+      "commonjs2": "read-pkg-up",
+    },
+    "resolve-bin": Object {
+      "amd": "resolve-bin",
+      "commonjs": "resolve-bin",
+      "commonjs2": "resolve-bin",
+    },
   },
   "mode": "development",
   "module": Object {
@@ -683,6 +834,7 @@ Object {
                   },
                 ],
               ],
+              "sourceType": "unambiguous",
             },
           },
         ],
@@ -695,7 +847,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -719,6 +871,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -727,6 +880,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": true,
             },
@@ -748,7 +924,7 @@ Object {
         ],
       },
       Object {
-        "test": /\\\\\\.\\{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2\\}/,
+        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
         "type": "asset/resource",
       },
     ],
@@ -841,6 +1017,7 @@ Object {
                   },
                 ],
               ],
+              "sourceType": "unambiguous",
             },
           },
         ],
@@ -853,10 +1030,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "/assets2/css",
-          "/includes2/blocks",
-        ],
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -880,6 +1054,7 @@ Object {
         ],
       },
       Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -888,6 +1063,29 @@ Object {
           Object {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
               "sourceMap": true,
               "url": false,
             },

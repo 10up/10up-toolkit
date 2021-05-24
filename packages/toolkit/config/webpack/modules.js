@@ -1,27 +1,17 @@
-const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
 
-module.exports = ({
-	isProduction,
-	isPackage,
-	defaultTargets,
-	projectConfig: { wordpress, paths },
-}) => {
-	const cssLoaders = [
+const getCSSLoaders = ({ options, postcss, sass }) => {
+	return [
 		{
 			loader: MiniCSSExtractPlugin.loader,
 		},
 		{
 			loader: require.resolve('css-loader'),
-			options: {
-				sourceMap: !isProduction,
-				// Local files like fonts etc. are copied using CopyWebpackPlugin when in project mode.
-				url: isPackage,
-			},
+			options,
 		},
-		{
+		postcss && {
 			loader: require.resolve('postcss-loader'),
 			options: {
 				postcssOptions: {
@@ -33,8 +23,16 @@ module.exports = ({
 				},
 			},
 		},
-	];
+		sass && {
+			loader: require.resolve('sass-loader'),
+			options: {
+				sourceMap: options ? options.sourceMap : false,
+			},
+		},
+	].filter(Boolean);
+};
 
+module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wordpress } }) => {
 	return {
 		rules: [
 			{
@@ -56,6 +54,7 @@ module.exports = ({
 							...(!hasBabelConfig() && {
 								babelrc: false,
 								configFile: false,
+								sourceType: 'unambiguous',
 								presets: [
 									[
 										require.resolve('@10up/babel-preset-default'),
@@ -77,26 +76,48 @@ module.exports = ({
 			},
 			{
 				test: /\.css$/,
-				include: isPackage
-					? undefined
-					: paths.cssLoaderPaths.map((cssPath) => path.resolve(process.cwd(), cssPath)),
-				use: cssLoaders,
+				use: getCSSLoaders({
+					options: {
+						sourceMap: !isProduction,
+						url: isPackage,
+					},
+					postcss: true,
+					sass: false,
+				}),
+				exclude: /\.module\.css$/,
 			},
 			{
 				test: /\.(sc|sa)ss$/,
 				use: [
-					...cssLoaders,
-					{
-						loader: require.resolve('sass-loader'),
+					...getCSSLoaders({
 						options: {
 							sourceMap: !isProduction,
+							url: isPackage,
 						},
-					},
+						postcss: false,
+						sass: true,
+					}),
+				],
+				exclude: /\.module\.css$/,
+			},
+			{
+				test: /\.module\.css$/,
+				use: [
+					...getCSSLoaders({
+						options: {
+							sourceMap: !isProduction,
+							url: isPackage,
+							import: false,
+							modules: true,
+						},
+						postcss: true,
+						sass: true,
+					}),
 				],
 			},
 			// when in package module only include referenced resources
 			isPackage && {
-				test: /\.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}/,
+				test: /\.(woff(2)?|ttf|eot|svg|jpg|jpeg|png|giff|webp)(\?v=\d+\.\d+\.\d+)?$/,
 				type: 'asset/resource',
 			},
 		].filter(Boolean),

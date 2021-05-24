@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "1.0.4"
+    "10up-toolkit": "1.0.5"
   },
   "10up-toolkit": {
     "libraryName": "TenUpAccordion"
