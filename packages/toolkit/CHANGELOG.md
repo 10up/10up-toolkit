@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.6
+- Fixed: webpack externals definitions [#67](https://github.com/10up/10up-toolkit/pull/67)
+
 ## 1.0.5
 - Fixed: Regex in asset/resources. [#63](https://github.com/10up/10up-toolkit/pull/63)
 - Fixed: Babel transpilation for publishing packages `["sourceType": "unambiguous"]`. [#63](https://github.com/10up/10up-toolkit/pull/63)

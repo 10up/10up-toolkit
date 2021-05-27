@@ -21,26 +21,10 @@ Object {
     },
   },
   "externals": Object {
-    "lodash": Object {
-      "amd": "lodash",
-      "commonjs": "lodash",
-      "commonjs2": "lodash",
-    },
-    "read-pkg": Object {
-      "amd": "read-pkg",
-      "commonjs": "read-pkg",
-      "commonjs2": "read-pkg",
-    },
-    "read-pkg-up": Object {
-      "amd": "read-pkg-up",
-      "commonjs": "read-pkg-up",
-      "commonjs2": "read-pkg-up",
-    },
-    "resolve-bin": Object {
-      "amd": "resolve-bin",
-      "commonjs": "resolve-bin",
-      "commonjs2": "resolve-bin",
-    },
+    "lodash": "commonjs2 lodash",
+    "read-pkg": "commonjs2 read-pkg",
+    "read-pkg-up": "commonjs2 read-pkg-up",
+    "resolve-bin": "commonjs2 resolve-bin",
   },
   "mode": "development",
   "module": Object {
@@ -376,21 +360,9 @@ Object {
     },
   },
   "externals": Object {
-    "read-pkg": Object {
-      "amd": "read-pkg",
-      "commonjs": "read-pkg",
-      "commonjs2": "read-pkg",
-    },
-    "read-pkg-up": Object {
-      "amd": "read-pkg-up",
-      "commonjs": "read-pkg-up",
-      "commonjs2": "read-pkg-up",
-    },
-    "resolve-bin": Object {
-      "amd": "resolve-bin",
-      "commonjs": "resolve-bin",
-      "commonjs2": "resolve-bin",
-    },
+    "read-pkg": "commonjs2 read-pkg",
+    "read-pkg-up": "commonjs2 read-pkg-up",
+    "resolve-bin": "commonjs2 resolve-bin",
   },
   "mode": "development",
   "module": Object {
@@ -576,21 +548,9 @@ Object {
     },
   },
   "externals": Object {
-    "read-pkg": Object {
-      "amd": "read-pkg",
-      "commonjs": "read-pkg",
-      "commonjs2": "read-pkg",
-    },
-    "read-pkg-up": Object {
-      "amd": "read-pkg-up",
-      "commonjs": "read-pkg-up",
-      "commonjs2": "read-pkg-up",
-    },
-    "resolve-bin": Object {
-      "amd": "resolve-bin",
-      "commonjs": "resolve-bin",
-      "commonjs2": "resolve-bin",
-    },
+    "read-pkg": "commonjs2 read-pkg",
+    "read-pkg-up": "commonjs2 read-pkg-up",
+    "resolve-bin": "commonjs2 resolve-bin",
   },
   "mode": "development",
   "module": Object {
@@ -784,26 +744,10 @@ Object {
     },
   },
   "externals": Object {
-    "lodash": Object {
-      "amd": "lodash",
-      "commonjs": "lodash",
-      "commonjs2": "lodash",
-    },
-    "read-pkg": Object {
-      "amd": "read-pkg",
-      "commonjs": "read-pkg",
-      "commonjs2": "read-pkg",
-    },
-    "read-pkg-up": Object {
-      "amd": "read-pkg-up",
-      "commonjs": "read-pkg-up",
-      "commonjs2": "read-pkg-up",
-    },
-    "resolve-bin": Object {
-      "amd": "resolve-bin",
-      "commonjs": "resolve-bin",
-      "commonjs2": "resolve-bin",
-    },
+    "lodash": "commonjs2 lodash",
+    "read-pkg": "commonjs2 read-pkg",
+    "read-pkg-up": "commonjs2 read-pkg-up",
+    "resolve-bin": "commonjs2 resolve-bin",
   },
   "mode": "development",
   "module": Object {
