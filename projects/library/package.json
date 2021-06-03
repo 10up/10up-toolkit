@@ -9,6 +9,7 @@
   "style": "./dist/index.css",
   "scripts": {
     "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
+    "start": "10up-toolkit start -i=src/test.js --dev-server",
     "build": "npm run build:modern && npm run build:umd",
     "build:modern": "10up-toolkit build -f=commonjs --wp=false",
     "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"

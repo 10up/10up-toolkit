@@ -3,6 +3,7 @@ const removeDistFolder = (file) => {
 };
 module.exports = ({
 	isPackage,
+	projectConfig: { devServer },
 	packageConfig: { packageType, source, main, umd, libraryName },
 	buildFiles,
 }) => {
@@ -19,7 +20,7 @@ module.exports = ({
 			};
 		}
 
-		if (umd) {
+		if (umd && !devServer) {
 			config.umd = {
 				filename: removeDistFolder(umd),
 				import: `./${source}`,
