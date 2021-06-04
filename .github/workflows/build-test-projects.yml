@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       - name: build library
-        run: (cd projects/library && npm run lint-js && npm run test && npm run build)
+        run: (cd projects/library && npm run lint-js && npm run build && npm run test)
       - name: build ts library-ts
         run: (cd projects/library-ts && npm run build)
       - name: build 10up theme
