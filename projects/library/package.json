@@ -8,8 +8,9 @@
   "source": "src/index.js",
   "style": "./dist/index.css",
   "scripts": {
+    "test": "10up-toolkit test-unit-jest",
     "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
-    "start": "10up-toolkit start -i=src/test.js --dev-server",
+    "start": "10up-toolkit start -i=src/app.js --dev-server",
     "lint-js": "10up-toolkit lint-js",
     "build": "npm run build:modern && npm run build:umd",
     "build:modern": "10up-toolkit build -f=commonjs --wp=false",
