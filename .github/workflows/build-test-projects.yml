@@ -3,7 +3,7 @@ name: projects builds
 on: [pull_request]
 
 jobs:
-  unit-tests:
+  build_projects:
     runs-on: ubuntu-latest
 
     strategy:
