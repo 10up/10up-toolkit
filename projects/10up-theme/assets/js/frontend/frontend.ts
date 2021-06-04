@@ -3,5 +3,3 @@ function helloTypeScript(name: string) {
 }
 
 document.write(helloTypeScript('10up'));
-
-
