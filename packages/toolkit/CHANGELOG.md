@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.7
+- Fixed: Babel error when running jest. [#71](https://github.com/10up/10up-toolkit/pull/71)
+- Added: Webpack Dev Server [#70](https://github.com/10up/10up-toolkit/pull/70)
 ## 1.0.6
 - Fixed: webpack externals definitions [#67](https://github.com/10up/10up-toolkit/pull/67)
 
