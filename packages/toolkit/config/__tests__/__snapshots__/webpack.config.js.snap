@@ -1,7 +1,202 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`webpack.config.js adds devServer config when passing the --dev-server flag 1`] = `
+Object {
+  "devServer": Object {
+    "compress": true,
+    "contentBase": "/config/webpack/public",
+    "port": 3000,
+  },
+  "devtool": "source-map",
+  "entry": Object {
+    "main": Object {
+      "filename": "index.js",
+      "import": "./src/index.js",
+      "library": Object {
+        "type": "commonjs2",
+      },
+    },
+  },
+  "externals": Object {
+    "read-pkg": "commonjs2 read-pkg",
+    "read-pkg-up": "commonjs2 read-pkg-up",
+    "resolve-bin": "commonjs2 resolve-bin",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "babelrc": false,
+              "cacheDirectory": true,
+              "configFile": false,
+              "presets": Array [
+                Array [
+                  "/packages/babel-preset-default/index.js",
+                  Object {
+                    "targets": Array [
+                      "> 1%",
+                      "ie >= 11",
+                      "Firefox ESR",
+                      "last 2 versions",
+                    ],
+                    "useBuiltIns": false,
+                    "wordpress": true,
+                  },
+                ],
+              ],
+              "sourceType": "unambiguous",
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
+              "sourceMap": true,
+              "url": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+        "type": "asset/resource",
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+    ],
+  },
+  "output": Object {
+    "path": "/dist",
+  },
+  "performance": Object {
+    "hints": "warning",
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
+  },
+  "plugins": Array [
+    HtmlWebpackPlugin: {},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
+    StylelintWebpackPlugin: {"files":"**/*.(s(c|a)ss|css)","stylelintPath":"stylelint","context":"/assets","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    CleanExtractedDeps: {},
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+}
+`;
+
 exports[`webpack.config.js properly detects user config files in package mode 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "main": Object {
@@ -177,6 +372,7 @@ Object {
 
 exports[`webpack.config.js properly detects user config files in project mode 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "entry1": "entry1.js",
@@ -341,6 +537,7 @@ Object {
 
 exports[`webpack.config.js returns proper configs for package config 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "main": Object {
@@ -537,6 +734,7 @@ Object {
 
 exports[`webpack.config.js returns proper configs for package config with commonjs2 format 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "main": Object {
@@ -725,6 +923,7 @@ Object {
 
 exports[`webpack.config.js returns proper configs for package config with peer deps 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "main": Object {
@@ -922,6 +1121,7 @@ Object {
 
 exports[`webpack.config.js returns proper configs for project configs 1`] = `
 Object {
+  "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
     "entry1": "entry1.js",

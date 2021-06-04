@@ -8,6 +8,6 @@ module.exports = ({ projectConfig: { devServer, devServerPort } }) => {
 	return {
 		contentBase: path.join(__dirname, 'public'),
 		compress: true,
-		port: devServerPort,
+		port: Number(devServerPort),
 	};
 };

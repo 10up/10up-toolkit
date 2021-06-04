@@ -40,11 +40,9 @@ const compiler = webpack(config);
 
 if (config.devServer) {
 	const devServerOptions = { ...config.devServer, open: true };
-	const server = new WebpackDevServer(compiler, config.devServer);
+	const server = new WebpackDevServer(compiler, devServerOptions);
 
-	server.listen(devServerOptions.port, '127.0.0.1', () => {
-		console.log('Starting server on http://localhost:8080');
-	});
+	server.listen(devServerOptions.port, '127.0.0.1');
 } else {
 	compiler.watch(
 		{
