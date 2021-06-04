@@ -192,4 +192,30 @@ describe('webpack.config.js', () => {
 
 		expect(webpackConfig).toMatchSnapshot();
 	});
+
+	it('adds devServer config when passing the --dev-server flag', () => {
+		process.argv.push('--dev-server');
+		process.argv.push('--port=3000');
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'dist/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+		});
+
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+		process.argv.pop();
+	});
 });

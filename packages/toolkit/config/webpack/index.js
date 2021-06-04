@@ -8,6 +8,7 @@ const getModules = require('./modules');
 const getResolve = require('./resolve');
 const getTarget = require('./target');
 const getPerfomance = require('./perfomance');
+const getDevServer = require('./devServer');
 
 module.exports = {
 	getEntryPoints,
@@ -20,4 +21,5 @@ module.exports = {
 	getResolve,
 	getTarget,
 	getPerfomance,
+	getDevServer,
 };

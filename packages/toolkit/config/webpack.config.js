@@ -18,6 +18,7 @@ const {
 	getResolve,
 	getTarget,
 	getPerfomance,
+	getDevServer,
 } = require('./webpack');
 
 const projectConfig = getTenUpScriptsConfig();
@@ -46,6 +47,7 @@ const config = {
 module.exports = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
+	devServer: getDevServer(config),
 	entry: getEntryPoints(config),
 	output: getOutput(config),
 	target: getTarget(config),

@@ -7,6 +7,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
 const { hasStylelintConfig, fromConfigRoot } = require('../../utils');
@@ -18,10 +19,14 @@ const removeDistFolder = (file) => {
 module.exports = ({
 	isPackage,
 	isProduction,
-	projectConfig: { filenames, devURL, paths, wpDependencyExternals },
+	projectConfig: { devServer, filenames, devURL, paths, wpDependencyExternals },
 	packageConfig: { style },
 }) => {
 	return [
+		devServer &&
+			new HtmlWebpackPlugin({
+				template: 'pulic/index.html',
+			}),
 		new ESLintPlugin({
 			failOnError: false,
 			fix: false,

@@ -2,6 +2,7 @@
  * External dependencies
  */
 const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
 
 /**
  * Internal dependencies
@@ -37,17 +38,24 @@ const config = require(configPath);
 
 const compiler = webpack(config);
 
-compiler.watch(
-	{
-		aggregateTimeout: 600,
-	},
-	(err, stats) => {
-		displayWebpackStats(err, stats);
+if (config.devServer) {
+	const devServerOptions = { ...config.devServer, open: true };
+	const server = new WebpackDevServer(compiler, devServerOptions);
 
-		compiler.close((closedErr) => {
-			if (closedErr) {
-				console.error(closedErr);
-			}
-		});
-	},
-);
+	server.listen(devServerOptions.port, '127.0.0.1');
+} else {
+	compiler.watch(
+		{
+			aggregateTimeout: 600,
+		},
+		(err, stats) => {
+			displayWebpackStats(err, stats);
+
+			compiler.close((closedErr) => {
+				if (closedErr) {
+					console.error(closedErr);
+				}
+			});
+		},
+	);
+}
