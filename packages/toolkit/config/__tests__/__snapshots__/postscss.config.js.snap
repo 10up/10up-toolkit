@@ -6,7 +6,7 @@ Object {
     "cssnano": false,
     "postcss-import": Object {},
     "postcss-mixins": Object {},
-    "postcss-nesting": Object {},
+    "postcss-nested": Object {},
     "postcss-object-fit-images": Object {},
     "postcss-preset-env": Object {
       "autoprefixer": Object {
@@ -40,7 +40,7 @@ Object {
     },
     "postcss-import": Object {},
     "postcss-mixins": Object {},
-    "postcss-nesting": Object {},
+    "postcss-nested": Object {},
     "postcss-object-fit-images": Object {},
     "postcss-preset-env": Object {
       "autoprefixer": Object {
@@ -80,7 +80,7 @@ Object {
     },
     "postcss-import": Object {},
     "postcss-mixins": Object {},
-    "postcss-nesting": Object {},
+    "postcss-nested": Object {},
     "postcss-object-fit-images": Object {},
     "postcss-preset-env": Object {
       "autoprefixer": Object {
@@ -136,7 +136,7 @@ Object {
     },
     "postcss-import": Object {},
     "postcss-mixins": Object {},
-    "postcss-nesting": Object {},
+    "postcss-nested": Object {},
     "postcss-object-fit-images": Object {},
     "postcss-preset-env": Object {
       "autoprefixer": Object {
