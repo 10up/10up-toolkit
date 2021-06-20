@@ -10,7 +10,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
-const { hasStylelintConfig, fromConfigRoot } = require('../../utils');
+const { hasStylelintConfig, fromConfigRoot, hasProjectFile } = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
@@ -25,7 +25,7 @@ module.exports = ({
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
-				template: 'pulic/index.html',
+				...(hasProjectFile('public/index.html') && { template: 'public/index.html' }),
 			}),
 		new ESLintPlugin({
 			failOnError: false,
