@@ -197,6 +197,9 @@ describe('webpack.config.js', () => {
 		process.argv.push('--dev-server');
 		process.argv.push('--port=3000');
 		getBuildFilesMock.mockReturnValue({});
+		hasProjectFileMock.mockImplementation((file) => {
+			return file === 'public/index.html';
+		});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
 			source: 'src/index.js',
