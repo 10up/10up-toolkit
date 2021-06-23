@@ -11,5 +11,6 @@ module.exports = {
 		'no-eol-whitespace': null,
 		'selector-nested-pattern': ['^&'],
 		'no-descending-specificity': null,
+		'at-rule-no-unknown': [true, { ignoreAtRules: ['mixin', 'define-mixin'] }],
 	},
 };
