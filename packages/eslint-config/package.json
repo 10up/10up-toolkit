@@ -4,7 +4,7 @@
   "description": "A shareable ESLint configuration",
   "scripts": {
     "lint": "eslint .",
-		"test": "npm run test:index && npm run test:react && npm run test:wordpress && npm run test:node",
+    "test": "npm run test:index && npm run test:react && npm run test:wordpress && npm run test:node",
     "test:index": "node fixtures/test-eslint-config --config-file=./index.js",
     "test:react": "node fixtures/test-eslint-config --config-file=./react.js",
     "test:wordpress": "node fixtures/test-eslint-config --config-file=./wordpress.js",

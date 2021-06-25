@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "1.0.7",
+  "version": "1.0.8",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -31,7 +31,7 @@
   "dependencies": {
     "@10up/babel-preset-default": "^1.1.2",
     "@10up/eslint-config": "^2.3.5",
-    "@10up/stylelint-config": "^1.1.1",
+    "@10up/stylelint-config": "^1.1.2",
     "@babel/core": "^7.2.0",
     "@babel/eslint-parser": "^7.12.13",
     "@svgr/webpack": "^5.5.0",
@@ -66,6 +66,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.5.2",
+    "html-webpack-plugin": "^5.3.1",
     "husky": "^4.3.8",
     "ignore-emit-webpack-plugin": "2.0.6",
     "imagemin-webpack-plugin": "^2.4.2",
@@ -95,10 +96,9 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.24.2",
     "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-dev-server": "^3.11.2",
     "webpack-sources": "^2.2.0",
-    "webpackbar": "^5.0.0-3",
-    "html-webpack-plugin": "^5.3.1",
-    "webpack-dev-server": "^3.11.2"
+    "webpackbar": "^5.0.0-3"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {

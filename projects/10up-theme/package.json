@@ -1,6 +1,6 @@
 {
   "name": "tenup-theme",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "start": "10up-toolkit start",
@@ -15,12 +15,12 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "1.0.7"
+    "10up-toolkit": "^1.0.8"
   },
   "dependencies": {
+    "@10up/component-accordion": "^2.0.2",
     "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2",
-    "@10up/component-accordion": "2.0.1"
+    "prop-types": "^15.7.2"
   },
   "@10up/scripts": {
     "devURL": "https://my-project.test",
