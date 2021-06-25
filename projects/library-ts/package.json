@@ -1,6 +1,7 @@
 {
   "name": "@10up/library-ts-test",
   "version": "2.0.1",
+  "private": true,
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "dist/index.js",
