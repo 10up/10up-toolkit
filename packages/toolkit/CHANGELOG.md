@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.8
+- Fixed PostCSS nested plugin. props @rdimascio
+- Fixed: Typo in HtmlWebpackPlugin where it was looking for the template in pulic folder instead of folder. Additionally, it now only defines a custom template if it is defined in the project.
+
 ## 1.0.7
 - Fixed: Babel error when running jest. [#71](https://github.com/10up/10up-toolkit/pull/71)
 - Added: Webpack Dev Server [#70](https://github.com/10up/10up-toolkit/pull/70)
