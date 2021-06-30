@@ -13,14 +13,14 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "1.0.8",
+  "version": "1.0.9",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "@10up/babel-preset-default": "^1.1.2",
-    "@10up/eslint-config": "^2.3.5",
+    "@10up/babel-preset-default": "^1.2.0",
+    "@10up/eslint-config": "^2.3.6",
     "@10up/stylelint-config": "^1.1.2",
     "@babel/core": "^7.14.6",
     "@babel/eslint-parser": "^7.14.7",
