@@ -24,19 +24,19 @@ module.exports = declare((api, options) => {
 	const development =
 		typeof options.development === 'boolean' ? options.development : api.env(['development']);
 
-	const presets = [
-		[
-			require.resolve('@babel/preset-env'),
-			{
-				debug,
-				useBuiltIns,
-				corejs: useBuiltIns ? { version: 3, proposals: true } : undefined,
-				bugfixes: true,
-				modules,
-				targets,
-			},
-		],
-	];
+	const presets = [];
+
+	presets.push([
+		require.resolve('@babel/preset-env'),
+		{
+			debug,
+			useBuiltIns,
+			corejs: useBuiltIns ? { version: 3, proposals: true } : undefined,
+			bugfixes: true,
+			modules,
+			targets,
+		},
+	]);
 
 	presets.push([
 		require.resolve('@babel/preset-typescript'),
@@ -48,23 +48,42 @@ module.exports = declare((api, options) => {
 		{ development, runtime: hasJsxRuntime && !wordpress ? 'automatic' : 'classic' },
 	]);
 
+	const plugins = [];
+
+	if (!development) {
+		plugins.push([
+			require.resolve('babel-plugin-transform-react-remove-prop-types'),
+			{
+				mode: 'remove',
+				removeImport: true,
+				...removePropTypes,
+			},
+		]);
+	}
+
 	if (wordpress) {
-		presets.push(require.resolve('@wordpress/babel-preset-default'));
+		// presets.push(require.resolve('@wordpress/babel-preset-default'));
+		plugins.push([
+			require.resolve('@wordpress/babel-plugin-import-jsx-pragma'),
+			{
+				scopeVariable: 'createElement',
+				scopeVariableFrag: 'Fragment',
+				source: '@wordpress/element',
+				isDefault: false,
+			},
+		]);
+
+		plugins.push([
+			require.resolve('@babel/plugin-transform-react-jsx'),
+			{
+				pragma: 'createElement',
+				pragmaFrag: 'Fragment',
+			},
+		]);
 	}
 
 	return {
 		presets,
-		plugins: [
-			!development
-				? [
-						require.resolve('babel-plugin-transform-react-remove-prop-types'),
-						{
-							mode: 'remove',
-							removeImport: true,
-							...removePropTypes,
-						},
-				  ]
-				: null,
-		].filter(Boolean),
+		plugins,
 	};
 });
