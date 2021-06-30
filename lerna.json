@@ -3,5 +3,8 @@
         "packages/*",
         "projects/*"
     ],
-    "version": "independent"
+    "version": "independent",
+    "command": {
+        "version": ["develop"]
+    }
 }
