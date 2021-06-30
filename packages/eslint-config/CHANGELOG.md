@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## [2.3.6]
+-  Updated deps [82](https://github.com/10up/10up-toolkit/pull/82)
+
 ## [2.3.4]
 - Treats @wordpress packages as core-modules in `@10up/eslint-config/wordpress`.
 - Uses `'@typescript-eslint/no-use-before-define` instead of eslint `no-use-before-define` for typescript files.

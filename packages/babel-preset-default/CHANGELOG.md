@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## [1.2.0]
+- Removed: @wordpress/babel-preset-default is not a dependency anymore, instead, we bring in the specific WordPress config needed. [82](https://github.com/10up/10up-toolkit/pull/82)
+- Updated deps [82](https://github.com/10up/10up-toolkit/pull/82)
+
 ## [1.1.2]
 - TypeScript Support
 

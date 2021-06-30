@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
 ## 1.0.8
+- Updated deps [82](https://github.com/10up/10up-toolkit/pull/82)
+- Remove husky from 10up-toolkit [81] (Updated: Husky to 6.x)
+
+## 1.0.8
 - Fixed PostCSS nested plugin. props @rdimascio
 - Fixed: Typo in HtmlWebpackPlugin where it was looking for the template in pulic folder instead of folder. Additionally, it now only defines a custom template if it is defined in the project.
 
