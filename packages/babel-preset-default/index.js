@@ -62,7 +62,6 @@ module.exports = declare((api, options) => {
 	}
 
 	if (wordpress) {
-		// presets.push(require.resolve('@wordpress/babel-preset-default'));
 		plugins.push([
 			require.resolve('@wordpress/babel-plugin-import-jsx-pragma'),
 			{
