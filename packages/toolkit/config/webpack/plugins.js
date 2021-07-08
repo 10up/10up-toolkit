@@ -75,7 +75,8 @@ module.exports = ({
 					port: 3000,
 					proxy: devURL,
 					open: false,
-					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
+					files: ['**/*.php', 'dist/**/*.css'],
+					ignore: ['dist/**/*.php'],
 				},
 				{
 					injectCss: true,
