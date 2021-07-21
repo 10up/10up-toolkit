@@ -85,6 +85,7 @@
     "webpack": "^5.41.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-dev-server": "^3.11.2",
+    "webpack-remove-empty-scripts": "^0.7.1",
     "webpack-sources": "^2.3.0",
     "webpackbar": "^5.0.0-3"
   },
