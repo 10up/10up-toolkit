@@ -51,7 +51,7 @@ Runs Jest on current project.
 
 Verify the Node and npm satisfy minimum `package.json` versions.
 
-*Project is a fork of [wp-scripts](https://github.com/WordPress/gutenberg/tree/master/packages/scripts)*
+*Project is a fork of [wp-scripts](https://github.com/WordPress/gutenberg/tree/trunk/packages/scripts)*
 
 ## Configuration and Extension
 
@@ -123,7 +123,7 @@ To override you will need to define `10up-toolkit.entry` in your `package.json` 
 
 ### Webpack
 
-10up-toolkit will use 10up standard Webpack configuration located in [/config/webpack.config.js](https://github.com/10up/10up-toolkit/blob/master/config/webpack.config.js) UNLESS you define a Webpack config file in your project e.g. you have a `webpack.config.js` in your project root. If you just need to change entry points, see the Entry Points section below.
+10up-toolkit will use 10up standard Webpack configuration located in [/config/webpack.config.js](https://github.com/10up/10up-toolkit/blob/trunk/packages/toolkit/config/webpack.config.js) UNLESS you define a Webpack config file in your project e.g. you have a `webpack.config.js` in your project root. If you just need to change entry points, see the Entry Points section below.
 
 Here's an example `webpack.config.js` you could add to the root of your project to extend `10up/scripts` Webpack.
 
@@ -139,15 +139,15 @@ module.exports = {
 
 ### ESLint
 
-10up-toolkit will use 10up standard ESLint configuration located in [/config/.eslintrc.js](https://github.com/10up/10up-toolkit/blob/master/config/.eslintrc.js) which extends [@10up/eslint-config](https://github.com/10up/eslint-config) UNLESS you define a ESLint config file in your project e.g. you have a `.eslintrc.js` in your project root. 
+10up-toolkit will use 10up standard ESLint configuration located in [/config/.eslintrc.js](https://github.com/10up/10up-toolkit/blob/trunk/packages/toolkit/config/.eslintrc.js) which extends [@10up/eslint-config](https://github.com/10up/eslint-config) UNLESS you define a ESLint config file in your project e.g. you have a `.eslintrc.js` in your project root. 
 
 ### Stylelint
 
-10up-toolkit will use 10up standard Stylelint configuration located in [/config/stylelint.config.js](https://github.com/10up/10up-toolkit/blob/master/config/stylelint.config.js) which extends [@10up/stylelint-config](https://github.com/10up/stylelint-config) UNLESS you define a Stylelint config file in your project e.g. you have a `stylelint.config.js` in your project root.
+10up-toolkit will use 10up standard Stylelint configuration located in [/config/stylelint.config.js](https://github.com/10up/10up-toolkit/blob/trunk/packages/toolkit/config/stylelint.config.js) which extends [@10up/stylelint-config](https://github.com/10up/stylelint-config) UNLESS you define a Stylelint config file in your project e.g. you have a `stylelint.config.js` in your project root.
 
 ### PostCSS
 
-10up-toolkit will use 10up standard PostCSS configuration located in [/config/postcss.config.js](https://github.com/10up/10up-toolkit/blob/master/config/postcss.config.js) UNLESS you define a PostCSS config file in your project e.g. you have a `postcss.config.js` in your project root.
+10up-toolkit will use 10up standard PostCSS configuration located in [/config/postcss.config.js](https://github.com/10up/10up-toolkit/blob/trunk/packages/toolkit/config/postcss.config.js) UNLESS you define a PostCSS config file in your project e.g. you have a `postcss.config.js` in your project root.
 
 ### Babel
 
