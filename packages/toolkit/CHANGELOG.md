@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
-## 1.0.8
+## 1.0.10
+- Fixed empty scripts output when a CSS entry is added.[#91](https://github.com/10up/10up-toolkit/pull/91)
+
+## 1.0.9
 - Updated deps [82](https://github.com/10up/10up-toolkit/pull/82)
 - Remove husky from 10up-toolkit [81] (Updated: Husky to 6.x)
 
