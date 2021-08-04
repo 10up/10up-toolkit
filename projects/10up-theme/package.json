@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
-    "start": "10up-toolkit start",
+    "start": "10up-toolkit start --port=3002",
     "watch": "10up-toolkit watch",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
