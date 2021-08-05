@@ -4,7 +4,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
 Object {
   "devServer": Object {
     "compress": true,
-    "contentBase": "/config/webpack/public",
+    "contentBase": "public",
     "port": 3000,
   },
   "devtool": "source-map",
