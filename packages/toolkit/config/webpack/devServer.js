@@ -1,7 +1,7 @@
 const path = require('path');
 
-module.exports = ({ projectConfig: { devServer, devServerPort } }) => {
-	if (!devServer) {
+module.exports = ({ isPackage, projectConfig: { devServer, devServerPort } }) => {
+	if (!devServer || !isPackage) {
 		return undefined;
 	}
 
