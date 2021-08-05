@@ -11,7 +11,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
-const { hasStylelintConfig, fromConfigRoot, hasProjectFile } = require('../../utils');
+const {
+	hasStylelintConfig,
+	fromConfigRoot,
+	hasProjectFile,
+	getArgFromCLI,
+} = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
@@ -66,14 +71,12 @@ module.exports = ({
 			test: /\.(jpe?g|png|gif|svg)$/i,
 		}),
 
-		// WP_LIVE_RELOAD_PORT global variable changes port on which live reload
-		// works when running watch mode.
 		!isProduction &&
 			devURL &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
-					port: 3000,
+					port: getArgFromCLI('--port') || 3000,
 					proxy: devURL,
 					open: false,
 					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],

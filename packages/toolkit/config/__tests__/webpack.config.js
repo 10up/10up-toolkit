@@ -221,4 +221,26 @@ describe('webpack.config.js', () => {
 		expect(webpackConfig).toMatchSnapshot();
 		process.argv.pop();
 	});
+
+	it('allows changing browsersync port', () => {
+		process.argv.push('--port=3000');
+		hasProjectFileMock.mockReturnValue(true);
+		const entryBuildFiles = {
+			entry1: 'entry1.js',
+		};
+		getBuildFilesMock.mockReturnValue(entryBuildFiles);
+		getPackageMock.mockReturnValue({
+			'@10up/scripts': {
+				entry: entryBuildFiles,
+				devURL: 'http://wptest.test',
+			},
+		});
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+	});
 });
