@@ -1,5 +1,7 @@
 {
   "name": "10up-toolkit",
+  "main": "dist/index.js",
+  "source": "./scripts/build",
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +17,7 @@
   },
   "version": "1.0.11",
   "bin": {
-    "10up-toolkit": "bin/10up-toolkit.js"
+    "10up-toolkit": "bin/10up-toolkit.js build"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -96,7 +98,8 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "./bin/10up-toolkit.js build --external=none"
   },
   "keywords": [
     "wordpress",
