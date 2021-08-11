@@ -1,9 +1,9 @@
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const path = require('path');
@@ -11,12 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
-const {
-	hasStylelintConfig,
-	fromConfigRoot,
-	hasProjectFile,
-	getArgFromCLI,
-} = require('../../utils');
+const { hasStylelintConfig, fromConfigRoot, hasProjectFile } = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
@@ -25,7 +20,7 @@ const removeDistFolder = (file) => {
 module.exports = ({
 	isPackage,
 	isProduction,
-	projectConfig: { devServer, filenames, devURL, paths, wpDependencyExternals },
+	projectConfig: { devServer, devURL, filenames, paths, wpDependencyExternals },
 	packageConfig: { style },
 }) => {
 	return [
@@ -71,21 +66,8 @@ module.exports = ({
 			test: /\.(jpe?g|png|gif|svg)$/i,
 		}),
 
-		!isProduction &&
-			devURL &&
-			new BrowserSyncPlugin(
-				{
-					host: 'localhost',
-					port: getArgFromCLI('--port') || 3000,
-					proxy: devURL,
-					open: false,
-					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
-				},
-				{
-					injectCss: true,
-					reload: false,
-				},
-			),
+		!isProduction && devURL && new webpack.HotModuleReplacementPlugin(),
+
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), paths.srcDir),
