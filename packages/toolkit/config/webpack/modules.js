@@ -8,11 +8,11 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			loader: MiniCSSExtractPlugin.loader,
 		},
 		{
-			loader: require.resolve('css-loader'),
+			loader: 'css-loader',
 			options,
 		},
 		postcss && {
-			loader: require.resolve('postcss-loader'),
+			loader: 'postcss-loader',
 			options: {
 				postcssOptions: {
 					// Provide a fallback configuration if there's not

@@ -20,8 +20,12 @@ const jest = require('jest');
  */
 const { getJestOverrideConfigFile, getArgsFromCLI } = require('../utils');
 
-const configFile = getJestOverrideConfigFile('unit');
+function testUnitJest() {
+	const configFile = getJestOverrideConfigFile('unit');
 
-const config = configFile ? ['--config', JSON.stringify(require(configFile))] : [];
+	const config = configFile ? ['--config', JSON.stringify(require(configFile))] : [];
 
-jest.run([...config, ...getArgsFromCLI()]);
+	jest.run([...config, ...getArgsFromCLI()]);
+}
+
+module.exports = testUnitJest;
