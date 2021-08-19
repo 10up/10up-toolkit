@@ -12,6 +12,8 @@ require('html-webpack-plugin');
 require('webpack-remove-empty-scripts');
 require('css-loader');
 require('postcss-loader');
+require('babel-loader');
+require('thread-loader');
 
 require('stylelint');
 require('sass');

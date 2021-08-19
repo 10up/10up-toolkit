@@ -24,7 +24,7 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			},
 		},
 		sass && {
-			loader: require.resolve('sass-loader'),
+			loader: 'sass-loader',
 			options: {
 				sourceMap: options ? options.sourceMap : false,
 			},
@@ -40,9 +40,9 @@ module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wo
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
 				use: [
-					require.resolve('thread-loader'),
+					'thread-loader',
 					{
-						loader: require.resolve('babel-loader'),
+						loader: 'babel-loader',
 						options: {
 							// Babel uses a directory within local node_modules
 							// by default. Use the environment variable option

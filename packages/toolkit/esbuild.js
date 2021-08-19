@@ -15,17 +15,6 @@ function replaceAll(str, find, replace) {
 const requireResolvePlugin = {
 	name: 'require-resolve-plugin',
 	setup(build) {
-		/* build.onResolve(
-			{
-				filter: /^browser-sync\//,
-			},
-			async (args) => {
-				console.log(args);
-				const newPat6h = args.path.replace('browser-sync', 'browser-sync/dist');
-
-				return { path: newPat6h };
-			},
-		); */
 		build.onLoad({ filter: /\.js$/, namespace: 'file' }, async (args) => {
 			let file = await fs.promises.readFile(args.path, 'utf-8');
 			const results = file.matchAll(/require\.resolve\([`'"](.*)[`"']\)/g);
@@ -46,6 +35,7 @@ const requireResolvePlugin = {
 						const results = pathToRequireResolveFile.match(
 							/.*\/10up-toolkit\/node_modules\/(.*)/,
 						);
+
 						if (results) {
 							const [, filePath] = results;
 
@@ -94,12 +84,13 @@ build({
 		'path',
 		// had issues bundling these
 		// see https://github.com/evanw/esbuild/issues/1311
-		'jest-resolve',
-		'jest-circus',
+		// 'jest-resolve',
+		// 'jest-circus',
+		'jest',
 		// fails bc of a dynamic require
 		'webpack-dev-server',
+		// no idea why this one fails, but waant to get rid of it anyway
 		'browser-sync',
-		// 'mini-css-extract-plugin',
 	],
 }).then(async () => {
 	const entryPoints = filesToBundleSeparately.map(({ file }) => file);
