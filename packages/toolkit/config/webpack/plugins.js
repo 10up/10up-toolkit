@@ -89,7 +89,6 @@ module.exports = ({
 						},
 					],
 				},
-
 				{
 					injectCss: true,
 					reload: false,
