@@ -50,12 +50,6 @@ if (config.devServer) {
 		},
 		(err, stats) => {
 			displayWebpackStats(err, stats);
-
-			compiler.close((closedErr) => {
-				if (closedErr) {
-					console.error(closedErr);
-				}
-			});
 		},
 	);
 }
