@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [12.x, 14.x, 16.x]
 
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
       - name: build library
         run: (cd projects/library && npm run lint-js && npm run build && npm run test)
       - name: build ts library-ts
