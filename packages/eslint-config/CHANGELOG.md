@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## [2.3.7]
+- Updated deps
+
 ## [2.3.6]
 -  Updated deps [82](https://github.com/10up/10up-toolkit/pull/82)
 

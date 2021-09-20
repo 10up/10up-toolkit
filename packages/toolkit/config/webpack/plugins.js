@@ -79,7 +79,15 @@ module.exports = ({
 					port: getArgFromCLI('--port') || 3000,
 					proxy: devURL,
 					open: false,
-					files: ['**/*.php', 'dist/**/*.js', 'dist//**/*.css'],
+					files: ['**/*.php', '**/*.js', 'dist/**/*.css'],
+					ignore: ['dist/**/*.php', 'dist/**/*.js'],
+					serveStatic: ['.'],
+					rewriteRules: [
+						{
+							match: /wp-content\/themes\/.*\/dist/g,
+							replace: 'dist',
+						},
+					],
 				},
 				{
 					injectCss: true,
