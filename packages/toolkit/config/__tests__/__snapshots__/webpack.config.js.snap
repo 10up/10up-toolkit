@@ -149,7 +149,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -307,7 +307,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -493,7 +493,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -652,7 +652,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -857,7 +857,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -1047,7 +1047,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -1246,7 +1246,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {
@@ -1427,7 +1427,7 @@ Object {
   "optimization": Object {
     "concatenateModules": false,
     "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"terserOptions":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}},
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
     ],
   },
   "output": Object {

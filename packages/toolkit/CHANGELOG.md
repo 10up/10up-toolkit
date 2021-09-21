@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.12
+- Fixed: BrowserSync Config [#105](https://github.com/10up/10up-toolkit/pull/105)
+- Fixed: webpack watch command [#105](https://github.com/10up/10up-toolkit/pull/105)
+- Updated deps
+
 ## 1.0.11
 - Fixed: Allows passing a `--port` flag to browser-sync `10up-toolkit start|watch --port=3002` [#95](https://github.com/10up/10up-toolkit/pull/95)
 - Fixed: dev-server public path [#98](https://github.com/10up/10up-toolkit/pull/98)
