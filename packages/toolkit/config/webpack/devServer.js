@@ -4,6 +4,7 @@ module.exports = ({ isPackage, projectConfig: { devServer, devServerPort } }) =>
 	}
 
 	return {
+		open: false,
 		contentBase: 'public',
 		compress: true,
 		port: Number(devServerPort),

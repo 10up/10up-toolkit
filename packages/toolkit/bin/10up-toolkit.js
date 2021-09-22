@@ -13,7 +13,6 @@ const lintStyle = require('../scripts/lint-style');
 const start = require('../scripts/start');
 const testUnitJest = require('../scripts/test-unit-jest');
 const formatJs = require('../scripts/format-js');
-require('../external-deps');
 
 const { scriptName, scriptArgs } = getNodeArgsFromCLI();
 

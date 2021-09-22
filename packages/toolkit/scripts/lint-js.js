@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-const { sync: spawn } = require('cross-spawn');
 const { sync: resolveBin } = require('resolve-bin');
+const { sync: spawn } = require('../compiled/cross-spawn');
 
 /**
  * Internal dependencies

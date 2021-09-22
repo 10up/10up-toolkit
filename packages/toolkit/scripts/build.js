@@ -1,9 +1,9 @@
 /**
  * External dependencies
  */
-const spawn = require('cross-spawn');
-const webpack = require('webpack');
 const { sync: resolveBin } = require('resolve-bin');
+const spawn = require('../compiled/cross-spawn');
+const webpack = require('../compiled/webpack');
 
 /**
  * Internal dependencies
@@ -16,11 +16,6 @@ const {
 	displayWebpackStats,
 	hasTsConfig,
 } = require('../utils');
-
-/** if (hasArgInCLI('--watch')) {
-	require('./watch');
-	return;
-} * */
 
 function build() {
 	process.env.NODE_ENV = process.env.NODE_ENV || 'production';

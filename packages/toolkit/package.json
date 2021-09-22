@@ -15,7 +15,7 @@
   },
   "version": "1.0.12",
   "bin": {
-    "10up-toolkit": "dist/index.js"
+    "10up-toolkit": "bin/10up-toolkit.js"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -86,6 +86,7 @@
     "webpackbar": "^5.0.0-3"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.31.1"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
@@ -93,7 +94,7 @@
     "npm": ">=6.9"
   },
   "scripts": {
-    "build": "node esbuild.js",
+    "build": "node build-deps.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },

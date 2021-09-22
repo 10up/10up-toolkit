@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+const WebpackDevServer = require('../compiled/webpack-dev-server');
+const webpack = require('../compiled/webpack');
 
 /**
  * Internal dependencies
