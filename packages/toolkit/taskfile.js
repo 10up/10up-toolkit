@@ -9,6 +9,7 @@ const externals = {
 	'caniuse-lite/data/features/css-featurequeries.js':
 		'caniuse-lite/data/features/css-featurequeries',
 	postcss: 'postcss',
+	lodash: 'lodash',
 };
 
 externals['webpack-sources'] = '../../compiled/webpack-sources';
@@ -35,7 +36,7 @@ export async function ncc_webpack(task) {
 		.target('compiled/webpack');
 }
 
-externals['mini-css-extract-plugin'] = '../../compiled/mini-css-extract-plugin';
+// externals['mini-css-extract-plugin'] = '../../compiled/mini-css-extract-plugin';
 export async function ncc_mini_css_extract_plugin(task, opts) {
 	await task
 		.source(
@@ -145,26 +146,33 @@ export async function ncc_wp_dependency_extraction_plugin(task) {
 		.ncc({ externals })
 		.target('compiled/@wordpress-dependency-extraction-webpack-plugin');
 }
-export async function ncc(task, opts) {
+
+externals['webpack-dev-server'] = '../../compiled/webpack-dev-server';
+export async function ncc_webpack_dev_server(task) {
 	await task
-		.clear('compiled')
-		.parallel(
-			[
-				'ncc_webpack_sources',
-				'ncc_schema_utils',
-				'ncc_webpack',
-				'ncc_mini_css_extract_plugin',
-				'ncc_copy_webpack_plugin',
-				'ncc_webpack_imagemin_plugin',
-				'ncc_eslint_webpack_plugin',
-				'ncc_stylelint_webpack_plugin',
-				'ncc_html_webpack_plugin',
-				'ncc_webpackbar',
-				'ncc_webpack_remove_empty_scripts',
-				'ncc_cross_spawn',
-				'ncc_terser_webpack_plugin',
-				'ncc_wp_dependency_extraction_plugin',
-			],
-			opts,
-		);
+		.source(relative(__dirname, require.resolve('ebpack-dev-server')))
+		.ncc({ externals })
+		.target('compiled/webpack-dev-server');
+}
+export async function ncc(task, opts) {
+	await task.clear('compiled').parallel(
+		[
+			'ncc_webpack_sources',
+			'ncc_schema_utils',
+			'ncc_webpack',
+			// 'ncc_mini_css_extract_plugin',
+			'ncc_copy_webpack_plugin',
+			'ncc_webpack_imagemin_plugin',
+			'ncc_eslint_webpack_plugin',
+			'ncc_stylelint_webpack_plugin',
+			'ncc_html_webpack_plugin',
+			'ncc_webpackbar',
+			'ncc_webpack_remove_empty_scripts',
+			'ncc_cross_spawn',
+			'ncc_terser_webpack_plugin',
+			'ncc_wp_dependency_extraction_plugin',
+			// 'ncc_webpack_dev_server',
+		],
+		opts,
+	);
 }

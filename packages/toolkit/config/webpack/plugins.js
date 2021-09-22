@@ -1,12 +1,13 @@
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+// TODO: inlined html-webpack-plugin is not working
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('../../compiled/@wordpress-dependency-extraction-webpack-plugin');
 const ImageminPlugin = require('../../compiled/imagemin-webpack-plugin').default;
 const WebpackBar = require('../../compiled/webpackbar');
 const StyleLintPlugin = require('../../compiled/stylelint-webpack-plugin');
 const ESLintPlugin = require('../../compiled/eslint-webpack-plugin');
-const HtmlWebpackPlugin = require('../../compiled/html-webpack-plugin');
 const CopyWebpackPlugin = require('../../compiled/copy-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('../../compiled/webpack-remove-empty-scripts');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
