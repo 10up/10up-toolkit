@@ -86,7 +86,18 @@
     "webpackbar": "^5.0.0-3"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.31.1"
+    "@taskr/clear": "^1.1.0",
+    "@taskr/esnext": "^1.1.0",
+    "@taskr/watch": "^1.1.0",
+    "@vercel/ncc": "^0.31.1",
+    "schema-utils": "^3.1.1",
+    "taskr": "^1.1.0",
+    "webpack-sources": "^3.2.1"
+  },
+  "taskr": {
+    "requires": [
+      "./taskfile-ncc.js"
+    ]
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
@@ -96,7 +107,8 @@
   "scripts": {
     "build": "node build-deps.js",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "taskr": "taskr ncc"
   },
   "keywords": [
     "wordpress",

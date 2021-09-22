@@ -1,14 +1,14 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const ESLintPlugin = require('eslint-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const WebpackBar = require('webpackbar');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const ImageminPlugin = require('../../compiled/imagemin-webpack-plugin').default;
+const WebpackBar = require('../../compiled/webpackbar');
+const StyleLintPlugin = require('../../compiled/stylelint-webpack-plugin');
+const ESLintPlugin = require('../../compiled/eslint-webpack-plugin');
+const HtmlWebpackPlugin = require('../../compiled/html-webpack-plugin');
+const CopyWebpackPlugin = require('../../compiled/copy-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('../../compiled/webpack-remove-empty-scripts');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 
 const {
