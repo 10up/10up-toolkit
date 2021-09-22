@@ -51,12 +51,6 @@ function start() {
 			},
 			(err, stats) => {
 				displayWebpackStats(err, stats);
-
-				compiler.close((closedErr) => {
-					if (closedErr) {
-						console.error(closedErr);
-					}
-				});
 			},
 		);
 	}
