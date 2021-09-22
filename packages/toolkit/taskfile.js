@@ -1,6 +1,15 @@
 const { relative, resolve } = require('path');
 
-const externals = {};
+const externals = {
+	'jest-worker': 'jest-worker',
+	chalk: 'chalk',
+	browserslist: 'browserslist',
+	'caniuse-lite': 'caniuse-lite',
+	'caniuse-lite/data/features/border-radius': 'caniuse-lite/data/features/border-radius',
+	'caniuse-lite/data/features/css-featurequeries.js':
+		'caniuse-lite/data/features/css-featurequeries',
+	postcss: 'postcss',
+};
 
 externals['webpack-sources'] = '../../compiled/webpack-sources';
 export async function ncc_webpack_sources(task) {
@@ -27,7 +36,7 @@ export async function ncc_webpack(task) {
 }
 
 externals['mini-css-extract-plugin'] = '../../compiled/mini-css-extract-plugin';
-export async function ncc_mini_css_extract_plugin(task) {
+export async function ncc_mini_css_extract_plugin(task, opts) {
 	await task
 		.source(
 			relative(__dirname, resolve(require.resolve('mini-css-extract-plugin'), '../index.js')),
@@ -36,31 +45,30 @@ export async function ncc_mini_css_extract_plugin(task) {
 			externals: {
 				...externals,
 				'./index': './index.js',
-				'schema-utils': './compiled/schema-utils',
-				'webpack-sources': externals['webpack-sources'],
 			},
 		})
 		.target('compiled/mini-css-extract-plugin');
 	await task
-		.source(relative(__dirname, require.resolve('mini-css-extract-plugin')))
+		.source(opts.src || relative(__dirname, require.resolve('mini-css-extract-plugin')))
 		.ncc({
 			packageName: 'mini-css-extract-plugin',
 			externals: {
 				...externals,
 				'./index': './index.js',
-				'schema-utils': externals['schema-utils3'],
 			},
 		})
 		.target('compiled/mini-css-extract-plugin');
 }
 
-/* externals['terser-webpack-plugin'] = 'compiled/terser-webpack-plugin';
-export async function ncc_terser_webpack_plugin(task, opts) {
+externals['terser-webpack-plugin'] = 'compiled/terser-webpack-plugin';
+export async function ncc_terser_webpack_plugin(task) {
 	await task
 		.source(relative(__dirname, require.resolve('terser-webpack-plugin')))
-		.ncc({ externals })
+		.ncc({
+			packageName: 'terser-webpack-plugin',
+		})
 		.target('compiled/terser-webpack-plugin');
-} */
+}
 
 externals['copy-webpack-plugin'] = '../../compiled/copy-webpack-plugin';
 externals['imagemin-webpack-plugin'] = '../../compiled/imagemin-webpack-plugin';
@@ -127,6 +135,16 @@ export async function ncc_cross_spawn(task) {
 		.target('compiled/cross-spawn');
 }
 
+externals['@wordpress/dependency-extraction-webpack-plugin'] =
+	'../../compiled/@wordpress-dependency-extraction-webpack-plugin';
+export async function ncc_wp_dependency_extraction_plugin(task) {
+	await task
+		.source(
+			relative(__dirname, require.resolve('@wordpress/dependency-extraction-webpack-plugin')),
+		)
+		.ncc({ externals })
+		.target('compiled/@wordpress-dependency-extraction-webpack-plugin');
+}
 export async function ncc(task, opts) {
 	await task
 		.clear('compiled')
@@ -144,6 +162,8 @@ export async function ncc(task, opts) {
 				'ncc_webpackbar',
 				'ncc_webpack_remove_empty_scripts',
 				'ncc_cross_spawn',
+				'ncc_terser_webpack_plugin',
+				'ncc_wp_dependency_extraction_plugin',
 			],
 			opts,
 		);
