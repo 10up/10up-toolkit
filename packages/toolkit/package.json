@@ -103,7 +103,6 @@
     "npm": ">=6.9"
   },
   "scripts": {
-    "build": "node build-deps.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "taskr": "taskr ncc"
