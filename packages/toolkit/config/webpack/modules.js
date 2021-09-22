@@ -40,7 +40,7 @@ module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wo
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
 				use: [
-					'thread-loader',
+					require.resolve('../../compiled/thread-loader'),
 					{
 						loader: 'babel-loader',
 						options: {

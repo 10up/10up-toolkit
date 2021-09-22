@@ -154,6 +154,23 @@ export async function ncc_webpack_dev_server(task) {
 		.ncc({ externals })
 		.target('compiled/webpack-dev-server');
 }
+
+externals['thread-loader'] = '../../compiled/thread-loader';
+export async function ncc_thread_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('thread-loader')))
+		.ncc({ externals, packageName: 'thread-loader', assetBuilds: true })
+		.target('compiled/thread-loader');
+}
+
+externals['babel-loader'] = '../../compiled/babel-loader';
+export async function ncc_babel_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('babel-loader')))
+		.ncc({ externals })
+		.target('compiled/babel-loader');
+}
+
 export async function ncc(task, opts) {
 	await task.clear('compiled').parallel(
 		[
@@ -171,6 +188,8 @@ export async function ncc(task, opts) {
 			'ncc_cross_spawn',
 			'ncc_terser_webpack_plugin',
 			'ncc_wp_dependency_extraction_plugin',
+			'ncc_thread_loader',
+			'ncc_babel_loader',
 			// 'ncc_webpack_dev_server',
 		],
 		opts,
