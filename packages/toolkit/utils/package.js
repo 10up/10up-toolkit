@@ -3,8 +3,8 @@
  */
 const { realpathSync } = require('fs');
 const path = require('path');
-const { sync: readPkgUp } = require('read-pkg-up');
-const readPkg = require('read-pkg');
+const readPkg = require('../compiled/read-pkg');
+const { sync: readPkgUp } = require('../compiled/read-pkg-up');
 
 /**
  * Internal dependencies

@@ -3,7 +3,7 @@
  */
 const { existsSync: fileExists } = require('fs');
 const path = require('path');
-const camelcase = require('camelcase');
+const camelcase = require('../compiled/camelcase');
 const { hasArgInCLI, getArgFromCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');

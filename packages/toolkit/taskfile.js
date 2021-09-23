@@ -12,6 +12,14 @@ const externals = {
 	lodash: 'lodash',
 };
 
+/* externals.sass = '../../compiled/sass';
+export async function ncc_sass(task) {
+	await task
+		.source(relative(__dirname, require.resolve('sass')))
+		.ncc({ externals, packageName: 'sass' })
+		.target('compiled/sass');
+} */
+
 externals['webpack-sources'] = '../../compiled/webpack-sources';
 export async function ncc_webpack_sources(task) {
 	await task
@@ -175,7 +183,10 @@ externals['sass-loader'] = '../../compiled/sass-loader';
 export async function ncc_sass_loader(task) {
 	await task
 		.source(relative(__dirname, require.resolve('sass-loader')))
-		.ncc({ externals, packageName: 'sass-loader' })
+		.ncc({
+			externals,
+			packageName: 'sass-loader',
+		})
 		.target('compiled/sass-loader');
 }
 externals['css-loader'] = '../../compiled/css-loader';
@@ -209,6 +220,46 @@ export async function ncc_svgr_webpack(task) {
 		.target('compiled/@svgr-webpack');
 }
 
+externals.camelcase = '../../compiled/camelcase';
+export async function ncc_camelcase(task) {
+	await task
+		.source(relative(__dirname, require.resolve('camelcase')))
+		.ncc({ externals, packageName: 'camelcase' })
+		.target('compiled/camelcase');
+}
+
+externals['read-pkg'] = '../../compiled/read-pkg';
+export async function ncc_read_pkg(task) {
+	await task
+		.source(relative(__dirname, require.resolve('read-pkg')))
+		.ncc({ externals, packageName: 'read-pkg' })
+		.target('compiled/read-pkg');
+}
+
+externals['read-pkg-up'] = '../../compiled/read-pkg-up';
+export async function ncc_read_pkg_up(task) {
+	await task
+		.source(relative(__dirname, require.resolve('read-pkg-up')))
+		.ncc({ externals, packageName: 'read-pkg-up' })
+		.target('compiled/read-pkg-up');
+}
+
+externals['resolve-bin'] = '../../compiled/resolve-bin';
+export async function ncc_resolve_bin(task) {
+	await task
+		.source(relative(__dirname, require.resolve('resolve-bin')))
+		.ncc({ externals, packageName: 'resolve-bin' })
+		.target('compiled/resolve-bin');
+}
+
+externals.minimist = '../../compiled/minimist';
+export async function ncc_minimistn(task) {
+	await task
+		.source(relative(__dirname, require.resolve('minimist')))
+		.ncc({ externals, packageName: 'minimist' })
+		.target('compiled/minimist');
+}
+
 export async function ncc(task, opts) {
 	await task.clear('compiled').parallel(
 		[
@@ -228,12 +279,18 @@ export async function ncc(task, opts) {
 			'ncc_wp_dependency_extraction_plugin',
 			'ncc_thread_loader',
 			'ncc_babel_loader',
+			// 'ncc_sass',
 			'ncc_sass_loader',
 			'ncc_css_loader',
 			'ncc_postcss_loader',
 			'ncc_url_loader',
 			'ncc_svgr_webpack',
 			// 'ncc_webpack_dev_server',
+			'ncc_camelcase',
+			'ncc_read_pkg',
+			'ncc_read_pkg_up',
+			'ncc_resolve_bin',
+			'ncc_minimistn',
 		],
 		opts,
 	);

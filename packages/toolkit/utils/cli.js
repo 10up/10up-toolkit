@@ -1,8 +1,8 @@
 /**
  * External dependencies
  */
-const minimist = require('minimist');
-const spawn = require('cross-spawn');
+const spawn = require('../compiled/cross-spawn');
+const minimist = require('../compiled/minimist');
 
 /**
  * Internal dependencies
