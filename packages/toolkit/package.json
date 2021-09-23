@@ -24,7 +24,6 @@
     "@10up/stylelint-config": "^1.1.2",
     "@babel/core": "^7.15.0",
     "@babel/eslint-parser": "^7.15.0",
-    "@svgr/webpack": "^5.5.0",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "@wordpress/eslint-plugin": "^8.0.0",
@@ -35,7 +34,6 @@
     "browser-sync-webpack-plugin": "^2.3.0",
     "camelcase": "^6.2.0",
     "core-js": "^3.16.1",
-    "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -55,7 +53,6 @@
     "postcss-css-variables": "^0.18.0",
     "postcss-editor-styles": "^0.3.0",
     "postcss-import": "^14.0.2",
-    "postcss-loader": "^5.0.0",
     "postcss-mixins": "^7.0.3",
     "postcss-nested": "^5.0.6",
     "postcss-object-fit-images": "^1.1.2",
@@ -65,10 +62,8 @@
     "read-pkg-up": "^1.0.1",
     "resolve-bin": "^0.4.1",
     "sass": "^1.37.5",
-    "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",
     "typescript": "^4.3.5",
-    "url-loader": "^4.1.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-dev-server": "^3.11.2"
   },
@@ -90,7 +85,12 @@
     "copy-webpack-plugin": "^6.4.1",
     "html-webpack-plugin": "^5.3.2",
     "eslint-webpack-plugin": "^2.5.2",
-    "thread-loader": "^3.0.1"
+    "thread-loader": "^3.0.1",
+    "postcss-loader": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "css-loader": "^5.0.1",
+    "url-loader": "^4.1.1",
+    "@svgr/webpack": "^5.5.0"
   },
   "taskr": {
     "requires": [

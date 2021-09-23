@@ -171,6 +171,44 @@ export async function ncc_babel_loader(task) {
 		.target('compiled/babel-loader');
 }
 
+externals['sass-loader'] = '../../compiled/sass-loader';
+export async function ncc_sass_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('sass-loader')))
+		.ncc({ externals, packageName: 'sass-loader' })
+		.target('compiled/sass-loader');
+}
+externals['css-loader'] = '../../compiled/css-loader';
+export async function ncc_css_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('css-loader')))
+		.ncc({ externals, packageName: 'css-loader' })
+		.target('compiled/css-loader');
+}
+externals['postcss-loader'] = '../../compiled/postcss-loader';
+export async function ncc_postcss_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('postcss-loader')))
+		.ncc({ externals, packageName: 'postcss-loader' })
+		.target('compiled/postcss-loader');
+}
+
+externals['url-loader'] = '../../compiled/url-loader';
+export async function ncc_url_loader(task) {
+	await task
+		.source(relative(__dirname, require.resolve('url-loader')))
+		.ncc({ externals, packageName: 'url-loader' })
+		.target('compiled/url-loader');
+}
+
+externals['@svgr/webpack'] = '../../compiled/@svgr-webpack';
+export async function ncc_svgr_webpack(task) {
+	await task
+		.source(relative(__dirname, require.resolve('@svgr/webpack')))
+		.ncc({ externals, packageName: '@svgr/webpack' })
+		.target('compiled/@svgr-webpack');
+}
+
 export async function ncc(task, opts) {
 	await task.clear('compiled').parallel(
 		[
@@ -190,6 +228,11 @@ export async function ncc(task, opts) {
 			'ncc_wp_dependency_extraction_plugin',
 			'ncc_thread_loader',
 			'ncc_babel_loader',
+			'ncc_sass_loader',
+			'ncc_css_loader',
+			'ncc_postcss_loader',
+			'ncc_url_loader',
+			'ncc_svgr_webpack',
 			// 'ncc_webpack_dev_server',
 		],
 		opts,

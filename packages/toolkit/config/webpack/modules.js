@@ -8,11 +8,11 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			loader: MiniCSSExtractPlugin.loader,
 		},
 		{
-			loader: 'css-loader',
+			loader: require.resolve('../../compiled/css-loader'),
 			options,
 		},
 		postcss && {
-			loader: 'postcss-loader',
+			loader: require.resolve('../../compiled/postcss-loader'),
 			options: {
 				postcssOptions: {
 					// Provide a fallback configuration if there's not
@@ -24,7 +24,7 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			},
 		},
 		sass && {
-			loader: 'sass-loader',
+			loader: require.resolve('../../compiled/sass-loader'),
 			options: {
 				sourceMap: options ? options.sourceMap : false,
 			},
@@ -72,7 +72,10 @@ module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wo
 			},
 			{
 				test: /\.svg$/,
-				use: ['@svgr/webpack', 'url-loader'],
+				use: [
+					require.resolve('../../compiled/@svgr-webpack'),
+					require.resolve('../../compiled/url-loader'),
+				],
 			},
 			{
 				test: /\.css$/,
