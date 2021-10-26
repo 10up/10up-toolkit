@@ -46,6 +46,7 @@ compiler.run((err, stats) => {
 
 	compiler.close((closedErr) => {
 		if (closedErr) {
+			// eslint-disable-next-line no-console
 			console.error(closedErr);
 		}
 	});
