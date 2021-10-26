@@ -13,7 +13,7 @@ npm install --save-dev 10up-toolkit
 10up-toolkit build
 ```
 
-Builds CSS and JavaScript files. This uses the 10up configuration for Webpack. Check out the entry points below to see what is built.
+Builds CSS and JavaScript files. This uses the 10up configuration for Webpack. Check out the entry points below to see what is builds.
 
 ```
 10up-toolkit start
