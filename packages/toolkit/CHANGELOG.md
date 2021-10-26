@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 1.0.13
+- [Security] Updated deps
+
 ## 1.0.12
 - Fixed: BrowserSync Config [#105](https://github.com/10up/10up-toolkit/pull/105)
 - Fixed: webpack watch command [#105](https://github.com/10up/10up-toolkit/pull/105)
