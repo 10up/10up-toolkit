@@ -1,1 +1,11 @@
 /* Components */
+
+img {
+
+	@mixin ar 16, 9;
+
+	@media (--bp-large) {
+
+		@mixin ar 1, 1;
+	}
+}
