@@ -64,7 +64,6 @@
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.0",
     "postcss-mixins": "^8.1.0",
-    "postcss-nested": "^5.0.6",
     "postcss-object-fit-images": "^1.1.2",
     "postcss-preset-env": "^7.0.0",
     "prettier": "2.4.1",
