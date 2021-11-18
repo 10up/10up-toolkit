@@ -13,6 +13,10 @@ const jestUnitConfig = {
 	testPathIgnorePatterns: ['/node_modules/', '<rootDir>/vendor/'],
 	timers: 'fake',
 	setupFilesAfterEnv: ['@wordpress/jest-console'],
+	moduleNameMapper: {
+		'\\.(scss|css)$': path.join(__dirname, 'jest', 'style.mock.js'),
+	},
+	testEnvironment: 'jsdom',
 };
 
 if (!hasBabelConfig()) {
