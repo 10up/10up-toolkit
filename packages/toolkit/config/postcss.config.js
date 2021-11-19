@@ -5,11 +5,13 @@ module.exports = ({ file, env }) => {
 		plugins: {
 			'postcss-import': {},
 			'postcss-mixins': {},
-			'postcss-nested': {},
 			'postcss-preset-env': {
 				stage: 0,
 				autoprefixer: {
 					grid: true,
+				},
+				features: {
+					'custom-properties': false,
 				},
 			},
 			'postcss-object-fit-images': {},

@@ -163,7 +163,7 @@ Object {
   "plugins": Array [
     HtmlWebpackPlugin: {},
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -326,7 +326,7 @@ Object {
   "plugins": Array [
     HtmlWebpackPlugin: {},
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
@@ -506,7 +506,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -670,7 +670,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
@@ -870,7 +870,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -1060,7 +1060,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -1259,7 +1259,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -1445,7 +1445,7 @@ Object {
   },
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"chunkFilename":"[id].css"},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},

@@ -33,8 +33,8 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@wordpress/stylelint-config": "^19.0.3",
-    "stylelint-declaration-use-variable": "^1.7.2",
+    "@wordpress/stylelint-config": "^19.1.0",
+    "stylelint-declaration-use-variable": "^1.7.3",
     "stylelint-order": "^4.1.0"
   }
 }

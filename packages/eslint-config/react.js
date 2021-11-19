@@ -5,14 +5,7 @@ module.exports = {
 			jsx: true,
 		},
 	},
-	extends: [
-		'airbnb',
-		'airbnb/hooks',
-		'./index',
-		'prettier',
-		'prettier/react',
-		'plugin:prettier/recommended',
-	],
+	extends: ['airbnb', 'airbnb/hooks', './index', 'prettier', 'plugin:prettier/recommended'],
 	rules: {
 		'react/jsx-filename-extension': 0,
 		'react/forbid-prop-types': [
