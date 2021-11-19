@@ -67,4 +67,15 @@ describe('postcss', () => {
 
 		expect(result.css).toMatchSnapshot();
 	});
+
+	it('transforms accordion.css properly', async () => {
+		const css = fs.readFileSync(path.join(__dirname, '__fixtures__', 'accordion.css'));
+
+		const result = await postcss(postCSSPlugins).process(css, {
+			from: 'accordion.css',
+			to: 'accordion.out.css',
+		});
+
+		expect(result.css).toMatchSnapshot();
+	});
 });
