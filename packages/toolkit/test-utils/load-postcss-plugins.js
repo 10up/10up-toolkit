@@ -6,6 +6,10 @@ const loadPostCSSPlugins = (config) => {
 	pluginKeys.forEach((pluginName) => {
 		const pluginConfig = plugins[pluginName];
 
+		if (!pluginConfig) {
+			return;
+		}
+
 		const module = require(pluginName);
 
 		if (module.default) {

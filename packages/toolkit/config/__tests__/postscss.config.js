@@ -42,7 +42,7 @@ describe('postcss', () => {
 	const config = configFactory({
 		// this is just to control the postcss config based on file name
 		file: 'style.css',
-		env: 'production',
+		env: 'development',
 	});
 
 	const postCSSPlugins = loadPostCSSPlugins(config);
