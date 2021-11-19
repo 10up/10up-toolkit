@@ -78,4 +78,15 @@ describe('postcss', () => {
 
 		expect(result.css).toMatchSnapshot();
 	});
+
+	it('transforms nesting.css properly', async () => {
+		const css = fs.readFileSync(path.join(__dirname, '__fixtures__', 'nesting.css'));
+
+		const result = await postcss(postCSSPlugins).process(css, {
+			from: 'nesting.css',
+			to: 'nesting.out.css',
+		});
+
+		expect(result.css).toMatchSnapshot();
+	});
 });

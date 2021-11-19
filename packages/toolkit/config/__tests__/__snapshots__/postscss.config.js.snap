@@ -6,6 +6,8 @@ exports[`postcss transforms accordion.css properly 1`] = `":root{--primary-font:
 
 exports[`postcss transforms mixins properly 1`] = `"img{overflow:hidden;position:relative}img:before{content:\\"\\";display:block;padding-bottom:100%;width:100%}"`;
 
+exports[`postcss transforms nesting.css properly 1`] = `"a,b{color:red}:is(a,b) c,:is(a,b) d{color:#fff}"`;
+
 exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=development 1`] = `
 Object {
   "plugins": Object {
