@@ -10,6 +10,9 @@ module.exports = ({ file, env }) => {
 				autoprefixer: {
 					grid: true,
 				},
+				features: {
+					'custom-properties': false,
+				},
 			},
 			'postcss-object-fit-images': {},
 		},
