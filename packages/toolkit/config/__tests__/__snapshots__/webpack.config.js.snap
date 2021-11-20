@@ -42,9 +42,10 @@ Object {
                   Object {
                     "targets": Array [
                       "> 1%",
-                      "ie >= 11",
                       "Firefox ESR",
                       "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
                     ],
                     "useBuiltIns": false,
                     "wordpress": true,
@@ -191,7 +192,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -313,7 +314,7 @@ Object {
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": function filename(pathData) {
+    "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -357,7 +358,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -534,7 +535,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -658,7 +659,7 @@ Object {
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": function filename(pathData) {
+    "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -700,7 +701,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -750,9 +751,10 @@ Object {
                   Object {
                     "targets": Array [
                       "> 1%",
-                      "ie >= 11",
                       "Firefox ESR",
                       "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
                     ],
                     "useBuiltIns": false,
                     "wordpress": true,
@@ -898,7 +900,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -940,9 +942,10 @@ Object {
                   Object {
                     "targets": Array [
                       "> 1%",
-                      "ie >= 11",
                       "Firefox ESR",
                       "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
                     ],
                     "useBuiltIns": false,
                     "wordpress": true,
@@ -1088,7 +1091,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -1139,9 +1142,10 @@ Object {
                   Object {
                     "targets": Array [
                       "> 1%",
-                      "ie >= 11",
                       "Firefox ESR",
                       "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
                     ],
                     "useBuiltIns": false,
                     "wordpress": true,
@@ -1287,7 +1291,7 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
 
@@ -1324,9 +1328,10 @@ Object {
                   Object {
                     "targets": Array [
                       "> 1%",
-                      "ie >= 11",
                       "Firefox ESR",
                       "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
                     ],
                     "useBuiltIns": "usage",
                     "wordpress": true,
@@ -1433,7 +1438,7 @@ Object {
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": function filename(pathData) {
+    "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -1476,6 +1481,6 @@ Object {
     "performance": true,
     "warnings": true,
   },
-  "target": "browserslist:> 1%, ie >= 11, Firefox ESR, last 2 versions",
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
 }
 `;
