@@ -52,7 +52,7 @@ const removeLocalPath = (val) => {
  * @returns {string}
  */
 const printWebPackPlugin = (plugin) => {
-	const options = plugin?.options || {};
+	const options = plugin.options ? plugin.options : {};
 
 	['maxConcurrency', 'experimentalUseImportModule'].forEach((key) => {
 		if (typeof options[key] !== 'undefined') {
@@ -60,9 +60,7 @@ const printWebPackPlugin = (plugin) => {
 		}
 	});
 
-	return `${plugin?.name || plugin?.constructor?.name}: ${removeLocalPath(
-		JSON.stringify(options),
-	)}`;
+	return `${plugin.name || plugin.constructor.name}: ${removeLocalPath(JSON.stringify(options))}`;
 };
 
 module.exports = {
