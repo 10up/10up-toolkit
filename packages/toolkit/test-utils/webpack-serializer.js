@@ -30,7 +30,7 @@ const hasLocalPath = (val) => {
  * @returns {boolean}
  */
 const isWebPackPlugin = (val) => {
-	return typeof val === 'object' && val?.apply && typeof val?.apply === 'function';
+	return typeof val === 'object' && typeof val.apply === 'function';
 };
 
 /**
