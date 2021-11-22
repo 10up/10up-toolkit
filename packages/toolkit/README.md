@@ -2,7 +2,15 @@
 
 A collection of bundled scripts for 10up development.
 
-## Introduction
+1. [Introduction](#introduction)
+2. [Authoring Projects](#projects)
+3. [Linting](#linting)
+4. [Authoring Libraries](#libraries)
+5. [Customizations](#customizations)
+6. [CLI Options](#cli)
+8. [TypeScript Support](#typescript)
+
+## <a id="introduction"></a>Introduction
 
 10up-toolkit is 10up's official asset bundling tool based on Webpack 5. It comes with support for many things commonly
 used across 10up's projects such as:
@@ -17,7 +25,7 @@ to worry about config files. 10up-toolkit is also easy to extend to project's sp
 
 `10up-toolkit` is inspired in tools like `react-scripts`, `kcd-scripts` and `wp-scripts`.
 
-## Installation
+### Installation
 
 To install 10up-toolkit simply run 
 
@@ -25,7 +33,7 @@ To install 10up-toolkit simply run
 npm install --save-dev 10up-toolkit
 ```
 
-## Setting it up
+### Setting it up
 
 In order to get `10up-toolkit` up and running simply define the `source` and `main` properties in your `package.json` file.
 You can also specify a `style` property to tell `10up-toolkit` where to output your compiled css.
@@ -61,7 +69,7 @@ will generate a `index.js` and a `index.css` file in the `dist` folder after run
 By default it will run in package mode (like in the example above) and it works 
 well when you building a package for distribution. 
 
-## Authoring Projects
+## <a id="projects"></a>Authoring Projects
 
 When running in **project mode** 10up-toolkit will automatically inject core-js polyfills and also allow for multiple entry points.
 
@@ -121,7 +129,7 @@ By default the compiled assets will be generated on the following diretories:
 
 See the [Customizing build paths](#customize-build-paths) section for changing the structure of the dist folder.
 
-## BrowserSync
+### BrowserSync
 
 10up-toolkit ships with [BrowserSync](https://browsersync.io/) and can be enabled by simply adding a devURL property.
 
@@ -136,7 +144,7 @@ See the [Customizing build paths](#customize-build-paths) section for changing t
 
 In the example above, running `10up-toolkit start` or `10up-toolkit build --watch` will start 10up-toolkit in watch mode and start a browser sync session, proxying the *https://my-project.test* url.
 
-## <a name="customize-build-paths"></a> Customizing build paths 
+### <a name="customize-build-paths"></a> Customizing build paths 
 
 To change where assets are generated in the `dist` folder, you can create a `filenames.config.js` at the root of your project.
 
@@ -169,12 +177,12 @@ Alternatively you can specify the paths in `package.json`
 
 Note that when overriding via the `filenames.config.js` you must export the filenames for all file types.
 
-## WordPress Editor Styles
+### WordPress Editor Styles
 
 By default 10up-toolkit will scope any css file named `editor-styles.css` files with the 
 `.editor-styles-wrapper` class. Take a look at the default [postcss config](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/config/postcss.config.js#L21) for more information.
 
-## Linting
+## <a id="linting"></a> Linting
 
 10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and exposes the following commands:
 `10up-toolkit lint-js`,  `10up-toolkit format-js` and `10up-toolkit lint-style`.
@@ -196,7 +204,7 @@ By default 10up-toolkit will scope any css file named `editor-styles.css` files 
 
 Then you can run `npm run lint-js` and `npm run format-js` to lint and format your codebase respectively.
 
-## IDE Intregration
+### IDE Intregration
 It's not required, but you might want to create a `.eslintrc.js` and `stylelint.config.js` file at the root of your project to better integrate eslint with your code editor or to extend the linting config.
 
 ```javascript
@@ -217,7 +225,7 @@ const config = {
 module.exports = config;
 ```
 
-## Choosing what to lint
+### Choosing what to lint
 
 10up-toolkit will lint/format any JavaScript or TypeScript file in your source code directory, you can customize this behavior in two ways:
 
@@ -234,7 +242,7 @@ path-to-code-to-be-ignored/*
 
 ```
 
-## Setting up Husky and Lint-Staged
+### Setting up Husky and Lint-Staged
 
 We also strongly recommend that you set up `lint-staged` and `husky` to automate linting your code on every commit.
 
@@ -282,7 +290,8 @@ npm install --save-dev husky lint-staged
 ```
 
 Whenever you commit your code, husky will run lint-staged which will trigger the appropriate commands to lint the staged files and if any of the commands fails, your commit will be aborted.
-## VSCode Integration
+
+### VSCode Integration
 
 It's strongly recommended to enable VSCode settings to format your JavaScript code on save. To do so, make sure you have the [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension and add the following settings to your vscode config:
 
@@ -300,7 +309,7 @@ It's strongly recommended to enable VSCode settings to format your JavaScript co
 
 10up's eslint config integrated with prettier through a eslint plugin so having the vscode prettier extension is not needed and in fact, it must be disabled to avoid conflicts when saving and formatting the code.
 
-## Authoring Libraries/Packages
+## <a id="libraries"></a>Authoring Libraries/Packages
 
 10up-toolkit leverages standard package.json fields when running in package mode. Below is a list of all fields 10up-toolkit supports and how it's used.
 
@@ -340,7 +349,7 @@ export default () => { /* my awesome js code */};
 
 will generate a `index.js`, `index.umd.js` and a `index.css` file in the `dist` folder after running `npm run build`.
 
-## Undertanding Package Mode
+### Undertanding Package Mode
 
 It's important to understand how 10up-toolkit behaves when running in package mode. First and foremost, core-js polyfills **will not** be added automatically.
 
@@ -356,11 +365,11 @@ The reason for this is that, it's responsibility of the consumer bundle to resol
 
 This behavior is inspired in [how microbundle](https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle) handle bundling packages.
 
-## Customizations
+## <a id="customizations"></a>Customizations
 
 10up-toolkit is very extensible and pretty much all config files can be overridden by simply creating a config file at the root of your project.
 
-## Customizing the Webpack config
+### Customizing the Webpack config
 In general, we don't recommend customizing the webpack config, the default webpack config and the 10up-toolkits options should provide all that's needed
 for most projects. However, in case you need to modify the webpack config you can to so by creating a `webpack.config.js` file at the root of your project.
 
@@ -377,7 +386,7 @@ config.module.rules[0].exclude =
 module.exports = defaultConfig;
 ```
 
-## Customizing eslint and styling
+### Customizing eslint and styling
 
 To customize eslint, create a supported eslint config file at the root of your project. Make sure to extend the from `@10up/eslint-config` package.
 
@@ -410,7 +419,7 @@ module.exports = config;
 
 Refer to <Link to="/10up-toolkit/linting">linting docs</Link> for more information.
 
-## Customizing PostCSS
+### Customizing PostCSS
 
 To customize the postcss config, create a `postcss.config.js` at the root of your project. When overriding the postcss config, keep in mind
 that the default config is exported as a **function**.
@@ -435,11 +444,11 @@ module.exports = (props) => {
 };
 ```
 
-## CLI Options
+## <a id="cli"></a> CLI Options
 
 10up-toolkit supports several CLI options that can be used to override settings.
 
-## Source and Output
+### Source and Output
 To set the source and main/ouput path via the CLI you can use the `-i` and `-o` (or `--input` and `--output` options)
 
 ```bash
@@ -461,7 +470,7 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 "start": "10up-toolkit start -i=src/app.js --dev-server",
 ```
 
-## Dev Server
+### Dev Server
 
 <blockquote>This option was added in 10up-toolkit 1.0.8</blockquote>
 
@@ -485,12 +494,12 @@ If you need to override the default html template, create a `index.html` file un
 
 **Note**: You don't need to manually include the css and js in the html template, webpack will handle that for you.
 
-## WP Mode
+### WP Mode
 
 10up-toolkit is optimized for WordPress development and by default will include several WordPress specific settings. To disable this behavior
 you can pass `--wp=false`.
 
-## Format
+### Format
 
 The format option controls how webpack will generate your bundle. The supported options are:
 - all (default)
@@ -505,7 +514,7 @@ To override, use the `-f` or `--format` option
 10up-toolkit build -f=commonjs
 ```
 
-## Externals
+### Externals
 
 This option is only useful in package mode and is used to override the webpack externals definitions. In package mode, the 
 default externals will be set based on your dependencies and peer dependencies.
@@ -571,7 +580,7 @@ The UMD bundle could then be used like so:
 </script>
 ```
 
-## TypeScript Support
+## <a id="typescript"></a> TypeScript Support
 
 
 10up-toolkit provides support for TypeScript out of the box. Simply create files with `.ts` or `.tsx` (for react components) and 10up-toolkit will
