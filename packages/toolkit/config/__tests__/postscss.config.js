@@ -90,3 +90,23 @@ describe('postcss', () => {
 		expect(result.css).toMatchSnapshot();
 	});
 });
+
+describe('postcss editor-style.css', () => {
+	const config = configFactory({
+		// this is just to control the postcss config based on file name
+		file: 'editor-style.css',
+		env: 'development',
+	});
+
+	const postCSSPlugins = loadPostCSSPlugins(config);
+
+	it('properly transforms css', async () => {
+		const css = fs.readFileSync(path.join(__dirname, '__fixtures__', 'editor-style.css'));
+		const result = await postcss(postCSSPlugins).process(css, {
+			from: 'editor-style.css',
+			to: 'editor-style.out.css',
+		});
+
+		expect(result.css).toMatchSnapshot();
+	});
+});

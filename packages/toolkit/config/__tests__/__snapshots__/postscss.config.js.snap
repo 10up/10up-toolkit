@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`postcss editor-style.css properly transforms css 1`] = `
+".editor-styles-wrapper .wp-block-button {
+   .editor-styles-wrapper & .wp-block-button__link {
+		background: red;
+		color: white;
+		.editor-styles-wrapper &::after {
+     content: \\"10up\\";
+   }
+	}
+}"
+`;
+
 exports[`postcss properly transforms css 1`] = `
 ":root {
 	--c-uikit-base: #fff;

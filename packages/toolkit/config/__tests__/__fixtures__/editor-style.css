@@ -1,0 +1,14 @@
+@define-mixin button-primary {
+   background: red;
+   color: white;
+    
+   &::after {
+     content: "10up";
+   }
+}
+
+.wp-block-button {
+   & .wp-block-button__link {
+		@mixin button-primary;
+	}
+}
