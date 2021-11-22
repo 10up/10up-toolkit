@@ -67,7 +67,7 @@ will generate a `index.js` and a `index.css` file in the `dist` folder after run
 - **Package Mode**: Does not include core-js polyfills automatically, assumes one entry point and doesn't include dependencies in the bundle.
 
 By default it will run in package mode (like in the example above) and it works 
-well when you building a package for distribution. 
+well when you're building a package for distribution. 
 
 ## <a id="projects"></a>Authoring Projects
 
@@ -144,7 +144,7 @@ See the [Customizing build paths](#customize-build-paths) section for changing t
 
 In the example above, running `10up-toolkit start` or `10up-toolkit build --watch` will start 10up-toolkit in watch mode and start a browser sync session, proxying the *https://my-project.test* url.
 
-### <a name="customize-build-paths"></a> Customizing build paths 
+### <a id="customize-build-paths"></a> Customizing build paths 
 
 To change where assets are generated in the `dist` folder, you can create a `filenames.config.js` at the root of your project.
 
