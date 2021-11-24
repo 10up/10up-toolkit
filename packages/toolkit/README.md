@@ -87,7 +87,7 @@ Here's how a `package.json` would look like for using 10up-toolkit this way:
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
-    "test": "10up-toolkit test-unit-jest",
+    "test": "10up-toolkit test-unit-jest"
   },
   "devDependencies": {
     "10up-toolkit": "^1.0.0"
