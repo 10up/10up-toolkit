@@ -3,7 +3,7 @@ module.exports = {
 	plugins: ['stylelint-declaration-use-variable', 'stylelint-order'],
 	rules: {
 		'sh-waqar/declaration-use-variable': [
-			['/color/', { ignoreValues: ['transparent', 'inherit', 'currentColor'] }],
+			['/color/', { ignoreValues: ['currentColor', 'inherit', 'initial', 'transparent', 'unset'] }],
 		],
 		'order/properties-alphabetical-order': true,
 		'function-url-quotes': 'always',
