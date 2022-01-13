@@ -1,6 +1,12 @@
 const { declare } = require('@babel/helper-plugin-utils');
 
-const defaultTargets = ['> 1%', 'ie >= 11', 'Firefox ESR', 'last 2 versions'];
+const defaultTargets = [
+	'> 1%',
+	'Firefox ESR',
+	'last 2 versions',
+	'not ie <= 11',
+	'not ie_mob <=11',
+];
 
 module.exports = declare((api, options) => {
 	const {

@@ -3,7 +3,7 @@
  */
 const { realpathSync } = require('fs');
 const path = require('path');
-const { sync: readPkgUp } = require('read-pkg-up');
+const readPkgUp = require('read-pkg-up');
 const readPkg = require('read-pkg');
 
 /**
@@ -11,7 +11,7 @@ const readPkg = require('read-pkg');
  */
 const { getCurrentWorkingDirectory } = require('./process');
 
-const { pkg, path: pkgPath } = readPkgUp({
+const { packageJson: pkg, path: pkgPath } = readPkgUp.sync({
 	cwd: realpathSync(getCurrentWorkingDirectory()),
 });
 
