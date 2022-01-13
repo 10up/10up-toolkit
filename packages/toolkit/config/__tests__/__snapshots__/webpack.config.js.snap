@@ -169,7 +169,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -335,7 +335,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -512,7 +512,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -678,7 +678,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -877,7 +877,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1068,7 +1068,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1268,7 +1268,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1458,7 +1458,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"injectPolyfill":true,"outputFormat":"php","useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"verbose":false,"extensions":["css","scss","sass","less","styl"],"scriptExtensions":["js","mjs"],"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
   "resolve": Object {
     "alias": Object {

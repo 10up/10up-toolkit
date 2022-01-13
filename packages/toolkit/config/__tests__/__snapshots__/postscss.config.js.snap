@@ -246,7 +246,7 @@ exports[`postcss transforms nesting.css properly 1`] = `
 "a, b {
   color: red
 }
-:is(a,b) c, :is(a,b) d {
+a c, b c, a d, b d {
     color: white;
   }"
 `;

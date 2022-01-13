@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 2.0.0
+- Updated several dependencies.
+- Updated to postcss-preset-env 7.0 and switched from postcss-nested to postcss-nesting (BREAKING CHANGE)
+- Disable polyfill for CSS custom properties.
+- Removed wordpress/jest-preset-default and now shipping a custom jest config. Jest has also been updated to the latest version.
+
 ## 1.0.13
 - [Security] Updated deps
 
