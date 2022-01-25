@@ -26,7 +26,6 @@
     "devURL": "https://my-project.test",
     "entry": {
       "admin": "./assets/js/admin/admin.js",
-      "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.ts",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
@@ -36,7 +35,6 @@
       "style": "./assets/css/frontend/style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js",
       "test-style": "./assets/css/frontend/testing.scss"
     }
   }

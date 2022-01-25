@@ -25,6 +25,7 @@ const {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	hasTsConfig,
+	getWebpackEntryPoints,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
@@ -61,4 +62,5 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	getWebpackEntryPoints,
 };

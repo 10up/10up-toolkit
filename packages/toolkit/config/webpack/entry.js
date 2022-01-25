@@ -1,3 +1,5 @@
+const { getWebpackEntryPoints } = require('../../utils');
+
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
@@ -31,5 +33,8 @@ module.exports = ({
 		return config;
 	}
 
-	return buildFiles;
+	return {
+		...buildFiles,
+		...getWebpackEntryPoints(),
+	};
 };

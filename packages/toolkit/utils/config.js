@@ -4,6 +4,7 @@
 const { existsSync: fileExists } = require('fs');
 const path = require('path');
 const camelcase = require('camelcase');
+const { sync: glob } = require('fast-glob');
 const { hasArgInCLI, getArgFromCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');
@@ -248,6 +249,50 @@ const getBuildFiles = () => {
 	return entries;
 };
 
+/**
+ * Detects the list of entry points to use with webpack. There are three ways to do this:
+ *  Scan `block.json` files for scripts.
+ *
+ * @see https://webpack.js.org/concepts/entry-points/
+ *
+ * @returns {object<string, string>} The list of entry points.
+ */
+function getWebpackEntryPoints() {
+	const blockMetadataFiles = glob('includes/blocks/**/block.json', {
+		absolute: true,
+	});
+	if (blockMetadataFiles.length > 0) {
+		return blockMetadataFiles.reduce((accumulator, blockMetadataFile) => {
+			const { editorScript, script, viewScript } = require(blockMetadataFile);
+			[editorScript, script, viewScript]
+				.flat()
+				.filter((value) => value && value.startsWith('file:'))
+				.forEach((value) => {
+					// Removes the `file:` prefix.
+					const filepath = path.join(
+						path.dirname(blockMetadataFile),
+						value.replace('file:', ''),
+					);
+
+					// Takes the path without the file extension, and relative to the `src` directory.
+					const [, entryName] = filepath.split('.')[0].split('dist/');
+					if (!entryName) {
+						return;
+					}
+
+					// Detects the proper file extension used in the `src` directory.
+					const [entryFilepath] = glob(`includes/${entryName}.[jt]s?(x)`, {
+						absolute: true,
+					});
+
+					accumulator[entryName.replace(/\//g, '--')] = entryFilepath;
+				});
+			return accumulator;
+		}, {});
+	}
+	return {};
+}
+
 module.exports = {
 	hasBabelConfig,
 	getJestOverrideConfigFile,
@@ -263,4 +308,5 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	hasTsConfig,
+	getWebpackEntryPoints,
 };

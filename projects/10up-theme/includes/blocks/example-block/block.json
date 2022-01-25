@@ -36,5 +36,5 @@
 			"padding": false
 		}
 	},
-	"editorScript": "file:../../../dist/blocks/example-block/editor.js"
+	"editorScript": "file:../../../dist/blocks/example-block/edit.js"
 }
