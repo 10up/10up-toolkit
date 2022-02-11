@@ -57,7 +57,7 @@ module.exports = ({
 				patterns: [
 					{
 						from: '**/*.{jpg,jpeg,png,gif,svg,eot,ttf,woff,woff2}',
-						to: '[path][name].[ext]',
+						to: '[path][name][ext]',
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
@@ -69,6 +69,9 @@ module.exports = ({
 		new ImageminPlugin({
 			disable: !isProduction,
 			test: /\.(jpe?g|png|gif|svg)$/i,
+			svgo: {
+				plugins: [{ removeViewBox: false }],
+			},
 		}),
 
 		!isProduction &&
