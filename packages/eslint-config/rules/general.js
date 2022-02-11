@@ -11,5 +11,8 @@ module.exports = {
 		'no-param-reassign': [2, { props: false }],
 		'no-shadow': 0,
 		'no-underscore-dangle': 0,
+
+		'no-restricted-exports': 0,
+		'import/no-commonjs': 0,
 	},
 };
