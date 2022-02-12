@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
-## 2.0.1
+## 2.1.0
 - Fix double dot issue in CopyWebpack plugin
 - Stop removing viewbox in svgs.
+- Updated eslint-config and eslint to 8.
 
 ## 2.0.0
 - Updated several dependencies.
