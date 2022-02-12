@@ -1,7 +1,7 @@
 module.exports = {
 	rules: {
 		'jsdoc/check-alignment': 1,
-		'jsdoc/check-examples': 1,
+		'jsdoc/check-examples': 0,
 		'jsdoc/check-indentation': 1,
 		'jsdoc/check-param-names': 1,
 		'jsdoc/check-tag-names': 1,

@@ -125,7 +125,7 @@ By default the compiled assets will be generated on the following diretories:
 - `dist/css` - for all css files
 - `dist/js` - for all js files.
 - `dist/blocks` - for all WordPress Gutenberg blocks.
-- `dist/[images,fonts,svg]` - all assets under `assets/images`, `asset/fonts` and `assets/svg` are copied, even those not referenced in code (this behavior is specific to building in project mode).
+- `dist/[images,fonts,svg]` - all assets under `assets/images`, `asset/fonts` and `assets/svg` with the following extensions `jpg,jpeg,png,gif,ico,svg,eot,ttf,woff,woff2,otf` are copied, even those not referenced in code (this behavior is specific to building in project mode).
 
 See the [Customizing build paths](#customize-build-paths) section for changing the structure of the dist folder.
 

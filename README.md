@@ -4,12 +4,17 @@
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+
 ## Tools
 
 * [@10up/babel-preset-default](packages/babel-preset-default/README.md)
 * [@10up/eslint-config](packages/eslint-config/README.md)
 * [@10up/stylelint-config](packages/stylelint-config/README.md)
 * [10up-toolkit](packages/toolkit/README.md)
+
+## Documentation
+
+Check out the documentation in [10up-toolkit](packages/toolkit/README.md) README file.
 
 ## Support Level
 
