@@ -29,7 +29,7 @@
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=10",
-    "npm": ">=6.9"
+    "node": ">=12",
+    "npm": ">=7"
   }
 }
