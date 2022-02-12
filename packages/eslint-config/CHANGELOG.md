@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## [2.4.0]
+- Updated eslint-config-airbnb-base and eslint-config-airbnb
+- Updated to eslint 8
+
 ## [2.3.8]
 - Updated dependencies
 
