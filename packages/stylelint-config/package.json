@@ -32,9 +32,12 @@
   "engines": {
     "node": ">=12"
   },
+  "peerDependencies": {
+    "stylelint": "^14.0.0"
+  },
   "dependencies": {
-    "@wordpress/stylelint-config": "^19.1.0",
+    "@wordpress/stylelint-config": "^20.0.1",
     "stylelint-declaration-use-variable": "^1.7.3",
-    "stylelint-order": "^4.1.0"
+    "stylelint-order": "^5.0.0"
   }
 }
