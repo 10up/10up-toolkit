@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = ({ isProduction }) => {
 	return {
@@ -29,6 +30,34 @@ module.exports = ({ isProduction }) => {
 						// Pending futher investigation:
 						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
+					},
+				},
+			}),
+			new ImageMinimizerPlugin({
+				minimizer: {
+					implementation: ImageMinimizerPlugin.imageminMinify,
+					options: {
+						test: /\.(jpe?g|png|gif|svg)$/i,
+						plugins: [
+							['gifsicle', { interlaced: true }],
+							['jpegtran', { progressive: true }],
+							['optipng', { optimizationLevel: 5 }],
+							[
+								'svgo',
+								{
+									plugins: [
+										{
+											name: 'preset-default',
+											params: {
+												overrides: {
+													removeViewBox: false,
+												},
+											},
+										},
+									],
+								},
+							],
+						],
 					},
 				},
 			}),
