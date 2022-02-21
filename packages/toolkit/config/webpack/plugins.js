@@ -35,6 +35,7 @@ module.exports = ({
 		new ESLintPlugin({
 			failOnError: false,
 			fix: false,
+			lintDirtyModulesOnly: true,
 		}),
 
 		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
@@ -91,6 +92,7 @@ module.exports = ({
 			context: path.resolve(process.cwd(), paths.srcDir),
 			files: '**/*.(s(c|a)ss|css)',
 			allowEmptyInput: true,
+			lintDirtyModulesOnly: true,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
 			}),
