@@ -29,8 +29,11 @@ const config = require(configPath);
 
 const compiler = webpack(config);
 
-if (config.devServer) {
-	const devServerOptions = { ...config.devServer, open: true };
+const { devServer } = config[0];
+
+if (devServer) {
+	const devServerOptions = { ...devServer, open: false };
+	console.log(devServerOptions);
 	const server = new WebpackDevServer(compiler, devServerOptions);
 
 	server.listen(devServerOptions.port, '127.0.0.1');

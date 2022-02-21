@@ -123,9 +123,7 @@ module.exports = ({
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
 			new ReactRefreshWebpackPlugin({
-				// This is needed for the overlay
-				// to not use the WP port.
-				overlay: { sockPort: devServerPort },
+				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 			}),
 	].filter(Boolean);
 };

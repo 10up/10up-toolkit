@@ -20,6 +20,10 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
+	if ( SCRIPT_DEBUG ) {
+		add_action( 'init', $n( 'register_react_fast_refresh' ), 1);
+	}
+
 	add_action( 'after_setup_theme', $n( 'i18n' ) );
 	add_action( 'after_setup_theme', $n( 'theme_setup' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
@@ -31,6 +35,45 @@ function setup() {
 	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+}
+
+/**
+ * Register React Fast Refresh scripts
+ *
+ * @return void
+ */
+function register_react_fast_refresh() {
+	$react_fast_refresh_entry   = TENUP_THEME_TEMPLATE_URL . '/dist/fast-refresh/react-refresh-entry/index.min.js';
+	$react_fast_refresh_runtime = TENUP_THEME_TEMPLATE_URL . '/dist/fast-refresh/react-refresh-runtime/index.min.js';
+
+	wp_register_script(
+		'react-fast-refresh-entry',
+		$react_fast_refresh_entry,
+		[],
+		filemtime( TENUP_THEME_DIST_PATH . 'fast-refresh/react-refresh-entry/index.min.js' ),
+	);
+
+	wp_register_script(
+		'react-fast-refresh-runtime',
+		$react_fast_refresh_runtime,
+		[],
+		filemtime(TENUP_THEME_DIST_PATH . 'fast-refresh/react-refresh-runtime/index.min.js'),
+	);
+
+	global $wp_scripts;
+	$script = $wp_scripts->query( 'react', 'registered' );
+
+	if ( $script ) {
+
+		if( !in_array( 'react-fast-refresh-runtime', $script->deps ) ){
+			$script->deps[] = 'react-fast-refresh-runtime';
+		}
+
+		if( !in_array( 'react-fast-refresh-entry', $script->deps ) ){
+			$script->deps[] = 'react-fast-refresh-entry';
+		}
+
+	}
 }
 
 /**

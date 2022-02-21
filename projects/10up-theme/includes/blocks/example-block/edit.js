@@ -9,8 +9,6 @@ import { RichText } from '@wordpress/block-editor';
  */
 import { editPropsShape } from './props-shape';
 
-import './index.css';
-
 /**
  * Edit component.
  * See https://wordpress.org/gutenberg/handbook/designers-developers/developers/block-api/block-edit-save/#edit
@@ -32,7 +30,7 @@ const ExampleBockEdit = ({
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"
-				placeholder={__('Custom Title 3')}
+				placeholder={__('Custom Title 2')}
 				value={currentTitle}
 				onChange={(customTitle) => setAttributes({ customTitle })}
 			/>

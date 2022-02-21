@@ -103,7 +103,7 @@ const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 const getDefaultConfig = () => {
 	const wpMode = getArgFromCLI('--wp');
 	const devServer = hasArgInCLI('--dev-server');
-	const devServerPort = getArgFromCLI('--port') || 8000;
+	const devServerPort = Number(getArgFromCLI('--port')) || 8000;
 	const analyze = hasArgInCLI('--analyze');
 	const hot = hasArgInCLI('--hot');
 

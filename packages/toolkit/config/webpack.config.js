@@ -59,7 +59,7 @@ const sharedConfig = {
 	target: getTarget(config),
 	output: {
 		filename: '[name]/index.min.js',
-		path: resolve(process.cwd(), join('dist', 'build')),
+		path: resolve(process.cwd(), join('dist', 'fast-refresh')),
 	},
 };
 
@@ -95,18 +95,21 @@ const ReactRefreshConfig = hasReactFastRefresh
 	  ]
 	: [];
 
-module.exports = {
-	devtool: isProduction ? false : 'source-map',
-	mode,
-	devServer: getDevServer(config),
-	entry: getEntryPoints(config),
-	output: getOutput(config),
-	target: getTarget(config),
-	resolve: getResolve(config),
-	externals: getExternals(config),
-	performance: getPerfomance(config),
-	module: getModules(config),
-	plugins: getPlugins(config),
-	stats: getStats(config),
-	optimization: getOptimization(config),
-};
+module.exports = [
+	{
+		devtool: isProduction ? false : 'source-map',
+		mode,
+		devServer: getDevServer(config),
+		entry: getEntryPoints(config),
+		output: getOutput(config),
+		target: getTarget(config),
+		resolve: getResolve(config),
+		externals: getExternals(config),
+		performance: getPerfomance(config),
+		module: getModules(config),
+		plugins: getPlugins(config),
+		stats: getStats(config),
+		optimization: getOptimization(config),
+	},
+	...ReactRefreshConfig,
+];

@@ -15,13 +15,23 @@ module.exports = ({ isPackage, projectConfig: { devServer, hot, devServerPort } 
 		devMiddleware: {
 			writeToDisk: true,
 		},
+		client: {
+			webSocketURL: `ws://127.0.0.1:${devServerPort}/ws`,
+		},
 		headers: {
 			// Requests come from the WP port.
 			'Access-Control-Allow-Origin': '*',
 		},
-		hot: true,
-		allowedHosts: 'auto',
-		host: 'localhost',
+		// hot: true,
+		allowedHosts: 'all',
+		host: '0.0.0.0',
 		port: Number(devServerPort),
+		proxy: {
+			'/dist': {
+				pathRewrite: {
+					'^/dist': '',
+				},
+			},
+		},
 	};
 };
