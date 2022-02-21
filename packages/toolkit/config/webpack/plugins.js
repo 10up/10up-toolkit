@@ -1,5 +1,4 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
@@ -63,16 +62,6 @@ module.exports = ({
 					},
 				],
 			}),
-
-		// Compress images
-		// Must happen after CopyWebpackPlugin
-		new ImageminPlugin({
-			disable: !isProduction,
-			test: /\.(jpe?g|png|gif|svg)$/i,
-			svgo: {
-				plugins: [{ removeViewBox: false }],
-			},
-		}),
 
 		!isProduction &&
 			devURL &&

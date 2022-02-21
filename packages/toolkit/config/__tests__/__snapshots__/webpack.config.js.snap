@@ -151,6 +151,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -165,7 +166,6 @@ Object {
     HtmlWebpackPlugin: {},
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
@@ -309,6 +309,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -329,7 +330,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
@@ -495,6 +495,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -508,7 +509,6 @@ Object {
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
@@ -654,6 +654,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -673,7 +674,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
@@ -860,6 +860,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -873,7 +874,6 @@ Object {
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
@@ -1051,6 +1051,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -1064,7 +1065,6 @@ Object {
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
@@ -1251,6 +1251,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -1264,7 +1265,6 @@ Object {
   "plugins": Array [
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
@@ -1433,6 +1433,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
   },
   "output": Object {
@@ -1452,7 +1453,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
