@@ -8,18 +8,21 @@ const WebpackBar = require('webpackbar');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
-
 const {
 	hasStylelintConfig,
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
+	hasArgInCLI,
 } = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
+
+const analyze = hasArgInCLI('--analyze');
 
 module.exports = ({
 	isPackage,
@@ -108,5 +111,6 @@ module.exports = ({
 			}),
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),
+		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 	].filter(Boolean);
 };

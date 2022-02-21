@@ -243,4 +243,36 @@ describe('webpack.config.js', () => {
 
 		expect(webpackConfig).toMatchSnapshot();
 	});
+
+	it('includes webpack-bundle-analyzer when using --analyze', () => {
+		process.argv.push('--analyze');
+		process.env.NODE_ENV = 'production';
+		hasProjectFileMock.mockReturnValue(true);
+		const entryBuildFiles = {
+			entry1: 'entry1.js',
+		};
+		getBuildFilesMock.mockReturnValue(entryBuildFiles);
+		getPackageMock.mockReturnValue({
+			'10up-toolkit': {
+				entry: entryBuildFiles,
+			},
+		});
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+
+		// test it doesn't enable when not in productio mode
+		process.env.NODE_ENV = '';
+
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+	});
 });

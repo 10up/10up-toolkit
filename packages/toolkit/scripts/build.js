@@ -19,18 +19,10 @@ const {
 
 if (hasArgInCLI('--watch')) {
 	require('./watch');
-	return;
+	process.exit(0);
 }
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-
-if (hasArgInCLI('--webpack-no-externals')) {
-	process.env.WP_NO_EXTERNALS = true;
-}
-
-if (hasArgInCLI('--webpack-bundle-analyzer')) {
-	process.env.WP_BUNDLE_ANALYZER = true;
-}
 
 let configPath = fromConfigRoot('webpack.config.js');
 

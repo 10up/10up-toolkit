@@ -448,6 +448,13 @@ module.exports = (props) => {
 
 10up-toolkit supports several CLI options that can be used to override settings.
 
+### Bundle Analyzer
+10up-toolkit ships with `webpack-bundle-analyzer` out of the box and you can enable it by simple passing the `--analyze` option.
+
+`10up-toolkit build --analyze`
+
+It only works with the build command, after finishing the build a new window will be automatically opened with the report.
+
 ### Source and Output
 To set the source and main/ouput path via the CLI you can use the `-i` and `-o` (or `--input` and `--output` options)
 
