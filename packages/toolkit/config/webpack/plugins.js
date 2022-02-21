@@ -9,27 +9,35 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
 const {
 	hasStylelintConfig,
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
-	hasArgInCLI,
 } = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
 
-const analyze = hasArgInCLI('--analyze');
-
 module.exports = ({
 	isPackage,
 	isProduction,
-	projectConfig: { devServer, filenames, devURL, paths, wpDependencyExternals },
+	projectConfig: {
+		devServer,
+		filenames,
+		devURL,
+		devServerPort,
+		paths,
+		wpDependencyExternals,
+		analyze,
+		hot,
+	},
 	packageConfig: { style },
 }) => {
+	const hasReactFastRefresh = hot && !isProduction;
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -69,6 +77,7 @@ module.exports = ({
 
 		!isProduction &&
 			devURL &&
+			!hasReactFastRefresh &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
@@ -112,5 +121,11 @@ module.exports = ({
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+		hasReactFastRefresh &&
+			new ReactRefreshWebpackPlugin({
+				// This is needed for the overlay
+				// to not use the WP port.
+				overlay: { sockPort: devServerPort },
+			}),
 	].filter(Boolean);
 };

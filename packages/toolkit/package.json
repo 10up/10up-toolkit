@@ -82,12 +82,14 @@
     "thread-loader": "^3.0.4",
     "typescript": "^4.5.2",
     "url-loader": "^4.1.1",
-    "webpack": "^5.64.1",
+    "webpack": "^5.69.1",
     "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-dev-server": "^4.5.0",
+    "webpack-dev-server": "^4.7.4",
     "webpack-remove-empty-scripts": "^0.7.1",
     "webpack-sources": "^3.2.2",
-    "webpackbar": "^5.0.2"
+    "webpackbar": "^5.0.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+    "react-refresh": "^0.11.0"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {

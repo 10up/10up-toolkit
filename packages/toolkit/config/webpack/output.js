@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = ({ isPackage, projectConfig: { filenames }, buildFiles }) => {
+module.exports = ({ isPackage, projectConfig: { filenames, hot, devURl }, buildFiles }) => {
 	if (isPackage) {
 		return {
 			path: path.resolve(process.cwd(), 'dist'),
@@ -8,8 +8,8 @@ module.exports = ({ isPackage, projectConfig: { filenames }, buildFiles }) => {
 	}
 
 	return {
-		clean: true,
 		path: path.resolve(process.cwd(), 'dist'),
+		publicPath: hot ? devURl : undefined,
 		chunkFilename: filenames.jsChunk,
 		filename: (pathData) => {
 			return buildFiles[pathData.chunk.name].match(/\/blocks\//)

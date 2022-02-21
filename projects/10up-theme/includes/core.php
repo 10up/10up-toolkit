@@ -9,6 +9,7 @@ namespace TenUpTheme\Core;
 
 use TenUpTheme\Utility;
 
+
 /**
  * Set up theme defaults and register supported WordPress features.
  *

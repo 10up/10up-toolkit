@@ -1,6 +1,8 @@
 /**
  * Internal dependencies
  */
+const { resolve, join } = require('path');
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const {
 	getBuildFiles,
 	getTenUpScriptsConfig,
@@ -49,6 +51,49 @@ const config = {
 	isProduction,
 	defaultTargets,
 };
+
+const hasReactFastRefresh = projectConfig.hot && !isProduction;
+
+const sharedConfig = {
+	mode: 'development',
+	target: getTarget(config),
+	output: {
+		filename: '[name]/index.min.js',
+		path: resolve(process.cwd(), join('dist', 'build')),
+	},
+};
+
+const ReactRefreshConfig = hasReactFastRefresh
+	? [
+			{
+				...sharedConfig,
+				name: 'react-refresh-entry',
+				entry: {
+					'react-refresh-entry':
+						'@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js',
+				},
+				plugins: [new DependencyExtractionWebpackPlugin()],
+			},
+			{
+				...sharedConfig,
+				name: 'react-refresh-runtime',
+				entry: {
+					'react-refresh-runtime': {
+						import: 'react-refresh/runtime.js',
+						library: {
+							name: 'ReactRefreshRuntime',
+							type: 'window',
+						},
+					},
+				},
+				plugins: [
+					new DependencyExtractionWebpackPlugin({
+						useDefaults: false,
+					}),
+				],
+			},
+	  ]
+	: [];
 
 module.exports = {
 	devtool: isProduction ? false : 'source-map',

@@ -12,20 +12,11 @@ const {
 	fromConfigRoot,
 	fromProjectRoot,
 	hasWebpackConfig,
-	getArgFromCLI,
 	displayWebpackStats,
 } = require('../utils');
 
 if (hasArgInCLI('--webpack-no-externals')) {
 	process.env.TENUP_NO_EXTERNALS = true;
-}
-
-if (hasArgInCLI('--webpack-bundle-analyzer')) {
-	process.env.TENUP_BUNDLE_ANALYZER = true;
-}
-
-if (hasArgInCLI('--webpack--devtool')) {
-	process.env.TENUP_DEVTOOL = getArgFromCLI('--webpack--devtool');
 }
 
 let configPath = fromConfigRoot('webpack.config.js');

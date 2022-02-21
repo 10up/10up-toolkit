@@ -104,6 +104,8 @@ const getDefaultConfig = () => {
 	const wpMode = getArgFromCLI('--wp');
 	const devServer = hasArgInCLI('--dev-server');
 	const devServerPort = getArgFromCLI('--port') || 8000;
+	const analyze = hasArgInCLI('--analyze');
+	const hot = hasArgInCLI('--hot');
 
 	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
@@ -112,6 +114,8 @@ const getDefaultConfig = () => {
 		wordpress: wpMode !== 'false',
 		devServer,
 		devServerPort,
+		analyze,
+		hot,
 		// true by default (if TENUP_NO_EXTERNALS is not set)
 		// if TENUP_NO_EXTERNALS is truthy then dependecyExternals is false
 		wpDependencyExternals:
