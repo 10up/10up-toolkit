@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = ({ isProduction, isPackage, projectConfig: { filenames }, buildFiles }) => {
+module.exports = ({ isPackage, projectConfig: { filenames, hot }, buildFiles }) => {
 	if (isPackage) {
 		return {
 			path: path.resolve(process.cwd(), 'dist'),
@@ -8,7 +8,8 @@ module.exports = ({ isProduction, isPackage, projectConfig: { filenames }, build
 	}
 
 	return {
-		clean: isProduction,
+		// when in hot reload mode we should not clear dist folder between builds
+		clean: !hot,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
 		filename: (pathData) => {

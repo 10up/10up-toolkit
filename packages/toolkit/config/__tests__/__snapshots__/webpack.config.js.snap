@@ -316,7 +316,7 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": false,
+    "clean": true,
     "filename": pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
@@ -657,7 +657,7 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": false,
+    "clean": true,
     "filename": pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
@@ -1005,7 +1005,7 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": false,
+    "clean": true,
     "filename": pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
@@ -1792,7 +1792,7 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": false,
+    "clean": true,
     "filename": pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';

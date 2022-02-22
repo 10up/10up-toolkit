@@ -4,10 +4,7 @@
  */
 namespace TenUpToolkit;
 
-if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-	add_action( 'init', __NAMESPACE__ . '\\register_react_fast_refresh', 1 );
-}
-
+add_action( 'init', __NAMESPACE__ . '\\register_react_fast_refresh', 1 );
 
 /**
  * Register React Fast Refresh scripts
