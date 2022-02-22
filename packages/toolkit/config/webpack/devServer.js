@@ -25,6 +25,7 @@ module.exports = ({ isPackage, projectConfig: { devServer, hot, devServerPort } 
 		// hot: true,
 		allowedHosts: 'all',
 		host: '0.0.0.0',
+		hot: true,
 		port: Number(devServerPort),
 		proxy: {
 			'/dist': {

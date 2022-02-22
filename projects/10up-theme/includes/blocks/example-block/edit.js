@@ -30,7 +30,7 @@ const ExampleBockEdit = ({
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"
-				placeholder={__('Custom Title 2')}
+				placeholder={__('This updates in real time')}
 				value={currentTitle}
 				onChange={(customTitle) => setAttributes({ customTitle })}
 			/>

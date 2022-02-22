@@ -21,7 +21,7 @@ function setup() {
 	};
 
 	if ( SCRIPT_DEBUG ) {
-		add_action( 'init', $n( 'register_react_fast_refresh' ), 1);
+		add_action( 'init', $n( 'register_react_fast_refresh' ), 10);
 	}
 
 	add_action( 'after_setup_theme', $n( 'i18n' ) );
@@ -160,6 +160,14 @@ function admin_scripts() {
 		Utility\get_asset_info( 'admin', 'dependencies' ),
 		Utility\get_asset_info( 'admin', 'version' ),
 		true
+	);
+
+	wp_enqueue_script(
+		'example-block',
+		TENUP_THEME_TEMPLATE_URL . '/dist/blocks/example-block/editor.js',
+		Utility\get_asset_info( 'admin', 'dependencies' ),
+		Utility\get_asset_info( 'admin', 'version' ),
+	 	true
 	);
 
 	/*

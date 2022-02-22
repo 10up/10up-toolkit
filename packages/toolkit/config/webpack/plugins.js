@@ -110,7 +110,7 @@ module.exports = ({
 			}),
 		}),
 		// Fancy WebpackBar.
-		new WebpackBar(),
+		isProduction && new WebpackBar(),
 		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&

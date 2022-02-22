@@ -38,5 +38,6 @@
 			"padding": false
 		}
 	},
-	"editorScript": "file:../../../dist/blocks/example-block/editor.js"
+	"editorScript": "file:../../../dist/blocks/example-block/editor.js",
+  "editorStyle": "file:../../../dist/blocks/example-block/editor.css"
 }
