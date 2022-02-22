@@ -123,6 +123,13 @@ module.exports = ({
 			!isPackage &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
+				requestToHandle: (request) => {
+					if (request.includes('react-refresh/runtime')) {
+						return 'tenup-toolkit-react-refresh-runtime';
+					}
+
+					return undefined;
+				},
 			}),
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),

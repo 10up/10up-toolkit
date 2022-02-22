@@ -22,25 +22,38 @@ function register_react_fast_refresh() {
 
 	$react_fast_refresh_entry   = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/react-refresh-entry/index.min.js';
 	$react_fast_refresh_runtime = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/react-refresh-runtime/index.min.js';
+	$hmr_runtime                = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/hmr-runtime.js';
 
 	$react_fast_refresh_entry_path   = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/react-refresh-entry/index.min.js';
 	$react_fast_refresh_runtime_path = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/react-refresh-runtime/index.min.js';
+	$hmr_runtime_path                = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/hmr-runtime.js';
 
 
-	if ( ! file_exists( $react_fast_refresh_entry_path ) || ! file_exists( $react_fast_refresh_runtime_path ) ) {
+	if ( 
+		! file_exists( $react_fast_refresh_entry_path ) 
+		|| ! file_exists( $react_fast_refresh_runtime_path )
+		|| ! file_exists( $hmr_runtime_path )
+	) {
 		return;
 	}
 
 	wp_register_script(
-		'react-fast-refresh-entry',
+		'tenup-toolkit-react-fast-refresh-entry',
 		$react_fast_refresh_entry,
 		[],
 		filemtime( $react_fast_refresh_entry_path ),
 	);
 
 	wp_register_script(
-		'wp-react-refresh-runtime',
+		'tenup-toolkit-react-refresh-runtime',
 		$react_fast_refresh_runtime,
+		[],
+		filemtime( $react_fast_refresh_runtime_path ),
+	);
+
+	wp_register_script(
+		'tenup-toolkit-hmr-runtime',
+		$hmr_runtime,
 		[],
 		filemtime( $react_fast_refresh_runtime_path ),
 	);
@@ -49,17 +62,21 @@ function register_react_fast_refresh() {
 	$script = $wp_scripts->query( 'react', 'registered' );
 
 	if ( $script ) {
+		// remove default react-refresh-entry by default
 		if ( in_array( 'wp-react-refresh-entry', $script->deps ) ) {
 			unset( $script->deps[ array_search( 'wp-react-refresh-entry', $script->deps ) ] );
 		}
 
-		if( !in_array( 'wp-react-refresh-runtime', $script->deps ) ){
-			$script->deps[] = 'wp-react-refresh-runtime';
+		if( !in_array( 'tenup-toolkit-react-refresh-runtime', $script->deps ) ){
+			$script->deps[] = 'tenup-toolkit-react-refresh-runtime';
 		}
 
-		if( !in_array( 'react-fast-refresh-entry', $script->deps ) ){
-			$script->deps[] = 'react-fast-refresh-entry';
+		if( !in_array( 'tenup-toolkit-react-fast-refresh-entry', $script->deps ) ){
+			$script->deps[] = 'tenup-toolkit-react-fast-refresh-entry';
 		}
 
+		if( !in_array( 'tenup-toolkit-hmr-runtime', $script->deps ) ){
+			$script->deps[] = 'tenup-toolkit-hmr-runtime';
+		}
 	}
 }

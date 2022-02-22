@@ -154,6 +154,7 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -311,10 +312,16 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": false,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -475,10 +482,16 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": true,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -640,10 +653,16 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": false,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -823,6 +842,7 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -981,10 +1001,16 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": false,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -1186,6 +1212,7 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -1377,6 +1404,7 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -1577,6 +1605,7 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -1759,10 +1788,16 @@ Object {
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
       ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": false,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
