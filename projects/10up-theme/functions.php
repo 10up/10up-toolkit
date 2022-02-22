@@ -44,3 +44,20 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 		do_action( 'wp_body_open' );
 	}
 }
+
+
+add_filter( 'tenup_available_blocks', function ( $blocks ) {
+	// Enable all of the available blocks.
+	return [
+		'accordion',
+		'accordion-item',
+		'simple-accordion-item',
+		'content-grid',
+		'content-grid-item',
+		'button',
+		'tabs',
+		'tabs-item',
+		'content-slider',
+		'content-slide',
+	];
+} );

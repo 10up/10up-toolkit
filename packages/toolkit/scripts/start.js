@@ -3,6 +3,7 @@
  */
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const fs = require('fs');
 
 /**
  * Internal dependencies
@@ -52,6 +53,13 @@ const runWebpack = () => {
 const hot = hasArgInCLI('--hot');
 
 if (hot) {
+	process.on('SIGINT', () => {
+		// when gracefully leaving hot mode, clean up dist folder.
+		// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
+		console.log('\n10up-toolkit: Cleaning up dist folder...');
+
+		fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
+	});
 	// compile the fast refresh bundle
 	const config = require(fromConfigRoot('webpack-fast-refresh.config.js'));
 	const compiler = webpack(config);
