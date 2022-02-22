@@ -234,6 +234,21 @@ If React Fast Refresh is not working for you these steps can help you debug the 
 - Some code changes might cause a full-page refresh (e.g: changing arguments of `registerBlockType`). This is a known limitation.
 - If your CSS is not hot reloading, ensure you're including your block css file (`import './style.css`) from your block's entry point.
 - If you're extending the webpack config, does it work with the original webpack config? If so your changes might be breaking fast refresh.
+- If you're overriding `babel.config.js` you will need to make sure it is including `react-refresh/babel` plugin.
+```js
+module.exports = (api) => {
+  // This caches the Babel config
+  api.cache.using(() => process.env.NODE_ENV);
+  return {
+    presets: [
+      '@10up/babel-preset-default',
+    ],
+    // Applies the react-refresh Babel plugin on non-production modes only
+    ...(!api.env('production') && { plugins: ['react-refresh/babel'] }),
+  };
+};
+```
+
 
 ## <a id="linting"></a> Linting
 
