@@ -119,13 +119,13 @@ function admin_scripts() {
 		true
 	);
 
-	wp_enqueue_script(
+	/* wp_enqueue_script(
 		'example-block',
 		TENUP_THEME_TEMPLATE_URL . '/dist/blocks/example-block/editor.js',
 		Utility\get_asset_info( 'admin', 'dependencies' ),
 		Utility\get_asset_info( 'admin', 'version' ),
 	 	true
-	);
+	); */
 
 	/*
 	wp_enqueue_script(

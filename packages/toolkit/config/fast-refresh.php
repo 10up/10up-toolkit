@@ -4,9 +4,10 @@
  */
 namespace TenUpToolkit;
 
-if ( defined( 'SCRIPT_DEBUG') && SCRIPT_DEBUG ) {
+if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 	add_action( 'init', __NAMESPACE__ . '\\register_react_fast_refresh', 1 );
 }
+
 
 /**
  * Register React Fast Refresh scripts
@@ -38,7 +39,7 @@ function register_react_fast_refresh() {
 	);
 
 	wp_register_script(
-		'react-fast-refresh-runtime',
+		'wp-react-refresh-runtime',
 		$react_fast_refresh_runtime,
 		[],
 		filemtime( $react_fast_refresh_runtime_path ),
@@ -48,8 +49,12 @@ function register_react_fast_refresh() {
 	$script = $wp_scripts->query( 'react', 'registered' );
 
 	if ( $script ) {
-		if( !in_array( 'react-fast-refresh-runtime', $script->deps ) ){
-			$script->deps[] = 'react-fast-refresh-runtime';
+		if ( in_array( 'wp-react-refresh-entry', $script->deps ) ) {
+			unset( $script->deps[ array_search( 'wp-react-refresh-entry', $script->deps ) ] );
+		}
+
+		if( !in_array( 'wp-react-refresh-runtime', $script->deps ) ){
+			$script->deps[] = 'wp-react-refresh-runtime';
 		}
 
 		if( !in_array( 'react-fast-refresh-entry', $script->deps ) ){

@@ -72,13 +72,13 @@ module.exports = ({
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
-					{
+					hasReactFastRefresh && {
 						from: fromConfigRoot('fast-refresh.php'),
 						to: '[path][name][ext]',
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), '/dist'),
 					},
-				],
+				].filter(Boolean),
 			}),
 
 		!isProduction &&
