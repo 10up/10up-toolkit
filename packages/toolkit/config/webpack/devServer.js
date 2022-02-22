@@ -23,7 +23,6 @@ module.exports = ({ isPackage, projectConfig: { devServer, hot, devServerPort } 
 				// Requests come from the WP port.
 				'Access-Control-Allow-Origin': '*',
 			},
-			// hot: true,
 			allowedHosts: 'all',
 			host: '0.0.0.0',
 			hot: true,

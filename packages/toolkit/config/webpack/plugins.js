@@ -72,6 +72,12 @@ module.exports = ({
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
+					{
+						from: fromConfigRoot('fast-refresh.php'),
+						to: '[path][name][ext]',
+						noErrorOnMissing: true,
+						context: path.resolve(process.cwd(), '/dist'),
+					},
 				],
 			}),
 
