@@ -36,6 +36,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -167,7 +168,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
@@ -314,7 +314,6 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
     "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
@@ -332,7 +331,6 @@ Object {
     CopyPlugin: {},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
@@ -480,7 +478,6 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
     "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
@@ -646,7 +643,6 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
     "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
@@ -663,7 +659,6 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
@@ -841,7 +836,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
@@ -990,7 +984,6 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
     "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
@@ -1006,7 +999,6 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
@@ -1076,6 +1068,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1206,7 +1199,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
@@ -1267,6 +1259,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1397,7 +1390,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
@@ -1467,6 +1459,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1597,7 +1590,6 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
   ],
@@ -1653,6 +1645,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1769,7 +1762,6 @@ Object {
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
     "filename": pathData => {
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
@@ -1786,7 +1778,6 @@ Object {
     CopyPlugin: {},
     BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
