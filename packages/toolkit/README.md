@@ -185,6 +185,10 @@ By default 10up-toolkit will scope any css file named `editor-styles.css` files 
 
 ## <a id="fast-refresh"></a>HMR and Fast Refresh
 
+![react-fast-refresh-toolkit](https://user-images.githubusercontent.com/6104632/155181035-b77a53f8-6a45-454d-934c-5667bbb0f06a.gif)
+
+![hmr-front-end](https://user-images.githubusercontent.com/6104632/155255713-a87a0a78-73fc-4e55-9458-6940ff7b634e.gif)
+
 10up-toolkit provides native support for HMR and Fast Refresh with the `--hot` option. Fast Refresh works for general react development (including block development) and front-end CSS. Front-end vanilla JS will likely cause full-page refresh currently.
 
 ```
