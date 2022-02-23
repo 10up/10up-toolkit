@@ -370,17 +370,12 @@ Object {
 exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot option 1`] = `
 Object {
   "devServer": Object {
-    "allowedHosts": "all",
-    "client": Object {
-      "webSocketURL": "ws://127.0.0.1:3000/ws",
-    },
+    "allowedHosts": Array [
+      ".test",
+    ],
     "devMiddleware": Object {
       "writeToDisk": true,
     },
-    "headers": Object {
-      "Access-Control-Allow-Origin": "*",
-    },
-    "host": "0.0.0.0",
     "hot": true,
     "port": 3000,
     "proxy": Object {

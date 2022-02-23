@@ -12,11 +12,12 @@ module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServe
 	}
 
 	if (!isPackage && hot) {
-		let hostName = '';
+		const allowedHosts = ['.test'];
+
 		try {
-			hostName = new URL(devURL).host;
+			allowedHosts.push(new URL(devURL).host);
 		} catch (e) {
-			hostName = devURL;
+			// do nothing
 		}
 
 		return {
@@ -24,7 +25,7 @@ module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServe
 				writeToDisk: true,
 			},
 			// by default allow any .test subdomains plus the devURL hostname
-			allowedHosts: ['.test', hostName],
+			allowedHosts,
 			hot: true,
 			port: Number(devServerPort),
 			proxy: {
