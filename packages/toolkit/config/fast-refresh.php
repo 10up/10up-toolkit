@@ -19,29 +19,16 @@ function register_react_fast_refresh() {
 		return;
 	}
 
-	$react_fast_refresh_entry   = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/react-refresh-entry/index.min.js';
 	$react_fast_refresh_runtime = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/react-refresh-runtime/index.min.js';
 	$hmr_runtime                = TENUP_TOOLKIT_DIST_URL . 'fast-refresh/hmr-runtime.js';
 
-	$react_fast_refresh_entry_path   = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/react-refresh-entry/index.min.js';
 	$react_fast_refresh_runtime_path = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/react-refresh-runtime/index.min.js';
 	$hmr_runtime_path                = TENUP_TOOLKIT_DIST_PATH . 'fast-refresh/hmr-runtime.js';
 
 
-	if ( 
-		! file_exists( $react_fast_refresh_entry_path ) 
-		|| ! file_exists( $react_fast_refresh_runtime_path )
-		|| ! file_exists( $hmr_runtime_path )
-	) {
+	if ( ! file_exists( $react_fast_refresh_runtime_path )|| ! file_exists( $hmr_runtime_path ) ) {
 		return;
 	}
-
-	wp_register_script(
-		'tenup-toolkit-react-fast-refresh-entry',
-		$react_fast_refresh_entry,
-		[],
-		filemtime( $react_fast_refresh_entry_path ),
-	);
 
 	wp_register_script(
 		'tenup-toolkit-react-refresh-runtime',
@@ -68,10 +55,6 @@ function register_react_fast_refresh() {
 
 		if( !in_array( 'tenup-toolkit-react-refresh-runtime', $script->deps ) ){
 			$script->deps[] = 'tenup-toolkit-react-refresh-runtime';
-		}
-
-		if( !in_array( 'tenup-toolkit-react-fast-refresh-entry', $script->deps ) ){
-			$script->deps[] = 'tenup-toolkit-react-fast-refresh-entry';
 		}
 
 		if( !in_array( 'tenup-toolkit-hmr-runtime', $script->deps ) ){
