@@ -204,6 +204,7 @@ npm run start -- --hot
 ### Basic Setup
 
 In order to get support for HMNR/Fast Refresh follow these steps:
+- If you're not using a `.test` domain for your WP instance, make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
 - Set `SCRIPT_DEBUG` to true in `wp-config.php`
   - `define( 'SCRIPT_DEBUG', true )`
 - In your theme's `functions.php` or your plugin's entry point, add the following snippet of code
@@ -234,10 +235,11 @@ Make sure to reload the page after running 10up-toolkit as the `dist/fast-refres
 
 If HMR/Fast Refresh is not working for you these steps can help you debug the problem:
 - Run a regular build (without `--hot`) does your code work properly?
-- Check if `tenup-toolkit-react-fast-refresh-entry`, `tenup-toolkit-react-refresh-runtime` and `tenup-toolkit-hmr-runtime` are being enqueued on the block editor screen. If they aren't, ensure you're properly including `dist/fast-refresh.php` and setting up the constants properly.
+- Check if `tenup-toolkit-react-refresh-runtime` and `tenup-toolkit-hmr-runtime` are being enqueued on the block editor screen. If they aren't, ensure you're properly including `dist/fast-refresh.php` and setting up the constants properly.
 - Some code changes might cause a full-page refresh (e.g: changing arguments of `registerBlockType`). This is a known limitation.
 - If your CSS is not hot reloading, ensure you're including your block css file (`import './style.css`) from your block's entry point.
 - If you're extending the webpack config, does it work with the original webpack config? If so your changes might be breaking fast refresh.
+- Are you using a `.test` domain? if not make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
 - If your front-end css is not hot reloading, make sure the CSS is not an entry point on its own (i.e isn't listed in the entry section in package.json) but instead is imported by a JS file. Both the JS file and the CSS file should be enqueed on the front-end.
   - Additionally, check if both `tenup-toolkit-hmr-runtime` and `tenup-toolkit-react-refresh-runtime` are enqued the front-end.
 - If you're overriding `babel.config.js` you will need to make sure it is including `react-refresh/babel` plugin.
