@@ -182,7 +182,7 @@ function styles() {
 
 	wp_enqueue_style(
 		'styles',
-		TENUP_THEME_TEMPLATE_URL . '/dist/css/style.css',
+		TENUP_THEME_TEMPLATE_URL . '/dist/css/frontend.css',
 		[],
 		Utility\get_asset_info( 'style', 'version' )
 	);

@@ -6,6 +6,7 @@
 namespace TenUpToolkit;
 
 add_action( 'init', __NAMESPACE__ . '\\register_react_fast_refresh', 1 );
+add_action( 'wp_enqueue_scripts',  __NAMESPACE__  . '\\scripts', 1 );
 
 /**
  * Register React Fast Refresh scripts
@@ -77,4 +78,9 @@ function register_react_fast_refresh() {
 			$script->deps[] = 'tenup-toolkit-hmr-runtime';
 		}
 	}
+}
+
+function scripts() {
+	wp_enqueue_script( 'tenup-toolkit-hmr-runtime' );
+	wp_enqueue_script( 'tenup-toolkit-react-refresh-runtime' );
 }
