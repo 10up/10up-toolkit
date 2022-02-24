@@ -82,5 +82,6 @@ function register_react_fast_refresh() {
 
 function scripts() {
 	wp_enqueue_script( 'tenup-toolkit-hmr-runtime' );
+	wp_enqueue_script( 'tenup-toolkit-react-fast-refresh-entry' );
 	wp_enqueue_script( 'tenup-toolkit-react-refresh-runtime' );
 }
