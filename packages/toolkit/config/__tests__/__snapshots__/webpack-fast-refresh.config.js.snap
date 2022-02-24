@@ -1,24 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`webpack.config.js returns proper configs for project configs 1`] = `
-Object {
-  "entry": Object {
-    "react-refresh-runtime": Object {
-      "import": "react-refresh/runtime.js",
-      "library": Object {
-        "name": "ReactRefreshRuntime",
-        "type": "window",
+Array [
+  Object {
+    "entry": Object {
+      "react-refresh-entry": "@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
+    },
+    "mode": "development",
+    "name": "react-refresh-entry",
+    "output": Object {
+      "filename": "[name]/index.min.js",
+      "path": "/dist/fast-refresh",
+    },
+    "plugins": Array [
+      DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
+    ],
+  },
+  Object {
+    "entry": Object {
+      "react-refresh-runtime": Object {
+        "import": "react-refresh/runtime.js",
+        "library": Object {
+          "name": "ReactRefreshRuntime",
+          "type": "window",
+        },
       },
     },
+    "mode": "development",
+    "name": "react-refresh-runtime",
+    "output": Object {
+      "filename": "[name]/index.min.js",
+      "path": "/dist/fast-refresh",
+    },
+    "plugins": Array [
+      DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":false},
+    ],
   },
-  "mode": "development",
-  "name": "react-refresh-runtime",
-  "output": Object {
-    "filename": "[name]/index.min.js",
-    "path": "/dist/fast-refresh",
-  },
-  "plugins": Array [
-    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":false},
-  ],
-}
+]
 `;
