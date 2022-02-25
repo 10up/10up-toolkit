@@ -1,6 +1,6 @@
 {
   "name": "tenup-theme",
-  "version": "1.0.6",
+  "version": "1.1.0-alpha.4",
   "private": true,
   "scripts": {
     "start": "10up-toolkit start --port=3002",
@@ -15,10 +15,10 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^2.1.1"
+    "10up-toolkit": "^2.2.0-alpha.4"
   },
   "dependencies": {
-    "@10up/component-accordion": "^2.0.8",
+    "@10up/component-accordion": "^2.1.0-alpha.4",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
@@ -33,7 +33,6 @@
       "admin-style": "./assets/css/admin/admin-style.css",
       "editor-style": "./assets/css/frontend/editor-style.css",
       "shared-style": "./assets/css/shared/shared-style.css",
-      "style": "./assets/css/frontend/style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "example-block": "./includes/blocks/example-block/index.js",

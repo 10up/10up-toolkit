@@ -2,9 +2,10 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
-module.exports = ({ isProduction }) => {
+module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 	return {
-		concatenateModules: isProduction,
+		concatenateModules: isProduction && !analyze,
+		runtimeChunk: hot ? 'single' : false,
 		minimizer: [
 			new TerserPlugin({
 				parallel: true,
