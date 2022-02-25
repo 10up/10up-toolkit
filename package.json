@@ -11,9 +11,8 @@
     "url": "git+https://github.com/10up/10up-scripts.git"
   },
   "scripts": {
-    "prepare": "husky install && lerna bootstrap --hoist",
-    "reinstall": "lerna clean --yes && npm run prepare",
-    "test": "lerna run test --stream --ignore @10up/component-accordion",
+    "prepare": "husky install",
+    "test": "npm run test --workspaces --if-present",
     "clean": "lerna clean"
   },
   "lint-staged": {
@@ -21,6 +20,10 @@
       "eslint"
     ]
   },
+  "workspaces": [
+    "packages/*",
+    "projects/*"
+  ],
   "bundleDependencies": false,
   "devDependencies": {
     "husky": "^6.0.0",
@@ -29,7 +32,7 @@
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=12",
+    "node": ">=16",
     "npm": ">=7"
   }
 }
