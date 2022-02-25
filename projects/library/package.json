@@ -10,7 +10,6 @@
   "style": "./dist/index.css",
   "scripts": {
     "test": "npm run build && 10up-toolkit test-unit-jest",
-    "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
     "start": "10up-toolkit start -i=src/app.js --dev-server",
     "lint-js": "10up-toolkit lint-js",
     "build": "npm run build:modern && npm run build:umd",
@@ -31,7 +30,6 @@
     "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/user-event": "^12.6.3",
-    "concurrently": "^5.3.0",
     "jest-axe": "^4.1.0"
   },
   "10up-toolkit": {
