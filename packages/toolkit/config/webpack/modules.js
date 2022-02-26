@@ -81,7 +81,7 @@ module.exports = ({
 			},
 			{
 				test: /\.svg$/,
-				use: ['svgo-loader', '@svgr/webpack', 'url-loader'],
+				use: ['@svgr/webpack', 'url-loader'],
 			},
 			{
 				test: /\.css$/,
@@ -128,7 +128,6 @@ module.exports = ({
 			isPackage && {
 				test: /\.(woff(2)?|ttf|eot|svg|jpg|jpeg|png|giff|webp)(\?v=\d+\.\d+\.\d+)?$/,
 				type: 'asset/resource',
-				use: [{ loader: 'svgo-loader' }],
 			},
 		].filter(Boolean),
 	};

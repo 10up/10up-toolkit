@@ -152,7 +152,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -310,7 +311,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -496,7 +498,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": "single",
   },
@@ -666,7 +669,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -837,7 +841,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1026,7 +1031,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1185,7 +1191,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1396,7 +1403,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1588,7 +1596,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1789,7 +1798,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
@@ -1972,7 +1982,8 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{"options":{"test":{},"plugins":[["gifsicle",{"interlaced":true}],["jpegtran",{"progressive":true}],["optipng",{"optimizationLevel":5}],["svgo",{"plugins":[{"name":"preset-default","params":{"overrides":{"removeViewBox":false}}}]}]]}},"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
   },
