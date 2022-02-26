@@ -130,9 +130,12 @@ By default the compiled assets will be generated on the following diretories:
 
 See the [Customizing build paths](#customize-build-paths) section for changing the structure of the dist folder.
 
-### BrowserSync
+### BrowserSync [DEPRECATED]
+> Starting with 10up-toolkit@2.2.0 browser-sync has been deprecated. If you wish to continue using it you must install the following packages manually: npm install --save-dev browser-sync browser-sync-webpack-plugin
 
-10up-toolkit ships with [BrowserSync](https://browsersync.io/) and can be enabled by simply adding a devURL property.
+> It's strongly recommended to use the `--hot` option instead
+
+10up-toolkit has [BrowserSync](https://browsersync.io/) support and can be enabled by adding a devURL property.
 
 ```json
  "10up-toolkit": {
