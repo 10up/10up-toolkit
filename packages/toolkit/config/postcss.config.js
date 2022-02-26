@@ -14,7 +14,6 @@ module.exports = ({ file, env }) => {
 					'custom-properties': false,
 				},
 			},
-			'postcss-object-fit-images': {},
 		},
 	};
 
