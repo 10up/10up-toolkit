@@ -2,7 +2,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const path = require('path');
@@ -17,10 +16,37 @@ const {
 	hasProjectFile,
 	getArgFromCLI,
 } = require('../../utils');
+const { isPackageInstalled } = require('../../utils/package');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
+
+class NoBrowserSyncPlugin {
+	constructor() {
+		this.displayed = false;
+	}
+
+	// Define `apply` as its prototype method which is supplied with compiler as its argument
+	apply(compiler) {
+		compiler.hooks.compilation.tap('NoBrowserSyncPlugin', (compilation) => {
+			if (!this.displayed) {
+				this.displayed = true;
+				const logger = compilation.getLogger('10upToolkitBrowserSyncDeprecationNotice');
+				logger.warn(
+					'BrowserSync suppport has been deprecated in 10up-toolkit in favor of the `--hot` option and will be completely removed in the next major release!',
+				);
+				logger.warn(
+					'If you still wish to use BrowserSync you must manually install the `browser-sync` and `browser-sync-webpack-plugin` packages.',
+				);
+				logger.warn(
+					'If those packages are installed 10up-toolkit will start browser-sync automatically!',
+				);
+				logger.warn('See https://github.com/10up/10up-toolkit/issues/158 for more info');
+			}
+		});
+	}
+}
 
 module.exports = ({
 	isPackage,
@@ -38,6 +64,38 @@ module.exports = ({
 	packageConfig: { style },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+	const hasBrowserSync =
+		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
+
+	const shouldLoadBrowserSync = !isProduction && devURL && !hasReactFastRefresh && hasBrowserSync;
+
+	let browserSync = new NoBrowserSyncPlugin();
+	if (shouldLoadBrowserSync) {
+		// eslint-disable-next-line global-require, import/no-extraneous-dependencies
+		const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+		browserSync = new BrowserSyncPlugin(
+			{
+				host: 'localhost',
+				port: getArgFromCLI('--port') || 3000,
+				proxy: devURL,
+				open: false,
+				files: ['**/*.php', '**/*.js', 'dist/**/*.css'],
+				ignore: ['dist/**/*.php', 'dist/**/*.js'],
+				serveStatic: ['.'],
+				rewriteRules: [
+					{
+						match: /wp-content\/themes\/.*\/dist/g,
+						replace: 'dist',
+					},
+				],
+			},
+			{
+				injectCss: true,
+				reload: false,
+			},
+		);
+	}
+
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -80,31 +138,7 @@ module.exports = ({
 					},
 				].filter(Boolean),
 			}),
-
-		!isProduction &&
-			devURL &&
-			!hasReactFastRefresh &&
-			new BrowserSyncPlugin(
-				{
-					host: 'localhost',
-					port: getArgFromCLI('--port') || 3000,
-					proxy: devURL,
-					open: false,
-					files: ['**/*.php', '**/*.js', 'dist/**/*.css'],
-					ignore: ['dist/**/*.php', 'dist/**/*.js'],
-					serveStatic: ['.'],
-					rewriteRules: [
-						{
-							match: /wp-content\/themes\/.*\/dist/g,
-							replace: 'dist',
-						},
-					],
-				},
-				{
-					injectCss: true,
-					reload: false,
-				},
-			),
+		devURL && browserSync,
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), paths.srcDir),
@@ -116,7 +150,7 @@ module.exports = ({
 			}),
 		}),
 		// Fancy WebpackBar.
-		isProduction && new WebpackBar(),
+		!hasReactFastRefresh && new WebpackBar(),
 		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
