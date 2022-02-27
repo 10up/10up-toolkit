@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@wordpress/stylelint-config": "^19.1.0",
-    "stylelint-declaration-use-variable": "^1.7.3",
+    "stylelint-declaration-strict-value": "^1.8.0",
     "stylelint-order": "^4.1.0"
   }
 }
