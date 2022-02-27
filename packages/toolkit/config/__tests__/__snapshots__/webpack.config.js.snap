@@ -172,6 +172,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -343,6 +344,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -529,6 +531,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
     ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
   ],
   "resolve": Object {
@@ -701,6 +704,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
     BundleAnalyzerPlugin: {},
   ],
   "resolve": Object {
@@ -872,6 +876,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1050,6 +1055,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1221,6 +1227,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1422,6 +1429,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1615,6 +1623,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1817,6 +1826,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -2013,6 +2023,7 @@ Object {
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
