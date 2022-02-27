@@ -10,7 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
+const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
+const TenUpToolkitTscPlugin = require('./plugins/tsc');
+
 const {
 	hasStylelintConfig,
 	fromConfigRoot,
@@ -133,6 +135,7 @@ module.exports = ({
 			}),
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),
+		new TenUpToolkitTscPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
 			new ReactRefreshWebpackPlugin({
