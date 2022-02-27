@@ -46,7 +46,7 @@ module.exports = ({
 
 	const shouldLoadBrowserSync = !isProduction && devURL && !hasReactFastRefresh && hasBrowserSync;
 
-	let browserSync = new NoBrowserSyncPlugin();
+	let browserSync = !isProduction && devURL ? new NoBrowserSyncPlugin() : false;
 	if (shouldLoadBrowserSync) {
 		// eslint-disable-next-line global-require, import/no-extraneous-dependencies
 		const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
