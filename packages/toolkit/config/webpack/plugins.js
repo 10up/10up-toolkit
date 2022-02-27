@@ -9,27 +9,37 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CleanExtractedDeps = require('../../utils/clean-extracted-deps');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
+const TenUpToolkitTscPlugin = require('./plugins/tsc');
+
 const {
 	hasStylelintConfig,
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
-	hasArgInCLI,
 } = require('../../utils');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
 
-const analyze = hasArgInCLI('--analyze');
-
 module.exports = ({
 	isPackage,
 	isProduction,
-	projectConfig: { devServer, filenames, devURL, paths, wpDependencyExternals },
+	projectConfig: {
+		devServer,
+		filenames,
+		devURL,
+		devServerPort,
+		paths,
+		wpDependencyExternals,
+		analyze,
+		hot,
+	},
 	packageConfig: { style },
 }) => {
+	const hasReactFastRefresh = hot && !isProduction;
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -64,11 +74,18 @@ module.exports = ({
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
-				],
+					hasReactFastRefresh && {
+						from: fromConfigRoot('fast-refresh.php'),
+						to: '[path][name][ext]',
+						noErrorOnMissing: true,
+						context: path.resolve(process.cwd(), '/dist'),
+					},
+				].filter(Boolean),
 			}),
 
 		!isProduction &&
 			devURL &&
+			!hasReactFastRefresh &&
 			new BrowserSyncPlugin(
 				{
 					host: 'localhost',
@@ -101,16 +118,28 @@ module.exports = ({
 			}),
 		}),
 		// Fancy WebpackBar.
-		new WebpackBar(),
+		isProduction && new WebpackBar(),
 		// dependecyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
 			!isPackage &&
 			new DependencyExtractionWebpackPlugin({
 				injectPolyfill: true,
+				requestToHandle: (request) => {
+					if (request.includes('react-refresh/runtime')) {
+						return 'tenup-toolkit-react-refresh-runtime';
+					}
+
+					return undefined;
+				},
 			}),
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),
+		new TenUpToolkitTscPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
+		hasReactFastRefresh &&
+			new ReactRefreshWebpackPlugin({
+				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
+			}),
 	].filter(Boolean);
 };

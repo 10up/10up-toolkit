@@ -1,12 +1,10 @@
 module.exports = {
 	extends: '@wordpress/stylelint-config',
-	plugins: ['stylelint-declaration-use-variable', 'stylelint-order'],
+	plugins: ['stylelint-declaration-strict-value', 'stylelint-order'],
 	rules: {
-		'sh-waqar/declaration-use-variable': [
-			[
-				'/color/',
-				{ ignoreValues: ['currentColor', 'inherit', 'initial', 'transparent', 'unset'] },
-			],
+		'scale-unlimited/declaration-strict-value': [
+			'/color/',
+			{ ignoreValues: ['currentColor', 'inherit', 'initial', 'transparent', 'unset'] },
 		],
 		'order/properties-alphabetical-order': true,
 		'function-url-quotes': 'always',

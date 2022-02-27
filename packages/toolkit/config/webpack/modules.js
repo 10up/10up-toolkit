@@ -32,7 +32,13 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 	].filter(Boolean);
 };
 
-module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wordpress } }) => {
+module.exports = ({
+	isProduction,
+	isPackage,
+	defaultTargets,
+	projectConfig: { wordpress, hot },
+}) => {
+	const hasReactFastRefresh = hot && !isProduction;
 	return {
 		rules: [
 			{
@@ -65,6 +71,9 @@ module.exports = ({ isProduction, isPackage, defaultTargets, projectConfig: { wo
 										},
 									],
 								],
+								plugins: [
+									hasReactFastRefresh && require.resolve('react-refresh/babel'),
+								].filter(Boolean),
 							}),
 						},
 					},

@@ -14,6 +14,12 @@ define( 'TENUP_THEME_DIST_URL', TENUP_THEME_TEMPLATE_URL . '/dist/' );
 define( 'TENUP_THEME_INC', TENUP_THEME_PATH . 'includes/' );
 define( 'TENUP_THEME_BLOCK_DIR', TENUP_THEME_INC . 'blocks/' );
 
+if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
+	define( 'TENUP_TOOLKIT_DIST_URL', TENUP_THEME_DIST_URL );
+	define( 'TENUP_TOOLKIT_DIST_PATH', TENUP_THEME_DIST_PATH );
+	require_once __DIR__ . '/dist/fast-refresh.php';
+}
+
 require_once TENUP_THEME_INC . 'core.php';
 require_once TENUP_THEME_INC . 'overrides.php';
 require_once TENUP_THEME_INC . 'template-tags.php';
@@ -38,3 +44,20 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 		do_action( 'wp_body_open' );
 	}
 }
+
+
+add_filter( 'tenup_available_blocks', function ( $blocks ) {
+	// Enable all of the available blocks.
+	return [
+		'accordion',
+		'accordion-item',
+		'simple-accordion-item',
+		'content-grid',
+		'content-grid-item',
+		'button',
+		'tabs',
+		'tabs-item',
+		'content-slider',
+		'content-slide',
+	];
+} );

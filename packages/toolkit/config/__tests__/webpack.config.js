@@ -275,4 +275,26 @@ describe('webpack.config.js', () => {
 
 		expect(webpackConfig).toMatchSnapshot();
 	});
+
+	it('includes react-webpack-fast-refresh with the --hot option', () => {
+		process.argv.push('--hot');
+		process.env.NODE_ENV = 'development';
+		hasProjectFileMock.mockReturnValue(true);
+		const entryBuildFiles = {
+			entry1: 'entry1.js',
+		};
+		getBuildFilesMock.mockReturnValue(entryBuildFiles);
+		getPackageMock.mockReturnValue({
+			'10up-toolkit': {
+				entry: entryBuildFiles,
+			},
+		});
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
+	});
 });

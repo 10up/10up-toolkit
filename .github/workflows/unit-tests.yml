@@ -27,6 +27,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm install
+        run: npm install -g npm@latest &&npm install
       - name: Run unit tests
         run: npm run test
