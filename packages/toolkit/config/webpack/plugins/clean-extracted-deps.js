@@ -33,9 +33,8 @@ class CleanExtractedDeps {
 
 					delete compilation.assets[compilationAssetMatch];
 
-					compilation.assets[
-						entryPointPath.replace('.css', '.asset.php')
-					] = new RawSource(source.replace(/('|")wp-polyfill('|")[\s]*,?/, ''));
+					compilation.assets[entryPointPath.replace('.css', '.asset.php')] =
+						new RawSource(source.replace(/('|")wp-polyfill('|")[\s]*,?/, ''));
 				}
 			}
 		});
