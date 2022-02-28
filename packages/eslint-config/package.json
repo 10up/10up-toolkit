@@ -1,6 +1,6 @@
 {
   "name": "@10up/eslint-config",
-  "version": "2.4.2-alpha.1",
+  "version": "2.4.2-alpha.2",
   "description": "A shareable ESLint configuration",
   "scripts": {
     "lint": "eslint .",
@@ -29,9 +29,9 @@
     "@10up/babel-preset-default": "^2.0.0"
   },
   "devDependencies": {
+    "@10up/eslint-plugin": "^1.0.0",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
-    "@10up/eslint-plugin": "^1.0.0",
     "eslint": "^8.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -46,9 +46,9 @@
     "prettier": "2.4.1"
   },
   "peerDependencies": {
+    "@10up/eslint-plugin": "^1.0.0",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
-		"@10up/eslint-plugin": "^1.0.0",
     "eslint": "^7.32.0 || ^8.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
