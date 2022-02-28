@@ -47,12 +47,12 @@ module.exports = {
 
 ### @10up/eslint-config/wordpress
 
-Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@wordpress/eslint-plugin`.
+Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@10up/eslint-plugin`.
 
-This rule requires installing the `@wordpress/eslint-plugin` package.
+This rule requires installing the `@10up/eslint-plugin` package.
 
 ```sh
-npm install --save-dev @wordpress/eslint-plugin
+npm install --save-dev @10up/eslint-plugin
 ```
 
 ```js
@@ -136,7 +136,7 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	extends: ['@10up/eslint-config/react'],
 	plugins: ['@typescript-eslint'],
-} 
+}
 ```
 
 ## VSCode integration
