@@ -1,0 +1,57 @@
+{
+	"name": "@10up/eslint-plugin",
+	"version": "1.0.0",
+	"description": "ESLint plugin for WordPress development.",
+	"author": "10up",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"gutenberg",
+		"eslint",
+		"plugin"
+	],
+	"homepage": "https://github.com/10up/10up-toolkit",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/10up/10up-toolkit",
+		"directory": "packages/eslint-plugin"
+	},
+	"bugs": {
+		"url": "https://github.com/10up/10up-toolkit/issues"
+	},
+	"engines": {
+		"node": ">=12",
+		"npm": ">=6.9"
+	},
+	"files": [
+		"configs",
+		"rules",
+		"utils",
+		"index.js"
+	],
+	"scripts": {
+		"test": "jest",
+		"test:watch": "jest --watch"
+	},
+	"main": "index.js",
+	"dependencies": {
+		"@babel/eslint-parser": "^7.16.0",
+		"eslint-plugin-import": "^2.25.2",
+		"eslint-plugin-jest": "^25.2.3",
+		"eslint-plugin-jsdoc": "^37.0.3",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-react": "^7.27.0",
+		"globals": "^13.12.0",
+		"requireindex": "^1.2.0"
+	},
+	"devDependencies": {
+		"@10up/babel-preset-default": "^2.0.0"
+	},
+	"peerDependencies": {
+		"@babel/core": ">=7",
+		"eslint": ">=8"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
