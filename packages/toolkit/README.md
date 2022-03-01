@@ -216,18 +216,16 @@ for themes:
 ```php
 // functions.php
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
-	define( 'TENUP_TOOLKIT_DIST_URL', get_template_directory_uri() . '/dist/' );
-	define( 'TENUP_TOOLKIT_DIST_PATH', get_template_directory() . '/dist/' );
-	require_once __DIR__ . '/dist/fast-refresh.php';
+  require_once __DIR__ . '/dist/fast-refresh.php';
+  TenUpToolkit\set_dist_url_path( get_template_directory_uri() . '/dist/', get_template_directory() . '/dist/' );
 }
 ```
 for plugins:
 ```php
 // plugin entry point
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
-	define( 'TENUP_TOOLKIT_DIST_URL', plugin_dir_url( __FILE__ ) . '/dist/' );
-	define( 'TENUP_TOOLKIT_DIST_PATH', plugin_dir_path( __FILE__ ) . '/dist/' );
-	require_once __DIR__ . '/dist/fast-refresh.php';
+  require_once __DIR__ . '/dist/fast-refresh.php';
+  TenUpToolkit\set_dist_url_path( plugin_dir_url( __FILE__ ) . '/dist/', plugin_dir_url( __FILE__ ) . '/dist/' );
 }
 ```
 - Then run `10up-toolkit watch --hot`

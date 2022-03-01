@@ -13,12 +13,12 @@ import { editPropsShape } from './props-shape';
  * Edit component.
  * See https://wordpress.org/gutenberg/handbook/designers-developers/developers/block-api/block-edit-save/#edit
  *
- * @param {Object}   props                        The block props.
- * @param {Object}   props.attributes             Block attributes.
+ * @param {object}   props                        The block props.
+ * @param {object}   props.attributes             Block attributes.
  * @param {string}   props.attributes.customTitle Custom title to be displayed.
  * @param {string}   props.className              Class name for the block.
  * @param {Function} props.setAttributes          Sets the value for block attributes.
- * @return {Function} Render the edit screen
+ * @returns {Function} Render the edit screen
  */
 const ExampleBockEdit = ({
 	attributes: { customTitle: currentTitle },
