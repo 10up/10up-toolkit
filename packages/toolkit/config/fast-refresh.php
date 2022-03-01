@@ -6,26 +6,38 @@
 namespace TenUpToolkit;
 
 if ( ! function_exists( __NAMESPACE__ . '\\set_dist_url_path' ) ) {
-	$dist_url = false;
-	$dist_path = false;
+	$registry = [];
 
-	function set_dist_url_path( $url, $path ) {
+	function set_dist_url_path( $key, $url, $path ) {
+		global $registry;
+
+		$registry[ $key ] = [
+			'dist_url' => $url,
+			'dist_path' => $path,
+		];
+
 		global $dist_url, $dist_path;
-		$dist_url = $url;
-		$dist_path = $path;
+	}
+
+	function get_dist_url_path( $key ) {
+		global $registry;
+
+		return $registry[ $key ];
 	}
 }
 
-if ( ! function_exists( __NAMESPACE__ . '\\register_react_fast_refresh') ) {
-	add_action( 'init', __NAMESPACE__ . '\\register_react_fast_refresh', 1 );
-
+add_action( 'init',
 	/**
-	 * Register React Fast Refresh scripts
+	 * Register HMR & React Fast Refresh scripts
 	 *
 	 * @return void
 	 */
-	function register_react_fast_refresh() {
-		global $dist_url, $dist_path;
+	function() {
+		$project = basename( dirname( __DIR__ ) );
+		$vars = get_dist_url_path( $project );
+
+		$dist_path = $vars['dist_path'];
+		$dist_url = $vars['dist_url'];
 
 		if ( ! $dist_url || ! $dist_path ) {
 			trigger_error( '10up-toolkit error: you must defined call TenUpToolkit\set_dist_url_path with the URL and path to dist folfer to get fast refresh to work' );
@@ -39,7 +51,6 @@ if ( ! function_exists( __NAMESPACE__ . '\\register_react_fast_refresh') ) {
 		$react_fast_refresh_entry_path   = $dist_path . 'fast-refresh/react-refresh-entry/index.min.js';
 		$react_fast_refresh_runtime_path = $dist_path . 'fast-refresh/react-refresh-runtime/index.min.js';
 		$hmr_runtime_path                = $dist_path . 'fast-refresh/hmr-runtime.js';
-
 
 		if (
 			! file_exists( $react_fast_refresh_entry_path )
@@ -63,8 +74,12 @@ if ( ! function_exists( __NAMESPACE__ . '\\register_react_fast_refresh') ) {
 			filemtime( $react_fast_refresh_runtime_path ),
 		);
 
+		// the hmr runtime is unique to a 10up-toolkit build
+		$prefix          = $project . '-';
+		$hmr_runtime_key = $prefix . 'tenup-toolkit-hmr-runtime';
+
 		wp_register_script(
-			'tenup-toolkit-hmr-runtime',
+			$hmr_runtime_key,
 			$hmr_runtime,
 			[],
 			filemtime( $react_fast_refresh_runtime_path ),
@@ -87,29 +102,37 @@ if ( ! function_exists( __NAMESPACE__ . '\\register_react_fast_refresh') ) {
 				$script->deps[] = 'tenup-toolkit-react-fast-refresh-entry';
 			}
 
-			if( !in_array( 'tenup-toolkit-hmr-runtime', $script->deps ) ){
-				$script->deps[] = 'tenup-toolkit-hmr-runtime';
+			if( !in_array( $hmr_runtime_key, $script->deps ) ){
+				$script->deps[] = $hmr_runtime_key;
 			}
 		}
-	}
-}
+	},
+	1
+);
 
 
-if ( ! function_exists( __NAMESPACE__  . '\\scripts', ) ) {
-	add_action( 'wp_enqueue_scripts',  __NAMESPACE__  . '\\scripts', 1 );
+add_action(
+	'wp_enqueue_scripts',
+	function() {
+		$prefix          = basename( dirname( __DIR__ ) ) . '-';
+		$hmr_runtime_key = $prefix . 'tenup-toolkit-hmr-runtime';
 
-	function scripts() {
 		wp_enqueue_script( 'tenup-toolkit-react-refresh-runtime' );
-		wp_enqueue_script( 'tenup-toolkit-hmr-runtime' );
-	}
-}
+		wp_enqueue_script( $hmr_runtime_key );
+	},
+	1
+);
 
-if ( ! function_exists( __NAMESPACE__  . '\\admin_scripts' ) ) {
-	add_action( 'admin_enqueue_scripts',  __NAMESPACE__  . '\\admin_scripts', 1 );
+add_action(
+	'admin_enqueue_scripts',
+	function() {
+		$prefix          = basename( dirname( __DIR__ ) ) . '-';
+		$hmr_runtime_key = $prefix . 'tenup-toolkit-hmr-runtime';
 
-	function admin_scripts() {
 		wp_enqueue_script( 'tenup-toolkit-react-refresh-runtime' );
-		wp_enqueue_script( 'tenup-toolkit-hmr-runtime' );
-	}
-}
+		wp_enqueue_script( $hmr_runtime_key );
+	},
+	1
+);
+
 
