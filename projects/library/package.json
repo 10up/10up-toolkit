@@ -1,6 +1,6 @@
 {
   "name": "@10up/component-accordion",
-  "version": "2.1.0-alpha.7",
+  "version": "2.1.0-alpha.8",
   "author": "10up",
   "private": true,
   "description": "Accessible accordion component.",
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^2.2.0-alpha.7",
+    "10up-toolkit": "^2.2.0-alpha.8",
     "@testing-library/dom": "^7.29.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/user-event": "^12.6.3",
