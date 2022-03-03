@@ -9,7 +9,6 @@
     },
     "ignoreChanges": [
         "**/node_modules/**",
-        "**/package.json",
-        "**/*.md"
+        "**/package.json"
     ]
 }
