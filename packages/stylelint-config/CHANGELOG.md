@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
 ## 1.1.4
-- Changed: replacing `stylelint-declaration-use-variable` (deprecated) with `stylelint-declaration-strict-value` [#160](https://github.com/10up/10up-toolkit/pull/160)
+- Changed: Replaced `stylelint-declaration-use-variable` (deprecated) with `stylelint-declaration-strict-value` [#160](https://github.com/10up/10up-toolkit/pull/160)
 
 ## 1.1.3
 - updated dependencies
