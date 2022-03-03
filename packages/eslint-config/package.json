@@ -1,6 +1,6 @@
 {
   "name": "@10up/eslint-config",
-  "version": "2.4.2-alpha.2",
+  "version": "2.4.2",
   "description": "A shareable ESLint configuration",
   "scripts": {
     "lint": "eslint .",

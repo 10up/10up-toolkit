@@ -20,9 +20,9 @@
   "bundleDependencies": [],
   "dependencies": {
     "@10up/babel-preset-default": "^2.0.0",
-    "@10up/eslint-config": "^2.4.2-alpha.2",
+    "@10up/eslint-config": "^2.4.2",
     "@10up/eslint-plugin": "^1.0.0",
-    "@10up/stylelint-config": "^1.1.4-alpha.0",
+    "@10up/stylelint-config": "^1.1.4",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
