@@ -17,7 +17,7 @@ import save from './save';
 import block from './block.json';
 
 /* Uncomment for CSS overrides in the admin */
-// import './index.css';
+import './index.css';
 
 /**
  * Register block

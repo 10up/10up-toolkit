@@ -102,8 +102,11 @@ const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
 const getDefaultConfig = () => {
 	const wpMode = getArgFromCLI('--wp');
-	const devServer = hasArgInCLI('--dev-server');
-	const devServerPort = getArgFromCLI('--port') || 8000;
+	const hot = hasArgInCLI('--hot');
+	// hot automatically enables dev server
+	const devServer = hasArgInCLI('--dev-server') || hot;
+	const devServerPort = Number(getArgFromCLI('--port')) || 8000;
+	const analyze = hasArgInCLI('--analyze');
 
 	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
@@ -112,6 +115,8 @@ const getDefaultConfig = () => {
 		wordpress: wpMode !== 'false',
 		devServer,
 		devServerPort,
+		analyze,
+		hot,
 		// true by default (if TENUP_NO_EXTERNALS is not set)
 		// if TENUP_NO_EXTERNALS is truthy then dependecyExternals is false
 		wpDependencyExternals:

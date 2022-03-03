@@ -36,6 +36,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -151,7 +152,10 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -163,13 +167,13 @@ Object {
   },
   "plugins": Array [
     HtmlWebpackPlugin: {},
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -309,12 +313,19 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -326,16 +337,549 @@ Object {
   },
   "plugins": Array [
     HtmlWebpackPlugin: {},
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
+    NoBrowserSyncPlugin: {},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
+}
+`;
+
+exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot option 1`] = `
+Object {
+  "devServer": Object {
+    "allowedHosts": Array [
+      ".test",
+    ],
+    "devMiddleware": Object {
+      "writeToDisk": true,
+    },
+    "hot": true,
+    "port": 3000,
+    "proxy": Object {
+      "/dist": Object {
+        "pathRewrite": Object {
+          "^/dist": "",
+        },
+      },
+    },
+  },
+  "devtool": "source-map",
+  "entry": Object {
+    "entry1": "entry1.js",
+  },
+  "externals": Object {
+    "jquery": "jQuery",
+    "lodash": "lodash",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
+    ],
+    "runtimeChunk": "single",
+  },
+  "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": false,
+    "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
+      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+    },
+    "path": "/dist",
+  },
+  "performance": Object {
+    "hints": "warning",
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
+  },
+  "plugins": Array [
+    HtmlWebpackPlugin: {},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
+    CopyPlugin: {},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
+    CleanExtractedDeps: {},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
+    ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
+}
+`;
+
+exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze 1`] = `
+Object {
+  "devServer": undefined,
+  "devtool": false,
+  "entry": Object {
+    "entry1": "entry1.js",
+  },
+  "externals": Object {
+    "jquery": "jQuery",
+    "lodash": "lodash",
+  },
+  "mode": "production",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": false,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": false,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
+              "sourceMap": false,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
+    ],
+    "runtimeChunk": false,
+  },
+  "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": true,
+    "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
+      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+    },
+    "path": "/dist",
+  },
+  "performance": Object {
+    "hints": "warning",
+    "maxAssetSize": 102400,
+    "maxEntrypointSize": 409600,
+  },
+  "plugins": Array [
+    HtmlWebpackPlugin: {},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
+    CopyPlugin: {},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
+    CleanExtractedDeps: {},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
+    BundleAnalyzerPlugin: {},
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "lodash-es": "lodash",
+    },
+    "extensions": Array [
+      ".tsx",
+      ".ts",
+      ".js",
+    ],
+  },
+  "stats": Object {
+    "all": false,
+    "assets": true,
+    "errorDetails": true,
+    "errors": true,
+    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+    "moduleTrace": true,
+    "modules": true,
+    "performance": true,
+    "warnings": true,
+  },
+  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
+}
+`;
+
+exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze 2`] = `
+Object {
+  "devServer": undefined,
+  "devtool": "source-map",
+  "entry": Object {
+    "entry1": "entry1.js",
+  },
+  "externals": Object {
+    "jquery": "jQuery",
+    "lodash": "lodash",
+  },
+  "mode": "development",
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+        "use": Array [
+          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/node_modules/babel-loader/lib/index.js",
+            "options": Object {
+              "cacheDirectory": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.svg\\$/,
+        "use": Array [
+          "@svgr/webpack",
+          "url-loader",
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+        ],
+      },
+      Object {
+        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.module\\\\\\.css\\$/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "/node_modules/css-loader/dist/cjs.js",
+            "options": Object {
+              "import": false,
+              "modules": true,
+              "sourceMap": true,
+              "url": false,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "optimization": Object {
+    "concatenateModules": false,
+    "minimizer": Array [
+      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
+    ],
+    "runtimeChunk": false,
+  },
+  "output": Object {
+    "chunkFilename": "js/[name].[contenthash].chunk.js",
+    "clean": true,
+    "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
+      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+    },
+    "path": "/dist",
+  },
+  "performance": Object {
+    "hints": "warning",
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
+  },
+  "plugins": Array [
+    HtmlWebpackPlugin: {},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
+    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
+    CopyPlugin: {},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
+    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
+    CleanExtractedDeps: {},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -495,7 +1039,10 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -506,13 +1053,13 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -654,12 +1201,19 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -670,15 +1224,15 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -745,6 +1299,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -860,7 +1415,10 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -871,13 +1429,13 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -936,6 +1494,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1051,7 +1610,10 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -1062,13 +1624,13 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1136,6 +1698,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1251,7 +1814,10 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "path": "/dist",
@@ -1262,13 +1828,13 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1322,6 +1888,7 @@ Object {
               "babelrc": false,
               "cacheDirectory": true,
               "configFile": false,
+              "plugins": Array [],
               "presets": Array [
                 Array [
                   "/packages/babel-preset-default/index.js",
@@ -1433,12 +2000,19 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
+      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
+    "runtimeChunk": false,
   },
   "output": Object {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
     "filename": pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -1449,16 +2023,16 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    ImageminPlugin: {"disable":true,"imageminOptions":{"plugins":[null,null,null,null]},"externalImages":{"context":".","sources":[],"destination":".","fileName":null},"cacheFolder":null},
-    BrowserSyncPlugin: {"reload":false,"name":"bs-webpack-plugin","injectCss":true},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"configFile":"/config/stylelint.config.js"},
+    NoBrowserSyncPlugin: {},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
     "alias": Object {

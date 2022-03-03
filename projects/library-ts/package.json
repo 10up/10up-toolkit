@@ -1,6 +1,6 @@
 {
   "name": "@10up/library-ts-test",
-  "version": "2.0.6",
+  "version": "2.1.1",
   "private": true,
   "author": "10up",
   "description": "Accessible accordion component.",
@@ -11,7 +11,7 @@
   "style": "./dist/index.css",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "watch": "10up-toolkit build --watch",
+    "watch": "10up-toolkit watch",
     "build": "10up-toolkit build"
   },
   "browserslist": [
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^2.1.0"
+    "10up-toolkit": "^3.0.0"
   },
   "10up-toolkit": {
     "libraryName": "TenUpAccordion"

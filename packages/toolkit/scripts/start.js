@@ -3,6 +3,7 @@
  */
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const fs = require('fs');
 
 /**
  * Internal dependencies
@@ -12,20 +13,11 @@ const {
 	fromConfigRoot,
 	fromProjectRoot,
 	hasWebpackConfig,
-	getArgFromCLI,
 	displayWebpackStats,
 } = require('../utils');
 
 if (hasArgInCLI('--webpack-no-externals')) {
 	process.env.TENUP_NO_EXTERNALS = true;
-}
-
-if (hasArgInCLI('--webpack-bundle-analyzer')) {
-	process.env.TENUP_BUNDLE_ANALYZER = true;
-}
-
-if (hasArgInCLI('--webpack--devtool')) {
-	process.env.TENUP_DEVTOOL = getArgFromCLI('--webpack--devtool');
 }
 
 let configPath = fromConfigRoot('webpack.config.js');
@@ -34,22 +26,56 @@ if (hasWebpackConfig()) {
 	configPath = fromProjectRoot('webpack.config.js');
 }
 
-const config = require(configPath);
+const runWebpack = () => {
+	const config = require(configPath);
+	const compiler = webpack(config);
 
-const compiler = webpack(config);
+	const { devServer } = config;
 
-if (config.devServer) {
-	const devServerOptions = { ...config.devServer, open: true };
-	const server = new WebpackDevServer(compiler, devServerOptions);
+	if (devServer) {
+		const devServerOptions = { ...devServer, open: false };
 
-	server.listen(devServerOptions.port, '127.0.0.1');
+		const server = new WebpackDevServer(compiler, devServerOptions);
+
+		server.listen(devServerOptions.port, '127.0.0.1');
+	} else {
+		compiler.watch(
+			{
+				aggregateTimeout: 600,
+			},
+			(err, stats) => {
+				displayWebpackStats(err, stats);
+			},
+		);
+	}
+};
+
+const hot = hasArgInCLI('--hot');
+
+if (hot) {
+	process.on('SIGINT', () => {
+		// when gracefully leaving hot mode, clean up dist folder.
+		// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
+		console.log('\n10up-toolkit: Cleaning up dist folder...');
+
+		fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
+	});
+	// compile the fast refresh bundle
+	const config = require(fromConfigRoot('webpack-fast-refresh.config.js'));
+	const compiler = webpack(config);
+	compiler.run((err, stats) => {
+		displayWebpackStats(err, stats);
+
+		compiler.close((closedErr) => {
+			if (closedErr) {
+				// eslint-disable-next-line no-console
+				console.error(closedErr);
+			} else {
+				// we can only call runWebpack after the compiler has closed
+				runWebpack();
+			}
+		});
+	});
 } else {
-	compiler.watch(
-		{
-			aggregateTimeout: 600,
-		},
-		(err, stats) => {
-			displayWebpackStats(err, stats);
-		},
-	);
+	runWebpack();
 }

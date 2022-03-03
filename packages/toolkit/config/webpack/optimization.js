@@ -1,9 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const { optimize } = require('svgo');
 
-module.exports = ({ isProduction }) => {
+module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 	return {
-		concatenateModules: isProduction,
+		concatenateModules: isProduction && !analyze,
+		runtimeChunk: hot ? 'single' : false,
 		minimizer: [
 			new TerserPlugin({
 				parallel: true,
@@ -29,6 +32,74 @@ module.exports = ({ isProduction }) => {
 						// Pending futher investigation:
 						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
+					},
+				},
+			}),
+			new ImageMinimizerPlugin({
+				minimizer: [
+					{
+						implementation: ImageMinimizerPlugin.squooshMinify,
+						options: {
+							encodeOptions: {
+								mozjpeg: {
+									// That setting might be close to lossless, but it’s not guaranteed
+									// https://github.com/GoogleChromeLabs/squoosh/issues/85
+									quality: 100,
+								},
+								webp: {
+									lossless: 1,
+								},
+								avif: {
+									// https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
+									cqLevel: 0,
+								},
+							},
+						},
+					},
+				],
+			}),
+			new ImageMinimizerPlugin({
+				test: /\.svg$/,
+				minimizer: {
+					implementation: (original) => {
+						let result;
+
+						try {
+							result = optimize(original.data, {
+								path: original.filename,
+								plugins: [
+									{
+										name: 'preset-default',
+										params: {
+											overrides: {
+												removeViewBox: false,
+											},
+										},
+									},
+								],
+							});
+						} catch (error) {
+							// Return original input if there was an error
+							return {
+								filename: original.filename,
+								data: original.data,
+								errors: [error],
+								warnings: [],
+							};
+						}
+
+						return {
+							filename: original.filename,
+							data: Buffer.from(result.data),
+							warnings: [],
+							errors: [],
+							info: {
+								// Please always set it to prevent double minification
+								minimized: true,
+								// Optional
+								minimizedBy: ['10up-toolkit-svgo'],
+							},
+						};
 					},
 				},
 			}),

@@ -82,8 +82,8 @@ module.exports = {
 
 	test(val) {
 		let shouldProcess = isString(val) && hasLocalPath(val);
-		shouldProcess ||= isWebPackPlugin(val);
-		shouldProcess ||= typeof val === 'function';
+		shouldProcess = shouldProcess || isWebPackPlugin(val);
+		shouldProcess = shouldProcess || typeof val === 'function';
 
 		return shouldProcess;
 	},
