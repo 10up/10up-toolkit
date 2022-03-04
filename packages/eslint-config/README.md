@@ -49,10 +49,10 @@ module.exports = {
 
 Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@10up/eslint-plugin`.
 
-This rule requires installing the `@10up/eslint-plugin` package.
+This rule requires installing the `@wordpress/eslint-plugin` package.
 
 ```sh
-npm install --save-dev @10up/eslint-plugin
+npm install --save-dev @wordpress/eslint-plugin
 ```
 
 ```js
