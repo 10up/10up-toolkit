@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 3.0.2
+- Reverted - 10up's eslint plugin
+
 ## 3.0.0
 - Added - Introduced the `--analyze` option to the build to enable webpack-bundle-analyzer [#148](https://github.com/10up/10up-toolkit/pull/148)
 - Added - Introduced HMR and React Fast Refresh [#150](https://github.com/10up/10up-toolkit/pull/150)
