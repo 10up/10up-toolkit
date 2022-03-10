@@ -8,7 +8,7 @@ The minimum Node.js version is 12.x, however Node.js 16 is strongly recommended.
 
 ### Minimum NPM version
 
-In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7 and if you're getting an install error due to conflicting pretier dependencies, we recommend updating to npm 8. 
+In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7 and if you're getting an install error due to conflicting prettier dependencies, we recommend updating to npm 8. 
 
 There's an [known issue](https://github.com/WordPress/gutenberg/issues/39208) with `@wordpress/eslint-plugin` that can break installations of 10up-toolkit when using npm < 8. Alternatively if you're not on npm 8, you can try pinning `prettier` to `2.4.1` in your package.json to force npm install the version toolkit uses.
 
@@ -38,11 +38,11 @@ Note that the recommended way of extending `postcss.config.js` is as follows:
 const baseConfig = require('10up-toolkit/config/postcss.config.js');
 
 module.exports = (props) => {
-	const config = baseConfig(props);
-	
+    const config = baseConfig(props);
+
     // do what you want with the config object
 
-	return config;
+    return config;
 };
 ```
 
@@ -61,13 +61,13 @@ const config = require('10up-toolkit/config/webpack.config.js');
 
 config.optimization.minimizer.push(
     new ImageMinimizerPlugin({
-                test: 'regex',
-				minimizer: [
-					{
-						implementation: /* add a custom minimizer implementation */,
-					},
-				],
-			})
+        test: 'regex',
+        minimizer: [
+            {
+                implementation: /* add a custom minimizer implementation */,
+            },
+        ],
+    })
 );
 return config;
 ```
@@ -76,6 +76,6 @@ return config;
 
 ## HMR & Fast Refresh
 
-Check out the [docs](./README#fast-refresh) for guidance on how to enable HMR and Fast Refresh.
+Check out the [docs](./README.md#fast-refresh) for guidance on how to enable HMR and Fast Refresh.
 
 Additionally, check out this [PR](https://github.com/10up/wp-scaffold/pull/87) that enables HMR & Fast Refresh in 10up's wp-scaffold.
