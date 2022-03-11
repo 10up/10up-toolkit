@@ -8,9 +8,9 @@ The minimum Node.js version is 12.x, however Node.js 16 is strongly recommended.
 
 ### Minimum NPM version
 
-In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7 and if you're getting an install error due to conflicting prettier dependencies, we recommend updating to npm 8. 
+In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7. 
 
-There's an [known issue](https://github.com/WordPress/gutenberg/issues/39208) with `@wordpress/eslint-plugin` that can break installations of 10up-toolkit when using npm < 8. Alternatively if you're not on npm 8, you can try pinning `prettier` to `2.4.1` in your package.json to force npm install the version toolkit uses.
+~~If you're getting an install error due to conflicting prettier dependencies, we recommend updating to npm 8.  There's an [known issue](https://github.com/WordPress/gutenberg/issues/39208) with `@wordpress/eslint-plugin` that can break installations of 10up-toolkit when using npm < 8. Alternatively if you're not on npm 8, you can try pinning `prettier` to `2.4.1` in your package.json to force npm install the version toolkit uses.~~ Fixed in [#166](https://github.com/10up/10up-toolkit/pull/166)
 
 ### BrowserSync packages have been removed by default.
 
