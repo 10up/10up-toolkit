@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 3.0.3
+- Changed - Updated `@wordpress/eslint-plugin` to 11.0.0 to resolved an issue with conflicting prettier deps.
+
 ## 3.0.2
 - Reverted - 10up's eslint plugin
 
