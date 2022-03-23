@@ -26,6 +26,6 @@ jobs:
             git config user.email "pr@10up.com"
       - name: npm update version and release
         run: |
-          npx lerna publish prerelease --yes --no-verify-access --no-commit-hooks --canary minor --preid next --dist-tag next
+          npx lerna publish minor --canary --yes --no-verify-access --no-commit-hooks  --preid next --dist-tag next
         env:
            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
