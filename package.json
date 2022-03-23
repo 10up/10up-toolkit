@@ -11,6 +11,7 @@
     "url": "git+https://github.com/10up/10up-scripts.git"
   },
   "scripts": {
+    "build": "npm run build --workspaces --if-present",
     "prepare": "husky install",
     "test": "npm run test --workspaces --if-present"
   },
