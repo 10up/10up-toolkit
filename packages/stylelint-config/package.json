@@ -30,11 +30,17 @@
   },
   "engineStrict": true,
   "engines": {
-    "node": ">=12"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "peerDependencies": {
+    "stylelint": "^14.0.0"
   },
   "dependencies": {
-    "@wordpress/stylelint-config": "^19.1.0",
+    "@wordpress/stylelint-config": "^20.0.2",
     "stylelint-declaration-strict-value": "^1.8.0",
-    "stylelint-order": "^4.1.0"
+    "stylelint-order": "^5.0.0"
+  },
+  "devDependencies": {
+    "stylelint-config-standard-scss": "^3.0.0"
   }
 }
