@@ -5,21 +5,19 @@
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "dist/index.js",
-  "exports": "./dist/index.modern.js",
   "module": "dist/index.module.js",
   "source": "src/index.ts",
   "style": "./dist/index.css",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./config": "./dist/config.js",
+    "./util": "./dist/util.js"
+  },
   "scripts": {
     "watch": "10up-toolkit watch",
     "build": "10up-toolkit build"
   },
-  "browserslist": [
-    "> 1%",
-    "ie >= 11",
-    "last 2 versions",
-    "Firefox ESR"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/10up/component-accordion.git"

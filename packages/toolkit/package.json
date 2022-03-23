@@ -85,6 +85,9 @@
     "webpack-sources": "^3.2.2",
     "webpackbar": "^5.0.2"
   },
+  "devDependencies": {
+    "glob": "^7.2.0"
+  },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
     "node": ">=12",
