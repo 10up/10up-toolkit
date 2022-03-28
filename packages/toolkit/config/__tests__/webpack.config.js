@@ -323,6 +323,34 @@ describe('webpack.config.js', () => {
 		});
 
 		expect(webpackConfig).toMatchSnapshot();
+	});
+
+	it('takes the --target option into account', () => {
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			exports: {
+				'.': './dist/index.js',
+				'./utils-fake-module': './dist/utils-fake-module-dist.js',
+				'./config-fake-module': './dist/config-fake-module-dist.js',
+			},
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+		});
+
+		process.argv.push('--target=node');
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
 		process.argv.pop();
 	});
 });
