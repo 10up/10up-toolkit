@@ -519,6 +519,37 @@ module.exports = (props) => {
 };
 ```
 
+### Customizing svgo
+> Added in 3.0.4
+
+SVGO options can be customized by creating a `svgo.config.js` file at the root of your project.
+
+```javascript
+// svgo.config.js
+module.exports = {
+	plugins: [
+		{
+			name: 'preset-default',
+			params: {
+				overrides: {
+					// customize default plugin options
+					inlineStyles: {
+						onlyMatchedOnce: false,
+					},
+
+					// or disable plugins
+					removeDoctype: false,
+
+					removeViewBox: false,
+				},
+			},
+		},
+	],
+};
+```
+
+See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more info about this file.
+
 ## <a id="cli"></a> CLI Options
 
 10up-toolkit supports several CLI options that can be used to override settings.
