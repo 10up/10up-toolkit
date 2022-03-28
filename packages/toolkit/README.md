@@ -552,6 +552,19 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 "start": "10up-toolkit start -i=src/app.js --dev-server",
 ```
 
+### Target
+> Released in 3.1.0
+
+The `--target` option can be used to override the default webpack target option.
+
+For instance:
+
+```
+10up-toolkit build --target=node
+```
+
+will target node.js instead of browsers. See [Webpack Target](https://webpack.js.org/configuration/target/) for possible values.
+
 ### Dev Server
 
 <blockquote>This option was added in 10up-toolkit 1.0.8</blockquote>

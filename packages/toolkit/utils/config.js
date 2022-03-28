@@ -196,6 +196,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	const source = getArgFromCLI('-i') || getArgFromCLI('--input') || packageJson.source;
 	const main = getArgFromCLI('-o') || getArgFromCLI('--output') || packageJson.main;
 	const exports = packageJson.exports || {};
+	const target = getArgFromCLI('--target') || '';
 
 	let umd = false;
 	if (packageType === 'umd' || packageType === 'all') {
@@ -238,6 +239,7 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		externals,
 		libraryName,
 		packageType,
+		target,
 	};
 };
 
