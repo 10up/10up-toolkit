@@ -553,7 +553,7 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 ```
 
 ### Target
-> Released in 3.0.4
+> Released in 3.1.0
 
 The `--target` option can be used to override the default webpack target option.
 
