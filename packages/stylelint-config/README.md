@@ -8,7 +8,11 @@
 ## Dependencies
 
 1. [Node & NPM](https://www.npmjs.com/get-npm) - 3rd party dependencies are managed through NPM, so you will need that installed globally
-2. [Stylelint](https://stylelint.io/) - as this is a config extention for Stylelint, you will need Stylelint installed in your main project in order for it to work.
+2. [Stylelint](https://stylelint.io/) - as this is a config extension for Stylelint, you will need Stylelint installed in your main project in order for it to work. 
+
+### ⚠️ Dependency Warning
+
+If you're using `npm >= 7` you might not need to install Stylelint directly since it's stated as a `peerDependency`. If you have a version that's not equal or greater than `7`, you'll need to install Stylelint manually.
 
 ## Installation
 
@@ -41,28 +45,27 @@ Add the following to your `.stylelintrc` file:
 ```
 
 ### SCSS:
-By default 10up Stylelint Config does not support out-the-box support for `scss` based projects. That being said, it is not difficult to add support by following the below process:
 
-Install the `stylelint-scss` dependency:
+By default, 10up Stylelint Config does not support out-the-box support for `scss` based projects. That being said, it is not difficult to add support by following the below process:
+
+Install the `stylelint-config-standard-scss` dependency:
 ```
 // NPM
-npm install stylelint-scss --save-dev
+npm install stylelint-config-standard-scss --save-dev
 ```
 
 You will then need to update the plugins section of your projects `.stylelintrc`:
 
 ```
 {
-  "plugins": [
-    "stylelint-scss"
-  ],
-  "rules": {
-   ...
-  }
+  "extends": [
+    "stylelint-config-standard-scss",
+    "@10up/stylelint-config"
+  ]
 }
 ```
 
-A set of rules are located on the [packages NPM page](https://www.npmjs.com/package/stylelint-scss) if you would like to override or customize the defaults further.
+A set of rules are located on the [packages NPM page](https://www.npmjs.com/package/stylelint-config-standard-scss) if you would like to override or customize the defaults further.
 
 
 #### Selector Nested Pattern

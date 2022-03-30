@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Drops support of Stylelint 13 (breaking)
 - Updated `@wordpress/stylelint-config` to `20.0.1` (major)
 - Updated `stylelint-order` to `5.0.0` (major)
+- Stylelint is now a `peerDependency` (major)
 
 ## 1.1.3
 - updated dependencies
