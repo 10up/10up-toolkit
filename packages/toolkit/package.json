@@ -21,7 +21,6 @@
   "dependencies": {
     "@10up/babel-preset-default": "^2.0.1-next.1",
     "@10up/eslint-config": "^2.4.4-next.1",
-    "@10up/stylelint-config": "^1.1.5-next.1",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
@@ -72,7 +71,7 @@
     "resolve-bin": "^1.0.0",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
-    "stylelint": "^13.13.1",
+    "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-webpack-plugin": "^3.1.0",
     "svgo": "^2.8.0",
     "thread-loader": "^3.0.4",
@@ -86,7 +85,13 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "glob": "^7.2.0"
+    "glob": "^7.2.0",
+    "@10up/stylelint-config": ">= 1.0.0",
+    "stylelint": "^13 || ^14"
+  },
+  "peerDependencies": {
+    "@10up/stylelint-config": ">= 1.0.0",
+    "stylelint": "^13 || ^14"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
