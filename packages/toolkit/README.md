@@ -18,7 +18,7 @@ used across 10up's projects such as:
 - JavaScript transpilation through babel
 - core-js@3 automatic polyfill injection (project mode)
 - PostCSS, SASS and CSS Modules
-- ESLint and prettier
+- ESLint, Prettier, and Stylelint
 - Jest
 
 With 10up-toolkit, engineers can quickly and easily bundle assets for both production and development without having
@@ -32,6 +32,14 @@ To install 10up-toolkit simply run
 
 ```bash{showPrompt}
 npm install --save-dev 10up-toolkit
+```
+
+#### ⚠️ `peerDependency` warning
+
+If you're using a version of NPM lower than 7 and `10up-toolkit` from version `4.0.0` you'll also need to install the following dependencies manually:
+
+```bash{showPrompt}
+npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default
 ```
 
 ### Setting it up
@@ -259,8 +267,8 @@ module.exports = (api) => {
 
 ## <a id="linting"></a> Linting
 
-10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and exposes the following commands:
-`10up-toolkit lint-js`,  `10up-toolkit format-js` and `10up-toolkit lint-style`.
+10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and [10up's stylelint config](https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config) and exposes the following commands:
+`10up-toolkit lint-js`, `10up-toolkit format-js` and `10up-toolkit lint-style`.
 
 10up-toolkit can lint JavaScript, TypeScript and JSX without any additional configuration. It's recommended to add a npm script to your `package.json`.
 
