@@ -519,6 +519,37 @@ module.exports = (props) => {
 };
 ```
 
+### Customizing svgo
+> Added in 3.0.4
+
+SVGO options can be customized by creating a `svgo.config.js` file at the root of your project.
+
+```javascript
+// svgo.config.js
+module.exports = {
+	plugins: [
+		{
+			name: 'preset-default',
+			params: {
+				overrides: {
+					// customize default plugin options
+					inlineStyles: {
+						onlyMatchedOnce: false,
+					},
+
+					// or disable plugins
+					removeDoctype: false,
+
+					removeViewBox: false,
+				},
+			},
+		},
+	],
+};
+```
+
+See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more info about this file.
+
 ## <a id="cli"></a> CLI Options
 
 10up-toolkit supports several CLI options that can be used to override settings.
@@ -551,6 +582,19 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 ```json
 "start": "10up-toolkit start -i=src/app.js --dev-server",
 ```
+
+### Target
+> Released in 3.1.0
+
+The `--target` option can be used to override the default webpack target option.
+
+For instance:
+
+```
+10up-toolkit build --target=node
+```
+
+will target node.js instead of browsers. See [Webpack Target](https://webpack.js.org/configuration/target/) for possible values.
 
 ### Dev Server
 
