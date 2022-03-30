@@ -19,8 +19,6 @@
   },
   "bundleDependencies": [],
   "dependencies": {
-    "@10up/babel-preset-default": "^2.0.1-next.1",
-    "@10up/eslint-config": "^2.4.4-next.1",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
@@ -85,11 +83,15 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "glob": "^7.2.0",
+    "@10up/babel-preset-default": "^2.0.1-next.1",
+    "@10up/eslint-config": "^2.4.4-next.1",
     "@10up/stylelint-config": ">= 1.0.0",
+    "glob": "^7.2.0",
     "stylelint": "^13 || ^14"
   },
   "peerDependencies": {
+    "@10up/babel-preset-default": "^2.0.0",
+    "@10up/eslint-config": "^2.0.0",
     "@10up/stylelint-config": ">= 1.0.0",
     "stylelint": "^13 || ^14"
   },
