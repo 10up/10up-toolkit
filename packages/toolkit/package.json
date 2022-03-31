@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "3.0.4-next.1",
+  "version": "3.1.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -69,8 +69,8 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "@10up/babel-preset-default": "^2.0.1-next.1",
-    "@10up/eslint-config": "^2.4.4-next.1",
+    "@10up/babel-preset-default": "^2.0.1",
+    "@10up/eslint-config": "^2.4.4",
     "@10up/stylelint-config": ">= 1.0.0",
     "eslint": "^8.0.0",
     "eslint-config-airbnb": "^19.0.4",
