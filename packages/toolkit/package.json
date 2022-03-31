@@ -56,7 +56,6 @@
     "mini-css-extract-plugin": "^2.4.5",
     "minimist": "^1.2.5",
     "postcss": "^8.4.4",
-    "postcss-css-variables": "^0.18.0",
     "postcss-editor-styles": "^0.3.0",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.0",
