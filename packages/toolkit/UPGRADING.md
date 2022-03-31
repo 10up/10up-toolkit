@@ -1,5 +1,29 @@
 # Upgrade Guide
 
+## Upgrading from 3 to 4
+
+If you're on version 3 and followed below to be on (at least) NPM version `7`, you should be in the clears for this upgrade. In the case you're not, you'll need to install all of these dependencies manually into the project where toolkit is used given that it's only from NPM 7 that `peerDependency` are handled automatically.
+
+* `@10up/babel-preset-default`
+* `@10up/eslint-config`
+* `@10up/stylelint-config`
+* `eslint`
+* `eslint-config-airbnb`
+* `eslint-config-airbnb-base`
+* `eslint-config-prettier`
+* `eslint-plugin-import`
+* `eslint-plugin-jest`
+* `eslint-plugin-jsdoc`
+* `eslint-plugin-jsx-a11y`
+* `eslint-plugin-prettier`
+* `eslint-plugin-react`
+* `eslint-plugin-react-hooks`
+* `eslint-webpack-plugin`
+* `prettier`
+* `stylelint`
+
+We're aiming to reduce major version releases with this change, decoupling Stylelint, Eslint and Prettier cycle's from Toolkit's cycles as we move forward. With this change it's possible to stay on Stylelint 13 if you depend on `@10up/stylelint-config` version `^1.0.0` or upgrade to Stylelint 14 if you use version `^2.0.0`.
+
 ## Upgrading from 2 to 3
 
 ### Minimum Node.js version
