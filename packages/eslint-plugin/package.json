@@ -1,6 +1,6 @@
 {
 	"name": "@10up/eslint-plugin",
-	"version": "1.0.1",
+	"version": "1.0.2-next.0",
 	"description": "ESLint plugin for WordPress development.",
 	"author": "10up",
 	"license": "GPL-2.0-or-later",
@@ -45,7 +45,7 @@
 		"requireindex": "^1.2.0"
 	},
 	"devDependencies": {
-		"@10up/babel-preset-default": "^2.0.1"
+		"@10up/babel-preset-default": "^2.0.2-next.0"
 	},
 	"peerDependencies": {
 		"@babel/core": ">=7",
