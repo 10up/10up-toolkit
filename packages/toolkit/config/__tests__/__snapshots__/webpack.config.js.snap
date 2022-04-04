@@ -26,7 +26,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -215,7 +215,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -413,7 +413,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -620,7 +620,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -792,7 +792,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -965,7 +965,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1153,7 +1153,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1319,7 +1319,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1505,7 +1505,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1700,7 +1700,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1904,7 +1904,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -2094,7 +2094,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -2315,7 +2315,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
