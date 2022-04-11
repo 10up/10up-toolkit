@@ -13,3 +13,5 @@ export interface MyInterface {
 		size: string;
 	};
 }
+
+export * from 'xss';
