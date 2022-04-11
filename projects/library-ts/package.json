@@ -26,7 +26,8 @@
     "watch": "10up-toolkit build -- --watch",
     "build": "npm run build:mjs && npm run build:cjs",
     "build:mjs": "10up-toolkit build --format=module -o=dist/mjs",
-    "build:cjs": "10up-toolkit build -o=dist/cjs"
+    "build:cjs": "10up-toolkit build -o=dist/cjs",
+    "format": "10up-toolkit format-js"
   },
   "repository": {
     "type": "git",
