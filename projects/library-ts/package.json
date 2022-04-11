@@ -1,6 +1,6 @@
 {
   "name": "@10up/library-ts-test",
-  "version": "2.1.5-next.0",
+  "version": "2.1.5-next.1",
   "private": true,
   "author": "10up",
   "description": "Accessible accordion component.",
@@ -13,7 +13,7 @@
       "require": "./dist/cjs/index.js",
       "import": "./dist/mjs/index.js"
     },
-    "./config":{
+    "./config": {
       "require": "./dist/cjs/config.js",
       "import": "./dist/mjs/config.js"
     },
@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^3.1.1-next.0"
+    "10up-toolkit": "^3.1.1-next.1"
   },
   "dependencies": {
     "xss": "^1.0.11"
