@@ -432,6 +432,21 @@ export default () => { /* my awesome js code */};
 
 will generate a `index.js`, `index.umd.js` and a `index.css` file in the `dist` folder after running `npm run build`.
 
+Since v4 you can specify multiple entrypoints in package mode with the `entry` field.
+
+```json
+  "10up-toolkit": {
+    "libraryName": "TenUpAccordion",
+    "entry": {
+      "index": "./src/index.ts",
+      "config": "./src/config/inde.ts",
+      "util": "./src/util/index.ts"
+    }
+  }
+```
+
+Note that you still need to declare `main` and `source` to enable package mode.
+
 ### Undertanding Package Mode
 
 It's important to understand how 10up-toolkit behaves when running in package mode. First and foremost, core-js polyfills **will not** be added automatically.

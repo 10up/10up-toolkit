@@ -64,4 +64,7 @@ module.exports = {
 	plugins: getPlugins(config),
 	stats: getStats(config),
 	optimization: getOptimization(config),
+	experiments: {
+		outputModule: packageConfig.packageType === 'module',
+	},
 };
