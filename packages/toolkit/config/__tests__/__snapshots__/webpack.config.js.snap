@@ -4,7 +4,6 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
 Object {
   "devServer": Object {
     "compress": true,
-    "contentBase": "public",
     "port": 3000,
   },
   "devtool": "source-map",
@@ -172,7 +171,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -345,7 +344,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -377,7 +376,6 @@ exports[`webpack.config.js handlex package.json exports properly 1`] = `
 Object {
   "devServer": Object {
     "compress": true,
-    "contentBase": "public",
     "port": 3000,
   },
   "devtool": "source-map",
@@ -560,7 +558,7 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
     ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
   ],
@@ -748,7 +746,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
     ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
   ],
@@ -921,7 +919,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
     BundleAnalyzerPlugin: {},
   ],
@@ -1094,7 +1092,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -1274,7 +1272,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -1447,7 +1445,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -1650,7 +1648,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -1845,7 +1843,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -2049,7 +2047,7 @@ Object {
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -2247,7 +2245,7 @@ Object {
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":true,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
   ],
   "resolve": Object {
@@ -2279,7 +2277,6 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
 Object {
   "devServer": Object {
     "compress": true,
-    "contentBase": "public",
     "port": 3000,
   },
   "devtool": "source-map",
@@ -2462,7 +2459,7 @@ Object {
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"scriptExtensionsTest":{},"ignore":[]},
+    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
     ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
   ],
