@@ -5,7 +5,6 @@ module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServe
 
 	if (isPackage && devServer) {
 		return {
-			contentBase: 'public',
 			compress: true,
 			port: Number(devServerPort),
 		};
