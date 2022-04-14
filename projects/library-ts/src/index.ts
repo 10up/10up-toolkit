@@ -14,4 +14,4 @@ export interface MyInterface {
 	};
 }
 
-export * from 'xss';
+export {default as xss} from 'xss';

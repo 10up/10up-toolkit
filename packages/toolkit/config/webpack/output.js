@@ -12,7 +12,9 @@ module.exports = ({
 
 		return {
 			path: path.resolve(process.cwd(), outputFolder),
-			libraryTarget: packageType === 'all' ? 'commonjs2' : packageType,
+			library: {
+				type: packageType === 'all' ? 'commonjs2' : packageType,
+			},
 		};
 	}
 
