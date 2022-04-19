@@ -126,13 +126,17 @@ const getDefaultConfig = () => {
 };
 
 /**
- * Returns 10up-scripts config from package.json with default values
+/**
+ * Returns 10up-scripts config either from toolkit.config.js or package.json with default values
  *
  * @returns {object}
  */
 const getTenUpScriptsConfig = () => {
 	const packageJson = getPackage();
-	const config = packageJson['10up-toolkit'] || packageJson['@10up/scripts'];
+	const configFile = 'toolkit.config.js';
+	const config = hasProjectFile(configFile)
+		? require(fromProjectRoot(configFile))
+		: packageJson['10up-toolkit'] || packageJson['@10up/scripts'];
 	const defaultConfig = getDefaultConfig();
 
 	if (!config) {
