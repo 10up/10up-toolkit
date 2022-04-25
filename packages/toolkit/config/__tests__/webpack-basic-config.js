@@ -46,7 +46,7 @@ describe('webpack.config.js', () => {
 		};
 		getBuildFilesMock.mockReturnValue(entryBuildFiles);
 		getPackageMock.mockReturnValue({
-			'@10up/scripts': {
+			'10up-toolkit': {
 				entry: entryBuildFiles,
 				paths: {
 					srcDir: './assets2/',
@@ -175,7 +175,7 @@ describe('webpack.config.js', () => {
 		};
 		getBuildFilesMock.mockReturnValue(entryBuildFiles);
 		getPackageMock.mockReturnValue({
-			'@10up/scripts': {
+			'10up-toolkit': {
 				entry: entryBuildFiles,
 				paths: {
 					srcDir: './assets2/',
@@ -191,139 +191,5 @@ describe('webpack.config.js', () => {
 		});
 
 		expect(webpackConfig).toMatchSnapshot();
-	});
-
-	it('adds devServer config when passing the --dev-server flag', () => {
-		process.argv.push('--dev-server');
-		process.argv.push('--port=3000');
-		getBuildFilesMock.mockReturnValue({});
-		hasProjectFileMock.mockImplementation((file) => {
-			return file === 'public/index.html';
-		});
-		getPackageMock.mockReturnValue({
-			name: '@10up/component-library',
-			source: 'src/index.js',
-			main: 'dist/index.js',
-			'umd:main': 'dist/index.umd.js',
-			dependencies: {
-				'read-pkg': '^5.2.0',
-				'read-pkg-up': '^1.0.1',
-				'resolve-bin': '^0.4.0',
-			},
-		});
-
-		let webpackConfig;
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-		process.argv.pop();
-	});
-
-	it('allows changing browsersync port', () => {
-		process.argv.push('--port=3000');
-		hasProjectFileMock.mockReturnValue(true);
-		const entryBuildFiles = {
-			entry1: 'entry1.js',
-		};
-		getBuildFilesMock.mockReturnValue(entryBuildFiles);
-		getPackageMock.mockReturnValue({
-			'@10up/scripts': {
-				entry: entryBuildFiles,
-				devURL: 'http://wptest.test',
-			},
-		});
-		let webpackConfig;
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-	});
-
-	it('includes webpack-bundle-analyzer when using --analyze', () => {
-		process.argv.push('--analyze');
-		process.env.NODE_ENV = 'production';
-		hasProjectFileMock.mockReturnValue(true);
-		const entryBuildFiles = {
-			entry1: 'entry1.js',
-		};
-		getBuildFilesMock.mockReturnValue(entryBuildFiles);
-		getPackageMock.mockReturnValue({
-			'10up-toolkit': {
-				entry: entryBuildFiles,
-			},
-		});
-		let webpackConfig;
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-
-		// test it doesn't enable when not in productio mode
-		process.env.NODE_ENV = '';
-
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-	});
-
-	it('includes react-webpack-fast-refresh with the --hot option', () => {
-		process.argv.push('--hot');
-		process.env.NODE_ENV = 'development';
-		hasProjectFileMock.mockReturnValue(true);
-		const entryBuildFiles = {
-			entry1: 'entry1.js',
-		};
-		getBuildFilesMock.mockReturnValue(entryBuildFiles);
-		getPackageMock.mockReturnValue({
-			'10up-toolkit': {
-				entry: entryBuildFiles,
-			},
-		});
-		let webpackConfig;
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-	});
-
-	it('takes the --target option into account', () => {
-		getBuildFilesMock.mockReturnValue({});
-		getPackageMock.mockReturnValue({
-			name: '@10up/component-library',
-			source: 'src/index.js',
-			main: 'dist/index.js',
-			exports: {
-				'.': './dist/index.js',
-				'./utils-fake-module': './dist/utils-fake-module-dist.js',
-				'./config-fake-module': './dist/config-fake-module-dist.js',
-			},
-			dependencies: {
-				'read-pkg': '^5.2.0',
-				'read-pkg-up': '^1.0.1',
-				'resolve-bin': '^0.4.0',
-			},
-		});
-
-		process.argv.push('--target=node');
-		let webpackConfig;
-		jest.isolateModules(() => {
-			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
-		});
-
-		expect(webpackConfig).toMatchSnapshot();
-		process.argv.pop();
 	});
 });
