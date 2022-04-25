@@ -2,6 +2,7 @@
  * Internal dependencies
  */
 const path = require('path');
+const fs = require('fs');
 const camelcase = require('camelcase');
 const { hasArgInCLI, getArgFromCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
@@ -256,7 +257,8 @@ const getBuildFiles = (
 
 		const isWPEntry = typeof entryProps.wp === 'undefined' ? true : entryProps.wp;
 		// only include either wp entries or non wp entries
-		if (wp === isWPEntry) {
+		// disregard file system check for tests
+		if (wp === isWPEntry && (fs.existsSync(filePath) || typeof jest !== 'undefined')) {
 			entries[filenameAsKey ? filePath : key] = { ...entryProps, src: filePath };
 		}
 	});

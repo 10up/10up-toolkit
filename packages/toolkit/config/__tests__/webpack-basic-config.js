@@ -10,14 +10,6 @@ jest.mock('../../utils/package', () => {
 	return module;
 });
 
-/* jest.mock('../../utils/config', () => {
-	const module = jest.requireActual('../../utils/config');
-
-	jest.spyOn(module, 'getBuildFiles');
-
-	return module;
-}); */
-
 jest.mock('../../utils/file', () => {
 	const module = jest.requireActual('../../utils/file');
 
