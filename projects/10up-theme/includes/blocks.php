@@ -22,7 +22,7 @@ function setup() {
 
 	add_action( 'enqueue_block_editor_assets', $n( 'blocks_editor_styles' ) );
 
-	add_filter( 'block_categories', $n( 'blocks_categories' ), 10, 2 );
+	add_filter( 'block_categories_all ', $n( 'blocks_categories' ), 10, 2 );
 
 	add_action( 'init', $n( 'register_theme_blocks' ) );
 

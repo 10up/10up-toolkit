@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 3.0.0
+- Added - Introduced the `--analyze` option to the build to enable webpack-bundle-analyzer [#148](https://github.com/10up/10up-toolkit/pull/148)
+- Added - Introduced HMR and React Fast Refresh [#150](https://github.com/10up/10up-toolkit/pull/150)
+- Added - Introduced `TenUpToolkitTscPlugin` that runs tsc both on build and watch if tsconfig.json is present. [#151](https://github.com/10up/10up-toolkit/pull/161)
+- Changed - Eslint and stylelint now only lint changed files when building with webpack (lintDirtyModulesOnly) [#146](https://github.com/10up/10up-toolkit/pull/146)
+- Changed - Replaced `imagemin-webpack-plugin` with `image-minimizer-webpack-plugin` [#147](https://github.com/10up/10up-toolkit/pull/147)
+- Changed - Droped `imagemin` in favor of `squoosh` [#157](https://github.com/10up/10up-toolkit/pull/157)
+- Changed - Updated `@svgr/webpack` to 6.2.1 and removed `postcss-object-fit-image` as it's not necessary.
+- Deprecated - BrowserSync [#159](https://github.com/10up/10up-toolkit/pull/159)
+
+## 2.1.0
+- Fix double dot issue in CopyWebpack plugin
+- Stop removing viewbox in svgs.
+- Added `.ico` and ` .otf` files to be copied via copy-webpack-plugin.
+- Updated eslint-config and eslint to 8.
+
 ## 2.0.0
 - Updated several dependencies.
 - Updated to postcss-preset-env 7.0 and switched from postcss-nested to postcss-nesting (BREAKING CHANGE)

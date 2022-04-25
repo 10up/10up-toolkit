@@ -1,5 +1,5 @@
 module.exports = {
-	extends: ['plugin:@wordpress/eslint-plugin/recommended-with-formatting', './react'],
+	extends: ['plugin:@10up/eslint-plugin/wordpress', './react'],
 	settings: {
 		'import/core-modules': [
 			'@wordpress/block-editor',

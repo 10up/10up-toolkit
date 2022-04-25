@@ -26,15 +26,18 @@
 		},
 		"customClassName": false,
 		"defaultStylePicker": false,
-		"fontSize": false,
+    "typography": {
+      "fontSize": false,
+      "lineHeight": true
+    },
 		"html": false,
 		"inserter": true,
-		"lineHeight": true,
 		"multiple": true,
 		"reusable": false,
 		"spacing": {
 			"padding": false
 		}
 	},
-	"editorScript": "file:../../../dist/blocks/example-block/edit.js"
+	"editorScript": "file:../../../dist/blocks/example-block/edit.js",
+  "editorStyle": "file:../../../dist/blocks/example-block/editor.css"
 }
