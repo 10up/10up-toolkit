@@ -16,15 +16,17 @@ module.exports = ({
 			return buildFiles;
 		}
 
-		config.main = {
-			import: `./${source}`,
-			filename: removeDistFolder(main),
-			library: {
-				type: ['commonjs2', 'commonjs', 'all'].includes(packageType)
-					? 'commonjs2'
-					: packageType,
-			},
-		};
+		if (packageType !== 'umd') {
+			config.main = {
+				import: `./${source}`,
+				filename: removeDistFolder(main),
+				library: {
+					type: ['commonjs2', 'commonjs', 'all'].includes(packageType)
+						? 'commonjs2'
+						: packageType,
+				},
+			};
+		}
 
 		if (umd && !devServer) {
 			config.umd = {
