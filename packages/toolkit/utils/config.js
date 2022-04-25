@@ -1,7 +1,6 @@
 /**
  * Internal dependencies
  */
-const { existsSync: fileExists } = require('fs');
 const path = require('path');
 const camelcase = require('camelcase');
 const { hasArgInCLI, getArgFromCLI } = require('./cli');
@@ -243,18 +242,31 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	};
 };
 
-const getBuildFiles = () => {
+const getBuildFiles = (
+	{ srcOnly, filenameAsKey, wp } = { srcOnly: true, filenameAsKey: false, wp: true },
+) => {
 	const { entry } = getTenUpScriptsConfig();
 
 	const entries = {};
 
 	Object.keys(entry).forEach((key) => {
-		const filePath = path.resolve(process.cwd(), entry[key]);
+		const srcPath = typeof entry[key] === 'string' ? entry[key] : entry[key].src;
+		const filePath = path.resolve(process.cwd(), srcPath);
+		const entryProps = typeof entry[key] === 'string' ? {} : entry[key];
 
-		if (fileExists(filePath)) {
-			entries[key] = filePath;
+		const isWPEntry = typeof entryProps.wp === 'undefined' ? true : entryProps.wp;
+		// only include either wp entries or non wp entries
+		if (wp === isWPEntry) {
+			entries[filenameAsKey ? filePath : key] = { ...entryProps, src: filePath };
 		}
 	});
+
+	if (srcOnly) {
+		return Object.keys(entries).reduce((acc, current) => {
+			acc[current] = entries[current].src;
+			return acc;
+		}, {});
+	}
 
 	return entries;
 };

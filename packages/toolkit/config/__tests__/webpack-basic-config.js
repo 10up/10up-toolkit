@@ -1,4 +1,3 @@
-import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
 import webpackSerializer from '../../test-utils/webpack-serializer';
@@ -11,13 +10,13 @@ jest.mock('../../utils/package', () => {
 	return module;
 });
 
-jest.mock('../../utils/config', () => {
+/* jest.mock('../../utils/config', () => {
 	const module = jest.requireActual('../../utils/config');
 
 	jest.spyOn(module, 'getBuildFiles');
 
 	return module;
-});
+}); */
 
 jest.mock('../../utils/file', () => {
 	const module = jest.requireActual('../../utils/file');
@@ -34,7 +33,6 @@ describe('webpack.config.js', () => {
 
 	beforeEach(() => {
 		getPackageMock.mockReset();
-		getBuildFilesMock.mockReset();
 		hasProjectFileMock.mockReset();
 	});
 
@@ -44,7 +42,6 @@ describe('webpack.config.js', () => {
 			entry2: 'entry2.js',
 			entry3: 'entry3.js',
 		};
-		getBuildFilesMock.mockReturnValue(entryBuildFiles);
 		getPackageMock.mockReturnValue({
 			'10up-toolkit': {
 				entry: entryBuildFiles,
@@ -66,7 +63,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('returns proper configs for package config', () => {
-		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
 			source: 'src/index.js',
@@ -90,7 +86,6 @@ describe('webpack.config.js', () => {
 
 	it('returns proper configs for package config with commonjs2 format', () => {
 		process.argv.push('--format=commonjs');
-		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
 			source: 'src/index.js',
@@ -114,7 +109,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('returns proper configs for package config with peer deps', () => {
-		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
 			source: 'src/index.js',
@@ -141,7 +135,6 @@ describe('webpack.config.js', () => {
 
 	it('properly detects user config files in package mode', () => {
 		hasProjectFileMock.mockReturnValue(true);
-		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
 			source: 'src/index.js',
@@ -173,7 +166,6 @@ describe('webpack.config.js', () => {
 			entry2: 'entry2.js',
 			entry3: 'entry3.js',
 		};
-		getBuildFilesMock.mockReturnValue(entryBuildFiles);
 		getPackageMock.mockReturnValue({
 			'10up-toolkit': {
 				entry: entryBuildFiles,

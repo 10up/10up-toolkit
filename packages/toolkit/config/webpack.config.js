@@ -26,7 +26,6 @@ const packageConfig = getTenUpScriptsPackageBuildConfig();
 
 const { source, main } = packageConfig;
 const buildFiles = getBuildFiles();
-
 // assume it's a package if there's source and main
 const isPackage = typeof source !== 'undefined' && typeof main !== 'undefined';
 const isProduction = process.env.NODE_ENV === 'production';
@@ -40,7 +39,28 @@ const defaultTargets = [
 	'not ie_mob <=11',
 ];
 
-const config = {
+const generateConfig = (config) => {
+	return {
+		devtool: isProduction ? false : 'source-map',
+		mode,
+		devServer: getDevServer(config),
+		entry: getEntryPoints(config),
+		output: getOutput(config),
+		target: getTarget(config),
+		resolve: getResolve(config),
+		externals: getExternals(config),
+		performance: getPerfomance(config),
+		module: getModules(config),
+		plugins: getPlugins(config),
+		stats: getStats(config),
+		optimization: getOptimization(config),
+		experiments: {
+			outputModule: packageConfig.packageType === 'module',
+		},
+	};
+};
+
+const wpConfig = {
 	projectConfig,
 	packageConfig,
 	buildFiles,
@@ -50,21 +70,27 @@ const config = {
 	defaultTargets,
 };
 
-module.exports = {
-	devtool: isProduction ? false : 'source-map',
-	mode,
-	devServer: getDevServer(config),
-	entry: getEntryPoints(config),
-	output: getOutput(config),
-	target: getTarget(config),
-	resolve: getResolve(config),
-	externals: getExternals(config),
-	performance: getPerfomance(config),
-	module: getModules(config),
-	plugins: getPlugins(config),
-	stats: getStats(config),
-	optimization: getOptimization(config),
-	experiments: {
-		outputModule: packageConfig.packageType === 'module',
+const wpWebPackConfig = generateConfig(wpConfig);
+
+const nonWpConfig = {
+	...wpConfig,
+	buildFiles: getBuildFiles({ srcOnly: true, wp: false }),
+	projectConfig: {
+		...wpConfig.projectConfig,
+		wordpress: false,
 	},
 };
+
+const nonWpWebPackConfig = generateConfig(nonWpConfig);
+
+const webpackConfigs = [];
+
+if (Object.keys(wpConfig.buildFiles).length > 0) {
+	webpackConfigs.push(wpWebPackConfig);
+}
+
+if (Object.keys(nonWpConfig.buildFiles).length > 0) {
+	webpackConfigs.push(nonWpWebPackConfig);
+}
+
+module.exports = webpackConfigs;

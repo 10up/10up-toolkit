@@ -5,21 +5,16 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-    "umd": Object {
-      "filename": "index.umd.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "name": "componentLibrary",
-        "type": "umd",
-      },
-    },
+    "admin": "/assets/js/admin/admin.js",
+    "admin-style": "/assets/css/admin/admin-style.css",
+    "blocks": "/includes/blocks/blocks.js",
+    "editor-style": "/assets/css/frontend/editor-style.css",
+    "frontend": "/assets/js/frontend/frontend.js",
+    "shared": "/assets/js/shared/shared.js",
+    "shared-style": "/assets/css/shared/shared-style.css",
+    "style": "/assets/css/frontend/style.css",
+    "styleguide": "/assets/js/styleguide/styleguide.js",
+    "styleguide-style": "/assets/css/styleguide/styleguide.css",
   },
   "experiments": Object {
     "outputModule": false,
@@ -189,9 +184,9 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "entry1": "entry1.js",
-    "entry2": "entry2.js",
-    "entry3": "entry3.js",
+    "entry1": "/entry1.js",
+    "entry2": "/entry2.js",
+    "entry3": "/entry3.js",
   },
   "experiments": Object {
     "outputModule": false,
@@ -365,21 +360,16 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-    "umd": Object {
-      "filename": "index.umd.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "name": "componentLibrary",
-        "type": "umd",
-      },
-    },
+    "admin": "/assets/js/admin/admin.js",
+    "admin-style": "/assets/css/admin/admin-style.css",
+    "blocks": "/includes/blocks/blocks.js",
+    "editor-style": "/assets/css/frontend/editor-style.css",
+    "frontend": "/assets/js/frontend/frontend.js",
+    "shared": "/assets/js/shared/shared.js",
+    "shared-style": "/assets/css/shared/shared-style.css",
+    "style": "/assets/css/frontend/style.css",
+    "styleguide": "/assets/js/styleguide/styleguide.js",
+    "styleguide-style": "/assets/css/styleguide/styleguide.css",
   },
   "experiments": Object {
     "outputModule": false,
@@ -572,13 +562,16 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
+    "admin": "/assets/js/admin/admin.js",
+    "admin-style": "/assets/css/admin/admin-style.css",
+    "blocks": "/includes/blocks/blocks.js",
+    "editor-style": "/assets/css/frontend/editor-style.css",
+    "frontend": "/assets/js/frontend/frontend.js",
+    "shared": "/assets/js/shared/shared.js",
+    "shared-style": "/assets/css/shared/shared-style.css",
+    "style": "/assets/css/frontend/style.css",
+    "styleguide": "/assets/js/styleguide/styleguide.js",
+    "styleguide-style": "/assets/css/styleguide/styleguide.css",
   },
   "experiments": Object {
     "outputModule": false,
@@ -771,21 +764,16 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-    "umd": Object {
-      "filename": "index.umd.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "name": "componentLibrary",
-        "type": "umd",
-      },
-    },
+    "admin": "/assets/js/admin/admin.js",
+    "admin-style": "/assets/css/admin/admin-style.css",
+    "blocks": "/includes/blocks/blocks.js",
+    "editor-style": "/assets/css/frontend/editor-style.css",
+    "frontend": "/assets/js/frontend/frontend.js",
+    "shared": "/assets/js/shared/shared.js",
+    "shared-style": "/assets/css/shared/shared-style.css",
+    "style": "/assets/css/frontend/style.css",
+    "styleguide": "/assets/js/styleguide/styleguide.js",
+    "styleguide-style": "/assets/css/styleguide/styleguide.css",
   },
   "experiments": Object {
     "outputModule": false,
@@ -979,9 +967,9 @@ Object {
   "devServer": undefined,
   "devtool": "source-map",
   "entry": Object {
-    "entry1": "entry1.js",
-    "entry2": "entry2.js",
-    "entry3": "entry3.js",
+    "entry1": "/entry1.js",
+    "entry2": "/entry2.js",
+    "entry3": "/entry3.js",
   },
   "experiments": Object {
     "outputModule": false,
