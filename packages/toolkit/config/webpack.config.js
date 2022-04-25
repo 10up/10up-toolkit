@@ -60,7 +60,7 @@ const generateConfig = (config) => {
 	};
 };
 
-const wpConfig = {
+const defaultConfigObject = {
 	projectConfig,
 	packageConfig,
 	buildFiles,
@@ -70,13 +70,13 @@ const wpConfig = {
 	defaultTargets,
 };
 
-const wpWebPackConfig = generateConfig(wpConfig);
+const defaultWebpackConfig = generateConfig(defaultConfigObject);
 
 const nonWpConfig = {
-	...wpConfig,
+	...defaultConfigObject,
 	buildFiles: getBuildFiles({ srcOnly: true, wp: false }),
 	projectConfig: {
-		...wpConfig.projectConfig,
+		...defaultConfigObject.projectConfig,
 		wordpress: false,
 	},
 };
@@ -85,12 +85,13 @@ const nonWpWebPackConfig = generateConfig(nonWpConfig);
 
 const webpackConfigs = [];
 
-if (Object.keys(wpConfig.buildFiles).length > 0) {
-	webpackConfigs.push(wpWebPackConfig);
+if (Object.keys(defaultConfigObject.buildFiles).length > 0) {
+	webpackConfigs.push(defaultWebpackConfig);
 }
 
 if (Object.keys(nonWpConfig.buildFiles).length > 0) {
 	webpackConfigs.push(nonWpWebPackConfig);
 }
 
-module.exports = webpackConfigs;
+// for package mode we only need the default config
+module.exports = isPackage ? defaultWebpackConfig : webpackConfigs;
