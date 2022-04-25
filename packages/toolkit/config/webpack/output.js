@@ -1,9 +1,18 @@
 const path = require('path');
 
-module.exports = ({ isPackage, projectConfig: { filenames, hot }, buildFiles }) => {
+module.exports = ({
+	isPackage,
+	packageConfig: { packageType, main },
+	projectConfig: { filenames, hot },
+	buildFiles,
+}) => {
 	if (isPackage) {
+		// if main (output) is not a file then use as the bas epath
+		const outputFolder = main.split('.').length > 1 ? 'dist' : main;
+
 		return {
-			path: path.resolve(process.cwd(), 'dist'),
+			path: path.resolve(process.cwd(), outputFolder),
+			libraryTarget: packageType === 'all' ? 'commonjs2' : packageType,
 		};
 	}
 

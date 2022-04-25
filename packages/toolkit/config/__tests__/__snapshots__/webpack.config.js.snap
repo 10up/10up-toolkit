@@ -16,6 +16,9 @@ Object {
       },
     },
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "read-pkg": "commonjs2 read-pkg",
     "read-pkg-up": "commonjs2 read-pkg-up",
@@ -25,7 +28,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -157,6 +160,7 @@ Object {
     "runtimeChunk": false,
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {
@@ -206,6 +210,9 @@ Object {
   "entry": Object {
     "entry1": "entry1.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -214,7 +221,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -372,221 +379,6 @@ Object {
 }
 `;
 
-exports[`webpack.config.js handlex package.json exports properly 1`] = `
-Object {
-  "devServer": Object {
-    "compress": true,
-    "port": 3000,
-  },
-  "devtool": "source-map",
-  "entry": Object {
-    "config-fake-module": Object {
-      "filename": "config-fake-module-dist.js",
-      "import": "./config-fake-module.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-    "utils-fake-module": Object {
-      "filename": "utils-fake-module-dist.js",
-      "import": "./utils-fake-module.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
-  "externals": Object {
-    "read-pkg": "commonjs2 read-pkg",
-    "read-pkg-up": "commonjs2 read-pkg-up",
-    "resolve-bin": "commonjs2 resolve-bin",
-  },
-  "mode": "development",
-  "module": Object {
-    "rules": Array [
-      Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
-          Object {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": Object {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": Array [
-                "/node_modules/react-refresh/babel.js",
-              ],
-              "presets": Array [
-                Array [
-                  "/packages/babel-preset-default/index.js",
-                  Object {
-                    "targets": Array [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": false,
-                    "wordpress": true,
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
-            },
-          },
-        ],
-      },
-      Object {
-        "test": /\\\\\\.svg\\$/,
-        "use": Array [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
-        "test": /\\\\\\.css\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {
-                "config": "/config/postcss.config.js",
-              },
-            },
-          },
-        ],
-      },
-      Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      Object {
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {
-                "config": "/config/postcss.config.js",
-              },
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      Object {
-        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
-        "type": "asset/resource",
-      },
-    ],
-  },
-  "optimization": Object {
-    "concatenateModules": false,
-    "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
-      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
-    ],
-    "runtimeChunk": "single",
-  },
-  "output": Object {
-    "path": "/dist",
-  },
-  "performance": Object {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": Array [
-    HtmlWebpackPlugin: {},
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
-    CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
-    TenUpToolkitTscPlugin: {},
-    ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":3000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
-  ],
-  "resolve": Object {
-    "alias": Object {
-      "lodash-es": "lodash",
-    },
-    "extensions": Array [
-      ".tsx",
-      ".ts",
-      ".js",
-    ],
-  },
-  "stats": Object {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
-  },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
-`;
-
 exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot option 1`] = `
 Object {
   "devServer": Object {
@@ -610,6 +402,9 @@ Object {
   "entry": Object {
     "entry1": "entry1.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -618,7 +413,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -782,6 +577,9 @@ Object {
   "entry": Object {
     "entry1": "entry1.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -790,7 +588,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -955,6 +753,9 @@ Object {
   "entry": Object {
     "entry1": "entry1.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -963,7 +764,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1141,6 +942,9 @@ Object {
       },
     },
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "lodash": "commonjs2 lodash",
     "read-pkg": "commonjs2 read-pkg",
@@ -1151,7 +955,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1259,6 +1063,7 @@ Object {
     "runtimeChunk": false,
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {
@@ -1309,6 +1114,9 @@ Object {
     "entry2": "entry2.js",
     "entry3": "entry3.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -1317,7 +1125,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1494,6 +1302,9 @@ Object {
       },
     },
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "read-pkg": "commonjs2 read-pkg",
     "read-pkg-up": "commonjs2 read-pkg-up",
@@ -1503,7 +1314,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1635,6 +1446,7 @@ Object {
     "runtimeChunk": false,
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {
@@ -1689,6 +1501,9 @@ Object {
       },
     },
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "read-pkg": "commonjs2 read-pkg",
     "read-pkg-up": "commonjs2 read-pkg-up",
@@ -1698,7 +1513,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1830,6 +1645,7 @@ Object {
     "runtimeChunk": false,
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {
@@ -1892,6 +1708,9 @@ Object {
       },
     },
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "lodash": "commonjs2 lodash",
     "read-pkg": "commonjs2 read-pkg",
@@ -1902,7 +1721,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -2034,6 +1853,7 @@ Object {
     "runtimeChunk": false,
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {
@@ -2084,6 +1904,9 @@ Object {
     "entry2": "entry2.js",
     "entry3": "entry3.js",
   },
+  "experiments": Object {
+    "outputModule": false,
+  },
   "externals": Object {
     "jquery": "jQuery",
     "lodash": "lodash",
@@ -2092,7 +1915,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -2281,13 +2104,6 @@ Object {
   },
   "devtool": "source-map",
   "entry": Object {
-    "config-fake-module": Object {
-      "filename": "config-fake-module-dist.js",
-      "import": "./config-fake-module.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
     "main": Object {
       "filename": "index.js",
       "import": "./src/index.js",
@@ -2295,13 +2111,9 @@ Object {
         "type": "commonjs2",
       },
     },
-    "utils-fake-module": Object {
-      "filename": "utils-fake-module-dist.js",
-      "import": "./utils-fake-module.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
+  },
+  "experiments": Object {
+    "outputModule": false,
   },
   "externals": Object {
     "read-pkg": "commonjs2 read-pkg",
@@ -2312,7 +2124,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules\\\\/\\(\\?!\\(@10up\\\\/block-components\\)\\\\/\\)\\.\\*/,
+        "exclude": /node_modules/,
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -2446,6 +2258,7 @@ Object {
     "runtimeChunk": "single",
   },
   "output": Object {
+    "libraryTarget": "commonjs2",
     "path": "/dist",
   },
   "performance": Object {

@@ -1,22 +1,33 @@
 {
   "name": "@10up/library-ts-test",
-  "version": "2.1.4",
+  "version": "2.1.5-next.1",
   "private": true,
   "author": "10up",
   "description": "Accessible accordion component.",
   "main": "dist/index.js",
-  "module": "dist/index.module.js",
   "source": "src/index.ts",
   "style": "./dist/index.css",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./config": "./dist/config.js",
-    "./util": "./dist/util.js"
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/mjs/index.js"
+    },
+    "./config": {
+      "require": "./dist/cjs/config.js",
+      "import": "./dist/mjs/config.js"
+    },
+    "./util": {
+      "require": "./dist/cjs/util.js",
+      "import": "./dist/mjs/util.js"
+    }
   },
   "scripts": {
-    "watch": "10up-toolkit watch",
-    "build": "10up-toolkit build"
+    "watch": "10up-toolkit build -- --watch",
+    "build": "npm run build:mjs && npm run build:cjs",
+    "build:mjs": "10up-toolkit build --format=module -o=dist/mjs",
+    "build:cjs": "10up-toolkit build -o=dist/cjs",
+    "format": "10up-toolkit format-js"
   },
   "repository": {
     "type": "git",
@@ -28,9 +39,17 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^3.1.0"
+    "10up-toolkit": "^3.1.1-next.1"
+  },
+  "dependencies": {
+    "xss": "^1.0.11"
   },
   "10up-toolkit": {
-    "libraryName": "TenUpAccordion"
+    "libraryName": "TenUpAccordion",
+    "entry": {
+      "index": "./src/index.ts",
+      "config": "./src/config/inde.ts",
+      "util": "./src/util/index.ts"
+    }
   }
 }

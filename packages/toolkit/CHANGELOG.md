@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 3.1.0
+- Fixed: `dev-server` flag [#178](https://github.com/10up/10up-toolkit/pull/178)
+- Added: `--target` option [#176](https://github.com/10up/10up-toolkit/pull/175)
+- Added: Basic support for `exports` package.json field in package mode. [#170](https://github.com/10up/10up-toolkit/pull/170)
+
 ## 3.0.3
 - Changed - Updated `@wordpress/eslint-plugin` to 11.0.0 to resolved an issue with conflicting prettier deps.
 
