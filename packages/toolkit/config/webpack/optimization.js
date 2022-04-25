@@ -85,7 +85,7 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 								const svgoConfigFile = fromProjectRoot('svgo.config.js');
 								config = await loadConfig(svgoConfigFile);
 							}
-							// const config = await loadConfig(configFile, cwd);
+
 							result = optimize(original.data, {
 								path: original.filename,
 								...config,
