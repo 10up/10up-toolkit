@@ -41,6 +41,7 @@ module.exports = ({
 	packageConfig: { style },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
 

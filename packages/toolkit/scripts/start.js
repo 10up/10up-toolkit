@@ -33,9 +33,10 @@ const runWebpack = () => {
 	const { devServer } = config;
 
 	if (devServer) {
-		const server = new WebpackDevServer(compiler);
+		const devServerOptions = { ...devServer, host: '127.0.0.1', open: false };
+		const server = new WebpackDevServer(devServerOptions, compiler);
 
-		server.listen(devServer.port, '127.0.0.1');
+		server.start();
 	} else {
 		compiler.watch(
 			{
