@@ -51,6 +51,8 @@ module.exports = {
 			'@wordpress/viewport',
 			'@wordpress/warning',
 			'@wordpress/wordcount',
+			'react-dom',
+			'react',
 		],
 	},
 	globals: {

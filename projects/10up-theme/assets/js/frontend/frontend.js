@@ -1,7 +1,7 @@
 import '../../css/frontend/style.css';
-// eslint-disable-next-line
+
 import ReactDOM from 'react-dom';
-// eslint-disable-next-line
+// or import { useState } from 'react';
 import { useState } from '@wordpress/element';
 
 const App = () => {
