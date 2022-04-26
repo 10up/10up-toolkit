@@ -10,6 +10,7 @@ A collection of bundled scripts for 10up development.
 6. [Customizations](#customizations)
 7. [CLI Options](#cli)
 8. [TypeScript Support](#typescript)
+9. [React & WordPress](#react)
 
 ## <a id="introduction"></a>Introduction
 
@@ -744,6 +745,68 @@ module.exports = {
 	plugins: ['@typescript-eslint'],
 };
 ```
+## <a id="React"></a> React & WordPress
+
+There are two ways you can work with React in 10up-toolkit. When "WordPress" mode is turned on (the default behavior) 10up-toolkit will assume React is comming from WordPress and therefore will use `@wordpress/element`.
+
+This is the default and expected behavior for writing custom gutenberg blocks for instance.
+
+If you're writing React code on the front-end of your theme you can still use the bundled React that comes with WordPress. 10up-toolkit will automatically add `react`, `react-dom` and `wp-element` as dependencies of your front-end script that contains react code.
+
+For instance, given the following React code
+
+```javascript
+import ReactDOM from 'react-dom';
+import { useState } from 'react';
+
+const App = () => {
+	const [state] = useState(1);
+
+	return <p>This is a react app {state}</p>;
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+The following `asset.php` file will be generated
+
+```php
+<?php 
+return array('dependencies' => 
+  array('react-dom', 'wp-element'), 'version' =>    'a285714cd60121ad20a470c3b859c6b0'
+);
+```
+
+If you're not supporting IE 11, it is strongly recommened to remove `wp-polyfill` from the front-end. Additionally, `lodash` is also not require if you're just sticking to standard react apis.
+
+```php
+add_action( 'wp_default_scripts', 'remove_deps' );
+
+function remove_deps( $scripts ) {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$deps_to_remove = [ 'wp-polyfill', 'lodash' ];
+
+	$wp_element = $scripts->query( 'wp-element' );
+	if ( $wp_element ) {
+		$wp_element->deps = array_diff( $wp_element->deps, $deps_to_remove );
+	}
+
+	$wp_escape_html = $scripts->query( 'wp-escape-html' );
+	if ( $wp_escape_html ) {
+		$wp_escape_html->deps = array_diff( $wp_escape_html->deps, $deps_to_remove );
+	}
+
+	$react = $scripts->query( 'react' );
+	if ( $react ) {
+		$react->deps = array_diff( $react->deps, $deps_to_remove );
+	}
+}
+```
+
+By disabling "WordPress" mode, you will need to install both react and react-dom youself and include in your final bundle.
 
 ## Support Level
 
