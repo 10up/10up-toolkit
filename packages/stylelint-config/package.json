@@ -1,6 +1,6 @@
 {
   "name": "@10up/stylelint-config",
-  "version": "1.1.6-next.3",
+  "version": "1.1.6-next.4",
   "description": "10up stylelint config for WordPress projects",
   "main": "index.js",
   "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config#readme",
