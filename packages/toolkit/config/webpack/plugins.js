@@ -134,7 +134,7 @@ module.exports = ({
 		wpDependencyExternals &&
 			!isPackage &&
 			new DependencyExtractionWebpackPlugin({
-				injectPolyfill: true,
+				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
 						return 'tenup-toolkit-react-refresh-runtime';

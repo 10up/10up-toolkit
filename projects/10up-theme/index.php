@@ -13,6 +13,6 @@ get_header(); ?>
 			<?php the_content(); ?>
 		<?php endwhile; ?>
 	<?php endif; ?>
-
+	<div id="root"></div>
 <?php
 get_footer();

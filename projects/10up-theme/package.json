@@ -27,7 +27,7 @@
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
-      "frontend": "./assets/js/frontend/frontend.ts",
+      "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "admin-style": "./assets/css/admin/admin-style.css",
