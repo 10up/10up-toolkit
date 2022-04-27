@@ -17,6 +17,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Run Eslint
         uses: Maggi64/eslint-plus-action@master

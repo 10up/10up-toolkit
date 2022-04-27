@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "3.1.1-next.0",
+  "version": "3.1.1-next.4",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -67,13 +67,13 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-server": "^4.7.4",
     "webpack-remove-empty-scripts": "^0.8.0",
-    "webpack-sources": "^3.2.3",
+    "webpack-sources": "^3.2.2",
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "@10up/babel-preset-default": "^2.0.2-next.0",
-    "@10up/eslint-config": "^2.4.5-next.0",
-    "@10up/stylelint-config": "^1.1.6-next.0",
+    "@10up/babel-preset-default": "^2.0.2-next.4",
+    "@10up/eslint-config": "^2.4.5-next.4",
+    "@10up/stylelint-config": "^1.1.6-next.4",
     "glob": "^7.2.0"
   },
   "peerDependencies": {

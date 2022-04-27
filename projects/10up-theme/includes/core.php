@@ -9,7 +9,6 @@ namespace TenUpTheme\Core;
 
 use TenUpTheme\Utility;
 
-
 /**
  * Set up theme defaults and register supported WordPress features.
  *
@@ -31,6 +30,30 @@ function setup() {
 	add_action( 'wp_head', $n( 'add_manifest' ), 10 );
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+	add_action( 'wp_default_scripts', $n( 'remove_deps') );
+}
+
+function remove_deps( $scripts ) {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$deps_to_remove = [ 'wp-polyfill', 'lodash' ];
+
+	$wp_element = $scripts->query( 'wp-element' );
+	if ( $wp_element ) {
+		$wp_element->deps = array_diff( $wp_element->deps, $deps_to_remove );
+	}
+
+	$wp_escape_html = $scripts->query( 'wp-escape-html' );
+	if ( $wp_escape_html ) {
+		$wp_escape_html->deps = array_diff( $wp_escape_html->deps, $deps_to_remove );
+	}
+
+	$react = $scripts->query( 'react' );
+	if ( $react ) {
+		$react->deps = array_diff( $react->deps, $deps_to_remove );
+	}
 }
 
 /**
