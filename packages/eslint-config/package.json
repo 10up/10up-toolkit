@@ -1,6 +1,6 @@
 {
   "name": "@10up/eslint-config",
-  "version": "2.4.5-next.5",
+  "version": "2.4.5",
   "description": "A shareable ESLint configuration",
   "scripts": {
     "lint": "eslint .",
@@ -26,7 +26,7 @@
     "10up"
   ],
   "dependencies": {
-    "@10up/babel-preset-default": "^2.0.2-next.5"
+    "@10up/babel-preset-default": "^2.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
