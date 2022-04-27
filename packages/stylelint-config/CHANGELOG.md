@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
-## Unreleased (major)
+## 2.0.0
 
 - Drops support of Stylelint 13 (breaking)
 - Updated `@wordpress/stylelint-config` to `20.0.1` (major)
