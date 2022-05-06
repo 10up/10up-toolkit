@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Changed: 10up-toolkit no longer transpiles `@10up/block-components`. Make sure to use the latest version of `@10up/block-components` that already ships transpiled code. [#181](https://github.com/10up/10up-toolkit/pull/181)
 - Changed [BREAKING CHANGE]: Stop injecting `wp-polyfill` as dependecy of scripts built by 10up-toolkit. [#193](https://github.com/10up/10up-toolkit/pull/193).
 - Updated: Dependencies [#182](https://github.com/10up/10up-toolkit/pull/182)
-- Changed[BREAKING CHANGE]: Stylelint and eslint are now peerDependencies. This is a breaking change only for those not using npm >= 7. [#179] (https://github.com/10up/10up-toolkit/pull/179)
+- Changed [BREAKING CHANGE]: Stylelint and eslint are now peerDependencies. This is a breaking change only for those not using npm >= 7. [#179] (https://github.com/10up/10up-toolkit/pull/179)
 
 ## 3.1.0
 - Fixed: `dev-server` flag [#178](https://github.com/10up/10up-toolkit/pull/178)
