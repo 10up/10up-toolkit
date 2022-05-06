@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).
 
+## 2.4.5
+- Updated: Included `react` and `react-dom` as core modules in the `wordpress` config. This was done as WP is responsible for loading them.
+
 ## 2.4.3
 - Reverted - 10up's eslint plugin
 
