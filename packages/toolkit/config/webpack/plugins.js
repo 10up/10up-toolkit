@@ -129,7 +129,7 @@ module.exports = ({
 		}),
 		// Fancy WebpackBar.
 		!hasReactFastRefresh && new WebpackBar(),
-		// dependecyExternals variable controls whether scripts' assets get
+		// dependencyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
 			!isPackage &&
