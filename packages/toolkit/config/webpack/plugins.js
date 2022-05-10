@@ -39,6 +39,7 @@ module.exports = ({
 		hot,
 	},
 	packageConfig: { style },
+	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
 
@@ -93,7 +94,9 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
+				return buildFiles[options.chunk.name].match(/\/blocks\//)
+					? filenames.blockCSS
+					: filenames.css;
 			},
 			chunkFilename: '[id].css',
 		}),
@@ -107,6 +110,11 @@ module.exports = ({
 						to: '[path][name][ext]',
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
+					},
+					{
+						from: '**/block.json',
+						context: path.resolve(process.cwd(), paths.blocksDir),
+						to: 'blocks/[path][name][ext]',
 					},
 					hasReactFastRefresh && {
 						from: fromConfigRoot('fast-refresh.php'),
