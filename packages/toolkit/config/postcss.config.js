@@ -7,9 +7,6 @@ module.exports = ({ file, env }) => {
 			'postcss-mixins': {},
 			'postcss-preset-env': {
 				stage: 0,
-				autoprefixer: {
-					grid: true,
-				},
 				features: {
 					'custom-properties': false,
 				},
