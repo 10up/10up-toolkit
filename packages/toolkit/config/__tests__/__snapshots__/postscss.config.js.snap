@@ -258,9 +258,6 @@ Object {
     "postcss-import": Object {},
     "postcss-mixins": Object {},
     "postcss-preset-env": Object {
-      "autoprefixer": Object {
-        "grid": true,
-      },
       "features": Object {
         "custom-properties": false,
       },
@@ -293,9 +290,6 @@ Object {
     "postcss-import": Object {},
     "postcss-mixins": Object {},
     "postcss-preset-env": Object {
-      "autoprefixer": Object {
-        "grid": true,
-      },
       "features": Object {
         "custom-properties": false,
       },
@@ -334,9 +328,6 @@ Object {
     "postcss-import": Object {},
     "postcss-mixins": Object {},
     "postcss-preset-env": Object {
-      "autoprefixer": Object {
-        "grid": true,
-      },
       "features": Object {
         "custom-properties": false,
       },
@@ -391,9 +382,6 @@ Object {
     "postcss-import": Object {},
     "postcss-mixins": Object {},
     "postcss-preset-env": Object {
-      "autoprefixer": Object {
-        "grid": true,
-      },
       "features": Object {
         "custom-properties": false,
       },
