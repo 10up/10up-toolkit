@@ -1,6 +1,6 @@
 {
   "name": "tenup-theme",
-  "version": "1.1.5-next.5",
+  "version": "1.1.5-next.6",
   "private": true,
   "scripts": {
     "start": "10up-toolkit start --port=3002",
@@ -18,7 +18,7 @@
     "10up-toolkit": "^3.1.1-next.5"
   },
   "dependencies": {
-    "@10up/component-accordion": "^2.1.5-next.5",
+    "@10up/component-accordion": "^2.1.5-next.6",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@10up/babel-preset-default",
-  "version": "2.0.2",
+  "version": "2.0.3-next.0",
   "description": "10up's default babel preset",
   "scripts": {
     "lint": "eslint .",
