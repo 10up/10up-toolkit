@@ -4,21 +4,23 @@
   "private": true,
   "scripts": {
     "start": "10up-toolkit start --port=3002",
-    "watch": "10up-toolkit watch",
+    "watch": "10up-toolkit watch --port=5000 --hot",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
-    "clean-dist": "rm -rf ./dist"
+    "clean-dist": "rm -rf ./dist",
+    "wp-env": "wp-env"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^3.1.1-next.5"
+    "10up-toolkit": "../../packages/toolkit"
   },
   "dependencies": {
     "@10up/component-accordion": "^2.1.5-next.6",
+    "@wordpress/env": "^4.7.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
