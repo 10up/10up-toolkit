@@ -47,9 +47,6 @@ function setup() {
  * @return void
  */
 function register_theme_blocks() {
-	// Filter the plugins URL to allow us to have blocks in themes with linked assets. i.e editorScripts
-	add_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
-
 
 	// Require custom blocks.
 	require_once TENUP_THEME_BLOCK_DIR . '/example-block/register.php';
@@ -57,23 +54,7 @@ function register_theme_blocks() {
 	// Call block register functions for each block.
 	Example\register();
 
-	// Remove the filter after we register the blocks
-	remove_filter( 'plugins_url', __NAMESPACE__ . '\filter_plugins_url', 10, 2 );
 }
-
-/**
- * Filter the plugins_url to allow us to use assets from theme.
- *
- * @param string $url  The plugins url
- * @param string $path The path to the asset.
- *
- * @return string The overridden url to the block asset.
- */
-function filter_plugins_url( $url, $path ) {
-	$file = preg_replace( '/\.\.\//', '', $path );
-	return trailingslashit( get_stylesheet_directory_uri() ) . $file;
-}
-
 
 /**
  * Enqueue editor-only JavaScript/CSS for blocks.
