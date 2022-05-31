@@ -9,7 +9,8 @@
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
-    "clean-dist": "rm -rf ./dist"
+    "clean-dist": "rm -rf ./dist",
+    "wp-env": "wp-env"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@10up/component-accordion": "^2.1.5-next.6",
+    "@wordpress/env": "^4.7.0",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
