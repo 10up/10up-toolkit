@@ -65,7 +65,7 @@ After a new stable version has been released, merge `trunk` back into `develop`.
 
 Here's a summary of the process
 1. Follow the process to create a `next` release and test that the release is good to go.
-2. Open a PR from `develop` against `trunk` and merge it.
+2. Merge `develop` into `trunk`.
 2. Wait for `changeset` to open a new PR called `Release`.
 4. Merge the PR opened by `changeset` into `trunk`.
 5. A new release under the `latest` tag will be pushed to npm.
