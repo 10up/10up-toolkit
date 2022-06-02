@@ -43,7 +43,15 @@ The `develop` branch is the development branch which means it contains the next 
 1. Run `npm start` to watch for changes and build.
 
 After completing the steps above, you can make changes to the `./packages/` files and see how they change the build you have in the sample `./projects/10up-theme` project. You can experiment by adding a console.log to the `10up-toolkit/packages/toolkit/scripts/start.js` file and looking the output in the terminal.
+## Troubleshooting
 
+This is a mono repo that leverages [NPM Workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces)
+If you get a warning about missing files, modules, or packages you should do :
+
+- `npm install` -> get public dependencies
+- `npm run build` -> build all dependencies
+
+_if your issues are not mentioned here please open an issue so that we can extend the guides_
 ## Release instructions
 
 TBD
