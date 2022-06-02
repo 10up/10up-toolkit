@@ -26,6 +26,32 @@ For more on how 10up writes and manages code, check out our [10up Engineering Be
 
 The `develop` branch is the development branch which means it contains the next version to be released. `trunk` contains the latest released version.  Always work on the `develop` branch and open up PRs against `develop`.
 
+## Getting set up
+
+### System requirements
+
+- [Node.js](https://nodejs.org/) >= 16.0.0. 
+
+## Get the project running
+1. Clone the project `git@github.com:10up/10up-toolkit.git` somewhere.
+1. `cd` into the cloned repository
+1. Run `npm install`
+1. Install wp-env using `npm -g i @wordpress/env` if you don't already have it.
+1. Go to the `projects/10up-theme` folder where you cloned the repository.
+1. Run `wp-env start` which will give you a WP instance to work in.
+1. Activate the `10up-theme` theme under Appearances > Themes
+1. Run `npm start` to watch for changes and build.
+
+After completing the steps above, you can make changes to the `./packages/` files and see how they change the build you have in the sample `./projects/10up-theme` project. You can experiment by adding a console.log to the `10up-toolkit/packages/toolkit/scripts/start.js` file and looking the output in the terminal.
+## Troubleshooting
+
+This is a mono repo that leverages [NPM Workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces)
+If you get a warning about missing files, modules, or packages you should do :
+
+- `npm install` -> get public dependencies
+- `npm run build` -> build all dependencies
+
+_if your issues are not mentioned here please open an issue so that we can extend the guides_
 ## Release instructions
 
 TBD
