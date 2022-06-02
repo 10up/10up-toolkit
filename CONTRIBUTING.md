@@ -28,6 +28,11 @@ The `develop` branch is the development branch which means it contains the next 
 
 ## Getting set up
 
+### System requirements
+
+- [Node.js](https://nodejs.org/) >= 16.0.0. 
+
+## Get the project running
 1. Clone the project `git@github.com:10up/10up-toolkit.git` somewhere.
 1. `cd` into the cloned repository
 1. Run `npm install` (make sure you're using npm >= 7)
