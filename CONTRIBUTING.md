@@ -35,7 +35,7 @@ The `develop` branch is the development branch which means it contains the next 
 ## Get the project running
 1. Clone the project `git@github.com:10up/10up-toolkit.git` somewhere.
 1. `cd` into the cloned repository
-1. Run `npm install` (make sure you're using npm >= 7)
+1. Run `npm install`
 1. Install wp-env using `npm -g i @wordpress/env` if you don't already have it.
 1. Go to the `projects/10up-theme` folder where you cloned the repository.
 1. Run `wp-env start` which will give you a WP instance to work in.
