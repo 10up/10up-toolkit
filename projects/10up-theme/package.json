@@ -15,7 +15,7 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^4.0.1-next.1"
+    "10up-toolkit": "^4.1.0-next.2"
   },
   "dependencies": {
     "@10up/component-accordion": "^2.1.5-next.7",
