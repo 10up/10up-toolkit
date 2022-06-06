@@ -2,6 +2,9 @@
   "name": "@10up/eslint-config",
   "version": "2.4.6-next.1",
   "description": "A shareable ESLint configuration",
+	"publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "npm run test:index && npm run test:react && npm run test:wordpress && npm run test:node",

@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/10up/10up-toolkit.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "stylelint",
     "stylelint-config",
