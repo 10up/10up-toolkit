@@ -1,10 +1,10 @@
 {
   "name": "tenup-theme",
-  "version": "1.1.1",
+  "version": "1.1.5-next.7",
   "private": true,
   "scripts": {
-    "start": "10up-toolkit start --port=3002",
-    "watch": "10up-toolkit watch",
+    "start": "10up-toolkit start --port=3002 --hot",
+    "watch": "10up-toolkit start",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
@@ -15,10 +15,10 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^3.0.0"
+    "10up-toolkit": "^4.1.0-next.2"
   },
   "dependencies": {
-    "@10up/component-accordion": "^2.1.1",
+    "@10up/component-accordion": "^2.1.5-next.7",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
@@ -27,7 +27,7 @@
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
-      "frontend": "./assets/js/frontend/frontend.ts",
+      "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
       "admin-style": "./assets/css/admin/admin-style.css",

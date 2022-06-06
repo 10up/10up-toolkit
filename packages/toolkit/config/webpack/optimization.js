@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-const { optimize } = require('svgo');
+const { optimize, loadConfig } = require('svgo');
+const { fromProjectRoot, hasProjectFile } = require('../../utils');
 
 module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 	return {
@@ -61,12 +62,11 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 			new ImageMinimizerPlugin({
 				test: /\.svg$/,
 				minimizer: {
-					implementation: (original) => {
+					implementation: async (original) => {
 						let result;
 
 						try {
-							result = optimize(original.data, {
-								path: original.filename,
+							const defaultConfig = {
 								plugins: [
 									{
 										name: 'preset-default',
@@ -77,6 +77,18 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 										},
 									},
 								],
+							};
+
+							let config = { ...defaultConfig };
+
+							if (hasProjectFile('svgo.config.js')) {
+								const svgoConfigFile = fromProjectRoot('svgo.config.js');
+								config = await loadConfig(svgoConfigFile);
+							}
+
+							result = optimize(original.data, {
+								path: original.filename,
+								...config,
 							});
 						} catch (error) {
 							// Return original input if there was an error

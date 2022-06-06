@@ -181,7 +181,7 @@ const normalizePackageType = (type) => {
 };
 
 /**
- * Returns 10up-scripts configs for package builds. If 10up-scripts is not configured for building packages,
+ * Returns 10up-toolkit configs for package builds. If 10up-toolkit is not configured for building packages,
  * this returns false.
  *
  * @returns {object | boolean}
@@ -195,14 +195,18 @@ const getTenUpScriptsPackageBuildConfig = () => {
 	);
 	const source = getArgFromCLI('-i') || getArgFromCLI('--input') || packageJson.source;
 	const main = getArgFromCLI('-o') || getArgFromCLI('--output') || packageJson.main;
+	const exports = packageJson.exports || {};
+	const target = getArgFromCLI('--target') || '';
 
 	let umd = false;
 	if (packageType === 'umd' || packageType === 'all') {
 		umd = packageJson.unpkg || packageJson['umd:main'] || false;
 	}
 
-	// source and main are required
-	if (!source || !main) {
+	const hasSourceAndMain = source && main;
+	const hasExportsField = Object.keys(exports).length > 0;
+
+	if (!hasSourceAndMain && !hasExportsField) {
 		return false;
 	}
 
@@ -230,10 +234,12 @@ const getTenUpScriptsPackageBuildConfig = () => {
 		source,
 		main,
 		umd,
+		exports,
 		style,
 		externals,
 		libraryName,
 		packageType,
+		target,
 	};
 };
 

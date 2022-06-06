@@ -80,9 +80,11 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			umd: 'dist/index.umd.js',
+			exports: {},
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 			libraryName: 'componentLibrary',
 			packageType: 'all',
+			target: '',
 		});
 
 		getPackageMock.mockReset();
@@ -98,6 +100,10 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 				'read-pkg-up': '^1.0.1',
 				'resolve-bin': '^0.4.0',
 			},
+			exports: {
+				'*': './dist/index.js',
+				'./utils': './dist/utils.js',
+			},
 			'10up-toolkit': {
 				libraryName: 'myComponentLibrary',
 			},
@@ -108,9 +114,14 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			main: 'dist/index.js',
 			umd: 'dist/index.umd.js',
 			style: 'dist/index.css',
+			exports: {
+				'*': './dist/index.js',
+				'./utils': './dist/utils.js',
+			},
 			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
 			libraryName: 'myComponentLibrary',
 			packageType: 'all',
+			target: '',
 		});
 	});
 
@@ -137,9 +148,11 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			umd: false,
+			exports: {},
 			externals: [],
 			libraryName: 'myComponentLibrary',
 			packageType: 'commonjs2',
+			target: '',
 		});
 
 		getPackageMock.mockReturnValue({
@@ -165,9 +178,11 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			umd: false,
+			exports: {},
 			externals: [],
 			libraryName: 'myComponentLibrary',
 			packageType: 'commonjs2',
+			target: '',
 		});
 
 		process.argv.pop();
@@ -177,22 +192,27 @@ describe('getTenUpScriptsPackageBuildConfig', () => {
 			source: 'src/index.js',
 			main: 'dist/index.js',
 			umd: false,
+			exports: {},
 			externals: [],
 			libraryName: 'myComponentLibrary',
 			packageType: 'commonjs2',
+			target: '',
 		});
 
 		process.argv.push('-i=src/index.umd.js');
 		process.argv.push('-o=dist/index.umd.js');
 		process.argv.push('--name=ComponentLibrary');
+		process.argv.push('--target=node');
 
 		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
 			source: 'src/index.umd.js',
 			main: 'dist/index.umd.js',
 			umd: false,
+			exports: {},
 			externals: [],
 			libraryName: 'ComponentLibrary',
 			packageType: 'commonjs2',
+			target: 'node',
 		});
 	});
 });

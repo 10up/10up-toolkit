@@ -1,5 +1,5 @@
 module.exports = {
-	extends: ['plugin:@10up/eslint-plugin/wordpress', './react'],
+	extends: ['plugin:@wordpress/eslint-plugin/custom', './react'],
 	settings: {
 		'import/core-modules': [
 			'@wordpress/block-editor',
@@ -51,6 +51,8 @@ module.exports = {
 			'@wordpress/viewport',
 			'@wordpress/warning',
 			'@wordpress/wordcount',
+			'react-dom',
+			'react',
 		],
 	},
 	globals: {

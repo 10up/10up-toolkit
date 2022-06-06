@@ -2,6 +2,10 @@ import './style.css';
 
 export * from './hello-world';
 
+export function sayIndex() {
+	console.log('Hello from index.ts');
+}
+
 export interface MyInterface {
 	name: string;
 	value: string;
@@ -9,3 +13,5 @@ export interface MyInterface {
 		size: string;
 	};
 }
+
+export * from 'xss';

@@ -10,6 +10,7 @@ A collection of bundled scripts for 10up development.
 6. [Customizations](#customizations)
 7. [CLI Options](#cli)
 8. [TypeScript Support](#typescript)
+9. [React & WordPress](#react)
 
 ## <a id="introduction"></a>Introduction
 
@@ -18,7 +19,7 @@ used across 10up's projects such as:
 - JavaScript transpilation through babel
 - core-js@3 automatic polyfill injection (project mode)
 - PostCSS, SASS and CSS Modules
-- ESLint and prettier
+- ESLint, Prettier, and Stylelint
 - Jest
 
 With 10up-toolkit, engineers can quickly and easily bundle assets for both production and development without having
@@ -32,6 +33,14 @@ To install 10up-toolkit simply run
 
 ```bash{showPrompt}
 npm install --save-dev 10up-toolkit
+```
+
+#### ⚠️ `peerDependency` warning
+
+If you're using a version of NPM lower than 7 and `10up-toolkit` from version `4.0.0` you'll also need to install the following dependencies manually:
+
+```bash{showPrompt}
+npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default
 ```
 
 ### Setting it up
@@ -190,8 +199,6 @@ By default 10up-toolkit will scope any css file named `editor-styles.css` files 
 
 ![react-fast-refresh-toolkit](https://user-images.githubusercontent.com/6104632/155181035-b77a53f8-6a45-454d-934c-5667bbb0f06a.gif)
 
-![hmr-front-end](https://user-images.githubusercontent.com/6104632/155255713-a87a0a78-73fc-4e55-9458-6940ff7b634e.gif)
-
 10up-toolkit provides native support for HMR and Fast Refresh with the `--hot` option. Fast Refresh works for general react development (including block development) and front-end CSS. Front-end vanilla JS will likely cause full-page refresh currently.
 
 ```
@@ -261,8 +268,8 @@ module.exports = (api) => {
 
 ## <a id="linting"></a> Linting
 
-10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and exposes the following commands:
-`10up-toolkit lint-js`,  `10up-toolkit format-js` and `10up-toolkit lint-style`.
+10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and [10up's stylelint config](https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config) and exposes the following commands:
+`10up-toolkit lint-js`, `10up-toolkit format-js` and `10up-toolkit lint-style`.
 
 10up-toolkit can lint JavaScript, TypeScript and JSX without any additional configuration. It's recommended to add a npm script to your `package.json`.
 
@@ -426,6 +433,21 @@ export default () => { /* my awesome js code */};
 
 will generate a `index.js`, `index.umd.js` and a `index.css` file in the `dist` folder after running `npm run build`.
 
+Since v4 you can specify multiple entrypoints in package mode with the `entry` field.
+
+```json
+  "10up-toolkit": {
+    "libraryName": "TenUpAccordion",
+    "entry": {
+      "index": "./src/index.ts",
+      "config": "./src/config/inde.ts",
+      "util": "./src/util/index.ts"
+    }
+  }
+```
+
+Note that you still need to declare `main` and `source` to enable package mode.
+
 ### Undertanding Package Mode
 
 It's important to understand how 10up-toolkit behaves when running in package mode. First and foremost, core-js polyfills **will not** be added automatically.
@@ -521,6 +543,37 @@ module.exports = (props) => {
 };
 ```
 
+### Customizing svgo
+> Added in 3.0.4
+
+SVGO options can be customized by creating a `svgo.config.js` file at the root of your project.
+
+```javascript
+// svgo.config.js
+module.exports = {
+	plugins: [
+		{
+			name: 'preset-default',
+			params: {
+				overrides: {
+					// customize default plugin options
+					inlineStyles: {
+						onlyMatchedOnce: false,
+					},
+
+					// or disable plugins
+					removeDoctype: false,
+
+					removeViewBox: false,
+				},
+			},
+		},
+	],
+};
+```
+
+See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more info about this file.
+
 ## <a id="cli"></a> CLI Options
 
 10up-toolkit supports several CLI options that can be used to override settings.
@@ -553,6 +606,19 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 ```json
 "start": "10up-toolkit start -i=src/app.js --dev-server",
 ```
+
+### Target
+> Released in 3.1.0
+
+The `--target` option can be used to override the default webpack target option.
+
+For instance:
+
+```
+10up-toolkit build --target=node
+```
+
+will target node.js instead of browsers. See [Webpack Target](https://webpack.js.org/configuration/target/) for possible values.
 
 ### Dev Server
 
@@ -679,6 +745,68 @@ module.exports = {
 	plugins: ['@typescript-eslint'],
 };
 ```
+## <a id="React"></a> React & WordPress
+
+There are two ways you can work with React in 10up-toolkit. When "WordPress" mode is turned on (the default behavior) 10up-toolkit will assume React is comming from WordPress and therefore will use `@wordpress/element`.
+
+This is the default and expected behavior for writing custom gutenberg blocks for instance.
+
+If you're writing React code on the front-end of your theme you can still use the bundled React that comes with WordPress. 10up-toolkit will automatically add `react`, `react-dom` and `wp-element` as dependencies of your front-end script that contains react code.
+
+For instance, given the following React code
+
+```javascript
+import ReactDOM from 'react-dom';
+import { useState } from 'react';
+
+const App = () => {
+	const [state] = useState(1);
+
+	return <p>This is a react app {state}</p>;
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+The following `asset.php` file will be generated
+
+```php
+<?php 
+return array('dependencies' => 
+  array('react-dom', 'wp-element'), 'version' =>    'a285714cd60121ad20a470c3b859c6b0'
+);
+```
+
+If you're not supporting IE 11, it is strongly recommened to remove `wp-polyfill` from the front-end. Additionally, `lodash` is also not require if you're just sticking to standard react apis.
+
+```php
+add_action( 'wp_default_scripts', 'remove_deps' );
+
+function remove_deps( $scripts ) {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$deps_to_remove = [ 'wp-polyfill', 'lodash' ];
+
+	$wp_element = $scripts->query( 'wp-element' );
+	if ( $wp_element ) {
+		$wp_element->deps = array_diff( $wp_element->deps, $deps_to_remove );
+	}
+
+	$wp_escape_html = $scripts->query( 'wp-escape-html' );
+	if ( $wp_escape_html ) {
+		$wp_escape_html->deps = array_diff( $wp_escape_html->deps, $deps_to_remove );
+	}
+
+	$react = $scripts->query( 'react' );
+	if ( $react ) {
+		$react->deps = array_diff( $react->deps, $deps_to_remove );
+	}
+}
+```
+
+By disabling "WordPress" mode, you will need to install both react and react-dom youself and include in your final bundle.
 
 ## Support Level
 

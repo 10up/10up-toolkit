@@ -1,5 +1,5 @@
 module.exports = {
-	extends: '@wordpress/stylelint-config',
+	extends: ['@wordpress/stylelint-config'],
 	plugins: ['stylelint-declaration-strict-value', 'stylelint-order'],
 	rules: {
 		'scale-unlimited/declaration-strict-value': [

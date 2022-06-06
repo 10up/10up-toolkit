@@ -3,8 +3,10 @@ module.exports = ({ isPackage, packageConfig: { externals, packageType } }) => {
 		return externals.reduce((acc, current) => {
 			if (packageType === 'umd') {
 				acc[current] = { commonjs: current, commonjs2: current, amd: current };
-			} else {
+			} else if (packageType === 'all') {
 				acc[current] = `commonjs2 ${current}`;
+			} else {
+				acc[current] = `${packageType} ${current}`;
 			}
 
 			return acc;

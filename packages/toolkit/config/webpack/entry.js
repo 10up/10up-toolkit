@@ -1,6 +1,7 @@
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
+
 module.exports = ({
 	isPackage,
 	projectConfig: { devServer },
@@ -9,13 +10,20 @@ module.exports = ({
 }) => {
 	if (isPackage) {
 		const config = {};
+		const hasBuildFiles = Object.keys(buildFiles).length > 0;
 
-		if (['commonjs2', 'commonjs', 'all'].includes(packageType)) {
+		if (hasBuildFiles) {
+			return buildFiles;
+		}
+
+		if (packageType !== 'umd') {
 			config.main = {
 				import: `./${source}`,
 				filename: removeDistFolder(main),
 				library: {
-					type: 'commonjs2',
+					type: ['commonjs2', 'commonjs', 'all'].includes(packageType)
+						? 'commonjs2'
+						: packageType,
 				},
 			};
 		}

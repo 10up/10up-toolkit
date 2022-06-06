@@ -41,6 +41,7 @@ module.exports = ({
 	packageConfig: { style },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
 
@@ -133,7 +134,7 @@ module.exports = ({
 		wpDependencyExternals &&
 			!isPackage &&
 			new DependencyExtractionWebpackPlugin({
-				injectPolyfill: true,
+				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
 						return 'tenup-toolkit-react-refresh-runtime';

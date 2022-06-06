@@ -44,7 +44,7 @@ module.exports = ({
 			{
 				// Match all js/jsx/ts/tsx files except TS definition files
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
-				exclude: /node_modules\/(?!(@10up\/block-components)\/).*/,
+				exclude: /node_modules/,
 				use: [
 					require.resolve('thread-loader'),
 					{
