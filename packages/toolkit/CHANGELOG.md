@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.1.0
+
+### Minor Changes
+
+- c206d75: Remove grid autoprefixer. See https://github.com/10up/10up-toolkit/pull/197
+- f33afc6: Fix react-refresh-runtime entrypoint
+
+### Patch Changes
+
+- @10up/babel-preset-default@2.0.3
+- @10up/eslint-config@2.4.6
+- @10up/stylelint-config@2.0.1
+
 ## 4.1.0-next.2
 
 ### Minor Changes
