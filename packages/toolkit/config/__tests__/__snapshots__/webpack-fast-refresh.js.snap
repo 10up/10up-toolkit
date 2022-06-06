@@ -210,7 +210,7 @@ Array [
   Object {
     "entry": Object {
       "react-refresh-runtime": Object {
-        "import": "react-refresh/runtime.js",
+        "import": "react-refresh/runtime",
         "library": Object {
           "name": "ReactRefreshRuntime",
           "type": "window",
