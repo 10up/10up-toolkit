@@ -25,7 +25,7 @@ module.exports = ({
 			if (pathData.chunk.name === 'runtime') {
 				return 'fast-refresh/hmr-runtime.js';
 			}
-			return buildFiles[pathData.chunk.name].match(/\/blocks\//)
+			return buildFiles[pathData.chunk.name].match(/\/blocks?\//)
 				? filenames.block
 				: filenames.js;
 		},
