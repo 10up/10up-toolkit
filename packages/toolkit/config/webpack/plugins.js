@@ -123,6 +123,7 @@ module.exports = ({
 			files: '**/*.(s(c|a)ss|css)',
 			allowEmptyInput: true,
 			lintDirtyModulesOnly: true,
+			failOnError: false,
 			...(!hasStylelintConfig() && {
 				configFile: fromConfigRoot('stylelint.config.js'),
 			}),
