@@ -85,7 +85,7 @@ module.exports = ({
 			lintDirtyModulesOnly: true,
 		}),
 
-		// MiniCSSExtractPlugin to extract the CSS thats gets imported into JavaScript.
+		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
 			// esModule: false,
 			filename: (options) => {
