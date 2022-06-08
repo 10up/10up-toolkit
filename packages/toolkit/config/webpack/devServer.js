@@ -26,6 +26,12 @@ module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServe
 			// by default allow any .test subdomains plus the devURL hostname
 			allowedHosts,
 			hot: true,
+			client: {
+				overlay: {
+					errors: true,
+					warnings: false,
+				},
+			},
 			port: Number(devServerPort),
 			proxy: {
 				'/dist': {
