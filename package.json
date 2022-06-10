@@ -27,7 +27,8 @@
   "bundleDependencies": false,
   "devDependencies": {
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.7"
+    "lint-staged": "^12.3.7",
+    "@changesets/cli": "^2.22.0"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {

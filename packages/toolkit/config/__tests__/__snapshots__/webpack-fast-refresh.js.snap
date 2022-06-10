@@ -6,6 +6,12 @@ Object {
     "allowedHosts": Array [
       ".test",
     ],
+    "client": Object {
+      "overlay": Object {
+        "errors": true,
+        "warnings": false,
+      },
+    },
     "devMiddleware": Object {
       "writeToDisk": true,
     },
@@ -145,7 +151,7 @@ Object {
         return 'fast-refresh/hmr-runtime.js';
       }
 
-      return buildFiles[pathData.chunk.name].match(/\\/blocks\\//) ? filenames.block : filenames.js;
+      return buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
   },
@@ -159,7 +165,7 @@ Object {
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":true,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -210,7 +216,7 @@ Array [
   Object {
     "entry": Object {
       "react-refresh-runtime": Object {
-        "import": "react-refresh/runtime.js",
+        "import": "react-refresh/runtime",
         "library": Object {
           "name": "ReactRefreshRuntime",
           "type": "window",

@@ -1,10 +1,10 @@
 {
   "name": "tenup-theme",
-  "version": "1.1.5-next.6",
+  "version": "1.1.5-next.7",
   "private": true,
   "scripts": {
-    "start": "10up-toolkit start --port=3002",
-    "watch": "10up-toolkit watch  --port=5000 --hot",
+    "start": "10up-toolkit start --port=3002 --hot",
+    "watch": "10up-toolkit start",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
@@ -16,11 +16,10 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "../../packages/toolkit"
+    "10up-toolkit": "^4.1.1"
   },
   "dependencies": {
-    "@10up/component-accordion": "^2.1.5-next.6",
-    "@wordpress/env": "^4.7.0",
+    "@10up/component-accordion": "^2.1.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },

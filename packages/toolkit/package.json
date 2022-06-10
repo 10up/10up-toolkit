@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "4.0.1-next.0",
+  "version": "4.1.1",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -73,16 +73,15 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "@10up/babel-preset-default": "^2.0.2",
-    "@10up/eslint-config": "^2.4.5",
-    "@10up/stylelint-config": "^2.0.0",
-	"glob": "^7.2.0"
-
+    "@10up/babel-preset-default": "^2.0.3",
+    "@10up/eslint-config": "^2.4.6",
+    "@10up/stylelint-config": "^2.0.1",
+    "glob": "^7.2.0"
   },
   "peerDependencies": {
-    "@10up/babel-preset-default": "^2.0.0",
-    "@10up/eslint-config": "^2.0.0",
-    "@10up/stylelint-config": ">= 1.0.0"
+    "@10up/babel-preset-default": "^2.0.3",
+    "@10up/eslint-config": "^2.4.6",
+    "@10up/stylelint-config": ">=2.0.1"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
