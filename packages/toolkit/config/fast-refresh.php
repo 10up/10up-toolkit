@@ -5,6 +5,19 @@
  */
 namespace TenUpToolkit;
 
+if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
+	// This is development environment with a detected fast-refresh-file
+	wp_die(
+		sprintf(
+			"You're using <a href='%s' target='_blank'>10up-toolkit</a>'s
+			Hot Module Reloading but don't have <code>SCRIPT_DEBUG</code> enabled.<br/>
+			Learn more about <a href='%s' target='_blank'>enabling HMR</a>.",
+			"https://github.com/10up/10up-toolkit/tree/develop/packages/toolkit",
+			"https://github.com/10up/10up-toolkit/tree/develop/packages/toolkit#hmr-and-fast-refresh"
+		)
+	);
+}
+
 if ( ! function_exists( __NAMESPACE__ . '\\set_dist_url_path' ) ) {
 	$registry = [];
 
@@ -40,8 +53,7 @@ add_action( 'init',
 		$dist_url = $vars['dist_url'];
 
 		if ( ! $dist_url || ! $dist_path ) {
-			trigger_error( '10up-toolkit error: you must defined call TenUpToolkit\set_dist_url_path with the URL and path to dist folfer to get fast refresh to work' );
-			return;
+			wp_die( '10up-toolkit error: you must defined call TenUpToolkit\set_dist_url_path with the URL and path to dist folfer to get fast refresh to work' );
 		}
 
 		$react_fast_refresh_entry   = $dist_url . 'fast-refresh/react-refresh-entry/index.min.js';
