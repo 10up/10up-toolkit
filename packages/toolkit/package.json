@@ -44,7 +44,6 @@
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.6.0",
     "minimist": "^1.2.6",
-    "path": "^0.12.7",
     "postcss": "^8.4.12",
     "postcss-editor-styles": "^0.3.0",
     "postcss-import": "^14.1.0",
