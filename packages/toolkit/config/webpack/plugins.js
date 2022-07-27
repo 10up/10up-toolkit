@@ -37,6 +37,7 @@ module.exports = ({
 		wpDependencyExternals,
 		analyze,
 		hot,
+		useBlockAssets,
 	},
 	packageConfig: { style },
 	buildFiles,
@@ -111,7 +112,7 @@ module.exports = ({
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
-					{
+					useBlockAssets && {
 						from: '**/block.json',
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
