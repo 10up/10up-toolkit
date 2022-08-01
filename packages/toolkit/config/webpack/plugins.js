@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const { resolve } = require('path');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
@@ -76,6 +77,8 @@ module.exports = ({
 		);
 	}
 
+	const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
+
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -113,7 +116,12 @@ module.exports = ({
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
 					useBlockAssets && {
-						from: '**/block.json',
+						from: `${blocksSourceDirectory}/**/block.json`,
+						context: path.resolve(process.cwd(), paths.blocksDir),
+						to: 'blocks/[path][name][ext]',
+					},
+					useBlockAssets && {
+						from: `${blocksSourceDirectory}/**/markup.php`,
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
 					},
