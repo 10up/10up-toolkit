@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.0-next.0
+
+### Minor Changes
+
+- d60ce6c: Refine the way block assets get handled. 10up-toolkit will now create Webpack entrypoints for any assets that are defined in any block.json files automatically for you. So no need to manually adding manual entrypoints per block.
+
 ## 4.1.2
 
 ### Patch Changes
