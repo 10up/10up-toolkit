@@ -16,6 +16,7 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
+    "@wordpress/env": "^4.9.0",
     "10up-toolkit": "^4.1.2"
   },
   "dependencies": {
