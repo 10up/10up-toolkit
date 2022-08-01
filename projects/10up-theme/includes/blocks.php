@@ -48,11 +48,36 @@ function setup() {
  */
 function register_theme_blocks() {
 
-	// Require custom blocks.
-	require_once TENUP_THEME_BLOCK_DIR . '/example-block/register.php';
+	// Register all the blocks in the theme
+	if ( file_exists( TENUP_THEME_BLOCK_DIST_DIR ) ) {
+		$block_json_files = glob( TENUP_THEME_BLOCK_DIST_DIR . '*/block.json' );
 
-	// Call block register functions for each block.
-	Example\register();
+		// auto register all blocks that were found.
+		foreach ( $block_json_files as $filename ) {
+
+			$block_folder = dirname( $filename );
+
+			$block_options = [];
+
+			$markup_file_path = $block_folder . '/markup.php';
+			if ( file_exists( $markup_file_path ) ) {
+
+				// only add the render callback if the block has a file called markdown.php in it's directory
+				$block_options['render_callback'] = function( $attributes, $content, $block ) use ( $block_folder ) {
+
+					// create helpful variables that will be accessible in markup.php file
+					$context = $block->context;
+
+					// get the actual markup from the markup.php file
+					ob_start();
+					include $block_folder . '/markup.php';
+					return ob_get_clean();
+				};
+			};
+
+			register_block_type_from_metadata( $block_folder, $block_options );
+		};
+	};
 
 }
 
