@@ -16,7 +16,7 @@ function register() {
 	};
 	// Register the block.
 	register_block_type_from_metadata(
-		TENUP_THEME_BLOCK_DIR . '/example-block', // this is the directory where the block.json is found.
+		TENUP_THEME_BLOCK_DIST_DIR . '/example-block',
 		[
 			'render_callback' => $n( 'render_block_callback' ),
 		]

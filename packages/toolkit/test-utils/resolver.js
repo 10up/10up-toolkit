@@ -1,8 +1,8 @@
-const glob = require('glob');
+const { sync: glob } = require('fast-glob');
 
 let mapping = {};
 // Looks for "module-resolution.json" files in all the `__tests__` directories
-glob.sync(`${__dirname}/../**/__tests__/modules-resolution.json`).forEach((file) => {
+glob(`${__dirname}/../**/__tests__/modules-resolution.json`).forEach((file) => {
 	// For each of them, merges them in the "mapping" object
 	mapping = { ...mapping, ...require(file) };
 });

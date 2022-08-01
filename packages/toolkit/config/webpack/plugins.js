@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const { resolve } = require('path');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
@@ -37,8 +38,10 @@ module.exports = ({
 		wpDependencyExternals,
 		analyze,
 		hot,
+		useBlockAssets,
 	},
 	packageConfig: { style },
+	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
 
@@ -74,6 +77,8 @@ module.exports = ({
 		);
 	}
 
+	const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
+
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -93,7 +98,9 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				return options.chunk.name.match(/-block$/) ? filenames.blockCSS : filenames.css;
+				return buildFiles[options.chunk.name].match(/\/blocks\//)
+					? filenames.blockCSS
+					: filenames.css;
 			},
 			chunkFilename: '[id].css',
 		}),
@@ -107,6 +114,16 @@ module.exports = ({
 						to: '[path][name][ext]',
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
+					},
+					useBlockAssets && {
+						from: `${blocksSourceDirectory}/**/block.json`,
+						context: path.resolve(process.cwd(), paths.blocksDir),
+						to: 'blocks/[path][name][ext]',
+					},
+					useBlockAssets && {
+						from: `${blocksSourceDirectory}/**/markup.php`,
+						context: path.resolve(process.cwd(), paths.blocksDir),
+						to: 'blocks/[path][name][ext]',
 					},
 					hasReactFastRefresh && {
 						from: fromConfigRoot('fast-refresh.php'),
@@ -130,7 +147,7 @@ module.exports = ({
 		}),
 		// Fancy WebpackBar.
 		!hasReactFastRefresh && new WebpackBar(),
-		// dependecyExternals variable controls whether scripts' assets get
+		// dependencyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
 			!isPackage &&

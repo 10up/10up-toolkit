@@ -24,8 +24,9 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "devURL": "https://my-project.test",
+    "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
@@ -37,7 +38,6 @@
       "shared-style": "./assets/css/shared/shared-style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js",
       "test-style": "./assets/css/frontend/testing.scss"
     }
   }

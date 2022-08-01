@@ -49,6 +49,7 @@ describe('webpack.config.js', () => {
 			'10up-toolkit': {
 				entry: entryBuildFiles,
 				paths: {
+					blocksDir: './includes2/blocks/',
 					srcDir: './assets2/',
 					cssLoaderPaths: ['./assets2/css', './includes2/blocks'],
 					copyAssetsDir: './assets2/',
@@ -178,6 +179,7 @@ describe('webpack.config.js', () => {
 			'10up-toolkit': {
 				entry: entryBuildFiles,
 				paths: {
+					blocksDir: './includes2/blocks/',
 					srcDir: './assets2/',
 					cssLoaderPaths: ['./assets2/css', './includes2/blocks'],
 					copyAssetsDir: './assets2/',

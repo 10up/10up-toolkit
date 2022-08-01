@@ -1,9 +1,9 @@
 /**
- * Converts a size vlaue to bytes
+ * Converts a size value to bytes
  *
  * @param {number} size The size in kb
  *
- * @return {number} The size in bytes
+ * @returns {number} The size in bytes
  */
 const kb = (size) => {
 	return size * 1024;

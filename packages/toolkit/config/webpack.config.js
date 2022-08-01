@@ -17,7 +17,7 @@ const {
 	getModules,
 	getResolve,
 	getTarget,
-	getPerfomance,
+	getPerformance,
 	getDevServer,
 } = require('./webpack');
 
@@ -59,7 +59,7 @@ module.exports = {
 	target: getTarget(config),
 	resolve: getResolve(config),
 	externals: getExternals(config),
-	performance: getPerfomance(config),
+	performance: getPerformance(config),
 	module: getModules(config),
 	plugins: getPlugins(config),
 	stats: getStats(config),

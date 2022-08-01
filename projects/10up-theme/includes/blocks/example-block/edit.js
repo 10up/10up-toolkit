@@ -2,41 +2,27 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { RichText } from '@wordpress/block-editor';
+import { RichText, useBlockProps } from '@wordpress/block-editor';
 
-/**
- * Internal dependencies
- */
-import { editPropsShape } from './props-shape';
+// Importing the block's editor styles via JS will enable hot reloading for css
+import './editor.css';
 
-/**
- * Edit component.
- * See https://wordpress.org/gutenberg/handbook/designers-developers/developers/block-api/block-edit-save/#edit
- *
- * @param {object}   props                        The block props.
- * @param {object}   props.attributes             Block attributes.
- * @param {string}   props.attributes.customTitle Custom title to be displayed.
- * @param {string}   props.className              Class name for the block.
- * @param {Function} props.setAttributes          Sets the value for block attributes.
- * @returns {Function} Render the edit screen
- */
-const ExampleBockEdit = ({
-	attributes: { customTitle: currentTitle },
-	className,
-	setAttributes,
-}) => {
+const ExampleBlockEdit = (props) => {
+	const { attributes, setAttributes } = props;
+	const { title } = attributes;
+
+	const blockProps = useBlockProps();
+
 	return (
-		<div className={className}>
+		<div {...blockProps}>
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"
-				placeholder={__('This updates in real time')}
-				value={currentTitle}
-				onChange={(customTitle) => setAttributes({ customTitle })}
+				placeholder={__('Custom Title')}
+				value={title}
+				onChange={(title) => setAttributes({ title })}
 			/>
 		</div>
 	);
 };
-// Set the propTypes
-ExampleBockEdit.propTypes = editPropsShape;
-export default ExampleBockEdit;
+export default ExampleBlockEdit;

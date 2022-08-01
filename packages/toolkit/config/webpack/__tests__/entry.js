@@ -4,14 +4,24 @@ describe('entry module function', () => {
 	it('returns project mode entry config', () => {
 		const buildFiles = { entry: 'entry.js' };
 		expect(
-			entry({ isPackage: false, packageConfig: {}, projectConfig: {}, buildFiles }),
+			entry({
+				isPackage: false,
+				packageConfig: {},
+				projectConfig: { paths: { blocksDir: './includes2/blocks/' } },
+				buildFiles,
+			}),
 		).toEqual(buildFiles);
 	});
 
 	it('returns package mode entry config', () => {
 		const buildFiles = { entry: 'entry.js' };
 		expect(
-			entry({ isPackage: true, packageConfig: {}, projectConfig: {}, buildFiles }),
+			entry({
+				isPackage: true,
+				packageConfig: {},
+				projectConfig: { paths: { blocksDir: './includes2/blocks/' } },
+				buildFiles,
+			}),
 		).toEqual(buildFiles);
 
 		expect(
@@ -24,7 +34,7 @@ describe('entry module function', () => {
 					umd: 'index.umd.js',
 					libraryName: 'LibraryName',
 				},
-				projectConfig: {},
+				projectConfig: { paths: { blocksDir: './includes2/blocks/' } },
 				buildFiles: [],
 			}),
 		).toEqual({
@@ -54,7 +64,7 @@ describe('entry module function', () => {
 					main: 'index.js',
 					libraryName: 'LibraryName',
 				},
-				projectConfig: {},
+				projectConfig: { paths: { blocksDir: './includes2/blocks/' } },
 				buildFiles: [],
 			}),
 		).toEqual({
@@ -76,7 +86,7 @@ describe('entry module function', () => {
 					main: 'index.js',
 					libraryName: 'LibraryName',
 				},
-				projectConfig: {},
+				projectConfig: { paths: { blocksDir: './includes2/blocks/' } },
 				buildFiles: [],
 			}),
 		).toEqual({
