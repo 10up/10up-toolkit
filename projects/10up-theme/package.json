@@ -23,8 +23,9 @@
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "devURL": "https://my-project.test",
+    "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
