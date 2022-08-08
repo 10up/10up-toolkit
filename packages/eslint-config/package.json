@@ -21,7 +21,7 @@
     "url": "https://github.com/10up/eslint-config/issues"
   },
   "author": "10up <info@10up.com> (https://10up.com)",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "homepage": "https://github.com/10up/eslint-config#readme",
   "keywords": [
     "eslint",

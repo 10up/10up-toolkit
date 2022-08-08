@@ -27,7 +27,7 @@
     "url": "https://10up.com",
     "role": "developer"
   },
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "bugs": {
     "url": "https://github.com/10up/10up-toolkit/issues"
   },
