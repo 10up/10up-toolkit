@@ -116,12 +116,12 @@ module.exports = ({
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
 					useBlockAssets && {
-						from: `${blocksSourceDirectory}/**/block.json`,
+						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
 					},
 					useBlockAssets && {
-						from: `${blocksSourceDirectory}/**/markup.php`,
+						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
 					},
