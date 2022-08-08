@@ -32,7 +32,7 @@
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=7"
   }
 }
