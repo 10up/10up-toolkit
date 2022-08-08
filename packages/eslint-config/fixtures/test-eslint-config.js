@@ -19,11 +19,7 @@ console.log(`\nLinting ${join(__dirname, directoryToTest, '/fail/*.js')}...`);
 
 cli.lintFiles([join(__dirname, directoryToTest, '/fail/*.js')]).then((results) => {
 	const antipatternCounts = countResults(results);
-	const allFail = results.reduce(
-		// eslint-disable-next-line no-return-assign,no-param-reassign
-		(didFail, file) => didFail && (file.errorCount > 0 || file.warningCount > 0),
-		true,
-	);
+	const allFail = results.every((result) => result.errorCount > 0 || result.warningCount > 0);
 
 	if (allFail) {
 		console.log('√ ESLint logs errors as expected.\n');
