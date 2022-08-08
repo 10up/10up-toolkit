@@ -11,6 +11,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "lint": "eslint ."
+  },
   "keywords": [
     "stylelint",
     "stylelint-config",
@@ -34,6 +37,9 @@
   "engineStrict": true,
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
+  "devDependencies": {
+    "@10up/eslint-config": "^2.4.6"
   },
   "peerDependencies": {
     "stylelint": "^14.0.0"
