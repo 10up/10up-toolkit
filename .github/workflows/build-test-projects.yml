@@ -4,11 +4,22 @@ on: [pull_request]
 
 jobs:
   build_projects:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [14.x, 16.x]
+        os: [ubuntu-latest]
+        node: [14, 16]
+        include:
+          - os: macos-latest
+            node: 16
+          - os: windows-latest
+            node: 16
+          - node: 16
+            is_base_node_version: true
+          - os: ubuntu-latest
+            is_base_os_version: true
 
     steps:
       - name: Checkout
