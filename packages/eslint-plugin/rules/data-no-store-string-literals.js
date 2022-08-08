@@ -2,7 +2,7 @@
  * Converts store name to variable name.
  * Removes dashes and uppercases the characters after dashes and appends `Store` at the end.
  *
- * @param {string} storeName
+ * @param {string} storeName Desired store name.
  * @returns {string} store name as variable name
  */
 function storeNameToVariableNames(storeName) {
@@ -19,7 +19,7 @@ function storeNameToVariableNames(storeName) {
 /**
  * Returns last element of an array.
  *
- * @param {Array} array
+ * @param {Array} array Array to fetch last element from.
  * @returns {*} last element of the array
  */
 function arrayLast(array) {
