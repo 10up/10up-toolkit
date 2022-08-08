@@ -48,7 +48,7 @@ module.exports = {
 				message:
 					'`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
 			},
-		], // allowing ForOf.
+		],
 		// Disable prefer-destructing for arrays as it can lead to weird and confusing syntax
 		'prefer-destructuring': [2, { array: false, object: true }],
 		// this rule is good but annoying

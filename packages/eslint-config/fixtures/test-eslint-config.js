@@ -7,9 +7,9 @@ const { join } = require('path');
 const { ESLint } = require('eslint');
 const { getConfigFile, countResults } = require('./helpers');
 
-const baseConfig  = getConfigFile();
-const directoryToTest = baseConfig .replace('.js', '');
-const cli = new ESLint({ useEslintrc: false, overrideConfigFile : baseConfig  });
+const baseConfig = getConfigFile();
+const directoryToTest = baseConfig.replace('.js', '');
+const cli = new ESLint({ useEslintrc: false, overrideConfigFile: baseConfig });
 const formatter = cli.loadFormatter();
 
 const verbose = process.argv.indexOf('--verbose') > -1;
@@ -42,9 +42,8 @@ cli.lintFiles([join(__dirname, directoryToTest, '/fail/*.js')]).then((results) =
 
 	// Log full report when --verbose.
 	if (verbose) {
-		console.log(formatter(antipatternReport.results));
+		console.log(formatter(antipatternCounts.results));
 	}
-
 });
 
 // Run for pass tests
