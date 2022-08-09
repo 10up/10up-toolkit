@@ -16,17 +16,15 @@ jobs:
             node: 16
           - os: windows-latest
             node: 16
-          - node: 16
-            is_base_node_version: true
-          - os: ubuntu-latest
-            is_base_os_version: true
+          - node: 14
+            needs_npm_upgrade: true
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
       - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -37,11 +35,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install dependencies
-        run: npm install -g npm@latest && npm ci
+      # See https://github.com/npm/cli/issues/3385
+      - name: Upgrade npm
+        run: npm i npm@7.20.3 -g
+        if: matrix.needs_npm_upgrade
       - name: build library
-        run: (cd projects/library && npm run lint-js && npm run build && npm run test)
+        run: (cd projects/library && npm i && npm run lint-js && npm run build && npm run test)
       - name: build ts library-ts
-        run: (cd projects/library-ts && npm run build)
+        run: (cd projects/library-ts && npm i && npm run build)
       - name: build 10up theme
-        run: (cd projects/10up-theme && npm run lint-js && npm run build)
+        run: (cd projects/10up-theme && npm i && npm run lint-js && npm run build)
