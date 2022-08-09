@@ -7,6 +7,7 @@
     "watch": "10up-toolkit start",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
+    "lint": "npm run lint-js && npm run lint-style",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
     "clean-dist": "rm -rf ./dist",
