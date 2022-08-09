@@ -32,6 +32,8 @@ jobs:
             node: 16
           - node: 16
             is_base_node_version: true
+          - node: 14
+            needs_npm_upgrade: true
           - os: ubuntu-latest
             is_base_os_version: true
     steps:
@@ -48,7 +50,6 @@ jobs:
           echo "$(git --no-pager log -9 --skip 1 --no-merges --pretty=format:'%H--test-dist-${{ matrix.node }}-${{ matrix.os }}')" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
           echo "COMMIT_SHA=$(git --no-pager log -1 --no-merges --pretty=format:'%H')" >> $GITHUB_ENV
-          echo "BUILD_AND_TEST_ALL_PACKAGES=$(echo ${{ github.event.inputs.run_index }})" >> $GITHUB_ENV
 
       - name: previous build artifacts cache
         uses: actions/cache@v3
@@ -58,6 +59,11 @@ jobs:
             projects/*/dist/**
           key: ${{ env.COMMIT_SHA }}--test-dist-${{ matrix.node }}-${{ matrix.os }}
           restore-keys: ${{ env.DIST_RESTORE_KEYS }}
+
+      # See https://github.com/npm/cli/issues/3385
+      - name: upgrade npm
+        run: npm i npm@7.20.3 -g
+        if: matrix.needs_npm_upgrade
 
       - name: npm ci
         run: |
