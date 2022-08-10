@@ -2,6 +2,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { optimize, loadConfig } = require('svgo');
+const sharp = require('sharp');
 const { fromProjectRoot, hasProjectFile } = require('../../utils');
 
 module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
@@ -37,27 +38,37 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 				},
 			}),
 			new ImageMinimizerPlugin({
-				minimizer: [
-					{
-						implementation: ImageMinimizerPlugin.squooshMinify,
-						options: {
-							encodeOptions: {
-								mozjpeg: {
-									// That setting might be close to lossless, but it’s not guaranteed
-									// https://github.com/GoogleChromeLabs/squoosh/issues/85
-									quality: 100,
-								},
-								webp: {
-									lossless: 1,
-								},
-								avif: {
-									// https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
-									cqLevel: 0,
-								},
+				test: /\.(jpe?g|png|gif|webp|avif)$/i,
+				minimizer: {
+					implementation: async (original) => {
+						const image = sharp(original.data);
+
+						const { format } = await image.metadata();
+
+						const config = {
+							jpeg: { quality: 80 },
+							webp: { quality: 80 },
+							png: { compressionLevel: 8 },
+							gif: {},
+							avif: {},
+						};
+
+						const data = await image[format](config[format]).toBuffer();
+
+						return {
+							filename: original.filename,
+							data,
+							warnings: [],
+							errors: [],
+							info: {
+								// Please always set it to prevent double minification
+								minimized: true,
+								// Optional
+								minimizedBy: ['10up-toolkit'],
 							},
-						},
+						};
 					},
-				],
+				},
 			}),
 			new ImageMinimizerPlugin({
 				test: /\.svg$/,
@@ -109,7 +120,7 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 								// Please always set it to prevent double minification
 								minimized: true,
 								// Optional
-								minimizedBy: ['10up-toolkit-svgo'],
+								minimizedBy: ['10up-toolkit'],
 							},
 						};
 					},
