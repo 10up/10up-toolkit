@@ -41,32 +41,42 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 				test: /\.(jpe?g|png|gif|webp|avif)$/i,
 				minimizer: {
 					implementation: async (original) => {
-						const image = sharp(original.data);
+						try {
+							const image = sharp(original.data);
 
-						const { format } = await image.metadata();
+							const { format } = await image.metadata();
 
-						const config = {
-							jpeg: { quality: 80 },
-							webp: { quality: 80 },
-							png: { compressionLevel: 8 },
-							gif: {},
-							avif: {},
-						};
+							const config = {
+								jpeg: { quality: 82, mozjpeg: true },
+								webp: { quality: 80 },
+								png: { compressionLevel: 8 },
+								gif: {},
+								avif: {},
+							};
+							config.jpg = config.jpeg;
+							const data = await image[format](config[format]).toBuffer();
 
-						const data = await image[format](config[format]).toBuffer();
-
-						return {
-							filename: original.filename,
-							data,
-							warnings: [],
-							errors: [],
-							info: {
-								// Please always set it to prevent double minification
-								minimized: true,
-								// Optional
-								minimizedBy: ['10up-toolkit'],
-							},
-						};
+							return {
+								filename: original.filename,
+								data,
+								warnings: [],
+								errors: [],
+								info: {
+									// Please always set it to prevent double minification
+									minimized: true,
+									// Optional
+									minimizedBy: ['10up-toolkit'],
+								},
+							};
+						} catch (error) {
+							// Return original input if there was an error
+							return {
+								filename: original.filename,
+								data: original.data,
+								errors: [error],
+								warnings: [],
+							};
+						}
 					},
 				},
 			}),
