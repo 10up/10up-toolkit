@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 process.on('unhandledRejection', (err) => {
 	throw err;
 });

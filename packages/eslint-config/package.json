@@ -8,10 +8,10 @@
   "scripts": {
 	"lint": "eslint .",
 	"test": "npm run test:index && npm run test:react && npm run test:wordpress && npm run test:node",
-	"test:index": "node fixtures/test-eslint-config --config-file=./index.js",
-	"test:react": "node fixtures/test-eslint-config --config-file=./react.js",
-	"test:wordpress": "node fixtures/test-eslint-config --config-file=./wordpress.js",
-	"test:node": "node fixtures/test-eslint-config --config-file=./node.js"
+	"test:index": "node fixtures/test-eslint-config.js --config-file=./index.js",
+	"test:react": "node fixtures/test-eslint-config.js --config-file=./react.js",
+	"test:wordpress": "node fixtures/test-eslint-config.js --config-file=./wordpress.js",
+	"test:node": "node fixtures/test-eslint-config.js --config-file=./node.js"
   },
   "repository": {
 	"type": "git",
