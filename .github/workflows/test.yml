@@ -64,13 +64,6 @@ jobs:
       - name: upgrade npm
         run: npm i npm@7.20.3 -g
         if: matrix.needs_npm_upgrade
-      - name: upgrade npm for windows
-        if: ${{ (matrix.node == '16' || matrix.node == '18') && matrix.os == 'windows-latest' }}
-        run: |
-          $WhereNode = Get-Command node | Select-Object -ExpandProperty Definition
-          $NodeDirPath = Split-Path $WhereNode -Parent
-          cd $NodeDirPath
-          npm install npm@8.12.1        
 
       - name: npm ci
         run: |
