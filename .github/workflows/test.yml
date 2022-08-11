@@ -30,6 +30,7 @@ jobs:
             node: 16
           - os: windows-latest
             node: 16
+            needs_npm_upgrade: true
           - node: 16
             is_base_node_version: true
           - node: 14
@@ -61,8 +62,9 @@ jobs:
           restore-keys: ${{ env.DIST_RESTORE_KEYS }}
 
       # See https://github.com/npm/cli/issues/3385
+      # Also see https://github.com/npm/cli/issues/4980 for windows
       - name: upgrade npm
-        run: npm i npm@7.20.3 -g
+        run: npm i npm -g
         if: matrix.needs_npm_upgrade
 
       - name: npm ci
