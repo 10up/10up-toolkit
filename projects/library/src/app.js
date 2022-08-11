@@ -1,3 +1,4 @@
 import { Accordion } from './index';
 
-new Accordion('.accordion');
+// eslint-disable-next-line no-unused-vars
+const accordion = new Accordion('.accordion');

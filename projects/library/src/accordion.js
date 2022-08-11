@@ -2,8 +2,8 @@ export default class Accordion {
 	/**
 	 * constructor function
 	 *
-	 * @param element The accordion target elemnet.
-	 * @param options The acccordion options.
+	 * @param {string} element A selector for the accordion.
+	 * @param {object} options The accordion options.
 	 */
 	constructor(element, options = {}) {
 		this.evtCallbacks = {};
