@@ -1,6 +1,8 @@
+console.log('Logging earlier');
 process.on('unhandledRejection', (err) => {
 	throw err;
 });
+console.log('Logging early');
 
 const { join } = require('path');
 const { ESLint } = require('eslint');
