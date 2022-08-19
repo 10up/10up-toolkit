@@ -107,6 +107,7 @@ const getDefaultConfig = () => {
 	const devServer = hasArgInCLI('--dev-server') || hot;
 	const devServerPort = Number(getArgFromCLI('--port')) || 8000;
 	const analyze = hasArgInCLI('--analyze');
+	const themeJson = getArgFromCLI('--theme-json') || 'default';
 
 	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
@@ -123,6 +124,8 @@ const getDefaultConfig = () => {
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
 		useBlockAssets: false,
+		themeJson,
+		themeJsonParts: {},
 	};
 };
 

@@ -13,6 +13,7 @@ const { resolve } = require('path');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
+const MergeMultiThemeDotJSON = require('./plugins/merge-multi-theme-json');
 
 const {
 	hasStylelintConfig,
@@ -39,6 +40,8 @@ module.exports = ({
 		analyze,
 		hot,
 		useBlockAssets,
+		themeJson,
+		themeJsonParts,
 	},
 	packageConfig: { style },
 	buildFiles,
@@ -169,5 +172,9 @@ module.exports = ({
 			new ReactRefreshWebpackPlugin({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 			}),
+		new MergeMultiThemeDotJSON({
+			currentTheme: themeJson,
+			themes: themeJsonParts,
+		}),
 	].filter(Boolean);
 };
