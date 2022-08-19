@@ -23,7 +23,7 @@ class MergeMultiThemeDotJSON {
 				},
 				() => {
 					// Return early if user has not defined themes.
-					if ( !this.options.themes || 0 === Object.values(this.options.themes).length ) {
+					if (!this.options.themes || Object.values(this.options.themes).length === 0) {
 						return;
 					}
 
@@ -36,16 +36,16 @@ class MergeMultiThemeDotJSON {
 					const themeJson = Object.assign(
 						{},
 						...this.options.themes[this.options.currentTheme].map(
-							(file) => require(path.resolve(file))
-						)
+							(file) => require(path.resolve(file)), // eslint-disable-line import/no-dynamic-require,global-require
+						),
 					);
 
 					// Emit the current themes merged json as theme.json.
 					compilation.emitAsset(
 						this.options.outputFilename,
-						new RawSource( JSON.stringify(themeJson) )
+						new RawSource(JSON.stringify(themeJson)),
 					);
-				}
+				},
 			);
 		});
 	}
