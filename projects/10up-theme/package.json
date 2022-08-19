@@ -39,6 +39,17 @@
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "test-style": "./assets/css/frontend/testing.scss"
+    },
+    "themeJsonParts": {
+      "default": [
+        "./theme-config/base.json",
+        "./theme-config/settings.json",
+        "./theme-config/style.json"
+      ],
+      "no-styles": [
+        "./theme-config/base.json",
+        "./theme-config/settings.json"
+      ]
     }
   }
 }
