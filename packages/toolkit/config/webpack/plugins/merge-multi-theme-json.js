@@ -18,15 +18,15 @@ class MergeMultiThemeDotJSON {
 		const { webpack } = compiler;
 		const { RawSource } = webpack.sources;
 
-		compiler.hooks.thisCompilation.tap(pluginName, (compilation, callback) => {
+		compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
 			// Return early if user has not defined themes.
 			if (!this.options.themes || Object.values(this.options.themes).length === 0) {
-				callback();
+				return;
 			}
 
 			// Return early if the current theme is not defined.
 			if (!this.options.themes[this.options.currentTheme]) {
-				callback();
+				return;
 			}
 
 			// Merge the current theme's json files.
@@ -46,15 +46,15 @@ class MergeMultiThemeDotJSON {
 			);
 		});
 
-		compiler.hooks.afterCompile.tap(pluginName, (compilation, callback) => {
+		compiler.hooks.afterCompile.tap(pluginName, (compilation) => {
 			// Return early if user has not defined themes.
 			if (!this.options.themes || Object.values(this.options.themes).length === 0) {
-				callback();
+				return;
 			}
 
 			// Return early if the current theme is not defined.
 			if (!this.options.themes[this.options.currentTheme]) {
-				callback();
+				return;
 			}
 
 			// Add the source files as a file dependency so --watch works.
