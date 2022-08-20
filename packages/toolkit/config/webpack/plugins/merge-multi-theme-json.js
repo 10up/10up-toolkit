@@ -45,6 +45,11 @@ class MergeMultiThemeDotJSON {
 						this.options.outputFilename,
 						new RawSource(JSON.stringify(themeJson)),
 					);
+
+					// Add the source files as a file dependency so --watch works.
+					this.options.themes[this.options.currentTheme].forEach((file) => {
+						compilation.fileDependencies.add(path.resolve(file));
+					});
 				},
 			);
 		});
