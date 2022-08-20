@@ -171,6 +171,7 @@ Object {
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
     ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":8000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {

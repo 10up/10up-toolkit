@@ -158,6 +158,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
@@ -334,6 +335,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
@@ -541,6 +543,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
@@ -740,6 +743,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
@@ -948,6 +952,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
@@ -1149,6 +1154,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
+    MergeMultiThemeDotJSON: {"currentTheme":"default","outputFilename":"../theme.json","themes":{},"minify":false},
   ],
   "resolve": Object {
     "alias": Object {
