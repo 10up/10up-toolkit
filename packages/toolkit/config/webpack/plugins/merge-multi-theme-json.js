@@ -4,6 +4,7 @@ class MergeMultiThemeDotJSON {
 	static defaultOptions = {
 		currentTheme: 'default',
 		outputFilename: '../theme.json',
+		themes: {},
 	};
 
 	constructor(options = {}) {
