@@ -175,6 +175,7 @@ module.exports = ({
 		new MergeMultiThemeDotJSON({
 			currentTheme: themeJson,
 			themes: themeJsonParts,
+			minify: isProduction,
 		}),
 	].filter(Boolean);
 };
