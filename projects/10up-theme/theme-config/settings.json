@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
   "settings": {
     "color": {
       "defaultPalette": false,
