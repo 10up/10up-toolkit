@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.0-next.2
+
+### Minor Changes
+
+- 2e67b06: Replaces `squoosh` with a custom implementation using `sharp` for optimizing images.
+
 ## 4.2.0-next.1
 
 ### Patch Changes
