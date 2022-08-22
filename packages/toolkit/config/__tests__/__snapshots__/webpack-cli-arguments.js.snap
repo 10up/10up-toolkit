@@ -7,15 +7,7 @@ Object {
     "port": 3000,
   },
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -207,9 +199,7 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -382,9 +372,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 Object {
   "devServer": undefined,
   "devtool": false,
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -557,9 +545,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -731,15 +717,7 @@ exports[`webpack.config.js returns proper configs for package config with common
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -930,15 +908,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
