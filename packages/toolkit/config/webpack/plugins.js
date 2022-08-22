@@ -110,7 +110,7 @@ module.exports = ({
 			new CopyWebpackPlugin({
 				patterns: [
 					{
-						from: '**/*.{jpg,jpeg,png,gif,ico,svg,eot,ttf,woff,woff2,otf}',
+						from: '**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}',
 						to: '[path][name][ext]',
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
