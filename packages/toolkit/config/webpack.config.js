@@ -54,7 +54,9 @@ module.exports = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
 	devServer: getDevServer(config),
-	entry: getEntryPoints(config),
+	// using a function here in order to re-evaluate
+	// the entrypoints whenever something changes
+	entry: () => getEntryPoints(config),
 	output: getOutput(config),
 	target: getTarget(config),
 	resolve: getResolve(config),
