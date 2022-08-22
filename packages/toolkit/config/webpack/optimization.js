@@ -42,18 +42,21 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 				minimizer: {
 					implementation: async (original) => {
 						try {
-							const image = sharp(original.data);
-
+							const options = {};
+							if (/\.gif$/i.test(original.filename)) {
+								options.animated = true;
+							}
+							const image = sharp(original.data, options);
 							const { format } = await image.metadata();
-
 							const config = {
 								jpeg: { quality: 82, mozjpeg: true },
 								webp: { quality: 80 },
-								png: { compressionLevel: 8 },
-								gif: {},
-								avif: {},
+								png: { compressionLevel: 9, quality: 70 },
+								gif: { loop: 0 },
+								avif: { quality: 40, effort: 5 },
 							};
 							config.jpg = config.jpeg;
+							config.heif = config.avif;
 							const data = await image[format](config[format]).toBuffer();
 
 							return {
