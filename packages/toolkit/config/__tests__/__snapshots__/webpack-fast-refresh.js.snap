@@ -26,9 +26,7 @@ Object {
     },
   },
   "devtool": "source-map",
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
