@@ -7,15 +7,7 @@ Object {
     "port": 3000,
   },
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -154,7 +146,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
@@ -208,9 +200,7 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -320,7 +310,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
@@ -384,9 +374,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 Object {
   "devServer": undefined,
   "devtool": false,
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -496,7 +484,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
@@ -560,9 +548,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "entry1": "entry1.js",
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -672,7 +658,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
@@ -735,15 +721,7 @@ exports[`webpack.config.js returns proper configs for package config with common
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -882,7 +860,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,
@@ -935,15 +913,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
 Object {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": Object {
-    "main": Object {
-      "filename": "index.js",
-      "import": "./src/index.js",
-      "library": Object {
-        "type": "commonjs2",
-      },
-    },
-  },
+  "entry": () => getEntryPoints(config),
   "experiments": Object {
     "outputModule": false,
   },
@@ -1082,7 +1052,7 @@ Object {
     "concatenateModules": false,
     "minimizer": Array [
       TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":[{"options":{"encodeOptions":{"mozjpeg":{"quality":100},"webp":{"lossless":1},"avif":{"cqLevel":0}}}}],"loader":true,"test":{},"deleteOriginalAssets":true},
+      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
       ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
     ],
     "runtimeChunk": false,

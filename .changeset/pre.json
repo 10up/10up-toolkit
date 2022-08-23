@@ -12,6 +12,8 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "eighty-rivers-remain",
+    "popular-otters-hide",
     "short-pets-collect"
   ]
 }
