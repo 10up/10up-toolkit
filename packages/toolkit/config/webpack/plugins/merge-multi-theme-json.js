@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const { parse } = require('jsonc-parser');
 
 class MergeMultiThemeDotJSON {
 	static defaultOptions = {
@@ -33,9 +34,7 @@ class MergeMultiThemeDotJSON {
 			const themeJson = Object.assign(
 				{},
 				...this.options.themes[this.options.currentTheme].map((file) =>
-					JSON.parse(
-						fs.readFileSync(path.resolve(file), { encoding: 'utf-8', flag: 'r' }),
-					),
+					parse(fs.readFileSync(path.resolve(file), { encoding: 'utf-8', flag: 'r' })),
 				),
 			);
 
