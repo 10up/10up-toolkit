@@ -42,13 +42,13 @@
     },
     "themeJsonParts": {
       "default": [
-        "./theme-config/base.json",
-        "./theme-config/settings.json",
-        "./theme-config/style.json"
+        "./theme-config/base.jsonc",
+        "./theme-config/settings.jsonc",
+        "./theme-config/style.jsonc"
       ],
       "no-styles": [
-        "./theme-config/base.json",
-        "./theme-config/settings.json"
+        "./theme-config/base.jsonc",
+        "./theme-config/settings.jsonc"
       ]
     }
   }

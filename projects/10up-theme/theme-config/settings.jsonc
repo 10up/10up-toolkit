@@ -1,0 +1,43 @@
+{
+  // Define $schema so that autocomplete and inline validation works in supported IDEs.
+  "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
+
+  // You can define all settings here, or you can split into multiple json or jsonc files.
+  "settings": {
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "defaultDuotone": false,
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "duotone": [],
+      "gradients": [],
+      "link": false,
+      "palette": []
+    },
+    "custom": {},
+    "layout": {
+      "contentSize": "800px", // This is for conntent size.
+      "wideSize": "1000px" // This is for "wide" blocks.
+    },
+    "spacing": {
+      "margin": false,
+      "padding": false,
+      "units": []
+    },
+    "typography": {
+      "customFontSize": false, // Reminder to escape quotes, example \"Sego UI\".
+      "lineHeight": false,
+      "dropCap": false,
+      "fontSizes": []
+    },
+    "blocks": {
+      "core/button": {
+        "color": {
+          "palette": []
+        }
+      }
+    }
+  }
+}

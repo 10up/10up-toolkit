@@ -1,5 +1,13 @@
 {
   "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
+  "version": 2,
+  "templateParts": [
+    {
+      "name": "header",
+      "area": "header",
+      "title": "Header"
+    }
+  ],
   "settings": {
     "color": {
       "defaultPalette": false,
@@ -36,5 +44,19 @@
         }
       }
     }
+  },
+  "styles": {
+    "color": {},
+    "elements": {
+      "h1": {},
+      "h2": {},
+      "h3": {},
+      "h4": {},
+      "h5": {},
+      "h6": {},
+      "link": {}
+    },
+    "typography": {},
+    "blocks": {}
   }
 }

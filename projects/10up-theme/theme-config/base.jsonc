@@ -1,0 +1,12 @@
+{
+	// This is the global base theme settings. Comments supported by jsonc.
+  "$schema": "https://schemas.wp.org/wp/6.0/theme.json",
+  "version": 2,
+	"templateParts": [
+		{
+			"name": "header",
+			"area": "header",
+			"title": "Header"
+		}
+	]
+}
