@@ -23,45 +23,52 @@ module.exports = ({
 
 		// add any additional entrypoints we find in block.json filed to the webpack config
 		additionalEntrypoints = blockMetadataFiles.reduce((accumulator, blockMetadataFile) => {
-			// get all assets from the block.json file
-			const { editorScript, script, viewScript, style, editorStyle } = JSON.parse(
-				readFileSync(blockMetadataFile),
-			);
+			// wrapping in try/catch in case the file is malformed
+			// this happens especially when new block.json files are added
+			// at which point they are completely empty and therefore not valid JSON
+			try {
+				// get all assets from the block.json file
+				const { editorScript, script, viewScript, style, editorStyle } = JSON.parse(
+					readFileSync(blockMetadataFile),
+				);
 
-			// generate a new entrypoint for each of the assets
-			[editorScript, script, viewScript, style, editorStyle]
-				.flat()
-				.filter((rawFilepath) => rawFilepath && rawFilepath.startsWith('file:')) // assets can be files or handles. we only want files
-				.forEach((rawFilepath) => {
-					// Removes the `file:` prefix.
-					const filepath = join(
-						dirname(blockMetadataFile),
-						rawFilepath.replace('file:', ''),
-					);
+				// generate a new entrypoint for each of the assets
+				[editorScript, script, viewScript, style, editorStyle]
+					.flat()
+					.filter((rawFilepath) => rawFilepath && rawFilepath.startsWith('file:')) // assets can be files or handles. we only want files
+					.forEach((rawFilepath) => {
+						// Removes the `file:` prefix.
+						const filepath = join(
+							dirname(blockMetadataFile),
+							rawFilepath.replace('file:', ''),
+						);
 
-					// get the entrypoint name from the filepath by removing the blocks source directory and the file extension
-					const entryName = filepath
-						.replace(extname(filepath), '')
-						.replace(blocksSourceDirectory, '')
-						.replace(/\\/g, '/');
+						// get the entrypoint name from the filepath by removing the blocks source directory and the file extension
+						const entryName = filepath
+							.replace(extname(filepath), '')
+							.replace(blocksSourceDirectory, '')
+							.replace(/\\/g, '/');
 
-					// Detects the proper file extension used in the defined source directory.
-					const [entryFilepath] = glob(
-						`${blocksSourceDirectory}/${entryName}.([jt]s?(x)|?(s)css)`,
-						{
-							absolute: true,
-						},
-					);
+						// Detects the proper file extension used in the defined source directory.
+						const [entryFilepath] = glob(
+							`${blocksSourceDirectory}/${entryName}.([jt]s?(x)|?(s)css)`,
+							{
+								absolute: true,
+							},
+						);
 
-					if (!entryFilepath) {
-						// eslint-disable-next-line no-console
-						console.warn('There was no entry file found for', entryName);
-						return;
-					}
+						if (!entryFilepath) {
+							// eslint-disable-next-line no-console
+							console.warn('There was no entry file found for', entryName);
+							return;
+						}
 
-					accumulator[entryName] = entryFilepath;
-				});
-			return accumulator;
+						accumulator[entryName] = entryFilepath;
+					});
+				return accumulator;
+			} catch (error) {
+				return accumulator;
+			}
 		}, {});
 	}
 

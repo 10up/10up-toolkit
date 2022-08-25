@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.2.0-next.2
+
+### Minor Changes
+
+- 2e67b06: Replaces `squoosh` with a custom implementation using `sharp` for optimizing images.
+
+## 4.2.0-next.1
+
+### Patch Changes
+
+- bc89638: Fix how webpack handles addition of new block.json files during watch mode
+
 ## 4.2.0-next.0
 
 ### Minor Changes
