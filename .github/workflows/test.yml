@@ -67,7 +67,7 @@ jobs:
 
       - name: npm ci
         run: |
-          npm ci --ignore-scripts
+          npm ci
 
       - name: lint
         run: npm run lint
