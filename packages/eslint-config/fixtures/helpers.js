@@ -8,7 +8,7 @@ const getConfigFile = () => {
 	const configArgs = process.argv.filter((arg) => arg.includes('--config-file'));
 
 	if (!configArgs || configArgs.length < 1) {
-		return './index';
+		return '';
 	}
 
 	return configArgs[0].replace('--config-file=', '');

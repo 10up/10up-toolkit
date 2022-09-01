@@ -2,22 +2,24 @@ process.on('unhandledRejection', (err) => {
 	throw err;
 });
 
-const { join } = require('path');
+const { resolve } = require('path');
 const { ESLint } = require('eslint');
 const { getConfigFile, countResults } = require('./helpers');
-
-const baseConfig = getConfigFile();
-const directoryToTest = baseConfig.replace('.js', '');
-const cli = new ESLint({ useEslintrc: false, overrideConfigFile: baseConfig });
+const files = ['index', 'react', 'wordpress', 'node'];
 const verbose = process.argv.indexOf('--verbose') > -1;
 
-console.log('Running ESLint on fixtures directories. Use --verbose for a detailed report.');
-console.log(`\nLinting ${join(__dirname, directoryToTest, '/fail/*.js')}...`);
+async function testLintConfig(file) {
+	const overrideConfigFile = resolve(__dirname, `../${file}.js`);
+	const failDirectory = resolve(__dirname, `./${file}/fail/*.js`);
+	const successDirectory = resolve(__dirname, `./${file}/pass/*.js`);
+	const cli = new ESLint({ useEslintrc: false, overrideConfigFile });
 
-(async () => {
+	console.log('Running ESLint on fixtures directories. Use --verbose for a detailed report.');
+	console.log(`\nLinting ${failDirectory}...`);
+
 	const formatter = await cli.loadFormatter();
 
-	cli.lintFiles([join(__dirname, directoryToTest, '/fail/*.js')]).then((results) => {
+	cli.lintFiles([failDirectory]).then((results) => {
 		const antipatternCounts = countResults(results);
 		const allFail = results.every((result) => result.errorCount > 0 || result.warningCount > 0);
 
@@ -47,9 +49,9 @@ console.log(`\nLinting ${join(__dirname, directoryToTest, '/fail/*.js')}...`);
 	});
 
 	// Run for pass tests
-	console.log(`\nLinting ${join(__dirname, directoryToTest, '/pass/*.js')}...`);
+	console.log(`\nLinting ${successDirectory}...`);
 
-	cli.lintFiles([join(__dirname, directoryToTest, '/pass/*.js')]).then((results) => {
+	cli.lintFiles([successDirectory]).then((results) => {
 		const exampleCounts = countResults(results);
 
 		// Log full report when --verbose, or whenever errors are unexpectedly reported.
@@ -66,4 +68,16 @@ console.log(`\nLinting ${join(__dirname, directoryToTest, '/fail/*.js')}...`);
 			console.log(`${files} files pass lint.`);
 		}
 	});
+}
+
+(async () => {
+	const file = getConfigFile();
+
+	if (file) {
+		await testLintConfig(file);
+	} else {
+		for (const file of files) {
+			await testLintConfig(file);
+		}
+	}
 })();
