@@ -5,7 +5,7 @@ process.on('unhandledRejection', (err) => {
 const { resolve } = require('path');
 const { ESLint } = require('eslint');
 const { getConfigFile, countResults } = require('./helpers');
-const files = ['index', 'react', 'wordpress', 'nodejs'];
+const files = ['index', 'react', 'wordpress', 'node'];
 const verbose = process.argv.indexOf('--verbose') > -1;
 
 async function testLintConfig(file) {
