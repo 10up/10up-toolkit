@@ -13,6 +13,14 @@
 	"test:wordpress": "node fixtures/test-eslint-config.js --config-file=wordpress",
 	"test:node": "node fixtures/test-eslint-config.js --config-file=nodejs"
   },
+  "exports": {
+	".": "./config/index.js",
+	"./jest": "./config/jest.js",
+	"./legacy": "./config/legacy.js",
+	"./node": "./config/node.js",
+	"./react": "./config/react.js",
+	"./wordpress": "./config/wordpress.js"
+  },
   "repository": {
 	"type": "git",
 	"url": "git+https://github.com/10up/eslint-config.git"

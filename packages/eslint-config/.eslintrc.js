@@ -1,4 +1,4 @@
 module.exports = {
-	extends: './index',
+	extends: './config/index',
 	ignorePatterns: ['fixtures/**/*.js'],
 };

@@ -9,7 +9,7 @@ const files = ['index', 'react', 'wordpress', 'node'];
 const verbose = process.argv.indexOf('--verbose') > -1;
 
 async function testLintConfig(file) {
-	const overrideConfigFile = resolve(__dirname, `../${file}.js`);
+	const overrideConfigFile = resolve(__dirname, `../config/${file}.js`);
 	const failDirectory = resolve(__dirname, `./${file}/fail/*.js`);
 	const successDirectory = resolve(__dirname, `./${file}/pass/*.js`);
 	const cli = new ESLint({ useEslintrc: false, overrideConfigFile });

@@ -4,7 +4,7 @@ module.exports = {
 		requireConfigFile: false,
 		babelOptions: {
 			rootMode: 'upward-optional',
-			configFile: require.resolve('./babel.config.js'),
+			configFile: require.resolve('../babel.config.js'),
 		},
 	},
 	env: {
@@ -14,10 +14,10 @@ module.exports = {
 	plugins: ['jsdoc', 'prettier'],
 	extends: [
 		'airbnb-base',
-		require.resolve('./rules/whitespace'),
-		require.resolve('./rules/prettier'),
-		require.resolve('./rules/jsdoc'),
-		require.resolve('./rules/general'),
+		require.resolve('../rules/whitespace'),
+		require.resolve('../rules/prettier'),
+		require.resolve('../rules/jsdoc'),
+		require.resolve('../rules/general'),
 		'prettier',
 		'plugin:prettier/recommended',
 	],
