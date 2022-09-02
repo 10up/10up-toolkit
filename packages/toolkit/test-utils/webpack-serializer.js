@@ -9,10 +9,25 @@ const path = require('path');
  */
 const isString = (val) => val && typeof val === 'string';
 
-const normalizePath = (val) => val.split(path.sep).join(path.posix.sep);
+/**
+ * Convert Windows backslash paths to posix slash paths: foo\\bar ➔ foo/bar
+ *
+ * @param {string} val The value to normalize.
+ * @returns {string}
+ */
+const normalizeSlashes = (val) => {
+	const isExtendedLengthPath = /^\\\\\?\\/.test(val);
+	const hasNonAscii = /[^\u0000-\u0080]+/.test(val); // eslint-disable-line no-control-regex
 
-const rootDir = normalizePath(path.dirname(path.dirname(process.cwd())));
-const processDir = normalizePath(process.cwd());
+	if (isExtendedLengthPath || hasNonAscii) {
+		return val;
+	}
+
+	return val.replace(/\\/g, '/').replace(/\/\//g, '/');
+};
+
+const rootDir = normalizeSlashes(path.dirname(path.dirname(process.cwd())));
+const processDir = normalizeSlashes(process.cwd());
 
 /**
  * Checks if the provided value has a local path
@@ -22,7 +37,7 @@ const processDir = normalizePath(process.cwd());
  * @returns {boolean}
  */
 const hasLocalPath = (val) => {
-	const normalizedPath = normalizePath(val);
+	const normalizedPath = normalizeSlashes(val);
 	return normalizedPath.includes(processDir) || normalizedPath.includes(rootDir);
 };
 
@@ -45,7 +60,7 @@ const isWebPackPlugin = (val) => {
  * @returns {string}
  */
 const removeLocalPath = (val) => {
-	const localPath = normalizePath(val);
+	const localPath = normalizeSlashes(val);
 
 	return localPath
 		.replace(new RegExp(processDir, 'ig'), '')

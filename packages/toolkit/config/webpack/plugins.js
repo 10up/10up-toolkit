@@ -26,6 +26,11 @@ const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
 
+// There are differences between Windows and Posix when it comes to the WebpackBar
+// This ensures that the same reporter is used everywhere
+const webpackbarArguments =
+	process.env.JEST_WORKER_ID !== undefined ? { reporter: ['basic'] } : undefined;
+
 module.exports = ({
 	isPackage,
 	isProduction,
@@ -146,7 +151,7 @@ module.exports = ({
 			}),
 		}),
 		// Fancy WebpackBar.
-		!hasReactFastRefresh && new WebpackBar(),
+		!hasReactFastRefresh && new WebpackBar(webpackbarArguments),
 		// dependencyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&
