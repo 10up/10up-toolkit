@@ -1,7 +1,5 @@
 const path = require('path');
 
-const rootDir = path.dirname(path.dirname(process.cwd()));
-
 /**
  * Checks if the provided value is a string
  *
@@ -11,6 +9,11 @@ const rootDir = path.dirname(path.dirname(process.cwd()));
  */
 const isString = (val) => val && typeof val === 'string';
 
+const normalizePath = (val) => val.split(path.sep).join(path.posix.sep);
+
+const rootDir = normalizePath(path.dirname(path.dirname(process.cwd())));
+const processDir = normalizePath(process.cwd());
+
 /**
  * Checks if the provided value has a local path
  *
@@ -19,7 +22,8 @@ const isString = (val) => val && typeof val === 'string';
  * @returns {boolean}
  */
 const hasLocalPath = (val) => {
-	return val.indexOf(process.cwd()) !== -1 || val.indexOf(rootDir) !== -1;
+	const normalizedPath = normalizePath(val);
+	return normalizedPath.includes(processDir) || normalizedPath.includes(rootDir);
 };
 
 /**
@@ -41,7 +45,11 @@ const isWebPackPlugin = (val) => {
  * @returns {string}
  */
 const removeLocalPath = (val) => {
-	return val.replace(new RegExp(process.cwd(), 'ig'), '').replace(new RegExp(rootDir, 'ig'), '');
+	const localPath = normalizePath(val);
+
+	return localPath
+		.replace(new RegExp(processDir, 'ig'), '')
+		.replace(new RegExp(rootDir, 'ig'), '');
 };
 
 /**
