@@ -29,7 +29,7 @@ const removeDistFolder = (file) => {
 // There are differences between Windows and Posix when it comes to the WebpackBar
 // This ensures that the same reporter is used everywhere
 const webpackbarArguments =
-	process.env.JEST_WORKER_ID !== undefined ? { reporter: ['basic'] } : undefined;
+	process.env.JEST_WORKER_ID !== undefined ? { reporters: ['basic'] } : undefined;
 
 module.exports = ({
 	isPackage,
