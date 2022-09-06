@@ -32,6 +32,24 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 	].filter(Boolean);
 };
 
+function shouldExclude(input, include) {
+	let shouldInclude = false;
+
+	include.forEach((includedInput) => {
+		if (input.includes(includedInput)) {
+			shouldInclude = true;
+		}
+	});
+
+	// don't exclude if should include
+	if (shouldInclude) {
+		return false;
+	}
+
+	// exclude anything else that includes node_modules
+	return /node_modules/.test(input);
+}
+
 module.exports = ({
 	isProduction,
 	isPackage,
@@ -44,23 +62,7 @@ module.exports = ({
 			{
 				// Match all js/jsx/ts/tsx files except TS definition files
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
-				exclude: (input) => {
-					let shouldInclude = false;
-
-					include.forEach((includedInput) => {
-						if (input.includes(includedInput)) {
-							shouldInclude = true;
-						}
-					});
-
-					// don't exclude if should include
-					if (shouldInclude) {
-						return false;
-					}
-
-					// exclude anything else that includes node_modules
-					return /node_modules/.test(input);
-				},
+				exclude: (input) => shouldExclude(input, include),
 				use: [
 					require.resolve('thread-loader'),
 					{
