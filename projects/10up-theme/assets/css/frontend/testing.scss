@@ -1,7 +1,7 @@
 .test-class {
-	color: --c-black;
+	color: var(--c-black);
 
 	&.sub-class {
-		color: --c-white;
+		color: var(--c-white);
 	}
 }

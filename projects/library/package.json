@@ -11,7 +11,7 @@
   "scripts": {
     "test": "npm run build && 10up-toolkit test-unit-jest",
     "start": "10up-toolkit start -i=src/app.js --dev-server",
-    "lint-js": "10up-toolkit lint-js",
+    "lint": "10up-toolkit lint-js",
     "build": "npm run build:modern && npm run build:umd",
     "build:modern": "10up-toolkit build -f=commonjs --wp=false",
     "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"

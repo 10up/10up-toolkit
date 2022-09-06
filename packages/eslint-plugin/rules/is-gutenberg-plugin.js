@@ -6,7 +6,7 @@
  * @param {Function} predicate  A predicate invoked for each parent.
  *
  * @returns {?Object } The first encountered parent node where the predicate
- *                    returns a truthy value.
+ * returns a truthy value.
  */
 function findParent(sourceNode, predicate) {
 	if (!sourceNode.parent) {
@@ -35,6 +35,8 @@ function findParent(sourceNode, predicate) {
  *
  * @param {object} node    The IS_GUTENBERG_PLUGIN identifier node.
  * @param {object} context The eslint context object.
+ *
+ * @returns {boolean} Whether the IS_GUTENBERG_PLUGIN variable is used
  */
 function isUsedInConditional(node, context) {
 	const conditionalParent = findParent(node, (candidate) =>
@@ -49,11 +51,7 @@ function isUsedInConditional(node, context) {
 	const textRegex = /^\s*!?\s*process\s*\.\s*env\s*\.\s*IS_GUTENBERG_PLUGIN$/;
 	const testSource = context.getSource(conditionalParent.test);
 
-	if (!textRegex.test(testSource)) {
-		return false;
-	}
-
-	return true;
+	return textRegex.test(testSource);
 }
 
 const ERROR_MESSAGE =

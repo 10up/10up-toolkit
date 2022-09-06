@@ -37,8 +37,10 @@
     "core-js": "^3.19.1"
   },
   "devDependencies": {
+    "@10up/eslint-config": "^2.4.6",
     "@wordpress/element": "^4.0.4",
     "babel-jest": "^27.3.1",
+    "eslint": "^8.0.0",
     "jest": "^27.3.1"
   }
 }

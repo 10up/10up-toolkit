@@ -2,9 +2,9 @@
 
 > A collection of tools for building projects at 10up.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: GPL 2.0 or later](https://img.shields.io/badge/License-GPL%202.0%20or%20later-yellow.svg)](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
-[![projects builds](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml) [![unit tests](https://github.com/10up/10up-toolkit/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/unit-tests.yml) [![eslint](https://github.com/10up/10up-toolkit/actions/workflows/eslint.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/eslint.yml)
+[![projects builds](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml) [![tests](https://github.com/10up/10up-toolkit/actions/workflows/test.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/test.yml) 
 
 ## Tools
 

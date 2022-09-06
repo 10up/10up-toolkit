@@ -33,7 +33,7 @@
     "type": "git",
     "url": "git+https://github.com/10up/component-accordion.git"
   },
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "bugs": {
     "url": "https://github.com/10up/component-accordion/issues"
   },

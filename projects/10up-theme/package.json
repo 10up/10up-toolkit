@@ -7,6 +7,7 @@
     "watch": "10up-toolkit start",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
+    "lint": "npm run lint-js && npm run lint-style",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
     "clean-dist": "rm -rf ./dist",
@@ -16,7 +17,7 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@wordpress/env": "^4.9.0",
+    "@wordpress/env": "^5.0.0",
     "10up-toolkit": "^4.2.0-next.2"
   },
   "dependencies": {

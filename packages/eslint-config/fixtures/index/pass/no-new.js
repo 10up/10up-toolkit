@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
-
 class Thing {
 	print() {
-		console.log('hi');
+		return 'Hello';
 	}
 }
 
 const thing = new Thing();
+thing.print();

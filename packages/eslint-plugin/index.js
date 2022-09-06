@@ -1,4 +1,7 @@
+const configs = require('./configs');
+const rules = require('./rules');
+
 module.exports = {
-	configs: require('./configs'),
-	rules: require('./rules'),
+	configs,
+	rules,
 };

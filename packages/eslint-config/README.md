@@ -8,13 +8,7 @@
 
 ## Installation
 
-1. Install all peer dependencies
-
-```sh
-npx install-peerdeps --dev @10up/eslint-config
-```
-
-2. Install [@10up/eslint-config](https://github.com/10up/eslint-config) as a development dependency of your project:
+Install [@10up/eslint-config](https://github.com/10up/eslint-config) as a development dependency of your project:
 
 ```sh
 npm install @10up/eslint-config --save-dev
@@ -37,7 +31,6 @@ module.exports = {
 
 Extends `@10up/eslint-config` adding specific rules to React.
 
-
 ```js
 // eslintrc.js
 module.exports = {
@@ -47,11 +40,11 @@ module.exports = {
 
 ### @10up/eslint-config/wordpress
 
-Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@10up/eslint-plugin`.
+Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@wordpress/eslint-plugin`.
 
-This rule requires installing the `@wordpress/eslint-plugin` package.
+*Note*: This is an optional dependency, if you want to use this set of rules you must install `@wordpress/eslint-plugin` first.
 
-```sh
+```bash
 npm install --save-dev @wordpress/eslint-plugin
 ```
 
@@ -76,12 +69,6 @@ module.exports = {
 ### @10up/eslint-config/jest
 
 Adds specific rules for the `jest` testing framework.
-
-This rule requires installing `eslint-plugin-jest`
-
-```sh
-npm install --save-dev eslint-plugin-jest
-```
 
 ```js
 // eslintrc.js
