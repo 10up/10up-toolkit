@@ -1,14 +1,16 @@
+/* eslint-disable no-console */
+
 class A {
 	constructor() {
 		this.a = 'hi';
 	}
 
 	print() {
-		return this.a;
+		console.log(this.a);
 	}
 
 	sayHi() {
-		return 'hi';
+		console.log('hi');
 	}
 }
 

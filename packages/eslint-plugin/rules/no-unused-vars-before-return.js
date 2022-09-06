@@ -43,10 +43,7 @@ module.exports = /** @type {import('eslint').Rule} */ ({
 		],
 	},
 	/**
-	 * Rule context creator.
-	 *
 	 * @param {ESLintRuleContext} context Rule context.
-	 * @returns {Object} Rule
 	 */
 	create(context) {
 		const options = context.options[0] || {};
@@ -61,7 +58,7 @@ module.exports = /** @type {import('eslint').Rule} */ ({
 		 *
 		 * @param {object} node Node to test.
 		 *
-		 * @returns {boolean} Whether declarator is exempt from consideration.
+		 * @returns {boolean} Whether declarator is emempt from consideration.
 		 */
 		function isExemptObjectDestructureDeclarator(node) {
 			return node.id.type === 'ObjectPattern' && node.id.properties.length > 1;

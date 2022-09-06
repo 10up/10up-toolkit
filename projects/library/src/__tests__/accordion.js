@@ -88,7 +88,6 @@ test('accordion functions trigger', () => {
 	const onClose = jest.fn();
 	const onToggle = jest.fn();
 
-	// eslint-disable-next-line no-new
 	new Accordion('.accordion', {
 		onCreate,
 		onOpen,

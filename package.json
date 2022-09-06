@@ -12,8 +12,13 @@
   },
   "scripts": {
     "build": "npm run build --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present"
+    "prepare": "husky install",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
   },
   "workspaces": [
     "packages/*",
@@ -21,11 +26,13 @@
   ],
   "bundleDependencies": false,
   "devDependencies": {
-    "@changesets/cli": "^2.24.1"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "@changesets/cli": "^2.22.0"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=14",
+    "node": ">=12",
     "npm": ">=7"
   }
 }

@@ -1,0 +1,36 @@
+name: projects builds
+
+on: [pull_request]
+
+jobs:
+  build_projects:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup npm cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm install -g npm@latest && npm ci
+      - name: build library
+        run: (cd projects/library && npm run lint-js && npm run build && npm run test)
+      - name: build ts library-ts
+        run: (cd projects/library-ts && npm run build)
+      - name: build 10up theme
+        run: (cd projects/10up-theme && npm run lint-js && npm run build)

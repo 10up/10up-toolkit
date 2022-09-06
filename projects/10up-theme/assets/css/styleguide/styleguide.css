@@ -6,6 +6,7 @@
 	--c-uikit-primary: #000;
 
 	@custom-media --bp-uikit-small (min-width: 40.625em);
+
 }
 
 .uikit__container {
@@ -121,7 +122,7 @@
 
 .uikit__chevron-up,
 .uikit__chevron-down {
-	fill: currentcolor;
+	fill: currentColor;
 	position: absolute;
 	right: 0;
 	top: 50%;
@@ -174,4 +175,5 @@
 	.uikit__section.-secondary > .content {
 		width: 100%;
 	}
+
 }

@@ -88,8 +88,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "eslint ."
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "wordpress",

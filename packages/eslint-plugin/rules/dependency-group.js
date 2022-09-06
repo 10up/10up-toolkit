@@ -28,7 +28,7 @@ module.exports = {
 		 * @typedef WPDependencyBlockCorrection
 		 *
 		 * @property {Comment} [comment] Comment node on which to replace value,
-		 * if one can be salvaged.
+		 *                               if one can be salvaged.
 		 * @property {string}  value     Expected comment node value.
 		 */
 
@@ -118,7 +118,7 @@ module.exports = {
 		 * @param {Node}              node     Node to test.
 		 * @param {WPPackageLocality} locality Desired package locality.
 		 *
-		 * @returns {WPDependencyBlockCorrection} Correction, if applicable.
+		 * @returns {WPDependencyBlockCorrection=} Correction, if applicable.
 		 */
 		function getDependencyBlockCorrection(node, locality) {
 			const value = getCommentValue(locality);
@@ -152,8 +152,6 @@ module.exports = {
 
 		return {
 			/**
-			 * Reports a dependency block correction.
-			 *
 			 * @param {import('estree').Program} node Program node.
 			 */
 			Program(node) {

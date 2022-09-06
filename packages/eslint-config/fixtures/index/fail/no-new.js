@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+
 class Thing {
 	print() {
-		return 'Hello';
+		console.log('hi'); // eslint-disable-line no-console
 	}
 }
 

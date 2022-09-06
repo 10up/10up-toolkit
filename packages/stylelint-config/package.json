@@ -11,9 +11,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "lint": "eslint ."
-  },
   "keywords": [
     "stylelint",
     "stylelint-config",
@@ -30,16 +27,13 @@
     "url": "https://10up.com",
     "role": "developer"
   },
-  "license": "GPL-2.0-or-later",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/10up/10up-toolkit/issues"
   },
   "engineStrict": true,
   "engines": {
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
-  "devDependencies": {
-    "@10up/eslint-config": "^2.4.6"
   },
   "peerDependencies": {
     "stylelint": "^14.0.0"

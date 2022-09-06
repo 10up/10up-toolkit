@@ -1,9 +1,10 @@
-const arr = [1, 2, 3, 4, 5];
-const even = [];
+/* eslint-disable no-console */
 
-// test for selector: 'ForOf'
-for (const value of arr) {
+const arr = [1, 2, 3, 4, 5];
+
+// test for selector: 'ForInStatement'
+arr.forEach((value) => {
 	if (value % 2 === 0) {
-		even.push(value);
+		console.log(value);
 	}
-}
+});
