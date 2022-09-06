@@ -17,7 +17,7 @@ const {
 	getModules,
 	getResolve,
 	getTarget,
-	getPerfomance,
+	getPerformance,
 	getDevServer,
 } = require('./webpack');
 
@@ -54,12 +54,14 @@ module.exports = {
 	devtool: isProduction ? false : 'source-map',
 	mode,
 	devServer: getDevServer(config),
-	entry: getEntryPoints(config),
+	// using a function here in order to re-evaluate
+	// the entrypoints whenever something changes
+	entry: () => getEntryPoints(config),
 	output: getOutput(config),
 	target: getTarget(config),
 	resolve: getResolve(config),
 	externals: getExternals(config),
-	performance: getPerfomance(config),
+	performance: getPerformance(config),
 	module: getModules(config),
 	plugins: getPlugins(config),
 	stats: getStats(config),

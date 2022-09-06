@@ -9,21 +9,24 @@
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-style": "10up-toolkit lint-style",
-    "clean-dist": "rm -rf ./dist"
+    "clean-dist": "rm -rf ./dist",
+    "wp-env": "wp-env"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^4.1.2"
+    "@wordpress/env": "^4.9.0",
+    "10up-toolkit": "^4.2.0-next.2"
   },
   "dependencies": {
     "@10up/component-accordion": "^2.1.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2"
   },
-  "@10up/scripts": {
+  "10up-toolkit": {
     "devURL": "https://my-project.test",
+    "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "blocks": "./includes/blocks/blocks.js",
@@ -35,7 +38,6 @@
       "shared-style": "./assets/css/shared/shared-style.css",
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js",
       "test-style": "./assets/css/frontend/testing.scss"
     }
   }

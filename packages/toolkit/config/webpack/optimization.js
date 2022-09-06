@@ -2,6 +2,7 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { optimize, loadConfig } = require('svgo');
+const sharp = require('sharp');
 const { fromProjectRoot, hasProjectFile } = require('../../utils');
 
 module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
@@ -14,7 +15,7 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 				terserOptions: {
 					parse: {
 						// We want terser to parse ecma 8 code. However, we don't want it
-						// to apply any minfication steps that turns valid ecma 5 code
+						// to apply any minification steps that turns valid ecma 5 code
 						// into invalid ecma 5 code. This is why the 'compress' and 'output'
 						// sections only apply transformations that are ecma 5 safe
 						// https://github.com/facebook/create-react-app/pull/4234
@@ -37,27 +38,45 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 				},
 			}),
 			new ImageMinimizerPlugin({
-				minimizer: [
-					{
-						implementation: ImageMinimizerPlugin.squooshMinify,
-						options: {
-							encodeOptions: {
-								mozjpeg: {
-									// That setting might be close to lossless, but it’s not guaranteed
-									// https://github.com/GoogleChromeLabs/squoosh/issues/85
-									quality: 100,
+				test: /\.(jpe?g|png|webp|avif)$/i,
+				minimizer: {
+					implementation: async (original) => {
+						try {
+							const image = sharp(original.data);
+							const { format } = await image.metadata();
+							const config = {
+								jpeg: { quality: 82, mozjpeg: true },
+								webp: { quality: 80 },
+								png: { compressionLevel: 9, quality: 70 },
+								avif: { quality: 40, effort: 5 },
+							};
+							config.jpg = config.jpeg;
+							config.heif = config.avif;
+							const data = await image[format](config[format]).toBuffer();
+
+							return {
+								filename: original.filename,
+								data,
+								warnings: [],
+								errors: [],
+								info: {
+									// Please always set it to prevent double minification
+									minimized: true,
+									// Optional
+									minimizedBy: ['10up-toolkit'],
 								},
-								webp: {
-									lossless: 1,
-								},
-								avif: {
-									// https://github.com/GoogleChromeLabs/squoosh/blob/dev/codecs/avif/enc/README.md
-									cqLevel: 0,
-								},
-							},
-						},
+							};
+						} catch (error) {
+							// Return original input if there was an error
+							return {
+								filename: original.filename,
+								data: original.data,
+								errors: [error],
+								warnings: [],
+							};
+						}
 					},
-				],
+				},
 			}),
 			new ImageMinimizerPlugin({
 				test: /\.svg$/,
@@ -109,7 +128,7 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 								// Please always set it to prevent double minification
 								minimized: true,
 								// Optional
-								minimizedBy: ['10up-toolkit-svgo'],
+								minimizedBy: ['10up-toolkit'],
 							},
 						};
 					},
