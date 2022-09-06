@@ -1,8 +1,0 @@
-{
-    "name": "@10up/untranspiled-package",
-    "version": "1.0.0",
-    "private": true,
-    "author": "10up",
-    "main": "src/index.ts"
-}
-  

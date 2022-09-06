@@ -38,7 +38,21 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => {
+        let shouldInclude = false;
+        include.forEach(includedInput => {
+          if (input.includes(includedInput)) {
+            shouldInclude = true;
+          }
+        }); // don't exclude if should include
+
+        if (shouldInclude) {
+          return false;
+        } // exclude anything else that includes node_modules
+
+
+        return /node_modules/.test(input);
+      },
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",

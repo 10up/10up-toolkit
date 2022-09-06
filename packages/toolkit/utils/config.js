@@ -107,7 +107,7 @@ const getDefaultConfig = () => {
 	const devServer = hasArgInCLI('--dev-server') || hot;
 	const devServerPort = Number(getArgFromCLI('--port')) || 8000;
 	const analyze = hasArgInCLI('--analyze');
-	const include = hasArgInClI('--include') ? getArgFromCLI('--include').split(',') : [];
+	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
 
 	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
@@ -142,10 +142,20 @@ const getTenUpScriptsConfig = () => {
 		return defaultConfig;
 	}
 
+	if (typeof config.include !== 'undefined') {
+		if (!Array.isArray(config.include)) {
+			throw new Error('config.include must be an array of strings');
+		}
+	}
+
+	const configInclude = config.include ?? [];
+	const include = defaultConfig.include.length === 0 ? configInclude : defaultConfig.include;
+
 	return {
 		// override default configs with user-defined config
 		...defaultConfig,
 		...config,
+		include,
 		// these properties must be merged
 		filenames: {
 			...defaultConfig.filenames,

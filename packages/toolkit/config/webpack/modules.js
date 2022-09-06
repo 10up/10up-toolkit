@@ -45,14 +45,21 @@ module.exports = ({
 				// Match all js/jsx/ts/tsx files except TS definition files
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				exclude: (input) => {
+					let shouldInclude = false;
+
 					include.forEach((includedInput) => {
-						if (input.includes(includedInput)){
-							return false; // don't exclude!
+						if (input.includes(includedInput)) {
+							shouldInclude = true;
 						}
-					})
-					
-					// exclude anything else that starts with node_modules
-					return input.startsWith('node_modules');
+					});
+
+					// don't exclude if should include
+					if (shouldInclude) {
+						return false;
+					}
+
+					// exclude anything else that includes node_modules
+					return /node_modules/.test(input);
 				},
 				use: [
 					require.resolve('thread-loader'),
