@@ -36,7 +36,7 @@ module.exports = ({
 	isProduction,
 	isPackage,
 	defaultTargets,
-	projectConfig: { wordpress, hot },
+	projectConfig: { wordpress, hot, include },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
 	return {
@@ -44,7 +44,16 @@ module.exports = ({
 			{
 				// Match all js/jsx/ts/tsx files except TS definition files
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
-				exclude: /node_modules/,
+				exclude: (input) => {
+					include.forEach((includedInput) => {
+						if (input.includes(includedInput)){
+							return false; // don't exclude!
+						}
+					})
+					
+					// exclude anything else that starts with node_modules
+					return input.startsWith('node_modules');
+				},
 				use: [
 					require.resolve('thread-loader'),
 					{
