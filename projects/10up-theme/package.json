@@ -23,7 +23,8 @@
   "dependencies": {
     "@10up/component-accordion": "^2.1.5",
     "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "@10up/untranspiled-package": "^1.0.0"
   },
   "10up-toolkit": {
     "devURL": "https://my-project.test",
