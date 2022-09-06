@@ -40,7 +40,13 @@ module.exports = {
 
 ### @10up/eslint-config/wordpress
 
-Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@10up/eslint-plugin`.
+Extends `@10up/eslint-config/react` adding the custom gutenberg rules from `@wordpress/eslint-plugin`.
+
+*Note*: This is an optional dependency, if you want to use this set of rules you must install `@wordpress/eslint-plugin` first.
+
+```bash
+npm install --save-dev @wordpress/eslint-plugin
+```
 
 ```js
 // eslintrc.js
