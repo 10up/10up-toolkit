@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.1-next.0
+
+### Patch Changes
+
+- 8bbd562: fix regression in block file names in dist folder if useBlockAssets option is not set
+
 ## 4.2.0
 
 ### Minor Changes
