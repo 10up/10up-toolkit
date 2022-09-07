@@ -8,12 +8,16 @@ const removeDistFolder = (file) => {
 
 module.exports = ({
 	isPackage,
-	projectConfig: { devServer, paths, useBlockAssets },
+	projectConfig: { devServer, paths, useBlockAssets, filenames },
 	packageConfig: { packageType, source, main, umd, libraryName },
 	buildFiles,
 }) => {
 	let additionalEntrypoints = {};
 	if (useBlockAssets) {
+		// override default block filenames
+		filenames.block = 'blocks/[name].js';
+		filenames.blockCSS = 'blocks/[name].css';
+
 		const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
 
 		// get all block.json files in the blocks directory
