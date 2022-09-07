@@ -1,7 +1,9 @@
 /**
- * @param {object}                            _
- * @param {AllowedImportsMap}                 _.allowedImports
- * @param {import('eslint').Rule.RuleContext} _.context
+ * Creates a listener.
+ *
+ * @param {object}                            _ Object that's destructured.
+ * @param {AllowedImportsMap}                 _.allowedImports Map of allowed imports.
+ * @param {import('eslint').Rule.RuleContext} _.context Context for the rule.
  *
  * @returns {(node: Node) => void} Listener function
  */
@@ -50,7 +52,7 @@ function makeListener({ allowedImports, context }) {
 }
 
 /** @typedef {import('estree').Node} Node */
-/** @typedef {Record<string, string[]|undefined>} AllowedImportsMap */
+/** @typedef {Object<string, string[]|undefined>} AllowedImportsMap */
 
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {

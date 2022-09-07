@@ -1,12 +1,14 @@
+/** @typedef {import('estree').Node} ESTreeNode */
+
 /**
  * Given a function name and array of argument Node values,
  * returns all arguments except for text domain and number arguments.
  *
  * @param {string}        functionName   Function name.
- * @param {espree.Node[]} args           Espree argument Node objects.
+ * @param {ESTreeNode[]} args           Espree argument Node objects.
  * @param {boolean}       includeContext Whether to include the context argument or not.
  *
- * @returns {espree.Node[]} Translate function arguments.
+ * @returns {ESTreeNode[]} Translate function arguments.
  */
 function getTranslateFunctionArgs(functionName, args, includeContext = true) {
 	switch (functionName) {

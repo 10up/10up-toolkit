@@ -6,7 +6,7 @@
  * @param {Function} predicate  A predicate invoked for each parent.
  *
  * @returns {?Object } The first encountered parent node where the predicate
- *                    returns a truthy value.
+ * returns a truthy value.
  */
 function findParent(sourceNode, predicate) {
 	if (!sourceNode.parent) {

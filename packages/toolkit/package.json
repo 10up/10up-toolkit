@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "4.2.0",
+  "version": "4.2.1-next.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -88,7 +88,8 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint ."
   },
   "keywords": [
     "wordpress",

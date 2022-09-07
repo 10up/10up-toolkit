@@ -1,7 +1,9 @@
+/** @typedef {import('estree').Node} ESTreeNode */
+
 /**
  * Given an Espree Node, returns true if the node is a component.
  *
- * @param {espree.Node} node Node to check.
+ * @param {ESTreeNode} node Node to check.
  *
  * @returns {boolean} Whether node is a component.
  */

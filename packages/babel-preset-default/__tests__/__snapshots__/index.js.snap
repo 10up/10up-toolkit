@@ -416,6 +416,11 @@ exports.default = _default;"
 exports[`compiles typescript transpiles typescript code properly 1`] = `
 "\\"use strict\\";
 
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.helloTypeScript = helloTypeScript;
+
 function helloTypeScript(name) {
   return \`Hello \${name}, this is TypeScript!\`;
 }"

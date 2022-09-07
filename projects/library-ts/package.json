@@ -33,13 +33,13 @@
     "type": "git",
     "url": "git+https://github.com/10up/component-accordion.git"
   },
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "bugs": {
     "url": "https://github.com/10up/component-accordion/issues"
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^4.2.0"
+    "10up-toolkit": "^4.2.1-next.0"
   },
   "dependencies": {
     "xss": "^1.0.11"

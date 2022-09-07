@@ -3,7 +3,7 @@
  *
  * Returns the "__" part from __ or i18n.__.
  *
- * @param {object} callee
+ * @param {object} callee Function to be checked.
  * @returns {string} Function name.
  */
 function getTranslateFunctionName(callee) {

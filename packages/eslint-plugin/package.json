@@ -31,6 +31,7 @@
 	],
 	"scripts": {
 		"test": "jest",
+		"lint": "eslint .",
 		"test:watch": "jest --watch"
 	},
 	"main": "index.js",
@@ -45,7 +46,8 @@
 		"requireindex": "^1.2.0"
 	},
 	"devDependencies": {
-		"@10up/babel-preset-default": "^2.0.3"
+		"@10up/babel-preset-default": "^2.0.3",
+		"@10up/eslint-config": "^2.4.6"
 	},
 	"peerDependencies": {
 		"@babel/core": ">=7",

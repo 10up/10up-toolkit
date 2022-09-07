@@ -26,6 +26,11 @@ const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
 
+// There are differences between Windows and Posix when it comes to the WebpackBar
+// This ensures that the same reporter is used everywhere
+const webpackbarArguments =
+	process.env.JEST_WORKER_ID !== undefined ? { reporters: ['basic'] } : undefined;
+
 module.exports = ({
 	isPackage,
 	isProduction,
@@ -116,12 +121,12 @@ module.exports = ({
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
 					useBlockAssets && {
-						from: `${blocksSourceDirectory}/**/block.json`,
+						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
 					},
 					useBlockAssets && {
-						from: `${blocksSourceDirectory}/**/markup.php`,
+						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
 					},
@@ -146,7 +151,7 @@ module.exports = ({
 			}),
 		}),
 		// Fancy WebpackBar.
-		!hasReactFastRefresh && new WebpackBar(),
+		!hasReactFastRefresh && new WebpackBar(webpackbarArguments),
 		// dependencyExternals variable controls whether scripts' assets get
 		// generated, and the default externals set.
 		wpDependencyExternals &&

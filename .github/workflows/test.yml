@@ -1,0 +1,86 @@
+name: test
+on:
+  push:
+    branches:
+      - 'develop'
+      - 'trunk'
+  pull_request:
+
+concurrency:
+  group: branch-node-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      # Test node 16/18 on Ubuntu
+      # Test node 16 on macOS/Windows
+      # Enable linting only for node 16 + ubuntu
+      matrix:
+        os: [ubuntu-latest]
+        node: [14, 16]
+        include:
+          - os: macos-latest
+            node: 16
+          - os: windows-latest
+            node: 16
+          - node: 16
+            is_base_node_version: true
+          - node: 14
+            needs_npm_upgrade: true
+          - os: ubuntu-latest
+            is_base_os_version: true
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 30
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: env
+        run: |
+          echo 'DIST_RESTORE_KEYS<<EOF' >> $GITHUB_ENV
+          echo "$(git --no-pager log -9 --skip 1 --no-merges --pretty=format:'%H--test-dist-${{ matrix.node }}-${{ matrix.os }}')" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo "COMMIT_SHA=$(git --no-pager log -1 --no-merges --pretty=format:'%H')" >> $GITHUB_ENV
+
+      - name: previous build artifacts cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cached-commit
+            projects/*/dist/**
+          key: ${{ env.COMMIT_SHA }}--test-dist-${{ matrix.node }}-${{ matrix.os }}
+          restore-keys: ${{ env.DIST_RESTORE_KEYS }}
+
+      # See https://github.com/npm/cli/issues/3385
+      - name: upgrade npm
+        run: npm i npm@7.20.3 -g
+        if: matrix.needs_npm_upgrade
+
+      - name: npm ci
+        run: |
+          npm ci
+
+      - name: lint
+        run: npm run lint
+        if: matrix.is_base_node_version && matrix.is_base_os_version
+
+      - name: build
+        run: npm run build
+
+      - name: test
+        run: npm run test
+
+        # record the current commit for the cache at the end of the job
+        # must be the last step
+      - name: record current commit
+        run: |
+          echo "$(git --no-pager log -1 --no-merges --pretty=format:'%H')" > .cached-commit

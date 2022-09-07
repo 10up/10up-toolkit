@@ -4,7 +4,7 @@ module.exports = {
 		requireConfigFile: false,
 		babelOptions: {
 			rootMode: 'upward-optional',
-			configFile: require.resolve('./babel.config.js'),
+			configFile: require.resolve('../babel.config.js'),
 		},
 	},
 	env: {
@@ -14,10 +14,10 @@ module.exports = {
 	plugins: ['jsdoc', 'prettier'],
 	extends: [
 		'airbnb-base',
-		require.resolve('./rules/whitespace'),
-		require.resolve('./rules/prettier'),
-		require.resolve('./rules/jsdoc'),
-		require.resolve('./rules/general'),
+		require.resolve('../rules/whitespace'),
+		require.resolve('../rules/prettier'),
+		require.resolve('../rules/jsdoc'),
+		require.resolve('../rules/general'),
 		'prettier',
 		'plugin:prettier/recommended',
 	],
@@ -48,7 +48,7 @@ module.exports = {
 				message:
 					'`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
 			},
-		], // allowing ForOf.
+		],
 		// Disable prefer-destructing for arrays as it can lead to weird and confusing syntax
 		'prefer-destructuring': [2, { array: false, object: true }],
 		// this rule is good but annoying
