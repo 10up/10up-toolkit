@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.2.2-next.1
+
+### Patch Changes
+
+- 80e858f: fix how block editor styles get handled if useBlockAssets option is not set
+
 ## 4.2.1
 
 ### Patch Changes
