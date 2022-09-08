@@ -1,10 +1,16 @@
 # Changelog
 
-## 4.2.1-next.1
+## 4.2.2-next.1
 
 ### Patch Changes
 
 - 80e858f: fix how block editor styles get handled if useBlockAssets option is not set
+
+## 4.2.1
+
+### Patch Changes
+
+- 8bbd562: fix regression in block file names in dist folder if useBlockAssets option is not set
 
 ## 4.2.1-next.0
 
