@@ -103,9 +103,11 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				return buildFiles[options.chunk.name].match(/\/blocks\//)
-					? filenames.blockCSS
-					: filenames.css;
+				const isBlockAsset = useBlockAssets
+					? buildFiles[options.chunk.name].match(/\/blocks\//)
+					: options.chunk.name.match(/-block$/);
+
+				return isBlockAsset ? filenames.blockCSS : filenames.css;
 			},
 			chunkFilename: '[id].css',
 		}),
