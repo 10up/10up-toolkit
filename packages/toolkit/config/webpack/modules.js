@@ -103,7 +103,7 @@ module.exports = ({
 							sourceMap: !isProduction,
 							url: isPackage,
 						},
-						postcss: false,
+						postcss: true,
 						sass: true,
 					}),
 				],
