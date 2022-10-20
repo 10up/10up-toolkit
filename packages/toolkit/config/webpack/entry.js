@@ -91,20 +91,26 @@ module.exports = ({
 			config.main = {
 				import: `./${source}`,
 				filename: removeDistFolder(main),
-				library: {
+			};
+
+			if (typeof packageType === 'undefined' || packageType !== 'none') {
+				config.main.library = {
 					type: ['commonjs2', 'commonjs', 'all'].includes(packageType)
 						? 'commonjs2'
 						: packageType,
-				},
-			};
+				};
+			}
 		}
 
 		if (umd && !devServer) {
 			config.umd = {
 				filename: removeDistFolder(umd),
 				import: `./${source}`,
-				library: { name: libraryName, type: 'umd' },
 			};
+
+			if (typeof packageType === 'undefined' || packageType !== 'none') {
+				config.umd.library = { name: libraryName, type: 'umd' };
+			}
 		}
 
 		return config;

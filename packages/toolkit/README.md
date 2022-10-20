@@ -655,8 +655,11 @@ The format option controls how webpack will generate your bundle. The supported 
 - all (default)
 - commonjs
 - umd
+- none
 
-The default value will generate both a commonjs bundle and a umd bundle.
+The default value will generate both a commonjs bundle and a umd bundle (if the umd entry in package.json is defined).
+
+"none" disables bundling for distrubution making the bundled code to be added to a page without being imported through a bundler.
 
 To override, use the `-f` or `--format` option
 
