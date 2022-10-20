@@ -18,7 +18,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -190,7 +190,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -369,7 +369,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -568,7 +568,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -768,7 +768,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -966,7 +966,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
