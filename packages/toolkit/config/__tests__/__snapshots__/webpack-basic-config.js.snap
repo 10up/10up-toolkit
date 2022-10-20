@@ -18,7 +18,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -79,6 +79,12 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
         ],
       },
       Object {
@@ -97,15 +103,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {},
-            },
-          },
-          Object {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": Object {
               "sourceMap": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
             },
           },
         ],
@@ -184,7 +190,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -245,6 +251,12 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
+            },
+          },
         ],
       },
       Object {
@@ -263,15 +275,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {},
-            },
-          },
-          Object {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": Object {
               "sourceMap": true,
+            },
+          },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {},
             },
           },
         ],
@@ -357,7 +369,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -440,6 +452,14 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
         ],
       },
       Object {
@@ -458,17 +478,17 @@ Object {
             },
           },
           Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
             },
           },
         ],
@@ -548,7 +568,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -631,6 +651,14 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
         ],
       },
       Object {
@@ -649,17 +677,17 @@ Object {
             },
           },
           Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
             },
           },
         ],
@@ -740,7 +768,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -823,6 +851,14 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
         ],
       },
       Object {
@@ -841,17 +877,17 @@ Object {
             },
           },
           Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
             },
           },
         ],
@@ -930,7 +966,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /node_modules/,
+        "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
           "/node_modules/thread-loader/dist/cjs.js",
@@ -1013,6 +1049,14 @@ Object {
               "sourceMap": true,
             },
           },
+          Object {
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
+            "options": Object {
+              "postcssOptions": Object {
+                "config": "/config/postcss.config.js",
+              },
+            },
+          },
         ],
       },
       Object {
@@ -1031,17 +1075,17 @@ Object {
             },
           },
           Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
+            },
+          },
+          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
-            },
-          },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
             },
           },
         ],

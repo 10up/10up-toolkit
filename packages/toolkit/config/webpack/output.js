@@ -10,10 +10,15 @@ module.exports = ({
 		// if main (output) is not a file then use as the bas epath
 		const outputFolder = main.split('.').length > 1 ? 'dist' : main;
 
-		return {
+		const config = {
 			path: path.resolve(process.cwd(), outputFolder),
-			libraryTarget: packageType === 'all' ? 'commonjs2' : packageType,
 		};
+
+		if (typeof packageType === 'undefined' || packageType !== 'none') {
+			config.libraryTarget = packageType === 'all' ? 'commonjs2' : packageType;
+		}
+
+		return config;
 	}
 
 	return {

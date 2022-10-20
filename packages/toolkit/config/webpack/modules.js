@@ -11,6 +11,12 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			loader: require.resolve('css-loader'),
 			options,
 		},
+		sass && {
+			loader: require.resolve('sass-loader'),
+			options: {
+				sourceMap: options ? options.sourceMap : false,
+			},
+		},
 		postcss && {
 			loader: require.resolve('postcss-loader'),
 			options: {
@@ -23,20 +29,32 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 				},
 			},
 		},
-		sass && {
-			loader: require.resolve('sass-loader'),
-			options: {
-				sourceMap: options ? options.sourceMap : false,
-			},
-		},
 	].filter(Boolean);
 };
+
+function shouldExclude(input, include) {
+	let shouldInclude = false;
+
+	include.forEach((includedInput) => {
+		if (input.includes(includedInput)) {
+			shouldInclude = true;
+		}
+	});
+
+	// don't exclude if should include
+	if (shouldInclude) {
+		return false;
+	}
+
+	// exclude anything else that includes node_modules
+	return /node_modules/.test(input);
+}
 
 module.exports = ({
 	isProduction,
 	isPackage,
 	defaultTargets,
-	projectConfig: { wordpress, hot },
+	projectConfig: { wordpress, hot, include },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
 	return {
@@ -44,7 +62,7 @@ module.exports = ({
 			{
 				// Match all js/jsx/ts/tsx files except TS definition files
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
-				exclude: /node_modules/,
+				exclude: (input) => shouldExclude(input, include),
 				use: [
 					require.resolve('thread-loader'),
 					{
@@ -103,7 +121,7 @@ module.exports = ({
 							sourceMap: !isProduction,
 							url: isPackage,
 						},
-						postcss: false,
+						postcss: true,
 						sass: true,
 					}),
 				],
