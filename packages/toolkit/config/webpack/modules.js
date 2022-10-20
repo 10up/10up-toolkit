@@ -11,6 +11,12 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 			loader: require.resolve('css-loader'),
 			options,
 		},
+		sass && {
+			loader: require.resolve('sass-loader'),
+			options: {
+				sourceMap: options ? options.sourceMap : false,
+			},
+		},
 		postcss && {
 			loader: require.resolve('postcss-loader'),
 			options: {
@@ -21,12 +27,6 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 						config: fromConfigRoot('postcss.config.js'),
 					}),
 				},
-			},
-		},
-		sass && {
-			loader: require.resolve('sass-loader'),
-			options: {
-				sourceMap: options ? options.sourceMap : false,
 			},
 		},
 	].filter(Boolean);
@@ -121,7 +121,7 @@ module.exports = ({
 							sourceMap: !isProduction,
 							url: isPackage,
 						},
-						postcss: false,
+						postcss: true,
 						sass: true,
 					}),
 				],
