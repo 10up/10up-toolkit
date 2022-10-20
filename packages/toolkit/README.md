@@ -734,7 +734,7 @@ The UMD bundle could then be used like so:
 
 The `--include` option is useful if you want to instruct 10up-toolkit to transpile a npm package (which are excluded by default) as part of your build process.
 
-This can be useful in situations where you're maitaining an internal package and you don't want to bother about setting up a build pipeline for the package.
+This can be useful in situations where you're maintaining an internal package and you don't want to bother about setting up a build pipeline for the package.
 
 ```bash
 10up-toolkit build --include=package-name,other-package
