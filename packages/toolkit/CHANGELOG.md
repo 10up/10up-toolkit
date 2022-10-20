@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.3.0-next.0
+
+### Minor Changes
+
+- c2298c3: Introduce `--include` option to instruct toolkit to transpile the specified package
+- 24a50b8: Add "none" format. Allowing to use "project mode" without producing a bundle that needs to be consumed through another bundler.
+
+### Patch Changes
+
+- c7ddd46: Improve Sass compatibility by making sure PostCSS runs after Sass has finished and also ensuring that PostCSS process the Sass pipeline.
+
+  Fixes #198
+  Fixes #228
+
+- aec9ac4: Forks webpack-remove-empty-script into 10up-toolkit and remove the ansis dependency.
+
 ## 4.2.2
 
 ### Patch Changes
