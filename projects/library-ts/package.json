@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/10up/component-accordion#readme",
   "devDependencies": {
-    "10up-toolkit": "^4.3.0-next.0"
+    "10up-toolkit": "^4.3.0"
   },
   "dependencies": {
     "xss": "^1.0.11"
