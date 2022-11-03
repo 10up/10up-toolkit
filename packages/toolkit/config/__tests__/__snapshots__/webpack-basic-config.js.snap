@@ -74,15 +74,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -103,15 +103,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -246,15 +246,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -275,15 +275,15 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {},
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -447,17 +447,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -478,17 +478,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -646,17 +646,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -677,17 +677,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -846,17 +846,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -877,17 +877,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -1044,17 +1044,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
@@ -1075,17 +1075,17 @@ Object {
             },
           },
           Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
-              "sourceMap": true,
-            },
-          },
-          Object {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": Object {
               "postcssOptions": Object {
                 "config": "/config/postcss.config.js",
               },
+            },
+          },
+          Object {
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
+            "options": Object {
+              "sourceMap": true,
             },
           },
         ],
