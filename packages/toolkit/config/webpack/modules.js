@@ -3,6 +3,8 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
 
 const getCSSLoaders = ({ options, postcss, sass }) => {
+	// Note that the order of loaders is important. The loaders are applied from right to left.
+	// This goes as Sass -> PostCSS -> CSS -> MiniCSSExtractPlugin
 	return [
 		{
 			loader: MiniCSSExtractPlugin.loader,
@@ -10,12 +12,6 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 		{
 			loader: require.resolve('css-loader'),
 			options,
-		},
-		sass && {
-			loader: require.resolve('sass-loader'),
-			options: {
-				sourceMap: options ? options.sourceMap : false,
-			},
 		},
 		postcss && {
 			loader: require.resolve('postcss-loader'),
@@ -27,6 +23,12 @@ const getCSSLoaders = ({ options, postcss, sass }) => {
 						config: fromConfigRoot('postcss.config.js'),
 					}),
 				},
+			},
+		},
+		sass && {
+			loader: require.resolve('sass-loader'),
+			options: {
+				sourceMap: options ? options.sourceMap : false,
 			},
 		},
 	].filter(Boolean);
