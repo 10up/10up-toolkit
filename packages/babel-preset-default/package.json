@@ -18,12 +18,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10up/babel-preset-default.git"
+    "url": "git+https://github.com/10up/10up-toolkit.git",
+    "directory": "packages/babel-preset-default"
   },
   "bugs": {
-    "url": "https://github.com/10up/babel-preset-default/issues"
+    "url": "https://github.com/10up/10up-toolkit/issues"
   },
-  "homepage": "https://github.com/10up/babel-preset-default#readme",
+  "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/babel-preset-default#readme",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/helper-plugin-utils": "^7.14.5",
