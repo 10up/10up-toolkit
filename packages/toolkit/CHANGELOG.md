@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.3.1
+
+### Patch Changes
+
+- 010cea6: Fix processing order whenever Sass is used
+- Updated dependencies [010cea6]
+  - @10up/babel-preset-default@2.0.4
+  - @10up/eslint-config@2.4.7
+  - @10up/stylelint-config@2.0.2
+
 ## 4.3.0
 
 ### Minor Changes

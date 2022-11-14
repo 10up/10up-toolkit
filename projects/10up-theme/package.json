@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@wordpress/env": "^5.0.0",
-    "10up-toolkit": "^4.3.0"
+    "10up-toolkit": "^4.3.1"
   },
   "dependencies": {
     "@10up/component-accordion": "^2.1.5",
