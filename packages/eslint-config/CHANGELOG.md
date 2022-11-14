@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.7-next.0
+
+### Patch Changes
+
+- 3292b46: Updating package.json links to point to the new repository
+- Updated dependencies [3292b46]
+  - @10up/babel-preset-default@2.0.4-next.0
+
 ## 2.4.6
 
 ### Patch Changes

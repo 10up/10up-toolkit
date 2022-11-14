@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4-next.0
+
+### Patch Changes
+
+- 3292b46: Updating package.json links to point to the new repository
+
 ## 2.0.3
 
 All notable changes to this project will be documented in this file, per [the Keep a Changelog standard](http://keepachangelog.com/).

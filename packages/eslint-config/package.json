@@ -1,69 +1,69 @@
 {
-  "name": "@10up/eslint-config",
-  "version": "2.4.6",
-  "description": "A shareable ESLint configuration",
-  "publishConfig": {
-	"access": "public"
-  },
-  "scripts": {
-	"lint": "eslint .",
-	"test": "node fixtures/test-eslint-config.js",
-	"test:index": "node fixtures/test-eslint-config.js --config-file=index",
-	"test:react": "node fixtures/test-eslint-config.js --config-file=react",
-	"test:wordpress": "node fixtures/test-eslint-config.js --config-file=wordpress",
-	"test:node": "node fixtures/test-eslint-config.js --config-file=nodejs"
-  },
-  "exports": {
-	".": "./config/index.js",
-	"./jest": "./config/jest.js",
-	"./legacy": "./config/legacy.js",
-	"./node": "./config/node.js",
-	"./react": "./config/react.js",
-	"./wordpress": "./config/wordpress.js"
-  },
-  "repository": {
-	"type": "git",
-	"url": "git+https://github.com/10up/10up-toolkit.git",
-	"directory": "packages/eslint-config"
-  },
-  "bugs": {
-	"url": "https://github.com/10up/10up-toolkit/issues"
-  },
-  "author": "10up <info@10up.com> (https://10up.com)",
-  "license": "GPL-2.0-or-later",
-  "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config#readme",
-  "keywords": [
-	"eslint",
-	"eslint-config",
-	"10up"
-  ],
-  "dependencies": {
-	"@10up/babel-preset-default": "^2.0.3"
-  },
-  "devDependencies": {
-	"eslint": "^8.0.0",
-	"prettier": "^2.4.1"
-  },
-  "peerDependencies": {
-	"@babel/core": "^7.16.0",
-	"@babel/eslint-parser": "^7.16.3",
-	"@wordpress/eslint-plugin": "^12.0.0",
-	"eslint": "^7.32.0 || ^8.0.0",
-	"eslint-config-airbnb": "^19.0.4",
-	"eslint-config-airbnb-base": "^15.0.0",
-	"eslint-config-prettier": "^8.3.0",
-	"eslint-plugin-import": "^2.25.3",
-	"eslint-plugin-jest": "^25.2.4",
-	"eslint-plugin-jsdoc": "^37.9.7",
-	"eslint-plugin-jsx-a11y": "^6.5.1",
-	"eslint-plugin-prettier": "^4.0.0",
-	"eslint-plugin-react": "^7.27.0",
-	"eslint-plugin-react-hooks": "^4.3.0",
-	"prettier": "^2.4.1"
-  },
-  "peerDependenciesMeta": {
-	"@wordpress/eslint-plugin": {
-	  "optional": true
+	"name": "@10up/eslint-config",
+	"version": "2.4.7-next.0",
+	"description": "A shareable ESLint configuration",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"test": "node fixtures/test-eslint-config.js",
+		"test:index": "node fixtures/test-eslint-config.js --config-file=index",
+		"test:react": "node fixtures/test-eslint-config.js --config-file=react",
+		"test:wordpress": "node fixtures/test-eslint-config.js --config-file=wordpress",
+		"test:node": "node fixtures/test-eslint-config.js --config-file=nodejs"
+	},
+	"exports": {
+		".": "./config/index.js",
+		"./jest": "./config/jest.js",
+		"./legacy": "./config/legacy.js",
+		"./node": "./config/node.js",
+		"./react": "./config/react.js",
+		"./wordpress": "./config/wordpress.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/10up/10up-toolkit.git",
+		"directory": "packages/eslint-config"
+	},
+	"bugs": {
+		"url": "https://github.com/10up/10up-toolkit/issues"
+	},
+	"author": "10up <info@10up.com> (https://10up.com)",
+	"license": "GPL-2.0-or-later",
+	"homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config#readme",
+	"keywords": [
+		"eslint",
+		"eslint-config",
+		"10up"
+	],
+	"dependencies": {
+		"@10up/babel-preset-default": "^2.0.4-next.0"
+	},
+	"devDependencies": {
+		"eslint": "^8.0.0",
+		"prettier": "^2.4.1"
+	},
+	"peerDependencies": {
+		"@babel/core": "^7.16.0",
+		"@babel/eslint-parser": "^7.16.3",
+		"@wordpress/eslint-plugin": "^12.0.0",
+		"eslint": "^7.32.0 || ^8.0.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.25.3",
+		"eslint-plugin-jest": "^25.2.4",
+		"eslint-plugin-jsdoc": "^37.9.7",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.27.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
+		"prettier": "^2.4.1"
+	},
+	"peerDependenciesMeta": {
+		"@wordpress/eslint-plugin": {
+			"optional": true
+		}
 	}
-  }
 }
