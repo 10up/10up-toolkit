@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.7
+
+### Patch Changes
+
+- 010cea6: Updating package.json links to point to the new repository
+- Updated dependencies [010cea6]
+  - @10up/babel-preset-default@2.0.4
+
 ## 2.4.6
 
 ### Patch Changes
