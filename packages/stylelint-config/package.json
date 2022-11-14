@@ -6,7 +6,8 @@
   "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/10up/10up-toolkit.git"
+    "url": "https://github.com/10up/10up-toolkit.git",
+    "directory": "packages/stylelint-config"
   },
   "publishConfig": {
     "access": "public"

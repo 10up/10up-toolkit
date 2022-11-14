@@ -190,6 +190,23 @@ Alternatively you can specify the paths in `package.json`
 
 Note that when overriding via the `filenames.config.js` you must export the filenames for all file types.
 
+### WordPress Block Asset Handling
+
+If your project includes blocks there are quite a few assets that need to get added to the list of entrypoints for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. 
+
+It also automatically moves all files including the `block.json` and and PHP files to the `dist/blocks/` folder.
+
+To opt into this mode you need to add the `useBlockAssets` option to your toolkit configuration:
+
+```json
+"10up-toolkit": {
+    "devURL": "https://my-project.test",
+    "useBlockAssets": true
+}
+```
+
+By default the source directory for blocks is `./includes/blocks/`. This can be customized via the `blocksDir` key in the paths config.
+
 ### WordPress Editor Styles
 
 By default 10up-toolkit will scope any css file named `editor-styles.css` files with the 
