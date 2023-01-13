@@ -537,7 +537,7 @@ Refer to <Link to="/10up-toolkit/linting">linting docs</Link> for more informati
 
 ### Customizing PostCSS
 
-To customize the postcss config, create a `postcss.config.js` at the root of your project. When overriding the postcss config, keep in mind
+To customize the PostCSS config, create a `postcss.config.js` at the root of your project. When overriding the PostCSS config, keep in mind
 that the default config is exported as a **function**.
 
 The example below modifies the ignored list of the `editor-styles` plugin when processing the `editor-styles.css` file.
@@ -559,6 +559,36 @@ module.exports = (props) => {
 	return config;
 };
 ```
+
+#### Adding a new PostCSS plugin
+
+By default, `10up-toolkit` includes the following PostCSS plugins:
+
+- [postcss-import](https://github.com/postcss/postcss-import)
+- [postcss-mixins](https://github.com/postcss/postcss-mixins)
+- [postcss-preset-env](https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env)
+- [postcss-editor-styles](https://github.com/m-e-h/postcss-editor-styles)
+
+However, there might be times in which you need to add a new plugin. To do so, follow the steps below:
+
+1. Install the plugin you need, e.g: `npm install @csstools/postcss-design-tokens --save-dev`
+2. Once the plugin is installed, tweak the configuration as follows:
+
+```javascript
+const baseConfig = require('10up-toolkit/config/postcss.config.js');
+const additionalPlugins = { '@csstools/postcss-design-tokens': {} };
+
+module.exports = (props) => {
+	const config = baseConfig(props);
+
+	config.plugins = { ...config.plugins, ...additionalPlugins };
+
+	return config;
+};
+```
+
+Please note that the order of the plugins is important, so make sure to add the new plugin in the correct position. You
+might want to tweak the order and/or write a different `config.plugins` object with the plugins in the order you need.
 
 ### Customizing svgo
 > Added in 3.0.4
