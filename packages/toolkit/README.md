@@ -756,7 +756,7 @@ As an example, consider the following `package.json`
 ```
 
 Running `npm run build:modern` will only generate a bundle suitable for bundlers consumption and `npm run build:umd` will generate
-a bundle that's suitable for both bundlers and direct inclusion in browsers, note that `---exetrnal=none` is being passed and that effectively tells
+a bundle that's suitable for both bundlers and direct inclusion in browsers, note that `---external=none` is being passed and that effectively tells
 10up-toolkit to inline all the dependencies. So someone loading `index.umd.js` don't need to load `core-js`.
 
 The UMD bundle could then be used like so: 
