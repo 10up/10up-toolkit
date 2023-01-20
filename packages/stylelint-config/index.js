@@ -13,5 +13,6 @@ module.exports = {
 		'selector-nested-pattern': ['^&'],
 		'no-descending-specificity': null,
 		'at-rule-no-unknown': [true, { ignoreAtRules: ['mixin', 'define-mixin'] }],
+		'scss/at-rule-no-unknown': [true, { ignoreAtRules: ['mixin', 'define-mixin'] }],
 	},
 };
