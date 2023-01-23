@@ -14,7 +14,8 @@ import { css } from '@linaria/core';
 import './editor.css';
 
 const contentPicker = css`
-	border: 1px dashed #000;
+	border: 10px dashed #000;
+	background: red;
 `;
 
 const ExampleBlockEdit = (props) => {
@@ -24,7 +25,7 @@ const ExampleBlockEdit = (props) => {
 	const blockProps = useBlockProps();
 
 	return (
-		<div {...blockProps}>
+		<div {...blockProps} className={contentPicker}>
 			<RichText
 				className="wp-block-example-block__title"
 				tagName="h2"
@@ -36,7 +37,6 @@ const ExampleBlockEdit = (props) => {
 				onPickChange={(pickedContent) => {
 					console.log(pickedContent);
 				}}
-				css={contentPicker}
 				mode="post"
 				label="Please select a Post or Page:"
 				contentTypes={['post', 'page']}

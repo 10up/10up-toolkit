@@ -67,7 +67,9 @@ module.exports = ({
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				exclude: (input) => shouldExclude(input, include),
 				use: [
-					require.resolve('thread-loader'),
+					{
+						loader: require.resolve('./plugins/noop-loader'),
+					},
 					{
 						loader: require.resolve('babel-loader'),
 						options: {
@@ -90,9 +92,6 @@ module.exports = ({
 											useBuiltIns: isPackage ? false : 'usage',
 											targets: defaultTargets,
 										},
-									],
-									isPackageInstalled('@linaria/babel-preset') && [
-										require.resolve('@linaria/babel-preset'),
 									],
 								].filter(Boolean),
 								plugins: [
