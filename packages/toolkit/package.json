@@ -78,7 +78,17 @@
   "peerDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
     "@10up/eslint-config": "^2.4.7",
-    "@10up/stylelint-config": ">=2.0.2"
+    "@10up/stylelint-config": ">=2.0.2",
+    "@linaria/webpack-loader": "^4.1.11",
+    "@linaria/babel-preset": "^4.3.3"
+  },
+  "peerDependenciesMeta": {
+    "@linaria/webpack-loader": {
+      "optional": true
+    },
+    "@linaria/babel-preset": {
+      "optional": true
+    }
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {

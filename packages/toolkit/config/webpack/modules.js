@@ -1,6 +1,7 @@
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
+const { isPackageInstalled } = require('../../utils/package');
 
 const getCSSLoaders = ({ options, postcss, sass }) => {
 	// Note that the order of loaders is important. The loaders are applied from right to left.
@@ -90,14 +91,23 @@ module.exports = ({
 											targets: defaultTargets,
 										},
 									],
-								],
+									isPackageInstalled('@linaria/babel-preset') && [
+										require.resolve('@linaria/babel-preset'),
+									],
+								].filter(Boolean),
 								plugins: [
 									hasReactFastRefresh && require.resolve('react-refresh/babel'),
 								].filter(Boolean),
 							}),
 						},
 					},
-				],
+					isPackageInstalled('@linaria/webpack-loader') && {
+						loader: '@linaria/webpack-loader',
+						options: {
+							sourceMap: process.env.NODE_ENV !== 'production',
+						},
+					},
+				].filter(Boolean),
 			},
 			{
 				test: /\.svg$/,

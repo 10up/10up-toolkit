@@ -8,8 +8,14 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 // so the intent here is to test toolkit `--include` feature to manually tell toolkit to transpile this package
 import { ContentPicker } from '@10up/block-components';
 
+import { css } from '@linaria/core';
+
 // Importing the block's editor styles via JS will enable hot reloading for css
 import './editor.css';
+
+const contentPicker = css`
+	border: 1px dashed #000;
+`;
 
 const ExampleBlockEdit = (props) => {
 	const { attributes, setAttributes } = props;
@@ -30,6 +36,7 @@ const ExampleBlockEdit = (props) => {
 				onPickChange={(pickedContent) => {
 					console.log(pickedContent);
 				}}
+				css={contentPicker}
 				mode="post"
 				label="Please select a Post or Page:"
 				contentTypes={['post', 'page']}
