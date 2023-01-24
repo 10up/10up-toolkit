@@ -40,7 +40,7 @@
 	},
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css",
+	"style": "file:./index.css",
 	"viewScript": "file:./view.js",
 	"script": "file:./script.js"
 }

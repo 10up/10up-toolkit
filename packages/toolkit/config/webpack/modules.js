@@ -53,6 +53,8 @@ function shouldExclude(input, include) {
 	return /node_modules/.test(input);
 }
 
+const LINARIA_EXTENSION = '.linaria.css.webpack[asset]';
+
 module.exports = ({
 	isProduction,
 	isPackage,
@@ -60,6 +62,7 @@ module.exports = ({
 	projectConfig: { wordpress, hot, include },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+
 	return {
 		rules: [
 			{
@@ -93,6 +96,9 @@ module.exports = ({
 											targets: defaultTargets,
 										},
 									],
+									isPackageInstalled('@linaria/babel-preset') && [
+										require.resolve('@linaria/babel-preset'),
+									],
 								].filter(Boolean),
 								plugins: [
 									hasReactFastRefresh && require.resolve('react-refresh/babel'),
@@ -104,6 +110,7 @@ module.exports = ({
 						loader: '@linaria/webpack-loader',
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
+							extension: LINARIA_EXTENSION,
 						},
 					},
 				].filter(Boolean),
@@ -122,7 +129,7 @@ module.exports = ({
 					postcss: true,
 					sass: false,
 				}),
-				exclude: /\.module\.css$/,
+				exclude: [/\.module\.css$/],
 			},
 			{
 				test: /\.(sc|sa)ss$/,
@@ -152,6 +159,12 @@ module.exports = ({
 						sass: true,
 					}),
 				],
+			},
+			{
+				test(path) {
+					return path.includes(LINARIA_EXTENSION);
+				},
+				use: [{ loader: MiniCSSExtractPlugin.loader }, { loader: 'css-loader' }],
 			},
 			// when in package module only include referenced resources
 			isPackage && {
