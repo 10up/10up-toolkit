@@ -53,7 +53,8 @@ function shouldExclude(input, include) {
 	return /node_modules/.test(input);
 }
 
-const LINARIA_EXTENSION = '.linaria.css.webpack[asset]';
+const LINARIA_EXTENSION = '.linaria.module.css';
+const LINARIA_EXTENSION_REGEXP = /\.linaria\.module\.css/;
 
 module.exports = ({
 	isProduction,
@@ -62,6 +63,43 @@ module.exports = ({
 	projectConfig: { wordpress, hot, include },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+
+	// Provide a default configuration if there's not
+	// one explicitly available in the project.
+	const babelConfig = !hasBabelConfig()
+		? {
+				babelrc: false,
+				configFile: false,
+				sourceType: 'unambiguous',
+				plugins: [hasReactFastRefresh && require.resolve('react-refresh/babel')].filter(
+					Boolean,
+				),
+				presets: [
+					[
+						require.resolve('@10up/babel-preset-default'),
+						{
+							wordpress,
+							useBuiltIns: isPackage ? false : 'usage',
+							targets: defaultTargets,
+						},
+					],
+				],
+		  }
+		: {};
+
+	if (isPackageInstalled('@linaria/babel-preset') && !hasBabelConfig()) {
+		babelConfig.presets.push([
+			'@linaria',
+			{
+				babelOptions: {
+					babelrc: false,
+					configFile: false,
+					sourceType: 'unambiguous',
+					presets: [...babelConfig.presets],
+				},
+			},
+		]);
+	}
 
 	return {
 		rules: [
@@ -80,30 +118,7 @@ module.exports = ({
 							// by default. Use the environment variable option
 							// to enable more persistent caching.
 							cacheDirectory: process.env.BABEL_CACHE_DIRECTORY || true,
-
-							// Provide a fallback configuration if there's not
-							// one explicitly available in the project.
-							...(!hasBabelConfig() && {
-								babelrc: false,
-								configFile: false,
-								sourceType: 'unambiguous',
-								presets: [
-									[
-										require.resolve('@10up/babel-preset-default'),
-										{
-											wordpress,
-											useBuiltIns: isPackage ? false : 'usage',
-											targets: defaultTargets,
-										},
-									],
-									isPackageInstalled('@linaria/babel-preset') && [
-										require.resolve('@linaria/babel-preset'),
-									],
-								].filter(Boolean),
-								plugins: [
-									hasReactFastRefresh && require.resolve('react-refresh/babel'),
-								].filter(Boolean),
-							}),
+							...babelConfig,
 						},
 					},
 					isPackageInstalled('@linaria/webpack-loader') && {
@@ -111,6 +126,7 @@ module.exports = ({
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
 							extension: LINARIA_EXTENSION,
+							babelOptions: babelConfig,
 						},
 					},
 				].filter(Boolean),
@@ -129,7 +145,7 @@ module.exports = ({
 					postcss: true,
 					sass: false,
 				}),
-				exclude: [/\.module\.css$/],
+				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP],
 			},
 			{
 				test: /\.(sc|sa)ss$/,
@@ -143,7 +159,7 @@ module.exports = ({
 						sass: true,
 					}),
 				],
-				exclude: /\.module\.css$/,
+				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP],
 			},
 			{
 				test: /\.module\.css$/,
@@ -159,12 +175,16 @@ module.exports = ({
 						sass: true,
 					}),
 				],
+				exclude: [/\.linaria\.module\.css$/],
 			},
 			{
-				test(path) {
-					return path.includes(LINARIA_EXTENSION);
-				},
-				use: [{ loader: MiniCSSExtractPlugin.loader }, { loader: 'css-loader' }],
+				test: LINARIA_EXTENSION_REGEXP,
+				use: [
+					{ loader: MiniCSSExtractPlugin.loader },
+					{
+						loader: 'css-loader',
+					},
+				],
 			},
 			// when in package module only include referenced resources
 			isPackage && {
