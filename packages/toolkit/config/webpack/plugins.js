@@ -103,9 +103,19 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				const isBlockAsset = useBlockAssets
-					? buildFiles[options.chunk.name].match(/\/blocks\//)
-					: options.chunk.name.match(/-block$/);
+				const fullPath = options.chunk.entryModule.identifier().split('!').pop();
+
+				let isBlockAsset = !path
+					.relative(blocksSourceDirectory, fullPath)
+					.startsWith('../');
+
+				if (!isBlockAsset) {
+					if (useBlockAssets) {
+						isBlockAsset = buildFiles[options.chunk.name].match(/\/blocks\//);
+					} else {
+						isBlockAsset = options.chunk.name.match(/-block$/);
+					}
+				}
 
 				return isBlockAsset ? filenames.blockCSS : filenames.css;
 			},
