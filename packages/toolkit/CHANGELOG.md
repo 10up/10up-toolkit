@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.2-next.0
+
+### Patch Changes
+
+- Updated dependencies [12f9cf9]
+  - @10up/stylelint-config@2.0.3-next.0
+
 ## 4.3.1
 
 ### Patch Changes

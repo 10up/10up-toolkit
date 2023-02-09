@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.3-next.0
+
+### Patch Changes
+
+- 12f9cf9: Ensure SCSS config accepts mixin at-rules from postcss-mixins
+
 ## 2.0.2
 
 ### Patch Changes
