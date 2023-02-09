@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- 0f29b56: Updating dependencies.
+
 ## 2.4.7
 
 ### Patch Changes

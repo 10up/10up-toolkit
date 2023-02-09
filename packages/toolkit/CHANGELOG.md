@@ -1,5 +1,14 @@
 # Changelog
 
+## 5.0.0-next.0
+
+### Patch Changes
+
+- Updated dependencies [0f29b56]
+  - @10up/eslint-config@3.0.0-next.0
+  - @10up/babel-preset-default@2.0.4
+  - @10up/stylelint-config@2.0.3
+
 ## 4.3.1
 
 ### Patch Changes
