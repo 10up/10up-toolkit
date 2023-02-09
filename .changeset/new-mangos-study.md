@@ -1,5 +1,5 @@
 ---
-"@10up/eslint-config": patch
+"@10up/eslint-config": major
 ---
 
 Updating dependencies.
