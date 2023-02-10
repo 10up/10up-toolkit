@@ -9,13 +9,11 @@ const promise = new Promise(resolve => {
     resolve(\`Resolving \${constVar}\`);
   }, 100);
 });
-
 function* generator() {
   yield 1;
   yield 2;
   yield 3;
 }
-
 const object = {
   a: {
     b: 'b'
@@ -24,18 +22,14 @@ const object = {
     a: 'a'
   }
 };
-
 const init = async () => {
   const result = await promise();
-
   for (const a of generator()) {
     console.log(a);
   }
-
   console.log(object?.a?.b);
   return result;
 };
-
 init().then(result => {
   console.log(result);
 });"
@@ -50,13 +44,11 @@ const promise = new Promise(resolve => {
     resolve(\`Resolving \${constVar}\`);
   }, 100);
 });
-
 function* generator() {
   yield 1;
   yield 2;
   yield 3;
 }
-
 const object = {
   a: {
     b: 'b'
@@ -65,18 +57,14 @@ const object = {
     a: 'a'
   }
 };
-
 const init = async () => {
   const result = await promise();
-
   for (const a of generator()) {
     console.log(a);
   }
-
   console.log(object?.a?.b);
   return result;
 };
-
 init().then(result => {
   console.log(result);
 });"
@@ -89,10 +77,9 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.default = void 0;
-
 var _react = require(\\"react\\");
-
 // eslint-disable-line import/no-extraneous-dependencies
+
 const FCComponent = ({
   title,
   url,
@@ -103,17 +90,15 @@ const FCComponent = ({
   href: url,
   title: title
 }, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
-
 FCComponent.defaultProps = {
   title: '',
   url: '',
   description: ''
 };
-
 class ClassComponent extends _react.Component {
-  componentDidMount() {// doing something
+  componentDidMount() {
+    // doing something
   }
-
   render() {
     const {
       title
@@ -122,9 +107,7 @@ class ClassComponent extends _react.Component {
       className: \\"Class Component\\"
     }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
   }
-
 }
-
 var _default = FCComponent;
 exports.default = _default;"
 `;
@@ -136,16 +119,12 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.default = void 0;
-
 var _react = require(\\"react\\");
-
 var _propTypes = _interopRequireDefault(require(\\"prop-types\\"));
-
 var _jsxFileName = \\"\\";
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 // eslint-disable-line import/no-extraneous-dependencies
+
 const FCComponent = ({
   title,
   url,
@@ -182,7 +161,6 @@ const FCComponent = ({
     columnNumber: 3
   }
 }, description));
-
 FCComponent.propTypes = {
   title: _propTypes.default.string,
   url: _propTypes.default.string,
@@ -193,11 +171,10 @@ FCComponent.defaultProps = {
   url: '',
   description: ''
 };
-
 class ClassComponent extends _react.Component {
-  componentDidMount() {// doing something
+  componentDidMount() {
+    // doing something
   }
-
   render() {
     const {
       title
@@ -219,9 +196,7 @@ class ClassComponent extends _react.Component {
       }
     }, title));
   }
-
 }
-
 ClassComponent.propTypes = {
   title: _propTypes.default.string.isRequired
 };
@@ -236,13 +211,11 @@ const promise = new Promise(resolve => {
     resolve(\`Resolving \${constVar}\`);
   }, 100);
 });
-
 function* generator() {
   yield 1;
   yield 2;
   yield 3;
 }
-
 const object = {
   a: {
     b: 'b'
@@ -251,18 +224,14 @@ const object = {
     a: 'a'
   }
 };
-
 const init = async () => {
   const result = await promise();
-
   for (const a of generator()) {
     console.log(a);
   }
-
   console.log(object?.a?.b);
   return result;
 };
-
 init().then(result => {
   console.log(result);
 });"
@@ -275,12 +244,10 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.default = void 0;
-
 var _element = require(\\"@wordpress/element\\");
-
 var _react = require(\\"react\\");
-
 // eslint-disable-line import/no-extraneous-dependencies
+
 const FCComponent = ({
   title,
   url,
@@ -291,17 +258,15 @@ const FCComponent = ({
   href: url,
   title: title
 }, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
-
 FCComponent.defaultProps = {
   title: '',
   url: '',
   description: ''
 };
-
 class ClassComponent extends _react.Component {
-  componentDidMount() {// doing something
+  componentDidMount() {
+    // doing something
   }
-
   render() {
     const {
       title
@@ -310,9 +275,7 @@ class ClassComponent extends _react.Component {
       className: \\"Class Component\\"
     }, (0, _element.createElement)(\\"h1\\", null, title));
   }
-
 }
-
 var _default = FCComponent;
 exports.default = _default;"
 `;
@@ -324,10 +287,9 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.default = void 0;
-
 var _react = require(\\"react\\");
-
 // eslint-disable-line import/no-extraneous-dependencies
+
 const FCComponent = ({
   title,
   url,
@@ -338,17 +300,15 @@ const FCComponent = ({
   href: url,
   title: title
 }, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
-
 FCComponent.defaultProps = {
   title: '',
   url: '',
   description: ''
 };
-
 class ClassComponent extends _react.Component {
-  componentDidMount() {// doing something
+  componentDidMount() {
+    // doing something
   }
-
   render() {
     const {
       title
@@ -357,9 +317,7 @@ class ClassComponent extends _react.Component {
       className: \\"Class Component\\"
     }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
   }
-
 }
-
 var _default = FCComponent;
 exports.default = _default;"
 `;
@@ -371,12 +329,10 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.default = void 0;
-
 var _element = require(\\"@wordpress/element\\");
-
 var _react = require(\\"react\\");
-
 // eslint-disable-line import/no-extraneous-dependencies
+
 const FCComponent = ({
   title,
   url,
@@ -387,17 +343,15 @@ const FCComponent = ({
   href: url,
   title: title
 }, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
-
 FCComponent.defaultProps = {
   title: '',
   url: '',
   description: ''
 };
-
 class ClassComponent extends _react.Component {
-  componentDidMount() {// doing something
+  componentDidMount() {
+    // doing something
   }
-
   render() {
     const {
       title
@@ -406,9 +360,7 @@ class ClassComponent extends _react.Component {
       className: \\"Class Component\\"
     }, (0, _element.createElement)(\\"h1\\", null, title));
   }
-
 }
-
 var _default = FCComponent;
 exports.default = _default;"
 `;
@@ -420,7 +372,6 @@ Object.defineProperty(exports, \\"__esModule\\", {
   value: true
 });
 exports.helloTypeScript = helloTypeScript;
-
 function helloTypeScript(name) {
   return \`Hello \${name}, this is TypeScript!\`;
 }"

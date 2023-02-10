@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "4.3.1",
+  "version": "5.0.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -24,8 +24,7 @@
     "@svgr/webpack": "^6.2.1",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
-    "@wordpress/dependency-extraction-webpack-plugin": "^3.4.1",
-    "@wordpress/eslint-plugin": "^11.1.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^4.9.0",
     "@wordpress/jest-console": "^5.0.2",
     "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.4",
@@ -71,18 +70,18 @@
   },
   "devDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
-    "@10up/eslint-config": "^2.4.7",
+    "@10up/eslint-config": "^3.0.0",
     "@10up/stylelint-config": "^2.0.2",
     "glob": "^7.2.0"
   },
   "peerDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
-    "@10up/eslint-config": "^2.4.7",
-    "@10up/stylelint-config": ">=2.0.2"
+    "@10up/eslint-config": "^3.0.0",
+    "@10up/stylelint-config": ">=2.0.3"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.9"
   },
   "scripts": {
