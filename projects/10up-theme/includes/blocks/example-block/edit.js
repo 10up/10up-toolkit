@@ -10,9 +10,6 @@ import { ContentPicker } from '@10up/block-components';
 
 import { css } from '@linaria/core';
 
-// Importing the block's editor styles via JS will enable hot reloading for css
-import './editor.css';
-
 const contentPicker = css`
 	border: 10px dashed #000;
 	background: red;
