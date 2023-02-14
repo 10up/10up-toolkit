@@ -135,11 +135,13 @@ module.exports = ({
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
 						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
 						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
 					},
 					hasReactFastRefresh && {
