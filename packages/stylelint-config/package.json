@@ -23,7 +23,8 @@
     "10up"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "scss.js"
   ],
   "author": {
     "name": "10up",
