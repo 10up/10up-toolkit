@@ -8,7 +8,7 @@
 ## Dependencies
 
 1. [Node & NPM](https://www.npmjs.com/get-npm) - 3rd party dependencies are managed through NPM, so you will need that installed globally
-2. [Stylelint](https://stylelint.io/) - as this is a config extension for Stylelint, you will need Stylelint installed in your main project in order for it to work. 
+2. [Stylelint](https://stylelint.io/) - as this is a config extension for Stylelint, you will need Stylelint installed in your main project in order for it to work.
 
 ### ⚠️ Dependency Warning
 
@@ -17,7 +17,8 @@ If you're using `npm >= 7` you might not need to install Stylelint directly sinc
 ## Installation
 
 First, install Stylelint:
-```
+
+```bash
 // NPM
 npm install stylelint --save-dev
 
@@ -26,7 +27,8 @@ yarn add stylelint
 ```
 
 Then install the 10up Stylelint config:
-```
+
+```bash
 // NPM
 npm install @10up/stylelint-config --save-dev
 ```
@@ -49,30 +51,31 @@ Add the following to your `.stylelintrc` file:
 By default, 10up Stylelint Config does not support out-the-box support for `scss` based projects. That being said, it is not difficult to add support by following the below process:
 
 Install the `stylelint-config-standard-scss` dependency:
-```
+
+```bash
 // NPM
 npm install stylelint-config-standard-scss --save-dev
 ```
 
 You will then need to update the plugins section of your projects `.stylelintrc`:
 
-```
+```json
 {
   "extends": [
     "stylelint-config-standard-scss",
-    "@10up/stylelint-config"
+    "@10up/stylelint-config/scss"
   ]
 }
 ```
 
 A set of rules are located on the [packages NPM page](https://www.npmjs.com/package/stylelint-config-standard-scss) if you would like to override or customize the defaults further.
 
-
 #### Selector Nested Pattern
-Certain rules that apply to flavours of CSS (`post-css`, `scss`, `sass` etc) can cause a conflict in your build pipelines. One such rule is
+
+Certain rules that apply to flavours of CSS (`postcss`, `scss`, `sass`, etc) can cause a conflict in your build pipelines. One such rule is
 [Selector Nested Pattern](https://stylelint.io/user-guide/rules/selector-nested-pattern).
 
-By default we ensure that any nested `css` uses a prefixed `&` symbol, as required in languages like `post-css` or `postcss-preset-env`, however you will want to turn this off if using `scss`.
+By default, we ensure that any nested `css` uses a prefixed `&` symbol, as required in languages like `postcss` or `postcss-preset-env`, however you will want to turn this off if using `scss`.
 
 To get around this issue, add the following to your projects, `.stylelintrc`
 
@@ -98,7 +101,6 @@ plugins: [
     fix: true, // if you want to auto-fix some of the basic rules
   } ),
 ]
-
 ```
 
 Read more about these options at [stylelint-webpack-plugin](https://github.com/webpack-contrib/stylelint-webpack-plugin), [the main stylelint documentation](https://stylelint.io/) and [postcss-loader](https://github.com/postcss/postcss-loader). That should be all you need, but if there are any errors in this documentation, [please file an issue and let us know](https://github.com/10up/stylelint-config/issues/new)!
@@ -108,6 +110,6 @@ Read more about these options at [stylelint-webpack-plugin](https://github.com/w
 Certain rules / violations can be fixed automatically using the `--fix` flag via the command line.
 To ensure that Stylelint fixes what it can, you can run:
 
-```
+```bash
 stylelint path/to/css/file.css --fix`
 ```
