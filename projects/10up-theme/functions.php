@@ -17,7 +17,7 @@ define( 'TENUP_THEME_BLOCK_DIST_DIR', TENUP_THEME_PATH . 'dist/blocks/' );
 
 $is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
 $is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
-$is_local     = $is_local_env || $is_local_url || true;
+$is_local     = $is_local_env || $is_local_url;
 
 
 if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
