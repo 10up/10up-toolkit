@@ -1,8 +1,8 @@
 {
-	"title": "Example Block",
-	"description": "An Example Block",
+	"title": "Example Block (With Linaria)",
+	"description": "An Example Block (With Linaria)",
 	"textdomain": "tenup-scaffold",
-	"name": "tenup/example",
+	"name": "tenup/example-linaria",
 	"icon": "feedback",
 	"category": "tenup-scaffold-blocks",
 	"attributes": {
@@ -40,7 +40,7 @@
 	},
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
-	"style": "file:./style.css",
+	"style": "file:./index.css",
 	"viewScript": "file:./view.js",
 	"script": "file:./script.js"
 }

@@ -21,11 +21,21 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
               "cacheDirectory": true,
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {},
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -38,7 +48,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -60,7 +73,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -88,6 +104,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -113,6 +132,17 @@ Object {
             "options": Object {
               "sourceMap": true,
             },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
           },
         ],
       },
@@ -193,11 +223,21 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
               "cacheDirectory": true,
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {},
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -210,7 +250,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -232,7 +275,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -260,6 +306,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -288,6 +337,17 @@ Object {
           },
         ],
       },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
+          },
+        ],
+      },
     ],
   },
   "optimization": Object {
@@ -306,6 +366,7 @@ Object {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
       }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
@@ -371,7 +432,9 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
@@ -394,8 +457,89 @@ Object {
                     "wordpress": true,
                   },
                 ],
+                Array [
+                  "@linaria",
+                  Object {
+                    "babelOptions": Object {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": Array [
+                        Array [
+                          "/packages/babel-preset-default/index.js",
+                          Object {
+                            "targets": Array [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": false,
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
               ],
               "sourceType": "unambiguous",
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": Array [],
+                "presets": Array [
+                  Array [
+                    "/packages/babel-preset-default/index.js",
+                    Object {
+                      "targets": Array [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  Array [
+                    "@linaria",
+                    Object {
+                      "babelOptions": Object {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": Array [
+                          Array [
+                            "/packages/babel-preset-default/index.js",
+                            Object {
+                              "targets": Array [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -408,7 +552,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -432,7 +579,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -462,6 +612,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -489,6 +642,17 @@ Object {
             "options": Object {
               "sourceMap": true,
             },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
           },
         ],
       },
@@ -570,7 +734,9 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
@@ -593,8 +759,89 @@ Object {
                     "wordpress": true,
                   },
                 ],
+                Array [
+                  "@linaria",
+                  Object {
+                    "babelOptions": Object {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": Array [
+                        Array [
+                          "/packages/babel-preset-default/index.js",
+                          Object {
+                            "targets": Array [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": false,
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
               ],
               "sourceType": "unambiguous",
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": Array [],
+                "presets": Array [
+                  Array [
+                    "/packages/babel-preset-default/index.js",
+                    Object {
+                      "targets": Array [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  Array [
+                    "@linaria",
+                    Object {
+                      "babelOptions": Object {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": Array [
+                          Array [
+                            "/packages/babel-preset-default/index.js",
+                            Object {
+                              "targets": Array [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -607,7 +854,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -631,7 +881,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -661,6 +914,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -688,6 +944,17 @@ Object {
             "options": Object {
               "sourceMap": true,
             },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
           },
         ],
       },
@@ -770,7 +1037,9 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
@@ -793,8 +1062,89 @@ Object {
                     "wordpress": true,
                   },
                 ],
+                Array [
+                  "@linaria",
+                  Object {
+                    "babelOptions": Object {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": Array [
+                        Array [
+                          "/packages/babel-preset-default/index.js",
+                          Object {
+                            "targets": Array [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": false,
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
               ],
               "sourceType": "unambiguous",
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": Array [],
+                "presets": Array [
+                  Array [
+                    "/packages/babel-preset-default/index.js",
+                    Object {
+                      "targets": Array [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  Array [
+                    "@linaria",
+                    Object {
+                      "babelOptions": Object {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": Array [
+                          Array [
+                            "/packages/babel-preset-default/index.js",
+                            Object {
+                              "targets": Array [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -807,7 +1157,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -831,7 +1184,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -861,6 +1217,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -888,6 +1247,17 @@ Object {
             "options": Object {
               "sourceMap": true,
             },
+          },
+        ],
+      },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
           },
         ],
       },
@@ -968,7 +1338,9 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
@@ -991,8 +1363,89 @@ Object {
                     "wordpress": true,
                   },
                 ],
+                Array [
+                  "@linaria",
+                  Object {
+                    "babelOptions": Object {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": Array [
+                        Array [
+                          "/packages/babel-preset-default/index.js",
+                          Object {
+                            "targets": Array [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": "usage",
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
               ],
               "sourceType": "unambiguous",
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": Array [],
+                "presets": Array [
+                  Array [
+                    "/packages/babel-preset-default/index.js",
+                    Object {
+                      "targets": Array [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": "usage",
+                      "wordpress": true,
+                    },
+                  ],
+                  Array [
+                    "@linaria",
+                    Object {
+                      "babelOptions": Object {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": Array [
+                          Array [
+                            "/packages/babel-preset-default/index.js",
+                            Object {
+                              "targets": Array [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": "usage",
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -1005,7 +1458,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -1029,7 +1485,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -1059,6 +1518,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -1089,6 +1551,17 @@ Object {
           },
         ],
       },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
+          },
+        ],
+      },
     ],
   },
   "optimization": Object {
@@ -1107,6 +1580,7 @@ Object {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
       }
+
       return buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) ? filenames.block : filenames.js;
     },
     "path": "/dist",
