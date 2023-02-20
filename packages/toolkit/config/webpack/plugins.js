@@ -35,8 +35,10 @@ const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
 	const metadata = JSON.parse(rawMetadata);
 	const { version, style } = metadata;
 
+	const styleArray = Array.isArray(style) ? style : [style];
+
 	// check whether the style property is defined and a local file path
-	const isFilePath = style?.startsWith('file:');
+	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
 	const hasVersion = version !== undefined;
 
 	if (hasVersion || !isFilePath) {
@@ -45,10 +47,13 @@ const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
 
 	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
 
-	const relativeStylePath = style.replace('file:', '');
-	const absoluteStylePath = path.join(absoluteDirectory, relativeStylePath);
+	let styleFileContentHash = '';
 
-	const styleFileContentHash = getFileContentHash(absoluteStylePath);
+	styleArray.forEach((rawStylePath) => {
+		const stylePath = rawStylePath.replace('file:', '');
+		const absoluteStylePath = path.join(absoluteDirectory, stylePath);
+		styleFileContentHash += getFileContentHash(absoluteStylePath);
+	});
 
 	return JSON.stringify(
 		{
