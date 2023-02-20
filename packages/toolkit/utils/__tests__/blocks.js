@@ -1,3 +1,4 @@
+import path from 'path';
 import { maybeInsertStyleVersionHash } from '../blocks';
 import { getFileContentHash as getFileContentHashMock } from '../file';
 
@@ -10,7 +11,8 @@ jest.mock('../file', () => {
 });
 
 describe('maybeInsertStyleVersionHash', () => {
-	const absoluteteFileName = '/dist/blocks/block.json';
+	const absoluteteFileName = path.join('dist', 'blocks', 'block.json');
+
 	it('does nothing if version is set', () => {
 		expect(
 			maybeInsertStyleVersionHash(
@@ -79,7 +81,9 @@ describe('maybeInsertStyleVersionHash', () => {
 			),
 		);
 
-		expect(getFileContentHashMock).toHaveBeenCalledWith('/dist/blocks/style.css');
+		expect(getFileContentHashMock).toHaveBeenCalledWith(
+			path.join('dist', 'blocks', 'style.css'),
+		);
 
 		expect(
 			maybeInsertStyleVersionHash(
@@ -99,6 +103,8 @@ describe('maybeInsertStyleVersionHash', () => {
 			),
 		);
 
-		expect(getFileContentHashMock).toHaveBeenCalledWith('/dist/blocks/style2.css');
+		expect(getFileContentHashMock).toHaveBeenCalledWith(
+			path.join('dist', 'blocks', 'style2.css'),
+		);
 	});
 });
