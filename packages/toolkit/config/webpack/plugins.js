@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { resolve } = require('path');
+const { getFileContentHash } = require('../../utils/file');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
@@ -24,6 +25,39 @@ const { isPackageInstalled } = require('../../utils/package');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
+};
+
+const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
+	const rawMetadata = content.toString();
+	if (rawMetadata === '') {
+		return content;
+	}
+	const metadata = JSON.parse(rawMetadata);
+	const { version, style } = metadata;
+
+	// check whether the style property is defined and a local file path
+	const isFilePath = style?.startsWith('file:');
+	const hasVersion = version !== undefined;
+
+	if (hasVersion || !isFilePath) {
+		return content;
+	}
+
+	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
+
+	const relativeStylePath = style.replace('file:', '');
+	const absoluteStylePath = path.join(absoluteDirectory, relativeStylePath);
+
+	const styleFileContentHash = getFileContentHash(absoluteStylePath);
+
+	return JSON.stringify(
+		{
+			...metadata,
+			version: styleFileContentHash,
+		},
+		null,
+		2,
+	);
 };
 
 // There are differences between Windows and Posix when it comes to the WebpackBar
@@ -126,6 +160,9 @@ module.exports = ({
 						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
 						context: path.resolve(process.cwd(), paths.blocksDir),
 						to: 'blocks/[path][name][ext]',
+						transform: (content, absoluteFilename) => {
+							return maybeInsertStyleVersionHash(content, absoluteFilename);
+						},
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),

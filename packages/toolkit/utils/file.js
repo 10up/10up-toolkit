@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
-const { existsSync, readdirSync } = require('fs');
+const { existsSync, readdirSync, readFileSync } = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 /**
  * Internal dependencies
@@ -25,6 +26,13 @@ const getScripts = () =>
 		.filter((f) => path.extname(f) === '.js')
 		.map((f) => path.basename(f, '.js'));
 
+const getFileContentHash = (filePath) => {
+	const fileBuffer = readFileSync(filePath);
+	const hashSum = crypto.createHash('sha256');
+	hashSum.update(fileBuffer);
+	return hashSum.digest('hex');
+};
+
 module.exports = {
 	fromProjectRoot,
 	fromConfigRoot,
@@ -32,4 +40,5 @@ module.exports = {
 	getScripts,
 	hasProjectFile,
 	hasScriptFile,
+	getFileContentHash,
 };
