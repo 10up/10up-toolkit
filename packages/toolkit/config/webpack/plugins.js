@@ -9,7 +9,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { resolve } = require('path');
-const { getFileContentHash } = require('../../utils/file');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
@@ -20,52 +19,12 @@ const {
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
+	maybeInsertStyleVersionHash,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
-};
-
-const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
-	const rawMetadata = content.toString();
-	if (rawMetadata === '') {
-		return content;
-	}
-	const metadata = JSON.parse(rawMetadata);
-	const { version, style } = metadata;
-
-	const styleArray = Array.isArray(style) ? style : [style];
-
-	// check whether the style property is defined and a local file path
-	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
-	const hasVersion = version !== undefined;
-
-	if (hasVersion || !isFilePath) {
-		return content;
-	}
-
-	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
-
-	let styleFileContentHash = '';
-
-	styleArray.forEach((rawStylePath) => {
-		if (!rawStylePath.startsWith('file:')) {
-			return;
-		}
-		const stylePath = rawStylePath.replace('file:', '');
-		const absoluteStylePath = path.join(absoluteDirectory, stylePath);
-		styleFileContentHash += getFileContentHash(absoluteStylePath);
-	});
-
-	return JSON.stringify(
-		{
-			...metadata,
-			version: styleFileContentHash,
-		},
-		null,
-		2,
-	);
 };
 
 // There are differences between Windows and Posix when it comes to the WebpackBar
