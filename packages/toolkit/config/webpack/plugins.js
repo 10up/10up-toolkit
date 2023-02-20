@@ -50,6 +50,9 @@ const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
 	let styleFileContentHash = '';
 
 	styleArray.forEach((rawStylePath) => {
+		if (!rawStylePath.startsWith('file:')) {
+			return;
+		}
 		const stylePath = rawStylePath.replace('file:', '');
 		const absoluteStylePath = path.join(absoluteDirectory, stylePath);
 		styleFileContentHash += getFileContentHash(absoluteStylePath);
