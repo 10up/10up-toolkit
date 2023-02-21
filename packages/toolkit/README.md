@@ -909,7 +909,7 @@ For instance, if you have a block with the following `block.json`
 
 10up-toolkit will compile any Linaria code from the `index.js` entry point to `index.css`. Note that CSS imported by JS entry points always gets generated with the name of the entry point e.g: `index.js => index.css`. So make sure `editorStyle` points to the right CSS file which should be based on `editorScript`.
 
-**IMPORTANT**: We do not currently recommend using linaria for standard WordPress builds. In a headless build the block rendering and front-end styles are handled outside of WordPress, hence why the `block.json` above only cares about editor script and style.
+**IMPORTANT**: We do not currently recommend using Linaria for standard WordPress builds. In a headless build the block rendering and front-end styles are handled outside of WordPress, hence why the `block.json` above only cares about the editor script and style.
 
 ## Support Level
 
