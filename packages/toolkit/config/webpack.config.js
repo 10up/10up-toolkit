@@ -23,7 +23,6 @@ const {
 
 const projectConfig = getTenUpScriptsConfig();
 const packageConfig = getTenUpScriptsPackageBuildConfig();
-
 const { source, main } = packageConfig;
 const buildFiles = getBuildFiles();
 

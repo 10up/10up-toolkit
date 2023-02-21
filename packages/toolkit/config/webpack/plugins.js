@@ -98,7 +98,6 @@ module.exports = ({
 
 		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			// esModule: false,
 			filename: (options) => {
 				if (isPackage) {
 					return removeDistFolder(style);
@@ -106,13 +105,9 @@ module.exports = ({
 
 				const fullPath = options.chunk.entryModule.resource;
 
-				if (!fullPath) {
-					return filenames.css;
-				}
-
-				let isBlockAsset = !path
-					.relative(blocksSourceDirectory, fullPath)
-					.startsWith('../');
+				let isBlockAsset = fullPath
+					? !path.relative(blocksSourceDirectory, fullPath).startsWith('../')
+					: false;
 
 				if (!isBlockAsset) {
 					if (useBlockAssets) {
