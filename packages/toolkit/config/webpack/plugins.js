@@ -19,6 +19,7 @@ const {
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
+	maybeInsertStyleVersionHash,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
@@ -141,6 +142,9 @@ module.exports = ({
 						context: blocksSourceDirectory,
 						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
+						transform: (content, absoluteFilename) => {
+							return maybeInsertStyleVersionHash(content, absoluteFilename);
+						},
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
