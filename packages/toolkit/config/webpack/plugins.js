@@ -19,6 +19,7 @@ const {
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
+	maybeInsertStyleVersionHash,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
@@ -97,15 +98,24 @@ module.exports = ({
 
 		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			// esModule: false,
 			filename: (options) => {
 				if (isPackage) {
 					return removeDistFolder(style);
 				}
 
-				const isBlockAsset = useBlockAssets
-					? buildFiles[options.chunk.name].match(/\/blocks\//)
-					: options.chunk.name.match(/-block$/);
+				const fullPath = options.chunk.entryModule.resource;
+
+				let isBlockAsset = fullPath
+					? !path.relative(blocksSourceDirectory, fullPath).startsWith('../')
+					: false;
+
+				if (!isBlockAsset) {
+					if (useBlockAssets) {
+						isBlockAsset = buildFiles[options.chunk.name].match(/\/blocks\//);
+					} else {
+						isBlockAsset = options.chunk.name.match(/-block$/);
+					}
+				}
 
 				return isBlockAsset ? filenames.blockCSS : filenames.css;
 			},
@@ -124,12 +134,17 @@ module.exports = ({
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
-						context: path.resolve(process.cwd(), paths.blocksDir),
+						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
+						transform: (content, absoluteFilename) => {
+							return maybeInsertStyleVersionHash(content, absoluteFilename);
+						},
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
-						context: path.resolve(process.cwd(), paths.blocksDir),
+						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
 					},
 					hasReactFastRefresh && {
