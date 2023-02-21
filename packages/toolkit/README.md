@@ -889,7 +889,7 @@ By disabling "WordPress" mode, you will need to install both react and react-dom
 ## <a id="linaria"></a> Linaria (CSS-in-JS)
 > Support for Linaria was added in 10up-toolkit 5.1.0.
 
-10up-toolkit supports [Linaria](https://linaria.dev/) without any additional configuration. The main usecase for supporting linaria is to easily compile react components authored using Linaria. This can be useful if you're building a headless site and want to share react components between your front-end and Gutenberg.
+10up-toolkit supports [Linaria](https://linaria.dev/) without any additional configuration. The main usecase for supporting linaria is to easily compile React components authored using Linaria. This can be useful if you're building a headless site and want to share React components between your front-end and Gutenberg.
 
 If you want 10up-toolkit to compile linaria first install the following packages:
 
