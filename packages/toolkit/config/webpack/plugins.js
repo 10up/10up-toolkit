@@ -103,7 +103,11 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				const fullPath = options.chunk.entryModule.identifier().split('!').pop();
+				const fullPath = options.chunk.entryModule.resource;
+
+				if (!fullPath) {
+					return filenames.css;
+				}
 
 				let isBlockAsset = !path
 					.relative(blocksSourceDirectory, fullPath)
