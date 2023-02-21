@@ -1,0 +1,6 @@
+{
+	"name": "test-build-single-entrypoint",
+	"source": "./__fixtures__/src/index.js",
+	"main": "dist/index.js",
+	"style": "dist/index.css"
+}
