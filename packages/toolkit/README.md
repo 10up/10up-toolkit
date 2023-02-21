@@ -897,7 +897,8 @@ If you want 10up-toolkit to compile linaria first install the following packages
 npm install --save-dev @linaria/babel-preset @linaria/webpack-loader
 npm install --save @linaria/core @linaria/react
 ```
-Once those packages are installed, 10up-toolkit will now look for any linaria usage in JavaScript files and compile the css. The compiled css will have the name of the JS entrypoint (but with a .css extension).
+
+Once those packages are installed, 10up-toolkit will now look for any Linaria usage in JavaScript files and compile the CSS. The compiled CSS will have the name of the JS entry point (but with a .css extension).
 
 For instance, if you have a block with the following `block.json`
 
