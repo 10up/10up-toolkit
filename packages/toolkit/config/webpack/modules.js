@@ -39,7 +39,7 @@ function shouldExclude(input, include) {
 	let shouldInclude = false;
 
 	include.forEach((includedInput) => {
-		if (input.includes(includedInput)) {
+		if (input.includes(includedInput) || input.includes(includedInput.replace(/\//g, '\\'))) {
 			shouldInclude = true;
 		}
 	});
