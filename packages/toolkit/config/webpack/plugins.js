@@ -114,7 +114,10 @@ module.exports = ({
 
 				if (!isBlockAsset) {
 					if (useBlockAssets) {
-						isBlockAsset = buildFiles[options.chunk.name].match(/\/blocks\//);
+						isBlockAsset =
+							// match windows and posix paths
+							buildFiles[options.chunk.name].match(/\/blocks?\//) ||
+							buildFiles[options.chunk.name].match(/\\blocks?\\/);
 					} else {
 						isBlockAsset = options.chunk.name.match(/-block$/);
 					}
