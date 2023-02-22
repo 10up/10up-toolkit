@@ -103,12 +103,18 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				// with the react fast refresh plugin
-				// we cannot always assume there's a single entry module
-				// so we need to check if any of the entry modules are relative to blocksSourceDiretory
-				const entryModules = options.chunk.getModules().filter((module) => {
-					return module.isEntryModule();
-				});
+				let entryModules = [];
+				try {
+					// with the react fast refresh plugin
+					// we cannot always assume there's a single entry module
+					// so we need to check if any of the entry modules are relative to blocksSourceDiretory
+					entryModules = options.chunk.getModules().filter((module) => {
+						return module.isEntryModule();
+					});
+				} catch (e) {
+					// if it failed it's bc there's only one entryModule
+					entryModules.push(options.chunk.entryModule);
+				}
 
 				let isBlockAsset = entryModules.some((module) => {
 					const fullPath = module.resource;
