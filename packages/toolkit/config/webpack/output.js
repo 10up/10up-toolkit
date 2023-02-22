@@ -30,9 +30,11 @@ module.exports = ({
 			if (pathData.chunk.name === 'runtime') {
 				return 'fast-refresh/hmr-runtime.js';
 			}
-			return buildFiles[pathData.chunk.name].match(/\/blocks?\//)
-				? filenames.block
-				: filenames.js;
+			// match windows and posix paths
+			const isBlockAsset =
+				buildFiles[pathData.chunk.name].match(/\/blocks?\//) ||
+				buildFiles[pathData.chunk.name].match(/\\blocks?\\/);
+			return isBlockAsset ? filenames.block : filenames.js;
 		},
 	};
 };

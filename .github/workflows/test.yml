@@ -29,7 +29,7 @@ jobs:
           - os: macos-latest
             node: 18
           - os: windows-latest
-            node: 16
+            node: 18
           - node: 16
             is_base_node_version: true
           - node: 14

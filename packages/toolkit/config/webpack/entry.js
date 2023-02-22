@@ -21,9 +21,13 @@ module.exports = ({
 		const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
 
 		// get all block.json files in the blocks directory
-		const blockMetadataFiles = glob(`${blocksSourceDirectory}/**/block.json`, {
-			absolute: true,
-		});
+		const blockMetadataFiles = glob(
+			// glob only accepts forward-slashes this is required to make things work on Windows
+			`${blocksSourceDirectory.replace(/\\/g, '/')}/**/block.json`,
+			{
+				absolute: true,
+			},
+		);
 
 		// add any additional entrypoints we find in block.json filed to the webpack config
 		additionalEntrypoints = blockMetadataFiles.reduce((accumulator, blockMetadataFile) => {
@@ -55,7 +59,11 @@ module.exports = ({
 
 						// Detects the proper file extension used in the defined source directory.
 						const [entryFilepath] = glob(
-							`${blocksSourceDirectory}/${entryName}.([jt]s?(x)|?(s)css)`,
+							// glob only accepts forward-slashes this is required to make things work on Windows
+							`${blocksSourceDirectory.replace(
+								/\\/g,
+								'/',
+							)}/${entryName}.([jt]s?(x)|?(s)css)`,
 							{
 								absolute: true,
 							},
