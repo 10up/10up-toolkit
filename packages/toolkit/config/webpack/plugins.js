@@ -106,7 +106,10 @@ module.exports = ({
 				const fullPath = options.chunk.entryModule.resource;
 
 				let isBlockAsset = fullPath
-					? !path.relative(blocksSourceDirectory, fullPath).startsWith('../')
+					? !path
+							.relative(blocksSourceDirectory, fullPath)
+							// startWith('../') but in a cross-env way
+							.startsWith(path.join('..', '/'))
 					: false;
 
 				if (!isBlockAsset) {
