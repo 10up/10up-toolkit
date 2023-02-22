@@ -196,6 +196,7 @@ module.exports = ({
 		hasReactFastRefresh &&
 			new ReactRefreshWebpackPlugin({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
+				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),
 	].filter(Boolean);
 };

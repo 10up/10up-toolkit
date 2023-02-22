@@ -17,14 +17,18 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
+    "@linaria/babel-preset": "^4.3.3",
+    "@linaria/webpack-loader": "^4.1.11",
     "@wordpress/env": "^5.0.0",
     "10up-toolkit": "^5.0.0"
   },
   "dependencies": {
+    "@10up/block-components": "1.7.0",
     "@10up/component-accordion": "^2.1.5",
+    "@linaria/core": "^4.2.5",
+    "@linaria/react": "^4.3.3",
     "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2",
-    "@10up/block-components": "1.7.0"
+    "prop-types": "^15.7.2"
   },
   "10up-toolkit": {
     "devURL": "https://my-project.test",
