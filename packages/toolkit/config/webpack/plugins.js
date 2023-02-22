@@ -103,14 +103,33 @@ module.exports = ({
 					return removeDistFolder(style);
 				}
 
-				const fullPath = options.chunk.entryModule.resource;
+				let entryModules = [];
+				try {
+					// with the react fast refresh plugin
+					// we cannot always assume there's a single entry module
+					// so we need to check if any of the entry modules are relative to blocksSourceDiretory
+					entryModules = options.chunk.getModules().filter((module) => {
+						return module.isEntryModule();
+					});
+				} catch (e) {
+					try {
+						// if it failed it's bc there's only one entryModule
+						entryModules.push(options.chunk.entryModule);
+					} catch (e) {
+						entryModules = [];
+					}
+				}
 
-				let isBlockAsset = fullPath
-					? !path
-							.relative(blocksSourceDirectory, fullPath)
-							// startWith('../') but in a cross-env way
-							.startsWith(path.join('..', '/'))
-					: false;
+				let isBlockAsset = entryModules.some((module) => {
+					const fullPath = module.resource;
+
+					return fullPath
+						? !path
+								.relative(blocksSourceDirectory, fullPath)
+								// startWith('../') but in a cross-env way
+								.startsWith(path.join('..', '/'))
+						: false;
+				});
 
 				if (!isBlockAsset) {
 					if (useBlockAssets) {
