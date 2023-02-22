@@ -1,5 +1,20 @@
 # Changelog
 
+## 5.1.0-next.0
+
+### Minor Changes
+
+- 799afd5: Introduce support for Linaria (css-in-js) in toolkit.
+- b682822: maybe insert style version hash to dist block.json files
+
+### Patch Changes
+
+- 7ee697b: Ensuring stylelint supports SCSS in a separate ruleset
+- cb5d528: Fix: checking chunk path for block decision.
+  Fix: Windows related issues
+- Updated dependencies [7ee697b]
+  - @10up/stylelint-config@2.0.4-next.0
+
 ## 5.0.0
 
 ### Patch Changes

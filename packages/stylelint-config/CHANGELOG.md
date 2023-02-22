@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4-next.0
+
+### Patch Changes
+
+- 7ee697b: Ensuring stylelint supports SCSS in a separate ruleset
+
 ## 2.0.3
 
 ### Patch Changes
