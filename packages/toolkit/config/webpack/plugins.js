@@ -112,8 +112,12 @@ module.exports = ({
 						return module.isEntryModule();
 					});
 				} catch (e) {
-					// if it failed it's bc there's only one entryModule
-					entryModules.push(options.chunk.entryModule);
+					try {
+						// if it failed it's bc there's only one entryModule
+						entryModules.push(options.chunk.entryModule);
+					} catch (e) {
+						entryModules = [];
+					}
 				}
 
 				let isBlockAsset = entryModules.some((module) => {
