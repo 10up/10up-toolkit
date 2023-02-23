@@ -1,0 +1,20 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@10up/babel-preset-default": "2.0.4",
+    "@10up/eslint-config": "3.0.0",
+    "@10up/eslint-plugin": "2.0.0",
+    "@10up/stylelint-config": "2.0.3",
+    "10up-toolkit": "5.0.0",
+    "tenup-theme": "1.1.5-next.7",
+    "@10up/component-accordion": "2.1.5",
+    "@10up/library-ts-test": "2.1.5"
+  },
+  "changesets": [
+    "chilly-pandas-hear",
+    "olive-flowers-work",
+    "smart-pumas-teach",
+    "ten-gifts-beam"
+  ]
+}

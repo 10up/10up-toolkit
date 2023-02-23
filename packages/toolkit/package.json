@@ -13,14 +13,14 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "5.0.0",
+  "version": "5.1.0-next.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
   "dependencies": {
     "@babel/core": "^7.17.8",
     "@babel/eslint-parser": "^7.17.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "https://github.com/nicholasio/react-refresh-webpack-plugin.git",
     "@svgr/webpack": "^6.2.1",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
@@ -49,7 +49,7 @@
     "postcss-mixins": "^9.0.2",
     "postcss-preset-env": "^7.4.3",
     "prettier": "2.6.2",
-    "react-refresh": "^0.12.0",
+    "react-refresh": "^0.14.0",
     "read-pkg": "^5.2.0",
     "read-pkg-up": "^7.0.1",
     "resolve-bin": "^1.0.0",
@@ -71,13 +71,23 @@
   "devDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
     "@10up/eslint-config": "^3.0.0",
-    "@10up/stylelint-config": "^2.0.2",
+    "@10up/stylelint-config": "^2.0.4-next.0",
     "glob": "^7.2.0"
   },
   "peerDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
     "@10up/eslint-config": "^3.0.0",
-    "@10up/stylelint-config": ">=2.0.3"
+    "@10up/stylelint-config": ">=2.0.4-next.0",
+    "@linaria/webpack-loader": "^4.1.11",
+    "@linaria/babel-preset": "^4.3.3"
+  },
+  "peerDependenciesMeta": {
+    "@linaria/webpack-loader": {
+      "optional": true
+    },
+    "@linaria/babel-preset": {
+      "optional": true
+    }
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {

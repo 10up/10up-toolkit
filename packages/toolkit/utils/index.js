@@ -32,6 +32,8 @@ const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = requir
 
 const { displayWebpackStats } = require('./webpack');
 
+const { maybeInsertStyleVersionHash } = require('./blocks');
+
 module.exports = {
 	fromProjectRoot,
 	fromConfigRoot,
@@ -61,4 +63,5 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	maybeInsertStyleVersionHash,
 };

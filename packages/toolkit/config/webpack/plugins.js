@@ -19,6 +19,7 @@ const {
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
+	maybeInsertStyleVersionHash,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
@@ -97,15 +98,49 @@ module.exports = ({
 
 		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
-			// esModule: false,
 			filename: (options) => {
 				if (isPackage) {
 					return removeDistFolder(style);
 				}
 
-				const isBlockAsset = useBlockAssets
-					? buildFiles[options.chunk.name].match(/\/blocks\//)
-					: options.chunk.name.match(/-block$/);
+				let entryModules = [];
+				try {
+					// with the react fast refresh plugin
+					// we cannot always assume there's a single entry module
+					// so we need to check if any of the entry modules are relative to blocksSourceDiretory
+					entryModules = options.chunk.getModules().filter((module) => {
+						return module.isEntryModule();
+					});
+				} catch (e) {
+					try {
+						// if it failed it's bc there's only one entryModule
+						entryModules.push(options.chunk.entryModule);
+					} catch (e) {
+						entryModules = [];
+					}
+				}
+
+				let isBlockAsset = entryModules.some((module) => {
+					const fullPath = module.resource;
+
+					return fullPath
+						? !path
+								.relative(blocksSourceDirectory, fullPath)
+								// startWith('../') but in a cross-env way
+								.startsWith(path.join('..', '/'))
+						: false;
+				});
+
+				if (!isBlockAsset) {
+					if (useBlockAssets) {
+						isBlockAsset =
+							// match windows and posix paths
+							buildFiles[options.chunk.name].match(/\/blocks?\//) ||
+							buildFiles[options.chunk.name].match(/\\blocks?\\/);
+					} else {
+						isBlockAsset = options.chunk.name.match(/-block$/);
+					}
+				}
 
 				return isBlockAsset ? filenames.blockCSS : filenames.css;
 			},
@@ -124,12 +159,17 @@ module.exports = ({
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/block.json').replace(/\\/g, '/'),
-						context: path.resolve(process.cwd(), paths.blocksDir),
+						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
+						transform: (content, absoluteFilename) => {
+							return maybeInsertStyleVersionHash(content, absoluteFilename);
+						},
 					},
 					useBlockAssets && {
 						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
-						context: path.resolve(process.cwd(), paths.blocksDir),
+						context: blocksSourceDirectory,
+						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
 					},
 					hasReactFastRefresh && {
@@ -175,6 +215,7 @@ module.exports = ({
 		hasReactFastRefresh &&
 			new ReactRefreshWebpackPlugin({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
+				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),
 	].filter(Boolean);
 };

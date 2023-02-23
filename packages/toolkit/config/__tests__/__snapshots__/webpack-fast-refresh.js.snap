@@ -41,11 +41,21 @@ Object {
         "exclude": input => shouldExclude(input, include),
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": Array [
-          "/node_modules/thread-loader/dist/cjs.js",
+          Object {
+            "loader": "/config/webpack/plugins/noop-loader.js",
+          },
           Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
               "cacheDirectory": true,
+            },
+          },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {},
+              "extension": ".linaria.module.css",
+              "sourceMap": true,
             },
           },
         ],
@@ -58,7 +68,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -80,7 +93,10 @@ Object {
         ],
       },
       Object {
-        "exclude": /\\\\\\.module\\\\\\.css\\$/,
+        "exclude": Array [
+          /\\\\\\.module\\\\\\.css\\$/,
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": Array [
           Object {
@@ -108,6 +124,9 @@ Object {
         ],
       },
       Object {
+        "exclude": Array [
+          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+        ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": Array [
           Object {
@@ -136,6 +155,17 @@ Object {
           },
         ],
       },
+      Object {
+        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+        "use": Array [
+          Object {
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          },
+          Object {
+            "loader": "css-loader",
+          },
+        ],
+      },
     ],
   },
   "optimization": Object {
@@ -154,7 +184,9 @@ Object {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
       }
-      return buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) ? filenames.block : filenames.js;
+      // match windows and posix paths
+      const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
+      return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
   },
@@ -173,7 +205,7 @@ Object {
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
     TenUpToolkitTscPlugin: {},
-    ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":8000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":{},"include":{}},
+    ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":8000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":[{},{}],"include":{}},
   ],
   "resolve": Object {
     "alias": Object {

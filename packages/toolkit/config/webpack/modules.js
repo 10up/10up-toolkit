@@ -1,6 +1,7 @@
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
+const { isPackageInstalled } = require('../../utils/package');
 
 const getCSSLoaders = ({ options, postcss, sass }) => {
 	// Note that the order of loaders is important. The loaders are applied from right to left.
@@ -38,7 +39,7 @@ function shouldExclude(input, include) {
 	let shouldInclude = false;
 
 	include.forEach((includedInput) => {
-		if (input.includes(includedInput)) {
+		if (input.includes(includedInput) || input.includes(includedInput.replace(/\//g, '\\'))) {
 			shouldInclude = true;
 		}
 	});
@@ -52,6 +53,9 @@ function shouldExclude(input, include) {
 	return /node_modules/.test(input);
 }
 
+const LINARIA_EXTENSION = '.linaria.module.css';
+const LINARIA_EXTENSION_REGEXP = /\.linaria\.module\.css/;
+
 module.exports = ({
 	isProduction,
 	isPackage,
@@ -59,6 +63,44 @@ module.exports = ({
 	projectConfig: { wordpress, hot, include },
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
+
+	// Provide a default configuration if there's not
+	// one explicitly available in the project.
+	const babelConfig = !hasBabelConfig()
+		? {
+				babelrc: false,
+				configFile: false,
+				sourceType: 'unambiguous',
+				plugins: [hasReactFastRefresh && require.resolve('react-refresh/babel')].filter(
+					Boolean,
+				),
+				presets: [
+					[
+						require.resolve('@10up/babel-preset-default'),
+						{
+							wordpress,
+							useBuiltIns: isPackage ? false : 'usage',
+							targets: defaultTargets,
+						},
+					],
+				],
+		  }
+		: {};
+
+	if (isPackageInstalled('@linaria/babel-preset') && !hasBabelConfig()) {
+		babelConfig.presets.push([
+			'@linaria',
+			{
+				babelOptions: {
+					babelrc: false,
+					configFile: false,
+					sourceType: 'unambiguous',
+					presets: [...babelConfig.presets],
+				},
+			},
+		]);
+	}
+
 	return {
 		rules: [
 			{
@@ -66,7 +108,9 @@ module.exports = ({
 				test: /^(?!.*\.d\.tsx?$).*\.[tj]sx?$/,
 				exclude: (input) => shouldExclude(input, include),
 				use: [
-					require.resolve('thread-loader'),
+					{
+						loader: require.resolve('./plugins/noop-loader'),
+					},
 					{
 						loader: require.resolve('babel-loader'),
 						options: {
@@ -74,30 +118,18 @@ module.exports = ({
 							// by default. Use the environment variable option
 							// to enable more persistent caching.
 							cacheDirectory: process.env.BABEL_CACHE_DIRECTORY || true,
-
-							// Provide a fallback configuration if there's not
-							// one explicitly available in the project.
-							...(!hasBabelConfig() && {
-								babelrc: false,
-								configFile: false,
-								sourceType: 'unambiguous',
-								presets: [
-									[
-										require.resolve('@10up/babel-preset-default'),
-										{
-											wordpress,
-											useBuiltIns: isPackage ? false : 'usage',
-											targets: defaultTargets,
-										},
-									],
-								],
-								plugins: [
-									hasReactFastRefresh && require.resolve('react-refresh/babel'),
-								].filter(Boolean),
-							}),
+							...babelConfig,
 						},
 					},
-				],
+					isPackageInstalled('@linaria/webpack-loader') && {
+						loader: '@linaria/webpack-loader',
+						options: {
+							sourceMap: process.env.NODE_ENV !== 'production',
+							extension: LINARIA_EXTENSION,
+							babelOptions: babelConfig,
+						},
+					},
+				].filter(Boolean),
 			},
 			{
 				test: /\.svg$/,
@@ -113,7 +145,7 @@ module.exports = ({
 					postcss: true,
 					sass: false,
 				}),
-				exclude: /\.module\.css$/,
+				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP],
 			},
 			{
 				test: /\.(sc|sa)ss$/,
@@ -127,7 +159,7 @@ module.exports = ({
 						sass: true,
 					}),
 				],
-				exclude: /\.module\.css$/,
+				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP],
 			},
 			{
 				test: /\.module\.css$/,
@@ -142,6 +174,16 @@ module.exports = ({
 						postcss: true,
 						sass: true,
 					}),
+				],
+				exclude: [/\.linaria\.module\.css$/],
+			},
+			{
+				test: LINARIA_EXTENSION_REGEXP,
+				use: [
+					{ loader: MiniCSSExtractPlugin.loader },
+					{
+						loader: 'css-loader',
+					},
 				],
 			},
 			// when in package module only include referenced resources
