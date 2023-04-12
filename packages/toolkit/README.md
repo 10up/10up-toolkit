@@ -210,7 +210,7 @@ By default, the source directory for blocks is `./includes/blocks/`. This can be
 
 ### WordPress Editor Styles
 
-By default, 10up-toolkit will scope any css file named `editor-styles.css` files with the
+By default, 10up-toolkit will scope any css file named `editor-style.css` files with the
 `.editor-styles-wrapper` class. Take a look at the default [postcss config](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/config/postcss.config.js#L21) for more information.
 
 ## <a id="fast-refresh"></a>HMR and Fast Refresh
@@ -558,7 +558,7 @@ Refer to <Link to="/10up-toolkit/linting">linting docs</Link> for more informati
 To customize the PostCSS config, create a `postcss.config.js` at the root of your project. When overriding the PostCSS config, keep in mind
 that the default config is exported as a **function**.
 
-The example below modifies the ignored list of the `editor-styles` plugin when processing the `editor-styles.css` file.
+The example below modifies the ignored list of the `editor-styles` plugin when processing the `editor-style.css` file.
 
 ```javascript
 const baseConfig = require('10up-toolkit/config/postcss.config.js');
