@@ -48,8 +48,8 @@
 		"node": "^16 || >=18"
 	},
 	"peerDependencies": {
-		"@babel/core": "^7.20.12",
-		"@babel/eslint-parser": "^7.19.1",
+		"@babel/core": "^7.21.4",
+		"@babel/eslint-parser": "^7.21.3",
 		"@wordpress/eslint-plugin": "^13.10.0",
 		"eslint": "^7.32.0 || ^8.0.0",
 		"eslint-config-airbnb": "^19.0.4",
@@ -57,7 +57,7 @@
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-import": "^2.27.5",
 		"eslint-plugin-jest": "^27.2.1",
-		"eslint-plugin-jsdoc": "^39.8.0",
+		"eslint-plugin-jsdoc": "^39.9.1",
 		"eslint-plugin-jsx-a11y": "^6.7.1",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",
