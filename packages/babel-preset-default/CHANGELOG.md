@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0-next.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+
 ## 2.0.4
 
 ### Patch Changes

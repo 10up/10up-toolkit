@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.0-next.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+
+### Patch Changes
+
+- Updated dependencies [f3122e4]
+  - @10up/babel-preset-default@2.1.0-next.0
+
 ## 3.0.0
 
 ### Major Changes
