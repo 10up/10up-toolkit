@@ -4,13 +4,11 @@ import fs from 'fs';
 import path from 'path';
 
 describe('build a project (without useBlockAssets)', () => {
-	beforeAll(() => {
+	it('builds and compiles js and css', async () => {
 		spawn.sync('node', ['../../scripts/build'], {
 			cwd: __dirname,
 		});
-	});
 
-	it('builds and compiles js and css', async () => {
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.js'))).toBeTruthy();
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.asset.php'))).toBeTruthy();
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'frontend.js'))).toBeTruthy();
@@ -24,6 +22,9 @@ describe('build a project (without useBlockAssets)', () => {
 	});
 
 	it('adds react dependencies to .asset.php files', () => {
+		spawn.sync('node', ['../../scripts/build'], {
+			cwd: __dirname,
+		});
 		const frontendAssetPHP = fs
 			.readFileSync(path.join(__dirname, 'dist', 'js', 'frontend.asset.php'))
 			.toString();
@@ -34,6 +35,9 @@ describe('build a project (without useBlockAssets)', () => {
 	});
 
 	it('extracts css imported in js files', () => {
+		spawn.sync('node', ['../../scripts/build'], {
+			cwd: __dirname,
+		});
 		// chunk name for css imported in js matches the js entry point
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'css', 'admin.css'))).toBeTruthy();
 
@@ -51,7 +55,7 @@ describe('build a project (without useBlockAssets)', () => {
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.js')),
 		).toBeTruthy();
 
-		// css is eing imported from editor.js so its name should be editor.css
+		// css is being imported from editor.js so its name should be editor.css
 		expect(
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.css')),
 		).toBeTruthy();
