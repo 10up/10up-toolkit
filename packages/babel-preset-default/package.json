@@ -26,22 +26,22 @@
   },
   "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/babel-preset-default#readme",
   "dependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/helper-plugin-utils": "^7.20.2",
-    "@babel/plugin-transform-react-jsx": "^7.21.0",
-    "@babel/preset-env": "^7.21.4",
+    "@babel/core": "^7.21.8",
+    "@babel/helper-plugin-utils": "^7.21.5",
+    "@babel/plugin-transform-react-jsx": "^7.21.5",
+    "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.18.6",
-    "@babel/preset-typescript": "^7.21.4",
-    "@babel/runtime": "^7.21.0",
-    "@wordpress/babel-plugin-import-jsx-pragma": "^4.14.0",
+    "@babel/preset-typescript": "^7.21.5",
+    "@babel/runtime": "^7.21.5",
+    "@wordpress/babel-plugin-import-jsx-pragma": "^4.16.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "core-js": "^3.30.1"
+    "core-js": "^3.30.2"
   },
   "devDependencies": {
     "@10up/eslint-config": "^3.0.0",
-    "@wordpress/element": "^4.0.4",
-    "babel-jest": "^27.3.1",
-    "eslint": "^8.0.0",
-    "jest": "^27.3.1"
+    "@wordpress/element": "^4.20.0",
+    "babel-jest": "^27.5.1",
+    "eslint": "^8.40.0",
+    "jest": "^27.5.1"
   }
 }

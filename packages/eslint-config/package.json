@@ -41,7 +41,7 @@
 		"@10up/babel-preset-default": "^2.0.4"
 	},
 	"devDependencies": {
-		"eslint": "^8.0.0",
+		"eslint": "^8.40.0",
 		"prettier": "^2.4.1"
 	},
 	"engines": {
