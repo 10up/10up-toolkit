@@ -1,6 +1,6 @@
 {
   "name": "@10up/babel-preset-default",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "10up's default babel preset",
   "publishConfig": {
     "access": "public"
@@ -38,7 +38,7 @@
     "core-js": "^3.30.2"
   },
   "devDependencies": {
-    "@10up/eslint-config": "^3.0.0",
+    "@10up/eslint-config": "^3.1.0",
     "@wordpress/element": "^4.20.0",
     "babel-jest": "^27.5.1",
     "eslint": "^8.40.0",

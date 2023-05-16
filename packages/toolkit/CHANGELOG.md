@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.2.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+  Better error messages when svg parsing fails
+
 ## 5.1.0
 
 ### Minor Changes
