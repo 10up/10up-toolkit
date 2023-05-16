@@ -48,7 +48,7 @@
     "postcss-loader": "^7.3.0",
     "postcss-mixins": "^9.0.4",
     "postcss-preset-env": "^7.8.3",
-    "prettier": "2.8.8",
+    "prettier": "2.6.2",
     "react-refresh": "^0.14.0",
     "read-pkg": "^5.2.0",
     "read-pkg-up": "^7.0.1",
