@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "5.1.0",
+  "version": "6.0.0-next.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -68,13 +68,13 @@
     "webpackbar": "^5.0.2"
   },
   "devDependencies": {
-    "@10up/babel-preset-default": "^2.0.4",
-    "@10up/eslint-config": "^3.0.0",
+    "@10up/babel-preset-default": "^2.1.0-next.0",
+    "@10up/eslint-config": "^3.1.0-next.0",
     "@10up/stylelint-config": "^2.0.4"
   },
   "peerDependencies": {
-    "@10up/babel-preset-default": "^2.0.4",
-    "@10up/eslint-config": "^3.0.0",
+    "@10up/babel-preset-default": "^2.1.0-next.0",
+    "@10up/eslint-config": "^3.1.0-next.0",
     "@10up/stylelint-config": ">=2.0.4",
     "@linaria/webpack-loader": "^4.1.11",
     "@linaria/babel-preset": "^4.3.3"

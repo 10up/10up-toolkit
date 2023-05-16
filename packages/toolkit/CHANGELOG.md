@@ -1,5 +1,18 @@
 # Changelog
 
+## 6.0.0-next.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+  Better error messages when svg parsing fails
+
+### Patch Changes
+
+- Updated dependencies [f3122e4]
+  - @10up/babel-preset-default@2.1.0-next.0
+  - @10up/eslint-config@3.1.0-next.0
+
 ## 5.1.0
 
 ### Minor Changes
