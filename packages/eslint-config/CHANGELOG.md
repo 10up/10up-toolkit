@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+  Better error messages when svg parsing fails
+
+### Patch Changes
+
+- Updated dependencies [f3122e4]
+  - @10up/babel-preset-default@2.1.0
+
 ## 3.0.0
 
 ### Major Changes

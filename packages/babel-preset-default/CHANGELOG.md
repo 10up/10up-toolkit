@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.0
+
+### Minor Changes
+
+- f3122e4: Updating several dependencies
+  Better error messages when svg parsing fails
+
 ## 2.0.4
 
 ### Patch Changes
