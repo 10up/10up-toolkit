@@ -5,3 +5,4 @@
 ---
 
 Updating several dependencies
+Better error messages when svg parsing fails
