@@ -167,7 +167,7 @@ module.exports = ({
 						},
 					},
 					useBlockAssets && {
-						from: path.join(blocksSourceDirectory, '**/markup.php').replace(/\\/g, '/'),
+						from: path.join(blocksSourceDirectory, '**/*.php').replace(/\\/g, '/'),
 						context: blocksSourceDirectory,
 						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
