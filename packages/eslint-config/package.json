@@ -41,6 +41,7 @@
 		"@10up/babel-preset-default": "^2.1.0"
 	},
 	"devDependencies": {
+		"@wordpress/eslint-plugin": "^14.9.0",
 		"eslint": "^8.40.0",
 		"prettier": "^2.4.1"
 	},
@@ -50,7 +51,7 @@
 	"peerDependencies": {
 		"@babel/core": "^7.21.4",
 		"@babel/eslint-parser": "^7.21.3",
-		"@wordpress/eslint-plugin": "^13.10.0",
+		"@wordpress/eslint-plugin": "^14.9.0",
 		"eslint": "^7.32.0 || ^8.0.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-airbnb-base": "^15.0.0",
