@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.2.1-next.1
+
+### Patch Changes
+
+- a930021: Fix: prettier peerDependency range
+- Updated dependencies [a930021]
+  - @10up/eslint-config@3.1.1-next.0
+
 ## 5.2.1-next.0
 
 ### Patch Changes

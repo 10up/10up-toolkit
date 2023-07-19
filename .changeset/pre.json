@@ -12,6 +12,7 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "good-buttons-glow",
     "wicked-frogs-jog"
   ]
 }

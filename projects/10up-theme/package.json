@@ -20,7 +20,7 @@
     "@linaria/babel-preset": "^4.3.3",
     "@linaria/webpack-loader": "^4.1.11",
     "@wordpress/env": "^5.0.0",
-    "10up-toolkit": "^5.2.1-next.0"
+    "10up-toolkit": "^5.2.1-next.1"
   },
   "dependencies": {
     "@10up/block-components": "1.7.0",

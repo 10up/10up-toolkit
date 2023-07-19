@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@10up/babel-preset-default": "^2.0.4",
-		"@10up/eslint-config": "^3.0.0"
+		"@10up/eslint-config": "^3.1.1-next.0"
 	},
 	"peerDependencies": {
 		"@babel/core": ">=7",
