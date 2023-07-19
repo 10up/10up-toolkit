@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.1
+
+### Patch Changes
+
+- a930021: Fix: prettier peerDependency range
+
 ## 3.1.1-next.0
 
 ### Patch Changes

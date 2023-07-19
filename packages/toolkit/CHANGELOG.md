@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.2.1
+
+### Patch Changes
+
+- a930021: Fix: prettier peerDependency range
+- d3e6078: fix coply all php files inside the blocks directory into dist
+
 ## 5.2.1-next.1
 
 ### Patch Changes
