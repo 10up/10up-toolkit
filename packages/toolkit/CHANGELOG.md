@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.1-next.1
+
+### Patch Changes
+
+- a930021: Fix: prettier peerDependency range
+- Updated dependencies [a930021]
+  - @10up/eslint-config@3.1.1-next.0
+
+## 5.2.1-next.0
+
+### Patch Changes
+
+- d3e6078: fix coply all php files inside the blocks directory into dist
+
 ## 5.2.0
 
 ### Minor Changes
