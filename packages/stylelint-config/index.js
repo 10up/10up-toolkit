@@ -13,5 +13,11 @@ module.exports = {
 		'selector-nested-pattern': ['^&'],
 		'no-descending-specificity': null,
 		'at-rule-no-unknown': [true, { ignoreAtRules: ['mixin', 'define-mixin'] }],
+		'custom-property-pattern': [
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^wp--([a-z][a-z0-9]*)(--[a-z0-9]+)*$',
+			{
+				message: 'Expected custom property name to be kebab-case or wp--kebab--case',
+			},
+		],
 	},
 };
