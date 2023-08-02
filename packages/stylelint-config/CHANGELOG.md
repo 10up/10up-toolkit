@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.5-next.0
+
+### Patch Changes
+
+- b172081: Fixes validation for `--wp--some--property` for custom properties
+  Fixes usage of `currentcolor` vs `currentColor`
+
 ## 2.0.4
 
 ### Patch Changes
