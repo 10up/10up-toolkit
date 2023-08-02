@@ -26,6 +26,7 @@
     "@typescript-eslint/parser": "^5.59.6",
     "@wordpress/dependency-extraction-webpack-plugin": "^4.16.0",
     "@wordpress/jest-console": "^6.11.0",
+    "@wordpress/eslint-plugin": "13.10.0",
     "babel-jest": "^27.5.1",
     "babel-loader": "^9.1.2",
     "camelcase": "^6.3.0",
