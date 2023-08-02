@@ -4,7 +4,7 @@ module.exports = {
 	rules: {
 		'scale-unlimited/declaration-strict-value': [
 			'/color/',
-			{ ignoreValues: ['currentColor', 'inherit', 'initial', 'transparent', 'unset'] },
+			{ ignoreValues: ['currentcolor', 'inherit', 'initial', 'transparent', 'unset'] },
 		],
 		'order/properties-alphabetical-order': true,
 		'function-url-quotes': 'always',
