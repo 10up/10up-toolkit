@@ -23,6 +23,12 @@ module.exports = {
 				ignore: ['stylelint-commands'],
 			},
 		],
+		'custom-property-pattern': [
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^wp--([a-z][a-z0-9]*)(--[a-z0-9]+)*$',
+			{
+				message: 'Expected custom property name to be kebab-case or wp--kebab--case',
+			},
+		],
 		'declaration-block-no-duplicate-properties': [
 			true,
 			{
@@ -59,14 +65,7 @@ module.exports = {
 		'scale-unlimited/declaration-strict-value': [
 			'/color/',
 			{
-				ignoreValues: [
-					'currentColor',
-					'currentcolor',
-					'inherit',
-					'initial',
-					'transparent',
-					'unset',
-				],
+				ignoreValues: ['currentcolor', 'inherit', 'initial', 'transparent', 'unset'],
 			},
 		],
 		'selector-attribute-quotes': 'always',
