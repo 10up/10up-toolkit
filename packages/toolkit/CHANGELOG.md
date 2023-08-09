@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.2
+
+### Patch Changes
+
+- d3ea57e: install @wordpress/eslint-plugin in toolkit by default
+
 ## 5.2.2-next.0
 
 ### Patch Changes
