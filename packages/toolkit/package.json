@@ -13,7 +13,7 @@
     "url": "git+https://github.com/10up/10up-toolkit.git",
     "directory": "packages/toolkit"
   },
-  "version": "5.2.1",
+  "version": "5.2.2-next.0",
   "bin": {
     "10up-toolkit": "bin/10up-toolkit.js"
   },
@@ -26,6 +26,7 @@
     "@typescript-eslint/parser": "^5.59.6",
     "@wordpress/dependency-extraction-webpack-plugin": "^4.16.0",
     "@wordpress/jest-console": "^6.11.0",
+    "@wordpress/eslint-plugin": "^13.10.0",
     "babel-jest": "^27.5.1",
     "babel-loader": "^9.1.2",
     "camelcase": "^6.3.0",
@@ -70,12 +71,12 @@
   "devDependencies": {
     "@10up/babel-preset-default": "^2.1.0",
     "@10up/eslint-config": "^3.1.1",
-    "@10up/stylelint-config": "^2.0.4"
+    "@10up/stylelint-config": "^2.0.5-next.0"
   },
   "peerDependencies": {
     "@10up/babel-preset-default": "^2.0.4",
-    "@10up/eslint-config": "^3.1.1-next.0",
-    "@10up/stylelint-config": ">=2.0.4",
+    "@10up/eslint-config": "^3.1.1",
+    "@10up/stylelint-config": ">=2.0.5-next.0",
     "@linaria/webpack-loader": "^4.1.11",
     "@linaria/babel-preset": "^4.3.3"
   },
