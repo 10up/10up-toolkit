@@ -270,11 +270,13 @@ const fs = require('fs')
 // Customize this to the appropriate path to your certificate folder
 const certPath = '/Users/youruser/.config/valet'
 
-
-config.devServer.https = {
-	key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
-	cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
-	ca: fs.readFileSync(`${certPath}/CA/LaravelValetCASelfSigned.pem`),
+// Check if devServer is in use and if so, modify the cert files used
+if( typeof config.devServer === 'object ) {
+  config.devServer.https = {
+    key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
+    cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
+    ca: fs.readFileSync(`${certPath}/CA/LaravelValetCASelfSigned.pem`),
+  }
 }
 
 module.exports = config;
