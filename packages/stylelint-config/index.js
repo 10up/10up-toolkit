@@ -141,6 +141,7 @@ module.exports = {
 			'lower',
 			{
 				camelCaseSvgKeywords: true,
+				ignoreKeywords: ['currentcolor'],
 			},
 		],
 	},
