@@ -41,15 +41,15 @@
 		"node": "^16.0.0 || ^18.0.0 || ^20.0.0"
 	},
 	"devDependencies": {
-		"@10up/eslint-config": "^3.1.0"
+		"@10up/eslint-config": "^3.1.1"
 	},
 	"peerDependencies": {
 		"stylelint": "^15.0.0"
 	},
 	"dependencies": {
-		"stylelint-config-recommended": "^12.0.0",
+		"stylelint-config-recommended": "^13.0.0",
 		"stylelint-declaration-strict-value": "^1.9.2",
 		"stylelint-order": "^6.0.3",
-		"stylelint-stylistic": "^0.4.2"
+		"stylelint-stylistic": "^0.4.3"
 	}
 }
