@@ -103,4 +103,6 @@
     "scripts"
   ],
   "license": "GPL-2.0-or-later"
+		"node": "^18 || >= 20",
+		"npm": ">=9.0"
 }
