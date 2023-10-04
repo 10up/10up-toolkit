@@ -43,12 +43,12 @@
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.7.5",
     "minimist": "^1.2.8",
-    "postcss": "^8.4.23",
-    "postcss-editor-styles": "^0.3.0",
-    "postcss-import": "^14.1.0",
-    "postcss-loader": "^7.3.0",
+    "postcss": "^8.4.31",
+    "postcss-editor-styles-wrapper": "^1.0.1",
+    "postcss-import": "^15.1.0",
+    "postcss-loader": "^7.3.3",
     "postcss-mixins": "^9.0.4",
-    "postcss-preset-env": "^7.8.3",
+    "postcss-preset-env": "^9.1.4",
     "prettier": "2.6.2",
     "react-refresh": "^0.14.0",
     "read-pkg": "^5.2.0",
@@ -62,9 +62,9 @@
     "svgo": "^3.0.2",
     "typescript": "^5.0.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.82.1",
-    "webpack-bundle-analyzer": "^4.8.0",
-    "webpack-dev-server": "^4.15.0",
+    "webpack": "^5.88.2",
+    "webpack-bundle-analyzer": "^4.9.1",
+    "webpack-dev-server": "^4.15.1",
     "webpack-sources": "^3.2.3",
     "webpackbar": "^5.0.2"
   },
@@ -74,11 +74,11 @@
     "@10up/stylelint-config": "^2.0.5"
   },
   "peerDependencies": {
-    "@10up/babel-preset-default": "^2.0.4",
+    "@10up/babel-preset-default": "^2.1.0",
     "@10up/eslint-config": "^3.1.1",
     "@10up/stylelint-config": ">=2.0.5-next.0",
-    "@linaria/webpack-loader": "^4.1.11",
-    "@linaria/babel-preset": "^4.3.3"
+    "@linaria/webpack-loader": "^5.0.3",
+    "@linaria/babel-preset": "^5.0.3"
   },
   "peerDependenciesMeta": {
     "@linaria/webpack-loader": {

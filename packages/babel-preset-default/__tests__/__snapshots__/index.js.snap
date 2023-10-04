@@ -78,6 +78,7 @@ Object.defineProperty(exports, \\"__esModule\\", {
 });
 exports.default = void 0;
 var _react = require(\\"react\\");
+var _jsxRuntime = require(\\"react/jsx-runtime\\");
 // eslint-disable-line import/no-extraneous-dependencies
 // eslint-disable-line import/no-extraneous-dependencies
 
@@ -85,12 +86,18 @@ const FCComponent = ({
   title,
   url,
   description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, /*#__PURE__*/React.createElement(\\"a\\", {
-  href: url,
-  title: title
-}, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
+}) => /*#__PURE__*/(0, _jsxRuntime.jsxs)(\\"div\\", {
+  className: \\"component-test-babel\\",
+  children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(\\"a\\", {
+    href: url,
+    title: title,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"h1\\", {
+      children: title
+    })
+  }), /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"p\\", {
+    children: description
+  })]
+});
 FCComponent.defaultProps = {
   title: '',
   url: '',
@@ -104,13 +111,15 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
-      className: \\"Class Component\\"
-    }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"div\\", {
+      className: \\"Class Component\\",
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"h1\\", {
+        children: title
+      })
+    });
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default transpiles without removing proptypes in dev mode 1`] = `
@@ -122,46 +131,42 @@ Object.defineProperty(exports, \\"__esModule\\", {
 exports.default = void 0;
 var _react = require(\\"react\\");
 var _propTypes = _interopRequireDefault(require(\\"prop-types\\"));
+var _jsxDevRuntime = require(\\"react/jsx-dev-runtime\\");
 var _jsxFileName = \\"\\"; // eslint-disable-line import/no-extraneous-dependencies
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 // eslint-disable-line import/no-extraneous-dependencies
-
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const FCComponent = ({
   title,
   url,
   description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
+}) => /*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"div\\", {
   className: \\"component-test-babel\\",
-  __self: void 0,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 5,
-    columnNumber: 2
-  }
-}, /*#__PURE__*/React.createElement(\\"a\\", {
-  href: url,
-  title: title,
-  __self: void 0,
-  __source: {
+  children: [/*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"a\\", {
+    href: url,
+    title: title,
+    children: /*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"h1\\", {
+      children: title
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 4
+    }, void 0)
+  }, void 0, false, {
     fileName: _jsxFileName,
     lineNumber: 6,
     columnNumber: 3
-  }
-}, /*#__PURE__*/React.createElement(\\"h1\\", {
-  __self: void 0,
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 7,
-    columnNumber: 4
-  }
-}, title)), /*#__PURE__*/React.createElement(\\"p\\", {
-  __self: void 0,
-  __source: {
+  }, void 0), /*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"p\\", {
+    children: description
+  }, void 0, false, {
     fileName: _jsxFileName,
     lineNumber: 9,
     columnNumber: 3
-  }
-}, description));
+  }, void 0)]
+}, void 0, true, {
+  fileName: _jsxFileName,
+  lineNumber: 5,
+  columnNumber: 2
+}, void 0);
 FCComponent.propTypes = {
   title: _propTypes.default.string,
   url: _propTypes.default.string,
@@ -180,29 +185,26 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
+    return /*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"div\\", {
       className: \\"Class Component\\",
-      __self: this,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 33,
-        columnNumber: 4
-      }
-    }, /*#__PURE__*/React.createElement(\\"h1\\", {
-      __self: this,
-      __source: {
+      children: /*#__PURE__*/(0, _jsxDevRuntime.jsxDEV)(\\"h1\\", {
+        children: title
+      }, void 0, false, {
         fileName: _jsxFileName,
         lineNumber: 34,
         columnNumber: 5
-      }
-    }, title));
+      }, this)
+    }, void 0, false, {
+      fileName: _jsxFileName,
+      lineNumber: 33,
+      columnNumber: 4
+    }, this);
   }
 }
 ClassComponent.propTypes = {
   title: _propTypes.default.string.isRequired
 };
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default transpiles without transforming es6 imports 1`] = `
@@ -278,8 +280,7 @@ class ClassComponent extends _react.Component {
     }, (0, _element.createElement)(\\"h1\\", null, title));
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default with automatic runtime transpiles react code properly with automatic runtime 1`] = `
@@ -290,6 +291,7 @@ Object.defineProperty(exports, \\"__esModule\\", {
 });
 exports.default = void 0;
 var _react = require(\\"react\\");
+var _jsxRuntime = require(\\"react/jsx-runtime\\");
 // eslint-disable-line import/no-extraneous-dependencies
 // eslint-disable-line import/no-extraneous-dependencies
 
@@ -297,12 +299,18 @@ const FCComponent = ({
   title,
   url,
   description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, /*#__PURE__*/React.createElement(\\"a\\", {
-  href: url,
-  title: title
-}, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
+}) => /*#__PURE__*/(0, _jsxRuntime.jsxs)(\\"div\\", {
+  className: \\"component-test-babel\\",
+  children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(\\"a\\", {
+    href: url,
+    title: title,
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"h1\\", {
+      children: title
+    })
+  }), /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"p\\", {
+    children: description
+  })]
+});
 FCComponent.defaultProps = {
   title: '',
   url: '',
@@ -316,13 +324,15 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
-      className: \\"Class Component\\"
-    }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"div\\", {
+      className: \\"Class Component\\",
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)(\\"h1\\", {
+        children: title
+      })
+    });
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default with automatic runtime transpiles wordpress code properly even when jsx-runtime.js is present 1`] = `
@@ -365,8 +375,7 @@ class ClassComponent extends _react.Component {
     }, (0, _element.createElement)(\\"h1\\", null, title));
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`compiles typescript transpiles typescript code properly 1`] = `
