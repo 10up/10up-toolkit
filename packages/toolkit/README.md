@@ -177,16 +177,16 @@ module.exports = {
 Alternatively you can specify the paths in `package.json`
 
 ```json
- "10up-toolkit": {
-    "devURL": "https://my-project.test",
-    "entry": {
-        //...
-    },
-    "filenames": {
-        "block": "js/blocks/[name]/editor.js",
-	    "blockCSS": "css/blocks/[name]/editor.css",
-    }
-  }
+"10up-toolkit": {
+	"devURL": "https://my-project.test",
+	"entry": {
+		//...
+	},
+	"filenames": {
+		"block": "js/blocks/[name]/editor.js",
+		"blockCSS": "css/blocks/[name]/editor.css",
+	}
+}
 ```
 
 Note that when overriding via the `filenames.config.js` you must export the filenames for all file types.
