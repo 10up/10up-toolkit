@@ -191,6 +191,23 @@ Alternatively you can specify the paths in `package.json`
 
 Note that when overriding via the `filenames.config.js` you must export the filenames for all file types.
 
+### <a id="customize-public-path"></a> Customizing public path
+
+When using toolkit in a React application, you might want to customize the public path so lazy loaded components know where the assets are.
+
+This can be tweaked in the options within `package.json`:
+
+```json
+"10up-toolkit": {
+	"publicPath": "/my/custom/path"
+}
+```
+
+Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN) you want it to be.
+
+> **Warning**
+> Please note that using `publicPath` will override the `process.env.ASSET_PATH`
+
 ### WordPress Block Asset Handling
 
 If your project includes blocks there are quite a few assets that need to get added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack.
