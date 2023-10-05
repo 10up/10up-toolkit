@@ -22,6 +22,7 @@ const {
 	maybeInsertStyleVersionHash,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
+const CSSHotModuleReplacementPlugin = require('./plugins/css-hmr');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
@@ -217,5 +218,6 @@ module.exports = ({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),
+		hasReactFastRefresh && new CSSHotModuleReplacementPlugin(),
 	].filter(Boolean);
 };
