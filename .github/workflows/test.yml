@@ -24,7 +24,7 @@ jobs:
       # Enable linting only for node 16 + ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [16, 18]
+        node: [16, 18, 20]
         include:
           - os: macos-latest
             node: 18
@@ -32,8 +32,6 @@ jobs:
             node: 18
           - node: 16
             is_base_node_version: true
-          - node: 14
-            needs_npm_upgrade: true
           - os: ubuntu-latest
             is_base_os_version: true
     steps:
