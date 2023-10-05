@@ -2,8 +2,8 @@ name: test
 on:
   push:
     branches:
-      - 'develop'
-      - 'trunk'
+      - "develop"
+      - "trunk"
   pull_request:
 
 concurrency:
@@ -24,7 +24,7 @@ jobs:
       # Enable linting only for node 16 + ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [14, 16, 18]
+        node: [16, 18]
         include:
           - os: macos-latest
             node: 18
