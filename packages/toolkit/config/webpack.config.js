@@ -62,7 +62,7 @@ module.exports = {
 	externals: getExternals(config),
 	performance: getPerformance(config),
 	module: getModules(config),
-	plugins: getPlugins(config),
+	plugins: getPlugins(config, getEntryPoints(config)),
 	stats: getStats(config),
 	optimization: getOptimization(config),
 	experiments: {

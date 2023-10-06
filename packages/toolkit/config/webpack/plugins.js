@@ -33,23 +33,26 @@ const removeDistFolder = (file) => {
 const webpackbarArguments =
 	process.env.JEST_WORKER_ID !== undefined ? { reporters: ['basic'] } : undefined;
 
-module.exports = ({
-	isPackage,
-	isProduction,
-	projectConfig: {
-		devServer,
-		filenames,
-		devURL,
-		devServerPort,
-		paths,
-		wpDependencyExternals,
-		analyze,
-		hot,
-		useBlockAssets,
+module.exports = (
+	{
+		isPackage,
+		isProduction,
+		projectConfig: {
+			devServer,
+			filenames,
+			devURL,
+			devServerPort,
+			paths,
+			wpDependencyExternals,
+			analyze,
+			hot,
+			useBlockAssets,
+		},
+		packageConfig: { style },
+		buildFiles,
 	},
-	packageConfig: { style },
-	buildFiles,
-}) => {
+	entryPoints,
+) => {
 	const hasReactFastRefresh = hot && !isProduction;
 
 	const hasBrowserSync =
@@ -218,6 +221,9 @@ module.exports = ({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),
-		hasReactFastRefresh && new CSSHotModuleReplacementPlugin(),
+		hasReactFastRefresh &&
+			new CSSHotModuleReplacementPlugin({
+				entryPoints,
+			}),
 	].filter(Boolean);
 };

@@ -1,7 +1,10 @@
 const { RawSource } = require('webpack-sources');
-const RuleSetCompiler = require('webpack/lib/rules/RuleSetCompiler');
 
 class CSSHotModuleReplacementPlugin {
+	constructor(options) {
+		this.options = options;
+	}
+
 	apply(compiler) {
 		compiler.hooks.emit.tapAsync('CSSHotModuleReplacementPlugin', (compilation, callback) => {
 			const cssEntryPoints = [];
@@ -32,6 +35,21 @@ class CSSHotModuleReplacementPlugin {
 
 			// Create a new asset for the JavaScript entry point
 			compilation.emitAsset(fileName, new RawSource(jsCode));
+
+			callback();
+		});
+
+		compiler.hooks.emit.tapAsync('CSSHotModuleReplacementPlugin', (compilation, callback) => {
+			const entryPoints = [];
+
+			// Loop through the entry points and collect their names
+			compilation.entrypoints.forEach((entryPoint, entryName) => {
+				const entryFiles = entryPoint.getFiles();
+				if (entryFiles.length > 0) {
+					entryPoints.push({ name: entryName, entryFiles });
+				}
+			});
+			console.log('Entry Points:', entryPoints);
 
 			callback();
 		});
