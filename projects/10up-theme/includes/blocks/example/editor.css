@@ -1,1 +1,5 @@
 /* Editor specific styles */
+.wp-block-example-block__title {
+	border: 3px dashed #ccc;
+	padding: 1em;
+}

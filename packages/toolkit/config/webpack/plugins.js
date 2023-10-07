@@ -221,9 +221,9 @@ module.exports = (
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),
-		hasReactFastRefresh &&
+		/* hasReactFastRefresh &&
 			new CSSHotModuleReplacementPlugin({
 				entryPoints,
-			}),
+			}), */
 	].filter(Boolean);
 };

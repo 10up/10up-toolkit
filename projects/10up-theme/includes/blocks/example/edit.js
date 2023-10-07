@@ -8,9 +8,6 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 // so the intent here is to test toolkit `--include` feature to manually tell toolkit to transpile this package
 import { ContentPicker } from '@10up/block-components';
 
-// Importing the block's editor styles via JS will enable hot reloading for css
-import './editor.css';
-
 const ExampleBlockEdit = (props) => {
 	const { attributes, setAttributes } = props;
 	const { title } = attributes;

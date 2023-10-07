@@ -31,6 +31,30 @@ function setup() {
 
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
 	add_action( 'wp_default_scripts', $n( 'remove_deps') );
+
+	add_filter( 'block_type_metadata_settings', function( $settings, $metadata ) { 
+		if ( isset( $metadata['editorStyle'] ) && str_starts_with( $metadata['editorStyle'], 'file:' ) ) {
+			$editorStylePath = $metadata['editorStyle'];
+			$file = $metadata['file'];
+
+			$editorScriptFileName = basename( $metadata['editorScript'] );
+			$editorStyleFileName = str_replace( '.css', '.js', basename( $editorStylePath ) );
+			$dir = dirname( $file );
+
+			$js_hmr_file = $dir. '/' . str_replace( '.css', '.js', $editorStyleFileName );
+			if ( file_exists( $js_hmr_file ) && $editorScriptFileName !== $editorStyleFileName ) {
+				wp_register_script(
+					'css-hmr-editor-test-example',
+					TENUP_THEME_DIST_URL . 'blocks/example/editor.js',
+					[]
+				);
+				$settings['editor_script_handles'][] = 'css-hmr-editor-test-example';
+			}
+
+		}
+
+		return $settings;
+	}, 10, 2);
 }
 
 function remove_deps( $scripts ) {
