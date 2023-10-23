@@ -204,7 +204,7 @@ exports[`postcss transforms accordion.css properly 1`] = `
   padding: 10px 0 10px 20px;
   position: relative;
   text-align: left;
-  width: 100%;
+  width: 100%
 }
 .accordion-header:before {
     content: \\"+\\";
@@ -217,7 +217,7 @@ exports[`postcss transforms accordion.css properly 1`] = `
   }
 .js .accordion-content {
     display: none;
-    visibility: hidden;
+    visibility: hidden
 }
 .js .accordion-content.is-active {
       border-bottom: 1px solid #303030;
@@ -244,7 +244,7 @@ img::before {
 
 exports[`postcss transforms nesting.css properly 1`] = `
 "a, b {
-  color: red;
+  color: red
 }
 a c, b c, a d, b d {
     color: white;

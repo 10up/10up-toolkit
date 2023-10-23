@@ -30,14 +30,6 @@ Object {
               "cacheDirectory": true,
             },
           },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {},
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
-            },
-          },
         ],
       },
       Object {
@@ -171,9 +163,9 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -230,14 +222,6 @@ Object {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": Object {
               "cacheDirectory": true,
-            },
-          },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {},
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
             },
           },
         ],
@@ -378,10 +362,10 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
@@ -458,89 +442,8 @@ Object {
                     "wordpress": true,
                   },
                 ],
-                Array [
-                  "@linaria",
-                  Object {
-                    "babelOptions": Object {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": Array [
-                        Array [
-                          "/packages/babel-preset-default/index.js",
-                          Object {
-                            "targets": Array [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
               ],
               "sourceType": "unambiguous",
-            },
-          },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {
-                "babelrc": false,
-                "configFile": false,
-                "plugins": Array [],
-                "presets": Array [
-                  Array [
-                    "/packages/babel-preset-default/index.js",
-                    Object {
-                      "targets": Array [
-                        "> 1%",
-                        "Firefox ESR",
-                        "last 2 versions",
-                        "not ie <= 11",
-                        "not ie_mob <=11",
-                      ],
-                      "useBuiltIns": false,
-                      "wordpress": true,
-                    },
-                  ],
-                  Array [
-                    "@linaria",
-                    Object {
-                      "babelOptions": Object {
-                        "babelrc": false,
-                        "configFile": false,
-                        "presets": Array [
-                          Array [
-                            "/packages/babel-preset-default/index.js",
-                            Object {
-                              "targets": Array [
-                                "> 1%",
-                                "Firefox ESR",
-                                "last 2 versions",
-                                "not ie <= 11",
-                                "not ie_mob <=11",
-                              ],
-                              "useBuiltIns": false,
-                              "wordpress": true,
-                            },
-                          ],
-                        ],
-                        "sourceType": "unambiguous",
-                      },
-                    },
-                  ],
-                ],
-                "sourceType": "unambiguous",
-              },
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
             },
           },
         ],
@@ -682,9 +585,9 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -760,89 +663,8 @@ Object {
                     "wordpress": true,
                   },
                 ],
-                Array [
-                  "@linaria",
-                  Object {
-                    "babelOptions": Object {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": Array [
-                        Array [
-                          "/packages/babel-preset-default/index.js",
-                          Object {
-                            "targets": Array [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
               ],
               "sourceType": "unambiguous",
-            },
-          },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {
-                "babelrc": false,
-                "configFile": false,
-                "plugins": Array [],
-                "presets": Array [
-                  Array [
-                    "/packages/babel-preset-default/index.js",
-                    Object {
-                      "targets": Array [
-                        "> 1%",
-                        "Firefox ESR",
-                        "last 2 versions",
-                        "not ie <= 11",
-                        "not ie_mob <=11",
-                      ],
-                      "useBuiltIns": false,
-                      "wordpress": true,
-                    },
-                  ],
-                  Array [
-                    "@linaria",
-                    Object {
-                      "babelOptions": Object {
-                        "babelrc": false,
-                        "configFile": false,
-                        "presets": Array [
-                          Array [
-                            "/packages/babel-preset-default/index.js",
-                            Object {
-                              "targets": Array [
-                                "> 1%",
-                                "Firefox ESR",
-                                "last 2 versions",
-                                "not ie <= 11",
-                                "not ie_mob <=11",
-                              ],
-                              "useBuiltIns": false,
-                              "wordpress": true,
-                            },
-                          ],
-                        ],
-                        "sourceType": "unambiguous",
-                      },
-                    },
-                  ],
-                ],
-                "sourceType": "unambiguous",
-              },
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
             },
           },
         ],
@@ -984,9 +806,9 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -1063,89 +885,8 @@ Object {
                     "wordpress": true,
                   },
                 ],
-                Array [
-                  "@linaria",
-                  Object {
-                    "babelOptions": Object {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": Array [
-                        Array [
-                          "/packages/babel-preset-default/index.js",
-                          Object {
-                            "targets": Array [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
               ],
               "sourceType": "unambiguous",
-            },
-          },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {
-                "babelrc": false,
-                "configFile": false,
-                "plugins": Array [],
-                "presets": Array [
-                  Array [
-                    "/packages/babel-preset-default/index.js",
-                    Object {
-                      "targets": Array [
-                        "> 1%",
-                        "Firefox ESR",
-                        "last 2 versions",
-                        "not ie <= 11",
-                        "not ie_mob <=11",
-                      ],
-                      "useBuiltIns": false,
-                      "wordpress": true,
-                    },
-                  ],
-                  Array [
-                    "@linaria",
-                    Object {
-                      "babelOptions": Object {
-                        "babelrc": false,
-                        "configFile": false,
-                        "presets": Array [
-                          Array [
-                            "/packages/babel-preset-default/index.js",
-                            Object {
-                              "targets": Array [
-                                "> 1%",
-                                "Firefox ESR",
-                                "last 2 versions",
-                                "not ie <= 11",
-                                "not ie_mob <=11",
-                              ],
-                              "useBuiltIns": false,
-                              "wordpress": true,
-                            },
-                          ],
-                        ],
-                        "sourceType": "unambiguous",
-                      },
-                    },
-                  ],
-                ],
-                "sourceType": "unambiguous",
-              },
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
             },
           },
         ],
@@ -1287,9 +1028,9 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -1364,89 +1105,8 @@ Object {
                     "wordpress": true,
                   },
                 ],
-                Array [
-                  "@linaria",
-                  Object {
-                    "babelOptions": Object {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": Array [
-                        Array [
-                          "/packages/babel-preset-default/index.js",
-                          Object {
-                            "targets": Array [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": "usage",
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
               ],
               "sourceType": "unambiguous",
-            },
-          },
-          Object {
-            "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {
-                "babelrc": false,
-                "configFile": false,
-                "plugins": Array [],
-                "presets": Array [
-                  Array [
-                    "/packages/babel-preset-default/index.js",
-                    Object {
-                      "targets": Array [
-                        "> 1%",
-                        "Firefox ESR",
-                        "last 2 versions",
-                        "not ie <= 11",
-                        "not ie_mob <=11",
-                      ],
-                      "useBuiltIns": "usage",
-                      "wordpress": true,
-                    },
-                  ],
-                  Array [
-                    "@linaria",
-                    Object {
-                      "babelOptions": Object {
-                        "babelrc": false,
-                        "configFile": false,
-                        "presets": Array [
-                          Array [
-                            "/packages/babel-preset-default/index.js",
-                            Object {
-                              "targets": Array [
-                                "> 1%",
-                                "Firefox ESR",
-                                "last 2 versions",
-                                "not ie <= 11",
-                                "not ie_mob <=11",
-                              ],
-                              "useBuiltIns": "usage",
-                              "wordpress": true,
-                            },
-                          ],
-                        ],
-                        "sourceType": "unambiguous",
-                      },
-                    },
-                  ],
-                ],
-                "sourceType": "unambiguous",
-              },
-              "extension": ".linaria.module.css",
-              "sourceMap": true,
             },
           },
         ],
@@ -1593,11 +1253,11 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
     NoBrowserSyncPlugin: {},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
+    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},
     WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
