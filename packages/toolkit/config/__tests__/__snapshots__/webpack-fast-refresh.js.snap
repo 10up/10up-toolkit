@@ -50,6 +50,18 @@ Object {
               "cacheDirectory": true,
             },
           },
+          Object {
+            "loader": "@linaria/webpack-loader",
+            "options": Object {
+              "babelOptions": Object {},
+              "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
+              "sourceMap": true,
+            },
+          },
         ],
       },
       Object {
@@ -189,10 +201,10 @@ Object {
   },
   "plugins": Array [
     HtmlWebpackPlugin: {},
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"fix":false,"lintDirtyModulesOnly":true},
+    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
-    StylelintWebpackPlugin: {"extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
+    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
     DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
     CleanExtractedDeps: {},
     WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
@@ -228,7 +240,7 @@ exports[`webpack.config.js returns proper webpack fast refresh configs for proje
 Array [
   Object {
     "entry": Object {
-      "react-refresh-entry": "@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
+      "react-refresh-entry": "/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
     },
     "mode": "development",
     "name": "react-refresh-entry",
