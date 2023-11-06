@@ -184,19 +184,36 @@ module.exports = {
 Alternatively you can specify the paths in `package.json`
 
 ```json
- "10up-toolkit": {
-    "devURL": "https://my-project.test",
-    "entry": {
-        //...
-    },
-    "filenames": {
-        "block": "js/blocks/[name]/editor.js",
-	    "blockCSS": "css/blocks/[name]/editor.css",
-    }
-  }
+"10up-toolkit": {
+	"devURL": "https://my-project.test",
+	"entry": {
+		//...
+	},
+	"filenames": {
+		"block": "js/blocks/[name]/editor.js",
+		"blockCSS": "css/blocks/[name]/editor.css",
+	}
+}
 ```
 
 Note that when overriding via the `filenames.config.js` you must export the filenames for all file types.
+
+### <a id="customize-public-path"></a> Customizing public path
+
+When using toolkit in a React application, you might want to customize the public path so lazy loaded components know where the assets are.
+
+This can be tweaked in the options within `package.json`:
+
+```json
+"10up-toolkit": {
+	"publicPath": "/my/custom/path"
+}
+```
+
+Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN) you want it to be.
+
+> **Warning**
+> Please note that using `process.env.ASSET_PATH` will override the `publicPath`
 
 ### WordPress Block Asset Handling
 
