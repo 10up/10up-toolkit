@@ -123,7 +123,7 @@ const getDefaultConfig = () => {
 		wpDependencyExternals:
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
-		useBlockAssets: false,
+		useBlockAssets: true,
 		include,
 	};
 };
