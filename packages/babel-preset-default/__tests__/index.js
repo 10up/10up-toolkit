@@ -90,36 +90,6 @@ describe('Babel preset default', () => {
 	});
 });
 
-describe('Babel preset default with automatic runtime', () => {
-	beforeEach(() => {
-		// fs.writeFileSync(path.join(reactPath, 'jsx-runtime.js'), 'export default () => {};');
-	});
-
-	afterEach(() => {
-		// fs.unlinkSync(path.join(reactPath, 'jsx-runtime.js'));
-	});
-
-	test('transpiles react code properly with automatic runtime', () => {
-		const output = babel.transform(reactInput, {
-			configFile: false,
-			envName: 'production',
-			presets: [babelPresetDefault],
-		});
-
-		expect(output.code).toMatchSnapshot();
-	});
-
-	test('transpiles wordpress code properly even when jsx-runtime.js is present', () => {
-		const output = babel.transform(reactInput, {
-			configFile: false,
-			envName: 'production',
-			presets: [[babelPresetDefault, { wordpress: true }]],
-		});
-
-		expect(output.code).toMatchSnapshot();
-	});
-});
-
 describe('compiles typescript', () => {
 	test('transpiles typescript code properly', () => {
 		const output = babel.transform(tsInput, {

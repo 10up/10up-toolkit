@@ -123,8 +123,8 @@ const getDefaultConfig = () => {
 		wpDependencyExternals:
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
-		useBlockAssets: false,
 		publicPath: process.env.ASSET_PATH || '/',
+		useBlockAssets: true,
 		include,
 	};
 };

@@ -130,6 +130,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -339,6 +343,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -549,6 +557,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": false,
             },
           },
@@ -759,6 +771,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -1062,6 +1078,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -1364,6 +1384,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
