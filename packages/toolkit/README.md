@@ -213,7 +213,7 @@ This can be tweaked in the options within `package.json`:
 Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN) you want it to be.
 
 > **Warning**
-> Please note that using `publicPath` will override the `process.env.ASSET_PATH`
+> Please note that using `process.env.ASSET_PATH` will override the `publicPath`
 
 ### WordPress Block Asset Handling
 
