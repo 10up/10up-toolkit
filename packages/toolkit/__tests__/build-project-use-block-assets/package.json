@@ -1,7 +1,6 @@
 {
 	"name": "test-build-project",
 	"10up-toolkit": {
-		"useBlockAssets": true,
 		"entry": {
 			"admin": "./__fixtures__/assets/js/admin.js",
 			"frontend": "./__fixtures__/assets/js/frontend.js"
