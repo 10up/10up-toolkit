@@ -17,6 +17,7 @@ A collection of bundled scripts for 10up development.
 
 10up-toolkit is 10up's official asset bundling tool based on Webpack 5. It comes with support for many things commonly
 used across 10up's projects such as:
+
 - JavaScript transpilation through babel
 - core-js@3 automatic polyfill injection (project mode)
 - PostCSS, SASS and CSS Modules
@@ -51,29 +52,33 @@ You can also specify a `style` property to tell `10up-toolkit` where to output y
 
 ```json
 {
-    "name": "your-package-name",
-    "version": "1.0.0",
-    "main": "./dist/index.js",
-    "source": "./src/index.js",
-    "style": "./dist/index.css",
-    "scripts": {
-        "build": "10up-toolkit build",
-        "dev": "10up-toolkit build --watch"
-    }
+	"name": "your-package-name",
+	"version": "1.0.0",
+	"main": "./dist/index.js",
+	"source": "./src/index.js",
+	"style": "./dist/index.css",
+	"scripts": {
+		"build": "10up-toolkit build",
+		"dev": "10up-toolkit build --watch"
+	}
 }
 ```
 
 Then, the following code:
+
 ```javascript
 // src/index.js
-import './styles.css';
+import "./styles.css";
 
-export default () => { /* my awesome js code */};
+export default () => {
+	/* my awesome js code */
+};
 ```
 
 will generate a `index.js` and a `index.css` file in the `dist` folder after running `npm run build`.
 
 10up-toolkit can run in two different modes: package mode and project mode:
+
 - **Project Mode**: Allows bundling multiple entry points and automatically includes core-js polyfills.
 - **Package Mode**: Does not include core-js polyfills automatically, assumes one entry point and doesn't include dependencies in the bundle.
 
@@ -90,40 +95,40 @@ Here's how a `package.json` would look like for using 10up-toolkit this way:
 
 ```json
 {
-  "name": "tenup-theme",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "10up-toolkit build --watch",
-    "build": "10up-toolkit build",
-    "format-js": "10up-toolkit format-js",
-    "lint-js": "10up-toolkit lint-js",
-    "lint-style": "10up-toolkit lint-style",
-    "test": "10up-toolkit test-unit-jest"
-  },
-  "devDependencies": {
-    "10up-toolkit": "^1.0.0"
-  },
-  "dependencies": {
-    "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2"
-  },
-  "10up-toolkit": {
-    "devURL": "https://my-project.test",
-    "entry": {
-      "admin": "./assets/js/admin/admin.js",
-      "blocks": "./includes/blocks/blocks.js",
-      "frontend": "./assets/js/frontend/frontend.js",
-      "shared": "./assets/js/shared/shared.js",
-      "styleguide": "./assets/js/styleguide/styleguide.js",
-      "admin-style": "./assets/css/admin/admin-style.css",
-      "editor-style": "./assets/css/frontend/editor-style.css",
-      "shared-style": "./assets/css/shared/shared-style.css",
-      "style": "./assets/css/frontend/style.css",
-      "styleguide-style": "./assets/css/styleguide/styleguide.css",
-      "core-block-overrides": "./includes/core-block-overrides.js",
-      "example-block": "./includes/blocks/example-block/index.js"
-    }
-  }
+	"name": "tenup-theme",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "10up-toolkit build --watch",
+		"build": "10up-toolkit build",
+		"format-js": "10up-toolkit format-js",
+		"lint-js": "10up-toolkit lint-js",
+		"lint-style": "10up-toolkit lint-style",
+		"test": "10up-toolkit test-unit-jest"
+	},
+	"devDependencies": {
+		"10up-toolkit": "^1.0.0"
+	},
+	"dependencies": {
+		"normalize.css": "^8.0.1",
+		"prop-types": "^15.7.2"
+	},
+	"10up-toolkit": {
+		"devURL": "https://my-project.test",
+		"entry": {
+			"admin": "./assets/js/admin/admin.js",
+			"blocks": "./includes/blocks/blocks.js",
+			"frontend": "./assets/js/frontend/frontend.js",
+			"shared": "./assets/js/shared/shared.js",
+			"styleguide": "./assets/js/styleguide/styleguide.js",
+			"admin-style": "./assets/css/admin/admin-style.css",
+			"editor-style": "./assets/css/frontend/editor-style.css",
+			"shared-style": "./assets/css/shared/shared-style.css",
+			"style": "./assets/css/frontend/style.css",
+			"styleguide-style": "./assets/css/styleguide/styleguide.css",
+			"core-block-overrides": "./includes/core-block-overrides.js",
+			"example-block": "./includes/blocks/example-block/index.js"
+		}
+	}
 }
 ```
 
@@ -133,6 +138,7 @@ The most important is the `entry` option. It's an object where you can specify a
 When you run `10up-toolkit build` with this configuration, 10up-toolkit will generate compiled assets for every entry point in the dist folder.
 
 By default, the compiled assets will be generated on the following directories:
+
 - `dist/css` - for all CSS files
 - `dist/js` - for all JS files.
 - `dist/blocks` - for all WordPress Gutenberg blocks.
@@ -141,6 +147,7 @@ By default, the compiled assets will be generated on the following directories:
 See the [Customizing build paths](#customize-build-paths) section for changing the structure of the dist folder.
 
 ### BrowserSync [DEPRECATED]
+
 > Starting with 10up-toolkit@2.2.0 browser-sync has been deprecated. If you wish to continue using it you must install the following packages manually: npm install --save-dev browser-sync browser-sync-webpack-plugin
 
 > It's strongly recommended to use the `--hot` option instead
@@ -165,12 +172,12 @@ To change where assets are generated in the `dist` folder, you can create a `fil
 ```javascript
 // filenames.config.js
 module.exports = {
-	js: 'js/[name].js',
-	jsChunk: 'js/[name].[contenthash].chunk.js',
-	css: 'css/[name].css',
-    // changing where gutenberg blocks assets are stored.
-	block: 'js/blocks/[name]/editor.js',
-	blockCSS: 'css/blocks/[name]/editor.css',
+	js: "js/[name].js",
+	jsChunk: "js/[name].[contenthash].chunk.js",
+	css: "css/[name].css",
+	// changing where gutenberg blocks assets are stored.
+	block: "js/blocks/[name]/editor.js",
+	blockCSS: "css/blocks/[name]/editor.css",
 };
 ```
 
@@ -193,16 +200,18 @@ Note that when overriding via the `filenames.config.js` you must export the file
 
 ### WordPress Block Asset Handling
 
-If your project includes blocks there are quite a few assets that need to get added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack.
+_NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
+
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
-To opt into this mode you need to add the `useBlockAssets` option to your toolkit configuration:
+Since 10up-toolkit@6 this mode is on by default. To opt out of this mode you need to set the `useBlockAssets` option to your toolkit configuration to false:
 
 ```json
 "10up-toolkit": {
     "devURL": "https://my-project.test",
-    "useBlockAssets": true
+    "useBlockAssets": false
 }
 ```
 
@@ -232,12 +241,13 @@ npm run start -- --hot
 ### Basic Setup
 
 In order to get support for HMR/Fast Refresh follow these steps:
+
 - If you're not using a `.test` domain for your WP instance, make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
 - Set `SCRIPT_DEBUG` to true in `wp-config.php`
   - `define( 'SCRIPT_DEBUG', true )`
 - In your theme's `functions.php` or your plugin's entry point, load the `fast-refresh.php` file generated by toolkit.
-   - In the example bellow, that file will only load on local environments
-   - We check for `.test` and `.local` urls for convenience, we recommend setting the appropriate env var for [wp_get_environment_type](https://developer.wordpress.org/reference/functions/wp_get_environment_type/).
+  - In the example bellow, that file will only load on local environments
+  - We check for `.test` and `.local` urls for convenience, we recommend setting the appropriate env var for [wp_get_environment_type](https://developer.wordpress.org/reference/functions/wp_get_environment_type/).
 
 ```php
 
@@ -251,7 +261,7 @@ if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 }
 ```
 
-Replace `TENUP_THEME_DIST_URL` and `TENUP_THEME_DIST_PATH` with the path to the url and the path to the  `dist` folder.
+Replace `TENUP_THEME_DIST_URL` and `TENUP_THEME_DIST_PATH` with the path to the url and the path to the `dist` folder.
 
 - Then run `10up-toolkit watch --hot`
 
@@ -285,6 +295,7 @@ module.exports = config;
 ### Troubleshooting
 
 If HMR/Fast Refresh is not working for you these steps can help you debug the problem:
+
 - Run a regular build (without `--hot`) does your code work properly?
 - Check if `tenup-toolkit-react-refresh-runtime` and `tenup-toolkit-hmr-runtime` are being enqueued on the block editor screen. If they aren't, ensure you're properly including `dist/fast-refresh.php` and setting up the constants properly.
 - Some code changes might cause a full-page refresh (e.g: changing arguments of `registerBlockType`). This is a known limitation.
@@ -294,21 +305,20 @@ If HMR/Fast Refresh is not working for you these steps can help you debug the pr
 - If your front-end css is not hot reloading, make sure the CSS is not an entry point on its own (i.e. isn't listed in the entry section in package.json) but instead is imported by a JS file. Both the JS file and the CSS file should be enqueued on the front-end.
   - Additionally, check if both `tenup-toolkit-hmr-runtime` and `tenup-toolkit-react-refresh-runtime` are enqueued the front-end.
 - If you're overriding `babel.config.js` you will need to make sure it is including `react-refresh/babel` plugin.
+
 ```js
 module.exports = (api) => {
-  // This caches the Babel config
-  api.cache.using(() => process.env.NODE_ENV);
-  return {
-    presets: [
-      '@10up/babel-preset-default',
-    ],
-    // Applies the react-refresh Babel plugin on non-production modes only
-    ...(!api.env('production') && { plugins: ['react-refresh/babel'] }),
-  };
+	// This caches the Babel config
+	api.cache.using(() => process.env.NODE_ENV);
+	return {
+		presets: ["@10up/babel-preset-default"],
+		// Applies the react-refresh Babel plugin on non-production modes only
+		...(!api.env("production") && { plugins: ["react-refresh/babel"] }),
+	};
 };
 ```
-- If your're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
 
+- If your're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
 
 ## <a id="linting"></a> Linting
 
@@ -333,12 +343,13 @@ module.exports = (api) => {
 Then you can run `npm run lint-js` and `npm run format-js` to lint and format your codebase respectively.
 
 ### IDE Integration
+
 It's not required, but you might want to create a `.eslintrc.js` and `stylelint.config.js` file at the root of your project to better integrate eslint with your code editor or to extend the linting config.
 
 ```javascript
 // .eslintrc.js
 module.exports = {
-	extends: ['@10up/eslint-config/wordpress'],
+	extends: ["@10up/eslint-config/wordpress"],
 };
 ```
 
@@ -347,7 +358,7 @@ You can extend any of the [available configs](https://github.com/10up/10up-toolk
 ```javascript
 // stylelint.config.js
 const config = {
-	extends: ['@10up/stylelint-config'],
+	extends: ["@10up/stylelint-config"],
 };
 
 module.exports = config;
@@ -375,21 +386,14 @@ path-to-code-to-be-ignored/*
 We also strongly recommend that you set up `lint-staged` and `husky` to automate linting your code on every commit.
 
 First, create a `.lintstagedrc.json` file
+
 ```json
 {
-    "*.css": [
-      "10up-toolkit lint-style"
-    ],
-    "*.[tj]s": [
-      "10up-toolkit lint-js"
-    ],
-    "*.[tj]sx": [
-      "10up-toolkit lint-js"
-    ],
-    // If you have php and phpcs
-    "*.php": [
-      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
-    ]
+	"*.css": ["10up-toolkit lint-style"],
+	"*.[tj]s": ["10up-toolkit lint-js"],
+	"*.[tj]sx": ["10up-toolkit lint-js"],
+	// If you have php and phpcs
+	"*.php": ["./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"]
 }
 ```
 
@@ -442,37 +446,39 @@ It's strongly recommended to enable VSCode settings to format your JavaScript co
 10up-toolkit leverages standard package.json fields when running in package mode. Below is a list of all fields 10up-toolkit supports and how it's used.
 
 - **name**: It's used to generate a valid library name to expose the library via a global variable (for UMD builds).
-We recommend always specifying `libraryName` manually when creating UMD builds via `--name=your-library-name` or `10up-toolkit.libraryName` config.
+  We recommend always specifying `libraryName` manually when creating UMD builds via `--name=your-library-name` or `10up-toolkit.libraryName` config.
 - **source**: It's used to define your package entry point.
 - **main**: Where the bundled JavaScript should go. Note that this field is used by NPM to specify your package entry point for consumption.
 - **style**: If set, will define where the CSS will be generated.
 - **umd:main** or **unpkg**: 10up-toolkit generates a separate umd build by default. This field is used by 10up-toolkit to specify where the UMD bundle should go. The benefit of generating a separate UMD bundle is to avoid including boilerplate code.
 
-
 ```json
 {
-    "name": "your-package-name",
-    "version": "1.0.0",
-    "main": "./dist/index.js",
-    "source": "./src/index.js",
-    "style": "./dist/index.css",
-    "umd:main": "./dist/index.umd.js",
-    "scripts": {
-        "build": "10up-toolkit build",
-        "dev": "10up-toolkit build --watch"
-    },
-    "10up-toolkit": {
-        "libraryName": "MyLibraryName"
-    }
+	"name": "your-package-name",
+	"version": "1.0.0",
+	"main": "./dist/index.js",
+	"source": "./src/index.js",
+	"style": "./dist/index.css",
+	"umd:main": "./dist/index.umd.js",
+	"scripts": {
+		"build": "10up-toolkit build",
+		"dev": "10up-toolkit build --watch"
+	},
+	"10up-toolkit": {
+		"libraryName": "MyLibraryName"
+	}
 }
 ```
 
 Then, the following code:
+
 ```javascript
 // src/index.js
-import './styles.css';
+import "./styles.css";
 
-export default () => { /* my awesome js code */};
+export default () => {
+	/* my awesome js code */
+};
 ```
 
 will generate a `index.js`, `index.umd.js` and a `index.css` file in the `dist` folder after running `npm run build`.
@@ -499,8 +505,8 @@ It's important to understand how 10up-toolkit behaves when running in package mo
 If your package should support older browsers, and you want to include core-js polyfills you will need to declare core-js as a dependency, and manually include the polyfills you need, e.g:
 
 ```javascript
-import 'core-js/es/array/from';
-import 'core-js/web/dom-collections';
+import "core-js/es/array/from";
+import "core-js/web/dom-collections";
 ```
 
 The second difference is that 10up-toolkit **wil not** include the dependencies (or peer dependencies) in the final bundle.
@@ -513,6 +519,7 @@ This behavior is inspired in [how microbundle](https://github.com/developit/micr
 10up-toolkit is very extensible and pretty much all config files can be overridden by simply creating a config file at the root of your project.
 
 ### Customizing the Webpack config
+
 In general, we don't recommend customizing the webpack config, the default webpack config and the 10up-toolkits options should provide all that's needed
 for most projects. However, in case you need to modify the webpack config you can to so by creating a `webpack.config.js` file at the root of your project.
 
@@ -521,7 +528,7 @@ The example below will update the webpack config so that 10up-toolkit processes 
 ```javascript
 // webpack.config.js
 
-const config = require('10up-toolkit/config/webpack.config.js');
+const config = require("10up-toolkit/config/webpack.config.js");
 
 config.module.rules[0].exclude =
 	/node_modules\/(?!(@10up\/block-components)|(@vendor\/your-custom-package)\/).*/;
@@ -533,18 +540,16 @@ The example below will extend the base webpack plugin config to include a custom
 
 ```javascript
 // webpack.config.js
-const config = require('10up-toolkit/config/webpack.config.js');
-const ProjectSpecificPlugin = require('project-specific-plugin');
+const config = require("10up-toolkit/config/webpack.config.js");
+const ProjectSpecificPlugin = require("project-specific-plugin");
 
 config.plugins.push(
-
 	// Append project specific plugin config.
-	new ProjectSpecificPlugin(),
+	new ProjectSpecificPlugin()
 );
 
 module.exports = config;
 ```
-
 
 ### Customizing eslint and styling
 
@@ -556,10 +561,10 @@ If you're writing tests with Jest for example, you will need to include the rule
 // .eslintrc.js
 
 module.exports = {
-	extends: ['@10up/eslint-config/wordpress', '@10up/eslint-config/jest'],
-    rules: {
-        /* add or modify rules here */
-    }
+	extends: ["@10up/eslint-config/wordpress", "@10up/eslint-config/jest"],
+	rules: {
+		/* add or modify rules here */
+	},
 };
 ```
 
@@ -568,10 +573,10 @@ Similarly, for customizing stylelint, create a `stylelint.config.js` file.
 ```javascript
 // stylelint.config.js
 const config = {
-	extends: ['@10up/stylelint-config'],
-    rules: {
-        /* add or modify rules here */
-    }
+	extends: ["@10up/stylelint-config"],
+	rules: {
+		/* add or modify rules here */
+	},
 };
 
 module.exports = config;
@@ -587,17 +592,17 @@ that the default config is exported as a **function**.
 The example below modifies the ignored list of the `editor-styles` plugin when processing the `editor-style.css` file.
 
 ```javascript
-const baseConfig = require('10up-toolkit/config/postcss.config.js');
-const path = require('path');
+const baseConfig = require("10up-toolkit/config/postcss.config.js");
+const path = require("path");
 
 module.exports = (props) => {
 	const config = baseConfig(props);
 	const { file } = props;
 
-	if (path.basename(file) === 'editor-style.css') {
-		config.plugins['postcss-editor-styles'].ignore = [
-			...config.plugins['postcss-editor-styles'].ignore,
-			'.mh-personalization-segment-picker',
+	if (path.basename(file) === "editor-style.css") {
+		config.plugins["postcss-editor-styles"].ignore = [
+			...config.plugins["postcss-editor-styles"].ignore,
+			".mh-personalization-segment-picker",
 		];
 	}
 	return config;
@@ -619,8 +624,8 @@ However, there might be times in which you need to add a new plugin. To do so, f
 2. Once the plugin is installed, tweak the configuration as follows:
 
 ```javascript
-const baseConfig = require('10up-toolkit/config/postcss.config.js');
-const additionalPlugins = { '@csstools/postcss-design-tokens': {} };
+const baseConfig = require("10up-toolkit/config/postcss.config.js");
+const additionalPlugins = { "@csstools/postcss-design-tokens": {} };
 
 module.exports = (props) => {
 	const config = baseConfig(props);
@@ -635,6 +640,7 @@ Please note that the order of the plugins is important, so make sure to add the 
 might want to tweak the order and/or write a different `config.plugins` object with the plugins in the order you need.
 
 ### Customizing svgo
+
 > Added in 3.0.4
 
 SVGO options can be customized by creating a `svgo.config.js` file at the root of your project.
@@ -644,7 +650,7 @@ SVGO options can be customized by creating a `svgo.config.js` file at the root o
 module.exports = {
 	plugins: [
 		{
-			name: 'preset-default',
+			name: "preset-default",
 			params: {
 				overrides: {
 					// customize default plugin options
@@ -670,6 +676,7 @@ See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more inf
 10up-toolkit supports several CLI options that can be used to override settings.
 
 ### Bundle Analyzer
+
 10up-toolkit ships with `webpack-bundle-analyzer` out of the box, and you can enable it by simple passing the `--analyze` option.
 
 `10up-toolkit build --analyze`
@@ -677,6 +684,7 @@ See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more inf
 It only works with the build command, after finishing the build a new window will be automatically opened with the report.
 
 ### Source and Output
+
 To set the source and main/output path via the CLI you can use the `-i` and `-o` (or `--input` and `--output` options)
 
 ```bash
@@ -688,17 +696,19 @@ This can be useful if you have multiple entry points if you want to create a tes
 ```javascript
 // app.js
 // index is the entry point of the package
-import { Accordion } from './index';
+import { Accordion } from "./index";
 
-new Accordion('.accordion');
+new Accordion(".accordion");
 ```
 
 Then you can instruct 10up-toolkit to use your app.js file and spin up a dev server in a separate npm script.
+
 ```json
 "start": "10up-toolkit start -i=src/app.js --dev-server",
 ```
 
 ### Target
+
 > Released in 3.1.0
 
 The `--target` option can be used to override the default webpack target option.
@@ -723,13 +733,13 @@ If you need to override the default html template, create a `index.html` file un
 <!-- public/index.html -->
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>Library Test</title>
-  </head>
-  <body>
-        <!-- You can add any custom markup --->
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<title>Library Test</title>
+	</head>
+	<body>
+		<!-- You can add any custom markup --->
+	</body>
 </html>
 ```
 
@@ -743,6 +753,7 @@ you can pass `--wp=false`.
 ### Format
 
 The format option controls how webpack will generate your bundle. The supported options are:
+
 - all (default)
 - commonjs
 - umd
@@ -774,28 +785,28 @@ As an example, consider the following `package.json`
 
 ```json
 {
-  "name": "@10up/component-accordion",
-  "version": "2.0.1",
-  "author": "10up",
-  "description": "Accessible accordion component.",
-  "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "source": "src/index.js",
-  "style": "./dist/index.css",
-  "scripts": {
-    "watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
-    "start": "10up-toolkit start -i=src/app.js --dev-server",
-    "build": "npm run build:modern && npm run build:umd",
-    "build:modern": "10up-toolkit build -f=commonjs",
-    "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
-  },
-  "dependencies": {
-      "core-js": "^3.0.0"
-  },
-  "devDependencies": {
-    "10up-toolkit": "1.0.7",
-    "concurrently": "^5.3.0"
-  }
+	"name": "@10up/component-accordion",
+	"version": "2.0.1",
+	"author": "10up",
+	"description": "Accessible accordion component.",
+	"main": "dist/index.js",
+	"umd:main": "dist/index.umd.js",
+	"source": "src/index.js",
+	"style": "./dist/index.css",
+	"scripts": {
+		"watch": "concurrently \"npm run build:modern -- --watch\" \"npm run build:umd -- --watch\"",
+		"start": "10up-toolkit start -i=src/app.js --dev-server",
+		"build": "npm run build:modern && npm run build:umd",
+		"build:modern": "10up-toolkit build -f=commonjs",
+		"build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
+	},
+	"dependencies": {
+		"core-js": "^3.0.0"
+	},
+	"devDependencies": {
+		"10up-toolkit": "1.0.7",
+		"concurrently": "^5.3.0"
+	}
 }
 ```
 
@@ -804,23 +815,24 @@ a bundle that's suitable for both bundlers and direct inclusion in browsers, not
 10up-toolkit to inline all the dependencies. So someone loading `index.umd.js` don't need to load `core-js`.
 
 The UMD bundle could then be used like so:
+
 ```html
 <script src="https://unpkg.com/@10up/component-accordion@2.0.1/dist/index.umd.js"></script>
 <script type="text/javascript">
-    const myAccordion = new window.TenUpAccordion.Accordion( '.accordion', {
-        onCreate: function() {
-            console.log( 'onCreated' )
-        },
-        onOpen: function() {
-            console.log( 'onOpen' )
-        },
-        onClose: function() {
-            console.log( 'onClose' )
-        },
-        onToggle: function() {
-            console.log( 'onToggle' )
-        }
-    } );
+	const myAccordion = new window.TenUpAccordion.Accordion(".accordion", {
+		onCreate: function () {
+			console.log("onCreated");
+		},
+		onOpen: function () {
+			console.log("onOpen");
+		},
+		onClose: function () {
+			console.log("onClose");
+		},
+		onToggle: function () {
+			console.log("onToggle");
+		},
+	});
 </script>
 ```
 
@@ -836,7 +848,6 @@ This can be useful in situations where you're maintaining an internal package, a
 
 ## <a id="typescript"></a> TypeScript Support
 
-
 10up-toolkit provides support for TypeScript out of the box. Simply create files with `.ts` or `.tsx` (for react components) and 10up-toolkit will
 compile them just fine as well as lint and format them.
 
@@ -844,11 +855,12 @@ To enable better support for linting with VSCode and other IDE's we recommend th
 
 ```javascript
 module.exports = {
-	parser: '@typescript-eslint/parser',
-	extends: ['@10up/eslint-config/react'], // or @10up/eslint-config/wordpress
-	plugins: ['@typescript-eslint'],
+	parser: "@typescript-eslint/parser",
+	extends: ["@10up/eslint-config/react"], // or @10up/eslint-config/wordpress
+	plugins: ["@typescript-eslint"],
 };
 ```
+
 ## <a id="react"></a> React & WordPress
 
 There are two ways you can work with React in 10up-toolkit. When "WordPress" mode is turned on (the default behavior) 10up-toolkit will assume React is coming from WordPress and therefore will use `@wordpress/element`.
@@ -860,8 +872,8 @@ If you're writing React code on the front-end of your theme you can still use th
 For instance, given the following React code
 
 ```javascript
-import ReactDOM from 'react-dom';
-import { useState } from 'react';
+import ReactDOM from "react-dom";
+import { useState } from "react";
 
 const App = () => {
 	const [state] = useState(1);
@@ -869,7 +881,7 @@ const App = () => {
 	return <p>This is a react app {state}</p>;
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 The following `asset.php` file will be generated
@@ -913,6 +925,7 @@ function remove_deps( $scripts ) {
 By disabling "WordPress" mode, you will need to install both react and react-dom yourself and include in your final bundle.
 
 ## <a id="linaria"></a> Linaria (CSS-in-JS)
+
 > Support for Linaria was added in 10up-toolkit 5.1.0.
 
 10up-toolkit supports [Linaria](https://linaria.dev/) without any additional configuration. The main usecase for supporting linaria is to easily compile React components authored using Linaria. This can be useful if you're building a headless site and want to share React components between your front-end and Gutenberg.
@@ -939,7 +952,7 @@ For instance, if you have a block with the following `block.json`
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
+**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress. Bug reports, feature requests, questions, and pull requests are welcome.
 
 ## Like what you see?
 
