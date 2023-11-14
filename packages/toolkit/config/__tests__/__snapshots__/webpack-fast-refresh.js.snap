@@ -5,6 +5,7 @@ Object {
   "devServer": Object {
     "allowedHosts": Array [
       ".test",
+      ".local",
     ],
     "client": Object {
       "overlay": Object {

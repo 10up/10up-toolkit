@@ -11,7 +11,7 @@ module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServe
 	}
 
 	if (!isPackage && hot) {
-		const allowedHosts = ['.test'];
+		const allowedHosts = ['.test', '.local'];
 
 		try {
 			allowedHosts.push(new URL(devURL).host);
