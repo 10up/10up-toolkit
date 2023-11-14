@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.3
+
+### Patch Changes
+
+- dcad6bb: Add `.local` to the default list of supported domains.
+
 ## 5.2.2
 
 ### Patch Changes
