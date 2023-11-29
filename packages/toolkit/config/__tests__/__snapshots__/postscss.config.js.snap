@@ -301,7 +301,7 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
 Object {
   "plugins": Object {
     "cssnano": false,
-    "postcss-editor-styles": Object {
+    "postcss-editor-styles-wrapper": Object {
       "ignore": Array [
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
@@ -355,7 +355,7 @@ Object {
         },
       ],
     },
-    "postcss-editor-styles": Object {
+    "postcss-editor-styles-wrapper": Object {
       "ignore": Array [
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
