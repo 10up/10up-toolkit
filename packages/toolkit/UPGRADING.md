@@ -1,5 +1,21 @@
 # Upgrade Guide
 
+## Upgrading from 5 to 6
+
+There are a few major changes in this release. While it probably won't break your build, it's worth noting everything that's changed.
+
+* Node version required of 18 (previous LTS)
+* Swapping `postcss-editor-styles` with `postcss-editor-styles-wrapper` which is compatible with PostCSS 8. This should be a seamless change as this is a fork of the original package that was updated to be compatible with PostCSS 8 and fixes wrong behaviour in some circumstances.
+* Update `postcss-preset-env` to `^9.0.0` from `^7.0.0`. This is a major version bump and there are some breaking changes. See the [postcss-preset-env changelog](https://github.com/csstools/postcss-plugins/wiki/PostCSS-Preset-Env-8) for version 8 if you run into issues. It's hard to know every single build that could be affected by this change, but here is the only one we think it's worth flagging in this document:
+  * PostCSS Custom Media Breaking Change. If you used media queries without parentheses, you'll need to add them. See [PostCSS Custom Media Breaking Change](https://github.com/csstools/postcss-plugins/wiki/PostCSS-Preset-Env-8#postcss-custom-media-breaking-changes)
+
+```diff
+@custom-media --foo (min-width: 320px);
+
+- @media --foo {}
++ @media (--foo) {}
+```
+
 ## Upgrading from 3 to 4
 
 If you're on version 3 and followed below to be on (at least) NPM version `7`, you should be in the clears for this upgrade. In the case you're not, you'll need to install all of these dependencies manually into the project where toolkit is used given that it's only from NPM 7 that `peerDependency` are handled automatically.
@@ -32,7 +48,7 @@ The minimum Node.js version is 12.x, however Node.js 16 is strongly recommended.
 
 ### Minimum NPM version
 
-In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7. 
+In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7.
 
 ~~If you're getting an install error due to conflicting prettier dependencies, we recommend updating to npm 8.  There's an [known issue](https://github.com/WordPress/gutenberg/issues/39208) with `@wordpress/eslint-plugin` that can break installations of 10up-toolkit when using npm < 8. Alternatively if you're not on npm 8, you can try pinning `prettier` to `2.4.1` in your package.json to force npm install the version toolkit uses.~~ Fixed in [#166](https://github.com/10up/10up-toolkit/pull/166)
 
