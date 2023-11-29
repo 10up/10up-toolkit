@@ -35,6 +35,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -237,6 +241,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -371,6 +379,7 @@ Object {
       return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
+    "publicPath": "/",
   },
   "performance": Object {
     "hints": "warning",
@@ -540,6 +549,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -842,6 +855,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -1145,6 +1162,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -1446,6 +1467,10 @@ Object {
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -1586,6 +1611,7 @@ Object {
       return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
+    "publicPath": "/",
   },
   "performance": Object {
     "hints": "warning",

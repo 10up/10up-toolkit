@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = ({
 	isPackage,
 	packageConfig: { packageType, main },
-	projectConfig: { filenames, hot },
+	projectConfig: { filenames, hot, publicPath },
 	buildFiles,
 }) => {
 	if (isPackage) {
@@ -26,6 +26,7 @@ module.exports = ({
 		clean: !hot,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
+		publicPath,
 		filename: (pathData) => {
 			if (pathData.chunk.name === 'runtime') {
 				return 'fast-refresh/hmr-runtime.js';

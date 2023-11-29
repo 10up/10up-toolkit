@@ -1,5 +1,5 @@
 // Test comment
-@import "./components/sass-component";
+@import url("./components/sass-component.scss");
 
 .test-class {
 	color: var(--c-black);

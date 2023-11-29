@@ -5,6 +5,7 @@ Object {
   "devServer": Object {
     "allowedHosts": Array [
       ".test",
+      ".local",
     ],
     "client": Object {
       "overlay": Object {
@@ -55,6 +56,10 @@ Object {
             "options": Object {
               "babelOptions": Object {},
               "extension": ".linaria.module.css",
+              "overrideContext": context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          }),
               "sourceMap": true,
             },
           },
@@ -189,6 +194,7 @@ Object {
       return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
+    "publicPath": "/",
   },
   "performance": Object {
     "hints": "warning",
@@ -236,7 +242,7 @@ exports[`webpack.config.js returns proper webpack fast refresh configs for proje
 Array [
   Object {
     "entry": Object {
-      "react-refresh-entry": "@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
+      "react-refresh-entry": "/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
     },
     "mode": "development",
     "name": "react-refresh-entry",
