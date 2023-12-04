@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/babel-preset-default#readme",
   "dependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "^7.23.5",
     "@babel/helper-plugin-utils": "^7.21.5",
     "@babel/plugin-transform-react-jsx": "^7.21.5",
     "@babel/preset-env": "^7.21.5",
