@@ -7,7 +7,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
     "port": 3000,
   },
   "devtool": "source-map",
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -20,14 +20,14 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "babelrc": false,
               "cacheDirectory": true,
@@ -35,7 +35,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
               "plugins": [],
               "presets": [
                 [
-                  "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   {
                     "targets": [
                       "> 1%",
@@ -56,7 +56,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
                       "configFile": false,
                       "presets": [
                         [
-                          "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                          "/packages/babel-preset-default/index.js",
                           {
                             "targets": [
                               "> 1%",
@@ -87,7 +87,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
                 "plugins": [],
                 "presets": [
                   [
-                    "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                    "/packages/babel-preset-default/index.js",
                     {
                       "targets": [
                         "> 1%",
@@ -108,7 +108,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
                         "configFile": false,
                         "presets": [
                           [
-                            "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                            "/packages/babel-preset-default/index.js",
                             {
                               "targets": [
                                 "> 1%",
@@ -130,7 +130,10 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": true,
             },
           },
@@ -151,20 +154,20 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
@@ -178,25 +181,25 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -210,10 +213,10 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -222,15 +225,15 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -241,7 +244,7 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -257,65 +260,15 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "libraryTarget": "commonjs2",
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "path": "/dist",
   },
   "performance": {
     "hints": "warning",
@@ -323,103 +276,14 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
     "maxEntrypointSize": 40960000,
   },
   "plugins": [
-    HtmlWebpackPlugin {
-      "userOptions": {
-        "template": "public/index.html",
-      },
-      "version": 5,
-    },
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "configFile": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/stylelint.config.js",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701914731,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
+    "HtmlWebpackPlugin: {}",
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
   ],
   "resolve": {
     "alias": {
@@ -450,7 +314,7 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -462,14 +326,14 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "cacheDirectory": true,
             },
@@ -479,7 +343,10 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
             "options": {
               "babelOptions": {},
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": true,
             },
           },
@@ -500,17 +367,17 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
@@ -525,23 +392,23 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -555,10 +422,10 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -567,13 +434,13 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -584,7 +451,7 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -596,67 +463,24 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": [Function],
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "filename": "pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+      // match windows and posix paths
+      const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
+      return isBlockAsset ? filenames.block : filenames.js;
+    }",
+    "path": "/dist",
     "publicPath": "/",
   },
   "performance": {
@@ -665,140 +489,16 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
     "maxEntrypointSize": 40960000,
   },
   "plugins": [
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    CopyPlugin {
-      "options": {},
-      "patterns": [
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-          "from": "**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}",
-          "noErrorOnMissing": true,
-          "to": "[path][name][ext]",
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/block.json",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-          "transform": [Function],
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/*.php",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-        },
-      ],
-    },
-    NoBrowserSyncPlugin {
-      "displayed": false,
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701914967,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    DependencyExtractionWebpackPlugin {
-      "externalizedDeps": Set {},
-      "externalsPlugin": ExternalsPlugin {
-        "externals": [Function],
-        "type": "window",
-      },
-      "options": {
-        "combineAssets": false,
-        "combinedOutputFile": null,
-        "externalizedReport": false,
-        "injectPolyfill": false,
-        "outputFilename": null,
-        "outputFormat": "php",
-        "requestToHandle": [Function],
-        "useDefaults": true,
-      },
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CopyPlugin: {}",
+    "NoBrowserSyncPlugin: {}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
   ],
   "resolve": {
     "alias": {
@@ -829,7 +529,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 {
   "devServer": undefined,
   "devtool": false,
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -841,14 +541,14 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "cacheDirectory": true,
             },
@@ -858,7 +558,10 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
             "options": {
               "babelOptions": {},
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": false,
             },
           },
@@ -879,17 +582,17 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": false,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
@@ -904,23 +607,23 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": false,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": false,
             },
@@ -934,10 +637,10 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -946,13 +649,13 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": false,
             },
@@ -963,7 +666,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -975,67 +678,24 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": [Function],
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "filename": "pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+      // match windows and posix paths
+      const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
+      return isBlockAsset ? filenames.block : filenames.js;
+    }",
+    "path": "/dist",
     "publicPath": "/",
   },
   "performance": {
@@ -1044,164 +704,16 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
     "maxEntrypointSize": 409600,
   },
   "plugins": [
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    CopyPlugin {
-      "options": {},
-      "patterns": [
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-          "from": "**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}",
-          "noErrorOnMissing": true,
-          "to": "[path][name][ext]",
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/block.json",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-          "transform": [Function],
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/*.php",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-        },
-      ],
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701915192,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    DependencyExtractionWebpackPlugin {
-      "externalizedDeps": Set {},
-      "externalsPlugin": ExternalsPlugin {
-        "externals": [Function],
-        "type": "window",
-      },
-      "options": {
-        "combineAssets": false,
-        "combinedOutputFile": null,
-        "externalizedReport": false,
-        "injectPolyfill": false,
-        "outputFilename": null,
-        "outputFormat": "php",
-        "requestToHandle": [Function],
-        "useDefaults": true,
-      },
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
-    BundleAnalyzerPlugin {
-      "logger": Logger {
-        "activeLevels": Set {
-          "info",
-          "warn",
-          "error",
-          "silent",
-        },
-      },
-      "opts": {
-        "analyzerHost": "127.0.0.1",
-        "analyzerMode": "static",
-        "analyzerPort": 8888,
-        "analyzerUrl": [Function],
-        "defaultSizes": "parsed",
-        "excludeAssets": null,
-        "generateStatsFile": false,
-        "logLevel": "info",
-        "openAnalyzer": true,
-        "reportFilename": null,
-        "reportTitle": [Function],
-        "startAnalyzer": true,
-        "statsFilename": "stats.json",
-        "statsOptions": null,
-      },
-      "server": null,
-    },
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CopyPlugin: {}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
+    "BundleAnalyzerPlugin: {}",
   ],
   "resolve": {
     "alias": {
@@ -1232,7 +744,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -1244,14 +756,14 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "cacheDirectory": true,
             },
@@ -1261,7 +773,10 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
             "options": {
               "babelOptions": {},
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": true,
             },
           },
@@ -1282,17 +797,17 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
@@ -1307,23 +822,23 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": false,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -1337,10 +852,10 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -1349,13 +864,13 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {},
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -1366,7 +881,7 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -1378,67 +893,24 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": true,
-    "filename": [Function],
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "filename": "pathData => {
+      if (pathData.chunk.name === 'runtime') {
+        return 'fast-refresh/hmr-runtime.js';
+      }
+      // match windows and posix paths
+      const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
+      return isBlockAsset ? filenames.block : filenames.js;
+    }",
+    "path": "/dist",
     "publicPath": "/",
   },
   "performance": {
@@ -1447,137 +919,15 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
     "maxEntrypointSize": 40960000,
   },
   "plugins": [
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    CopyPlugin {
-      "options": {},
-      "patterns": [
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-          "from": "**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}",
-          "noErrorOnMissing": true,
-          "to": "[path][name][ext]",
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/block.json",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-          "transform": [Function],
-        },
-        {
-          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
-          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/*.php",
-          "noErrorOnMissing": true,
-          "to": "blocks/[path][name][ext]",
-        },
-      ],
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701915403,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    DependencyExtractionWebpackPlugin {
-      "externalizedDeps": Set {},
-      "externalsPlugin": ExternalsPlugin {
-        "externals": [Function],
-        "type": "window",
-      },
-      "options": {
-        "combineAssets": false,
-        "combinedOutputFile": null,
-        "externalizedReport": false,
-        "injectPolyfill": false,
-        "outputFilename": null,
-        "outputFormat": "php",
-        "requestToHandle": [Function],
-        "useDefaults": true,
-      },
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CopyPlugin: {}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
   ],
   "resolve": {
     "alias": {
@@ -1608,7 +958,7 @@ exports[`webpack.config.js returns proper configs for package config with common
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -1621,14 +971,14 @@ exports[`webpack.config.js returns proper configs for package config with common
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "babelrc": false,
               "cacheDirectory": true,
@@ -1636,7 +986,7 @@ exports[`webpack.config.js returns proper configs for package config with common
               "plugins": [],
               "presets": [
                 [
-                  "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   {
                     "targets": [
                       "> 1%",
@@ -1657,7 +1007,7 @@ exports[`webpack.config.js returns proper configs for package config with common
                       "configFile": false,
                       "presets": [
                         [
-                          "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                          "/packages/babel-preset-default/index.js",
                           {
                             "targets": [
                               "> 1%",
@@ -1688,7 +1038,7 @@ exports[`webpack.config.js returns proper configs for package config with common
                 "plugins": [],
                 "presets": [
                   [
-                    "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                    "/packages/babel-preset-default/index.js",
                     {
                       "targets": [
                         "> 1%",
@@ -1709,7 +1059,7 @@ exports[`webpack.config.js returns proper configs for package config with common
                         "configFile": false,
                         "presets": [
                           [
-                            "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                            "/packages/babel-preset-default/index.js",
                             {
                               "targets": [
                                 "> 1%",
@@ -1731,7 +1081,10 @@ exports[`webpack.config.js returns proper configs for package config with common
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": true,
             },
           },
@@ -1752,20 +1105,20 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
@@ -1779,25 +1132,25 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -1811,10 +1164,10 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -1823,15 +1176,15 @@ exports[`webpack.config.js returns proper configs for package config with common
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -1842,7 +1195,7 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -1858,65 +1211,15 @@ exports[`webpack.config.js returns proper configs for package config with common
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "libraryTarget": "commonjs2",
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "path": "/dist",
   },
   "performance": {
     "hints": "warning",
@@ -1924,97 +1227,13 @@ exports[`webpack.config.js returns proper configs for package config with common
     "maxEntrypointSize": 40960000,
   },
   "plugins": [
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "configFile": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/stylelint.config.js",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701914484,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
   ],
   "resolve": {
     "alias": {
@@ -2045,7 +1264,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": [Function],
+  "entry": "() => getEntryPoints(config)",
   "experiments": {
     "outputModule": false,
   },
@@ -2058,14 +1277,14 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
   "module": {
     "rules": [
       {
-        "exclude": [Function],
+        "exclude": "input => shouldExclude(input, include)",
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
+            "loader": "/config/webpack/plugins/noop-loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
               "babelrc": false,
               "cacheDirectory": true,
@@ -2073,7 +1292,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
               "plugins": [],
               "presets": [
                 [
-                  "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                  "/packages/babel-preset-default/index.js",
                   {
                     "targets": [
                       "> 1%",
@@ -2094,7 +1313,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
                       "configFile": false,
                       "presets": [
                         [
-                          "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                          "/packages/babel-preset-default/index.js",
                           {
                             "targets": [
                               "> 1%",
@@ -2125,7 +1344,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
                 "plugins": [],
                 "presets": [
                   [
-                    "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                    "/packages/babel-preset-default/index.js",
                     {
                       "targets": [
                         "> 1%",
@@ -2146,7 +1365,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
                         "configFile": false,
                         "presets": [
                           [
-                            "/Users/nicholasio/projects/10up-toolkit/packages/babel-preset-default/index.js",
+                            "/packages/babel-preset-default/index.js",
                             {
                               "targets": [
                                 "> 1%",
@@ -2168,7 +1387,10 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": [Function],
+              "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
               "sourceMap": true,
             },
           },
@@ -2189,20 +1411,20 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
@@ -2216,25 +1438,25 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
               "url": true,
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -2248,10 +1470,10 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
               "import": false,
               "modules": true,
@@ -2260,15 +1482,15 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
               "postcssOptions": {
-                "config": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/postcss.config.js",
+                "config": "/config/postcss.config.js",
               },
             },
           },
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
               "sourceMap": true,
             },
@@ -2279,7 +1501,7 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
           {
             "loader": "css-loader",
@@ -2295,65 +1517,15 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      TerserPlugin {
-        "options": {
-          "exclude": undefined,
-          "extractComments": true,
-          "include": undefined,
-          "minimizer": {
-            "implementation": [Function],
-            "options": {
-              "compress": {
-                "comparisons": false,
-                "ecma": 5,
-                "inline": 2,
-                "warnings": false,
-              },
-              "parse": {
-                "ecma": 8,
-              },
-            },
-          },
-          "parallel": true,
-          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
-        },
-      },
-      ImageMinimizerPlugin {
-        "options": {
-          "concurrency": undefined,
-          "deleteOriginalAssets": true,
-          "exclude": undefined,
-          "generator": undefined,
-          "include": undefined,
-          "loader": true,
-          "minimizer": {
-            "implementation": [Function],
-          },
-          "severityError": undefined,
-          "test": /\\\\\\.svg\\$/,
-        },
-      },
+      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
   "output": {
     "libraryTarget": "commonjs2",
-    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
+    "path": "/dist",
   },
   "performance": {
     "hints": "warning",
@@ -2361,97 +1533,13 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
     "maxEntrypointSize": 40960000,
   },
   "plugins": [
-    ESLintWebpackPlugin {
-      "key": "ESLintWebpackPlugin",
-      "options": {
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": "js",
-        "failOnError": false,
-        "fix": false,
-        "lintDirtyModulesOnly": true,
-        "resourceQueryExclude": [],
-      },
-      "run": [Function],
-    },
-    MiniCssExtractPlugin {
-      "_sortedModulesCache": WeakMap {},
-      "options": {
-        "chunkFilename": "[id].css",
-        "experimentalUseImportModule": undefined,
-        "filename": [Function],
-        "ignoreOrder": false,
-        "runtime": true,
-      },
-      "runtimeOptions": {
-        "attributes": undefined,
-        "insert": undefined,
-        "linkType": "text/css",
-      },
-    },
-    StylelintWebpackPlugin {
-      "key": "StylelintWebpackPlugin",
-      "options": {
-        "allowEmptyInput": true,
-        "cache": true,
-        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
-        "configFile": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/stylelint.config.js",
-        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
-        "emitError": true,
-        "emitWarning": true,
-        "extensions": [
-          "css",
-          "scss",
-          "sass",
-        ],
-        "failOnError": false,
-        "files": "**/*.(s(c|a)ss|css)",
-        "lintDirtyModulesOnly": true,
-      },
-      "prevTimestamps": Map {},
-      "run": [Function],
-      "startTime": 1701701915615,
-    },
-    WebpackBarPlugin {
-      "dependenciesCount": 10000,
-      "handler": [Function],
-      "modulesCount": 5000,
-      "options": {
-        "color": "green",
-        "name": "webpack",
-        "reporter": null,
-        "reporters": [
-          "basic",
-        ],
-      },
-      "percentBy": undefined,
-      "profile": false,
-      "reporters": [
-        SimpleReporter {},
-      ],
-      "showActiveModules": true,
-      "showDependencies": true,
-      "showEntries": true,
-      "showModules": true,
-    },
-    CleanExtractedDeps {
-      "options": undefined,
-    },
-    WebpackRemoveEmptyScriptsPlugin {
-      "apply": [Function],
-      "enabled": true,
-      "options": {
-        "enabled": true,
-        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
-        "ignore": [],
-        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
-        "verbose": false,
-      },
-      "outputPath": "",
-      "trash": [],
-      "verbose": false,
-    },
-    TenUpToolkitTscPlugin {},
+    "ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+    "CleanExtractedDeps: {}",
+    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+    "TenUpToolkitTscPlugin: {}",
   ],
   "resolve": {
     "alias": {

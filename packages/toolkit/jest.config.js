@@ -4,4 +4,5 @@ module.exports = {
 	testPathIgnorePatterns: ['/node_modules/', '<rootDir>/vendor/', '/__fixtures__/', '/dist/'],
 	setupFilesAfterEnv: ['@wordpress/jest-console'],
 	resolver: './test-utils/resolver.js',
+	snapshotSerializers: ['./test-utils/webpack-serializer.js'],
 };
