@@ -16,6 +16,14 @@ There are a few major changes in this release. While it probably won't break you
 + @media (--foo) {}
 ```
 
+### Prettier
+
+Prettier have been upgraded to v3. You're also required to specify a prettier version in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3.
+
+### Jest
+
+The jest packages have been updated, if you're using `10up-toolkit test-unit-jest` and using `testEnvironment: jsdom`, add `jest-environment-jsdom` as a dependecy to your project.
+
 ## Upgrading from 3 to 4
 
 If you're on version 3 and followed below to be on (at least) NPM version `7`, you should be in the clears for this upgrade. In the case you're not, you'll need to install all of these dependencies manually into the project where toolkit is used given that it's only from NPM 7 that `peerDependency` are handled automatically.
