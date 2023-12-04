@@ -1,42 +1,42 @@
 {
-  "name": "@10up/component-accordion",
-  "version": "2.1.5",
-  "author": "10up",
-  "private": true,
-  "description": "Accessible accordion component.",
-  "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "source": "src/index.js",
-  "style": "./dist/index.css",
-  "scripts": {
-    "test": "npm run build && 10up-toolkit test-unit-jest",
-    "start": "10up-toolkit start -i=src/app.js --dev-server",
-    "lint": "10up-toolkit lint-js",
-    "build": "npm run build:modern && npm run build:umd",
-    "build:modern": "10up-toolkit build -f=commonjs --wp=false",
-    "build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/10up/component-accordion.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/10up/component-accordion/issues"
-  },
-  "homepage": "https://github.com/10up/component-accordion#readme",
-  "devDependencies": {
-    "10up-toolkit": "^5.2.2",
-    "@testing-library/dom": "^9.3.3",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/user-event": "^14.5.1",
+	"name": "@10up/component-accordion",
+	"version": "2.1.5",
+	"author": "10up",
+	"private": true,
+	"description": "Accessible accordion component.",
+	"main": "dist/index.js",
+	"umd:main": "dist/index.umd.js",
+	"source": "src/index.js",
+	"style": "./dist/index.css",
+	"scripts": {
+		"test": "npm run build && 10up-toolkit test-unit-jest",
+		"start": "10up-toolkit start -i=src/app.js --dev-server",
+		"lint": "10up-toolkit lint-js",
+		"build": "npm run build:modern && npm run build:umd",
+		"build:modern": "10up-toolkit build -f=commonjs --wp=false",
+		"build:umd": "10up-toolkit build -f=umd -i=src/index.umd.js --name=TenUpAccordion --external=none"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/10up/component-accordion.git"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/10up/component-accordion/issues"
+	},
+	"homepage": "https://github.com/10up/component-accordion#readme",
+	"devDependencies": {
+		"10up-toolkit": "^5.2.2",
+		"@testing-library/dom": "^9.3.3",
+		"@testing-library/jest-dom": "^6.1.5",
+		"@testing-library/user-event": "^14.5.1",
 		"jest-environment-jsdom": "^29.7.0",
-    "jest-axe": "^8.0.0"
-  },
-  "dependencies": {
-    "xss": "1.0.11"
-  },
-  "10up-toolkit": {
-    "libraryName": "TenUpAccordion"
-  }
+		"jest-axe": "^8.0.0"
+	},
+	"dependencies": {
+		"xss": "1.0.11"
+	},
+	"10up-toolkit": {
+		"libraryName": "TenUpAccordion"
+	}
 }
