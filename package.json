@@ -14,7 +14,8 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "dev": "npm run wp-env start -w=projects/10up-theme -- --xdebug  && npm run start -w=projects/10up-theme"
+    "dev": "npm run wp-env start -w=projects/10up-theme -- --xdebug  && npm run start -w=projects/10up-theme",
+    "prepare": "husky install"
   },
   "workspaces": [
     "packages/*",
@@ -23,7 +24,9 @@
   "bundleDependencies": false,
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
-		"prettier": "^3.1.0"
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0"
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
