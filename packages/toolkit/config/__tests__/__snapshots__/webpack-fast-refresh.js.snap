@@ -1,229 +1,397 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot option 1`] = `
-Object {
-  "devServer": Object {
-    "allowedHosts": Array [
+{
+  "devServer": {
+    "allowedHosts": [
       ".test",
       ".local",
     ],
-    "client": Object {
-      "overlay": Object {
+    "client": {
+      "overlay": {
         "errors": true,
         "warnings": false,
       },
     },
-    "devMiddleware": Object {
+    "devMiddleware": {
       "writeToDisk": true,
     },
     "hot": true,
     "port": 8000,
-    "proxy": Object {
-      "/dist": Object {
-        "pathRewrite": Object {
+    "proxy": {
+      "/dist": {
+        "pathRewrite": {
           "^/dist": "",
         },
       },
     },
   },
   "devtool": "source-map",
-  "entry": () => getEntryPoints(config),
-  "experiments": Object {
+  "entry": [Function],
+  "experiments": {
     "outputModule": false,
   },
-  "externals": Object {
+  "externals": {
     "jquery": "jQuery",
     "lodash": "lodash",
   },
   "mode": "development",
-  "module": Object {
-    "rules": Array [
-      Object {
-        "exclude": input => shouldExclude(input, include),
+  "module": {
+    "rules": [
+      {
+        "exclude": [Function],
         "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": Array [
-          Object {
-            "loader": "/config/webpack/plugins/noop-loader.js",
+        "use": [
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/webpack/plugins/noop-loader.js",
           },
-          Object {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/babel-loader/lib/index.js",
+            "options": {
               "cacheDirectory": true,
             },
           },
-          Object {
+          {
             "loader": "@linaria/webpack-loader",
-            "options": Object {
-              "babelOptions": Object {},
+            "options": {
+              "babelOptions": {},
               "extension": ".linaria.module.css",
-              "overrideContext": context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          }),
+              "overrideContext": [Function],
               "sourceMap": true,
             },
           },
         ],
       },
-      Object {
+      {
         "test": /\\\\\\.svg\\$/,
-        "use": Array [
+        "use": [
           "@svgr/webpack",
           "url-loader",
         ],
       },
-      Object {
-        "exclude": Array [
+      {
+        "exclude": [
           /\\\\\\.module\\\\\\.css\\$/,
           /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         ],
         "test": /\\\\\\.css\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+        "use": [
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "options": {
               "sourceMap": true,
               "url": false,
             },
           },
-          Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {},
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {},
             },
           },
         ],
       },
-      Object {
-        "exclude": Array [
+      {
+        "exclude": [
           /\\\\\\.module\\\\\\.css\\$/,
           /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         ],
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+        "use": [
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "options": {
               "sourceMap": true,
               "url": false,
             },
           },
-          Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {},
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {},
             },
           },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "options": {
               "sourceMap": true,
             },
           },
         ],
       },
-      Object {
-        "exclude": Array [
+      {
+        "exclude": [
           /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
         ],
         "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+        "use": [
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
-          Object {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/css-loader/dist/cjs.js",
+            "options": {
               "import": false,
               "modules": true,
               "sourceMap": true,
               "url": false,
             },
           },
-          Object {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": Object {
-              "postcssOptions": Object {},
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {},
             },
           },
-          Object {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": Object {
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/sass-loader/dist/cjs.js",
+            "options": {
               "sourceMap": true,
             },
           },
         ],
       },
-      Object {
+      {
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": Array [
-          Object {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+        "use": [
+          {
+            "loader": "/Users/nicholasio/projects/10up-toolkit/node_modules/mini-css-extract-plugin/dist/loader.js",
           },
-          Object {
+          {
             "loader": "css-loader",
           },
         ],
       },
     ],
   },
-  "optimization": Object {
+  "optimization": {
     "concatenateModules": false,
-    "minimizer": Array [
-      TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}},
-      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
-      ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true},
+    "minimizer": [
+      TerserPlugin {
+        "options": {
+          "exclude": undefined,
+          "extractComments": true,
+          "include": undefined,
+          "minimizer": {
+            "implementation": [Function],
+            "options": {
+              "compress": {
+                "comparisons": false,
+                "ecma": 5,
+                "inline": 2,
+                "warnings": false,
+              },
+              "parse": {
+                "ecma": 8,
+              },
+            },
+          },
+          "parallel": true,
+          "test": /\\\\\\.\\[cm\\]\\?js\\(\\\\\\?\\.\\*\\)\\?\\$/i,
+        },
+      },
+      ImageMinimizerPlugin {
+        "options": {
+          "concurrency": undefined,
+          "deleteOriginalAssets": true,
+          "exclude": undefined,
+          "generator": undefined,
+          "include": undefined,
+          "loader": true,
+          "minimizer": {
+            "implementation": [Function],
+          },
+          "severityError": undefined,
+          "test": /\\\\\\.\\(jpe\\?g\\|png\\|webp\\|avif\\)\\$/i,
+        },
+      },
+      ImageMinimizerPlugin {
+        "options": {
+          "concurrency": undefined,
+          "deleteOriginalAssets": true,
+          "exclude": undefined,
+          "generator": undefined,
+          "include": undefined,
+          "loader": true,
+          "minimizer": {
+            "implementation": [Function],
+          },
+          "severityError": undefined,
+          "test": /\\\\\\.svg\\$/,
+        },
+      },
     ],
     "runtimeChunk": "single",
   },
-  "output": Object {
+  "output": {
     "chunkFilename": "js/[name].[contenthash].chunk.js",
     "clean": false,
-    "filename": pathData => {
-      if (pathData.chunk.name === 'runtime') {
-        return 'fast-refresh/hmr-runtime.js';
-      }
-      // match windows and posix paths
-      const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
-      return isBlockAsset ? filenames.block : filenames.js;
-    },
-    "path": "/dist",
+    "filename": [Function],
+    "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist",
     "publicPath": "/",
   },
-  "performance": Object {
+  "performance": {
     "hints": "warning",
     "maxAssetSize": 10240000,
     "maxEntrypointSize": 40960000,
   },
-  "plugins": Array [
-    HtmlWebpackPlugin: {},
-    ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
-    MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
-    CopyPlugin: {},
-    StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true},
-    DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
-    CleanExtractedDeps: {},
-    WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}},
-    TenUpToolkitTscPlugin: {},
-    ReactRefreshPlugin: {"overlay":{"sockHost":"127.0.0.1","sockProtocol":"ws","sockPort":8000,"entry":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js","module":"/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js","sockIntegration":"wds"},"exclude":[{},{}],"include":{}},
+  "plugins": [
+    HtmlWebpackPlugin {
+      "userOptions": {
+        "template": "public/index.html",
+      },
+      "version": 5,
+    },
+    ESLintWebpackPlugin {
+      "key": "ESLintWebpackPlugin",
+      "options": {
+        "emitError": true,
+        "emitWarning": true,
+        "extensions": "js",
+        "failOnError": false,
+        "fix": false,
+        "lintDirtyModulesOnly": true,
+        "resourceQueryExclude": [],
+      },
+      "run": [Function],
+    },
+    MiniCssExtractPlugin {
+      "_sortedModulesCache": WeakMap {},
+      "options": {
+        "chunkFilename": "[id].css",
+        "experimentalUseImportModule": undefined,
+        "filename": [Function],
+        "ignoreOrder": false,
+        "runtime": true,
+      },
+      "runtimeOptions": {
+        "attributes": undefined,
+        "insert": undefined,
+        "linkType": "text/css",
+      },
+    },
+    CopyPlugin {
+      "options": {},
+      "patterns": [
+        {
+          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
+          "from": "**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}",
+          "noErrorOnMissing": true,
+          "to": "[path][name][ext]",
+        },
+        {
+          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
+          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/block.json",
+          "noErrorOnMissing": true,
+          "to": "blocks/[path][name][ext]",
+          "transform": [Function],
+        },
+        {
+          "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks",
+          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/includes/blocks/**/*.php",
+          "noErrorOnMissing": true,
+          "to": "blocks/[path][name][ext]",
+        },
+        {
+          "context": "/dist",
+          "from": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/config/fast-refresh.php",
+          "noErrorOnMissing": true,
+          "to": "[path][name][ext]",
+        },
+      ],
+    },
+    StylelintWebpackPlugin {
+      "key": "StylelintWebpackPlugin",
+      "options": {
+        "allowEmptyInput": true,
+        "cache": true,
+        "cacheLocation": "node_modules/.cache/stylelint-webpack-plugin/.stylelintcache",
+        "context": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/assets",
+        "emitError": true,
+        "emitWarning": true,
+        "extensions": [
+          "css",
+          "scss",
+          "sass",
+        ],
+        "failOnError": false,
+        "files": "**/*.(s(c|a)ss|css)",
+        "lintDirtyModulesOnly": true,
+      },
+      "prevTimestamps": Map {},
+      "run": [Function],
+      "startTime": 1701701914492,
+    },
+    DependencyExtractionWebpackPlugin {
+      "externalizedDeps": Set {},
+      "externalsPlugin": ExternalsPlugin {
+        "externals": [Function],
+        "type": "window",
+      },
+      "options": {
+        "combineAssets": false,
+        "combinedOutputFile": null,
+        "externalizedReport": false,
+        "injectPolyfill": false,
+        "outputFilename": null,
+        "outputFormat": "php",
+        "requestToHandle": [Function],
+        "useDefaults": true,
+      },
+    },
+    CleanExtractedDeps {
+      "options": undefined,
+    },
+    WebpackRemoveEmptyScriptsPlugin {
+      "apply": [Function],
+      "enabled": true,
+      "options": {
+        "enabled": true,
+        "extensions": /\\.\\(css\\|scss\\|sass\\|less\\|styl\\)\\(\\[\\?\\]\\.\\*\\)\\?\\$/,
+        "ignore": [],
+        "remove": /\\\\\\.\\(js\\|mjs\\)\\$/,
+        "verbose": false,
+      },
+      "outputPath": "",
+      "trash": [],
+      "verbose": false,
+    },
+    TenUpToolkitTscPlugin {},
+    ReactRefreshPlugin {
+      "options": {
+        "exclude": [
+          /node_module/,
+          /outputCssLoader\\\\\\.js/,
+        ],
+        "include": /\\\\\\.\\(\\[cm\\]js\\|\\[jt\\]sx\\?\\|flow\\)\\$/i,
+        "overlay": {
+          "entry": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
+          "module": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
+          "sockHost": "127.0.0.1",
+          "sockIntegration": "wds",
+          "sockPort": 8000,
+          "sockProtocol": "ws",
+        },
+      },
+    },
   ],
-  "resolve": Object {
-    "alias": Object {
+  "resolve": {
+    "alias": {
       "lodash-es": "lodash",
     },
-    "extensions": Array [
+    "extensions": [
       ".tsx",
       ".ts",
       ".js",
     ],
   },
-  "stats": Object {
+  "stats": {
     "all": false,
     "assets": true,
     "errorDetails": true,
@@ -239,26 +407,41 @@ Object {
 `;
 
 exports[`webpack.config.js returns proper webpack fast refresh configs for project configs 1`] = `
-Array [
-  Object {
-    "entry": Object {
-      "react-refresh-entry": "/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
+[
+  {
+    "entry": {
+      "react-refresh-entry": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
     },
     "mode": "development",
     "name": "react-refresh-entry",
-    "output": Object {
+    "output": {
       "filename": "[name]/index.min.js",
-      "path": "/dist/fast-refresh",
+      "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist/fast-refresh",
     },
-    "plugins": Array [
-      DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true},
+    "plugins": [
+      DependencyExtractionWebpackPlugin {
+        "externalizedDeps": Set {},
+        "externalsPlugin": ExternalsPlugin {
+          "externals": [Function],
+          "type": "window",
+        },
+        "options": {
+          "combineAssets": false,
+          "combinedOutputFile": null,
+          "externalizedReport": false,
+          "injectPolyfill": false,
+          "outputFilename": null,
+          "outputFormat": "php",
+          "useDefaults": true,
+        },
+      },
     ],
   },
-  Object {
-    "entry": Object {
-      "react-refresh-runtime": Object {
+  {
+    "entry": {
+      "react-refresh-runtime": {
         "import": "react-refresh/runtime",
-        "library": Object {
+        "library": {
           "name": "ReactRefreshRuntime",
           "type": "window",
         },
@@ -266,12 +449,27 @@ Array [
     },
     "mode": "development",
     "name": "react-refresh-runtime",
-    "output": Object {
+    "output": {
       "filename": "[name]/index.min.js",
-      "path": "/dist/fast-refresh",
+      "path": "/Users/nicholasio/projects/10up-toolkit/packages/toolkit/dist/fast-refresh",
     },
-    "plugins": Array [
-      DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":false},
+    "plugins": [
+      DependencyExtractionWebpackPlugin {
+        "externalizedDeps": Set {},
+        "externalsPlugin": ExternalsPlugin {
+          "externals": [Function],
+          "type": "window",
+        },
+        "options": {
+          "combineAssets": false,
+          "combinedOutputFile": null,
+          "externalizedReport": false,
+          "injectPolyfill": false,
+          "outputFilename": null,
+          "outputFormat": "php",
+          "useDefaults": false,
+        },
+      },
     ],
   },
 ]
