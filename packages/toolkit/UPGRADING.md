@@ -2,6 +2,9 @@
 
 ## Upgrading from 5 to 6
 
+### Eslint
+The rule `jsdoc/newline-after-description` has been removed in the latest `eslint-plugin-jsdoc` and thus has been removed in the latest version of toolkit. If you have this rule in your own eslint config file you will need to remove it.
+
 ### Prettier
 
 Prettier have been upgraded to v3. We also recommend that you specify a prettier version in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
