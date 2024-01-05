@@ -132,7 +132,7 @@ class WebpackRemoveEmptyScriptsPlugin {
 					ignoreEntryResource.length > 0
 						? entryResources.filter((res) =>
 								ignoreEntryResource.every((item) => !res.match(item)),
-						  )
+							)
 						: entryResources;
 
 				const isEmptyScript =

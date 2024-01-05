@@ -276,7 +276,7 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    HtmlWebpackPlugin: {},
+    HtmlWebpackPlugin: {"template":"public/index.html","templateContent":false,"filename":"index.html","publicPath":"auto","hash":false,"inject":"head","scriptLoading":"defer","compile":true,"favicon":false,"minify":"auto","cache":true,"showErrors":true,"chunks":"all","excludeChunks":[],"chunksSortMode":"auto","meta":{},"base":false,"title":"Webpack App","xhtml":false},
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"},

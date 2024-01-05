@@ -202,7 +202,7 @@ Object {
     "maxEntrypointSize": 40960000,
   },
   "plugins": Array [
-    HtmlWebpackPlugin: {},
+    HtmlWebpackPlugin: {"template":"public/index.html","templateContent":false,"filename":"index.html","publicPath":"auto","hash":false,"inject":"head","scriptLoading":"defer","compile":true,"favicon":false,"minify":"auto","cache":true,"showErrors":true,"chunks":"all","excludeChunks":[],"chunksSortMode":"auto","meta":{},"base":false,"title":"Webpack App","xhtml":false},
     ESLintWebpackPlugin: {"extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true},
     MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"},
     CopyPlugin: {},
