@@ -1,5 +1,15 @@
 # Upgrade Guide
 
+## Upgrading from 5 to 6
+
+### Prettier
+
+Prettier have been upgraded to v3. We also recommend that you specify a prettier version in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
+
+### Jest
+
+The jest packages have been updated, if you're using `10up-toolkit test-unit-jest` and using `testEnvironment: jsdom`, add `jest-environment-jsdom` as a dependecy to your project.
+
 ## Upgrading from 3 to 4
 
 If you're on version 3 and followed below to be on (at least) NPM version `7`, you should be in the clears for this upgrade. In the case you're not, you'll need to install all of these dependencies manually into the project where toolkit is used given that it's only from NPM 7 that `peerDependency` are handled automatically.
@@ -32,7 +42,7 @@ The minimum Node.js version is 12.x, however Node.js 16 is strongly recommended.
 
 ### Minimum NPM version
 
-In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7. 
+In theory 10up-toolkit can be installed with any npm version >= 6, however we don't recommend npm < 7.
 
 ~~If you're getting an install error due to conflicting prettier dependencies, we recommend updating to npm 8.  There's an [known issue](https://github.com/WordPress/gutenberg/issues/39208) with `@wordpress/eslint-plugin` that can break installations of 10up-toolkit when using npm < 8. Alternatively if you're not on npm 8, you can try pinning `prettier` to `2.4.1` in your package.json to force npm install the version toolkit uses.~~ Fixed in [#166](https://github.com/10up/10up-toolkit/pull/166)
 
