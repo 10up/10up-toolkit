@@ -12,16 +12,13 @@ const { resolve } = require('path');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
-const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
 
 const {
 	hasStylelintConfig,
 	fromConfigRoot,
 	hasProjectFile,
-	getArgFromCLI,
 	maybeInsertStyleVersionHash,
 } = require('../../utils');
-const { isPackageInstalled } = require('../../utils/package');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
@@ -38,7 +35,6 @@ module.exports = ({
 	projectConfig: {
 		devServer,
 		filenames,
-		devURL,
 		devServerPort,
 		paths,
 		wpDependencyExternals,
@@ -50,38 +46,6 @@ module.exports = ({
 	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction;
-
-	const hasBrowserSync =
-		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
-
-	const shouldLoadBrowserSync = !isProduction && devURL && !hasReactFastRefresh && hasBrowserSync;
-
-	let browserSync = !isProduction && devURL ? new NoBrowserSyncPlugin() : false;
-	if (shouldLoadBrowserSync) {
-		// eslint-disable-next-line global-require, import/no-extraneous-dependencies
-		const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-		browserSync = new BrowserSyncPlugin(
-			{
-				host: 'localhost',
-				port: getArgFromCLI('--port') || 3000,
-				proxy: devURL,
-				open: false,
-				files: ['**/*.php', '**/*.js', 'dist/**/*.css'],
-				ignore: ['dist/**/*.php', 'dist/**/*.js'],
-				serveStatic: ['.'],
-				rewriteRules: [
-					{
-						match: /wp-content\/themes\/.*\/dist/g,
-						replace: 'dist',
-					},
-				],
-			},
-			{
-				injectCss: true,
-				reload: false,
-			},
-		);
-	}
 
 	const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
 
@@ -180,7 +144,6 @@ module.exports = ({
 					},
 				].filter(Boolean),
 			}),
-		devURL && browserSync,
 		// Lint CSS.
 		new StyleLintPlugin({
 			context: path.resolve(process.cwd(), paths.srcDir),
