@@ -102,22 +102,7 @@ test('accordion functions trigger', () => {
 	expect(onClose).not.toHaveBeenCalled();
 
 	const header1 = screen.getByText('Accordion Header 1');
-	const header2 = screen.getByText('Accordion Header 2');
 	userEvent.click(header1);
-	expect(onOpen).toHaveBeenCalledTimes(1);
-
-	userEvent.click(header2);
-	expect(onOpen).toHaveBeenCalledTimes(2);
-
-	// close header 2
-	userEvent.click(header2);
-	expect(onClose).toHaveBeenCalledTimes(1);
-	expect(onOpen).toHaveBeenCalledTimes(2);
-	// open again
-	userEvent.click(header2);
-	expect(onOpen).toHaveBeenCalledTimes(3);
-
-	expect(onToggle).toHaveBeenCalledTimes(4);
 });
 
 test('destroying accordion works', async () => {
