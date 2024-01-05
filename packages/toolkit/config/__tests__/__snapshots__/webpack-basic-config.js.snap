@@ -379,7 +379,7 @@ Object {
       return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
-    "publicPath": "/",
+    "publicPath": undefined,
   },
   "performance": Object {
     "hints": "warning",
@@ -1611,7 +1611,7 @@ Object {
       return isBlockAsset ? filenames.block : filenames.js;
     },
     "path": "/dist",
-    "publicPath": "/",
+    "publicPath": undefined,
   },
   "performance": Object {
     "hints": "warning",
