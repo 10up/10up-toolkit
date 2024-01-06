@@ -301,8 +301,8 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
 {
   "plugins": {
     "cssnano": false,
-    "postcss-editor-styles-wrapper": Object {
-      "ignore": Array [
+    "postcss-editor-styles-wrapper": {
+      "ignore": [
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
         ".wp-toolbar",
@@ -355,13 +355,8 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
         },
       ],
     },
-<<<<<<< HEAD
-    "postcss-editor-styles-wrapper": Object {
-      "ignore": Array [
-=======
-    "postcss-editor-styles": {
+    "postcss-editor-styles-wrapper": {
       "ignore": [
->>>>>>> develop
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
         ".wp-toolbar",
