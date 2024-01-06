@@ -1,7 +1,6 @@
 import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
-import webpackSerializer from '../../test-utils/webpack-serializer';
 
 jest.mock('../../utils/package', () => {
 	const module = jest.requireActual('../../utils/package');
@@ -28,10 +27,6 @@ jest.mock('../../utils/file', () => {
 });
 
 describe('webpack.config.js', () => {
-	beforeAll(() => {
-		expect.addSnapshotSerializer(webpackSerializer);
-	});
-
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();

@@ -43,7 +43,7 @@ exports[`postcss properly transforms css 1`] = `
 }
 
 .uikit__colors {
-	font-family: \\"Courier New\\", monospace;
+	font-family: "Courier New", monospace;
 	list-style: none;
 	margin: 0;
 	overflow: hidden;
@@ -134,12 +134,12 @@ exports[`postcss properly transforms css 1`] = `
 	display: none;
 }
 
-.uikit__section > .heading > .toggle[aria-expanded=\\"true\\"] .uikit__chevron-up,
+.uikit__section > .heading > .toggle[aria-expanded="true"] .uikit__chevron-up,
 .uikit__chevron-down {
 	display: block;
 }
 
-.uikit__section > .heading > .toggle[aria-expanded=\\"true\\"] .uikit__chevron-down {
+.uikit__section > .heading > .toggle[aria-expanded="true"] .uikit__chevron-down {
 	display: none;
 }
 
@@ -205,13 +205,13 @@ exports[`postcss transforms accordion.css properly 1`] = `
   width: 100%;
 }
 .accordion-header:before {
-    content: \\"+\\";
+    content: "+";
     left: 5px;
     position: absolute;
     top: 8px;
   }
 .accordion-header.is-active:before {
-    content: \\"-\\";
+    content: "-";
   }
 .js .accordion-content {
     display: none;
@@ -233,7 +233,7 @@ exports[`postcss transforms mixins properly 1`] = `
 	position: relative;
 }
 img::before {
-		content: \\"\\";
+		content: "";
 		display: block;
 		padding-bottom: calc(1 / 1 * 100%);
 		width: 100%;
@@ -250,13 +250,13 @@ a c, b c, a d, b d {
 `;
 
 exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=development 1`] = `
-Object {
-  "plugins": Object {
+{
+  "plugins": {
     "cssnano": false,
-    "postcss-import": Object {},
-    "postcss-mixins": Object {},
-    "postcss-preset-env": Object {
-      "features": Object {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-preset-env": {
+      "features": {
         "custom-properties": false,
       },
       "stage": 0,
@@ -266,18 +266,18 @@ Object {
 `;
 
 exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=production 1`] = `
-Object {
-  "plugins": Object {
-    "cssnano": Object {
-      "preset": Array [
+{
+  "plugins": {
+    "cssnano": {
+      "preset": [
         "default",
-        Object {
+        {
           "autoprefixer": false,
-          "calc": Object {
+          "calc": {
             "precision": 8,
           },
           "convertValues": true,
-          "discardComments": Object {
+          "discardComments": {
             "removeAll": true,
           },
           "mergeLonghand": false,
@@ -285,10 +285,10 @@ Object {
         },
       ],
     },
-    "postcss-import": Object {},
-    "postcss-mixins": Object {},
-    "postcss-preset-env": Object {
-      "features": Object {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-preset-env": {
+      "features": {
         "custom-properties": false,
       },
       "stage": 0,
@@ -298,8 +298,8 @@ Object {
 `;
 
 exports[`postcss.config.js builds a proper postcss config file for editor styles: env=development 1`] = `
-Object {
-  "plugins": Object {
+{
+  "plugins": {
     "cssnano": false,
     "postcss-editor-styles-wrapper": Object {
       "ignore": Array [
@@ -307,14 +307,14 @@ Object {
         ".edit-post-visual-editor.editor-styles-wrapper",
         ".wp-toolbar",
       ],
-      "remove": Array [
+      "remove": [
         "html",
         ":disabled",
         "[readonly]",
         "[disabled]",
       ],
       "scopeTo": ".editor-styles-wrapper",
-      "tags": Array [
+      "tags": [
         "button",
         "input",
         "label",
@@ -323,10 +323,10 @@ Object {
         "form",
       ],
     },
-    "postcss-import": Object {},
-    "postcss-mixins": Object {},
-    "postcss-preset-env": Object {
-      "features": Object {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-preset-env": {
+      "features": {
         "custom-properties": false,
       },
       "stage": 0,
@@ -336,18 +336,18 @@ Object {
 `;
 
 exports[`postcss.config.js builds a proper postcss config file for editor styles: env=production 1`] = `
-Object {
-  "plugins": Object {
-    "cssnano": Object {
-      "preset": Array [
+{
+  "plugins": {
+    "cssnano": {
+      "preset": [
         "default",
-        Object {
+        {
           "autoprefixer": false,
-          "calc": Object {
+          "calc": {
             "precision": 8,
           },
           "convertValues": true,
-          "discardComments": Object {
+          "discardComments": {
             "removeAll": true,
           },
           "mergeLonghand": false,
@@ -355,20 +355,25 @@ Object {
         },
       ],
     },
+<<<<<<< HEAD
     "postcss-editor-styles-wrapper": Object {
       "ignore": Array [
+=======
+    "postcss-editor-styles": {
+      "ignore": [
+>>>>>>> develop
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
         ".wp-toolbar",
       ],
-      "remove": Array [
+      "remove": [
         "html",
         ":disabled",
         "[readonly]",
         "[disabled]",
       ],
       "scopeTo": ".editor-styles-wrapper",
-      "tags": Array [
+      "tags": [
         "button",
         "input",
         "label",
@@ -377,10 +382,10 @@ Object {
         "form",
       ],
     },
-    "postcss-import": Object {},
-    "postcss-mixins": Object {},
-    "postcss-preset-env": Object {
-      "features": Object {
+    "postcss-import": {},
+    "postcss-mixins": {},
+    "postcss-preset-env": {
+      "features": {
         "custom-properties": false,
       },
       "stage": 0,

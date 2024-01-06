@@ -87,20 +87,20 @@ const printWebPackPlugin = (plugin) => {
 };
 
 module.exports = {
-	serialize(val) {
+	serialize(val, config, indentation, depth, refs, printer) {
 		if (isString(val) && hasLocalPath(val)) {
-			return `"${removeLocalPath(val)}"`;
+			return printer(removeLocalPath(val), config, indentation, depth, refs);
 		}
 
 		if (isWebPackPlugin(val)) {
-			return printWebPackPlugin(val);
+			return printer(printWebPackPlugin(val), config, indentation, depth, refs);
 		}
 
 		if (typeof val === 'function') {
-			return val.toString();
+			return printer(val.toString(), config, indentation, depth, refs);
 		}
 
-		return val;
+		return printer(val, config, indentation, depth, refs);
 	},
 
 	test(val) {

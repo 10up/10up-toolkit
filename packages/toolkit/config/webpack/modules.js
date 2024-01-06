@@ -84,7 +84,7 @@ module.exports = ({
 						},
 					],
 				],
-		  }
+			}
 		: {};
 
 	if (isPackageInstalled('@linaria/babel-preset') && !hasBabelConfig()) {
