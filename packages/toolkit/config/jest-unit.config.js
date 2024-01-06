@@ -14,7 +14,7 @@ const jestUnitConfig = {
 	fakeTimers: {
 		enableGlobally: true,
 	},
-	setupFilesAfterEnv: ['@wordpress/jest-console'],
+	setupFilesAfterEnv: [require.resolve('@wordpress/jest-console')],
 	moduleNameMapper: {
 		'\\.(scss|css)$': path.join(__dirname, 'jest', 'style.mock.js'),
 	},
