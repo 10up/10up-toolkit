@@ -11,8 +11,10 @@ const { hasBabelConfig } = require('../utils');
 const jestUnitConfig = {
 	testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/test/*.[jt]s?(x)', '**/?(*.)test.[jt]s?(x)'],
 	testPathIgnorePatterns: ['/node_modules/', '<rootDir>/vendor/'],
-	timers: 'fake',
-	setupFilesAfterEnv: ['@wordpress/jest-console'],
+	fakeTimers: {
+		enableGlobally: true,
+	},
+	setupFilesAfterEnv: [require.resolve('@wordpress/jest-console')],
 	moduleNameMapper: {
 		'\\.(scss|css)$': path.join(__dirname, 'jest', 'style.mock.js'),
 	},
