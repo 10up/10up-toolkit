@@ -19,9 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      # Test node 16/18 on Ubuntu
-      # Test node 16 on macOS/Windows
-      # Enable linting only for node 16 + ubuntu
+      # Test node 16/18/20 on Ubuntu
+      # Test node 18 on macOS/Windows
+      # Enable linting only for node 20 & Ubuntu
       matrix:
         os: [ubuntu-latest]
         node: [16, 18, 20]
@@ -30,7 +30,7 @@ jobs:
             node: 18
           - os: windows-latest
             node: 18
-          - node: 16
+          - node: 20
             is_base_node_version: true
           - os: ubuntu-latest
             is_base_os_version: true
@@ -57,11 +57,6 @@ jobs:
             projects/*/dist/**
           key: ${{ env.COMMIT_SHA }}--test-dist-${{ matrix.node }}-${{ matrix.os }}
           restore-keys: ${{ env.DIST_RESTORE_KEYS }}
-
-      # See https://github.com/npm/cli/issues/3385
-      - name: upgrade npm
-        run: npm i npm@7.20.3 -g
-        if: matrix.needs_npm_upgrade
 
       - name: npm ci
         run: |

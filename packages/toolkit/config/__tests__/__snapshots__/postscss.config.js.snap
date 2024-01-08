@@ -8,8 +8,6 @@ exports[`postcss properly transforms css 1`] = `
 	--c-uikit-border: #ccc;
 	--c-uikit-primary: #000;
 
-	@custom-media --bp-uikit-small (min-width: 40.625em);
-
 }
 
 .uikit__container {
@@ -161,7 +159,7 @@ exports[`postcss properly transforms css 1`] = `
 	margin-bottom: 1em;
 }
 
-@media (--bp-uikit-small) {
+@media (min-width: 40.625em) {
 
 	.uikit__section > .heading {
 		width: 145px;
@@ -303,7 +301,7 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
 {
   "plugins": {
     "cssnano": false,
-    "postcss-editor-styles": {
+    "postcss-editor-styles-wrapper": {
       "ignore": [
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",
@@ -357,7 +355,7 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
         },
       ],
     },
-    "postcss-editor-styles": {
+    "postcss-editor-styles-wrapper": {
       "ignore": [
         ":root",
         ".edit-post-visual-editor.editor-styles-wrapper",

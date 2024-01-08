@@ -2,12 +2,32 @@
 
 ## Upgrading from 5 to 6
 
+There are a few major changes in this release. While it probably won't break your build, it's worth noting everything that's changed.
+
+### Node version
+Minimum Node version is now 18
+
+### PostCSS
+Swapping `postcss-editor-styles` with `postcss-editor-styles-wrapper` which is compatible with PostCSS 8. This should be a seamless change as this is a fork of the original package that was updated to be compatible with PostCSS 8 and fixes wrong behaviour in some circumstances.
+
+For those referencing `postcss-editor-styles` in `postcss.config.js` should update the plugin name to `postcss-editor-styles-wrapper`.
+
+`postcss-preset-env` has been updated to `^9.0.0` from `^7.0.0`. This is a major version bump and there are some breaking changes. See the [postcss-preset-env changelog](https://github.com/csstools/postcss-plugins/wiki/PostCSS-Preset-Env-8) for version 8 if you run into issues. It's hard to know every single build that could be affected by this change, but here is the only one we think it's worth flagging in this document:
+  * PostCSS Custom Media Breaking Change. If you used media queries without parentheses, you'll need to add them. See [PostCSS Custom Media Breaking Change](https://github.com/csstools/postcss-plugins/wiki/PostCSS-Preset-Env-8#postcss-custom-media-breaking-changes)
+
+```diff
+@custom-media --foo (min-width: 320px);
+
+- @media --foo {}
++ @media (--foo) {}
+```
+
 ### Eslint
 The rule `jsdoc/newline-after-description` has been removed in the latest `eslint-plugin-jsdoc` and thus has been removed in the latest version of toolkit. If you have this rule in your own eslint config file you will need to remove it.
 
 ### Prettier
 
-Prettier have been upgraded to v3. We also recommend that you specify a prettier version in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
+Prettier have been upgraded to v3. We also recommend that you specify a [prettier exact version](https://prettier.io/docs/en/install#summary) in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
 
 ### Jest
 
