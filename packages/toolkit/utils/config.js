@@ -109,10 +109,21 @@ const getDefaultConfig = () => {
 	const analyze = hasArgInCLI('--analyze');
 	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
 
+	const buildFilesPath = hasProjectFile('buildfiles.config.js')
+		? fromProjectRoot('buildfiles.config.js')
+		: fromConfigRoot('buildfiles.config.js');
+
+	const filenamesPath = hasProjectFile('filenames.config.js')
+		? fromProjectRoot('filenames.config.js')
+		: fromConfigRoot('filenames.config.js');
+	const pathsPath = hasProjectFile('paths.config.js')
+		? fromProjectRoot('paths.config.js')
+		: fromConfigRoot('paths.config.js');
+
 	return {
-		entry: require(fromConfigRoot('buildfiles.config.js')),
-		filenames: require(fromConfigRoot('filenames.config.js')),
-		paths: require(fromConfigRoot('paths.config.js')),
+		entry: require(buildFilesPath),
+		filenames: require(filenamesPath),
+		paths: require(pathsPath),
 		wordpress: wpMode !== 'false',
 		devServer,
 		devServerPort,
