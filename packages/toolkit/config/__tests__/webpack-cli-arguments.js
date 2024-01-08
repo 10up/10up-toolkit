@@ -88,7 +88,7 @@ describe('webpack.config.js', () => {
 
 	it('allows changing browsersync port', () => {
 		process.argv.push('--port=3000');
-		hasProjectFileMock.mockReturnValue(true);
+		// hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};
@@ -111,7 +111,7 @@ describe('webpack.config.js', () => {
 	it('includes webpack-bundle-analyzer when using --analyze', () => {
 		process.argv.push('--analyze');
 		process.env.NODE_ENV = 'production';
-		hasProjectFileMock.mockReturnValue(true);
+		// hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};

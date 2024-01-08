@@ -27,13 +27,106 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "plugins": [],
+              "presets": [
+                [
+                  "/packages/babel-preset-default/index.js",
+                  {
+                    "targets": [
+                      "> 1%",
+                      "Firefox ESR",
+                      "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
+                    ],
+                    "useBuiltIns": false,
+                    "wordpress": true,
+                  },
+                ],
+                [
+                  "@linaria",
+                  {
+                    "babelOptions": {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": [
+                        [
+                          "/packages/babel-preset-default/index.js",
+                          {
+                            "targets": [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": false,
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
+              ],
+              "sourceType": "unambiguous",
             },
           },
           {
             "loader": "@linaria/webpack-loader",
             "options": {
-              "babelOptions": {},
+              "babelOptions": {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
               "extension": ".linaria.module.css",
               "overrideContext": "context => ({
             ...context,
@@ -71,7 +164,9 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
         ],
@@ -96,7 +191,9 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
           {
@@ -128,7 +225,9 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
           {
@@ -177,7 +276,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "CleanExtractedDeps: {}",
     "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
@@ -233,13 +332,106 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/babel-loader/lib/index.js",
             "options": {
+              "babelrc": false,
               "cacheDirectory": true,
+              "configFile": false,
+              "plugins": [],
+              "presets": [
+                [
+                  "/packages/babel-preset-default/index.js",
+                  {
+                    "targets": [
+                      "> 1%",
+                      "Firefox ESR",
+                      "last 2 versions",
+                      "not ie <= 11",
+                      "not ie_mob <=11",
+                    ],
+                    "useBuiltIns": "usage",
+                    "wordpress": true,
+                  },
+                ],
+                [
+                  "@linaria",
+                  {
+                    "babelOptions": {
+                      "babelrc": false,
+                      "configFile": false,
+                      "presets": [
+                        [
+                          "/packages/babel-preset-default/index.js",
+                          {
+                            "targets": [
+                              "> 1%",
+                              "Firefox ESR",
+                              "last 2 versions",
+                              "not ie <= 11",
+                              "not ie_mob <=11",
+                            ],
+                            "useBuiltIns": "usage",
+                            "wordpress": true,
+                          },
+                        ],
+                      ],
+                      "sourceType": "unambiguous",
+                    },
+                  },
+                ],
+              ],
+              "sourceType": "unambiguous",
             },
           },
           {
             "loader": "@linaria/webpack-loader",
             "options": {
-              "babelOptions": {},
+              "babelOptions": {
+                "babelrc": false,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": "usage",
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": "usage",
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
               "extension": ".linaria.module.css",
               "overrideContext": "context => ({
             ...context,
@@ -277,7 +469,9 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
         ],
@@ -302,7 +496,9 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
           {
@@ -334,7 +530,9 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/postcss-loader/dist/cjs.js",
             "options": {
-              "postcssOptions": {},
+              "postcssOptions": {
+                "config": "/config/postcss.config.js",
+              },
             },
           },
           {
@@ -390,7 +588,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
     "CopyPlugin: {}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true}",
+    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
     "CleanExtractedDeps: {}",
