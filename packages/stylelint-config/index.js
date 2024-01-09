@@ -78,7 +78,7 @@ module.exports = {
 					'Selector should use lowercase and separate words with hyphens (selector-id-pattern)',
 			},
 		],
-		'selector-nested-pattern': ['^&'],
+		'selector-nested-pattern': '^&|\\s&$',
 		'selector-pseudo-element-colon-notation': 'double',
 		'selector-type-case': 'lower',
 		'stylistic/at-rule-name-case': 'lower',
