@@ -108,12 +108,14 @@ const getDefaultConfig = () => {
 	const devServerPort = Number(getArgFromCLI('--port')) || 8000;
 	const analyze = hasArgInCLI('--analyze');
 	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
+	const sourcemap = hasArgInCLI('--sourcemap');
 
 	return {
 		entry: require(fromConfigRoot('buildfiles.config.js')),
 		filenames: require(fromConfigRoot('filenames.config.js')),
 		paths: require(fromConfigRoot('paths.config.js')),
 		wordpress: wpMode !== 'false',
+		sourcemap,
 		devServer,
 		devServerPort,
 		analyze,
@@ -149,6 +151,10 @@ const getTenUpScriptsConfig = () => {
 		}
 	}
 
+	if (typeof config.sourcemap !== 'undefined' && typeof config.sourcemap !== 'boolean') {
+		throw new Error('config.sourcemap should be a boolean');
+	}
+
 	const configInclude = config.include ?? [];
 	const include = defaultConfig.include.length === 0 ? configInclude : defaultConfig.include;
 	const publicPath = process.env.ASSET_PATH || config.publicPath || defaultConfig.publicPath;
@@ -159,6 +165,7 @@ const getTenUpScriptsConfig = () => {
 		...config,
 		include,
 		publicPath,
+		sourcemap: Boolean(config.sourcemap),
 		// these properties must be merged
 		filenames: {
 			...defaultConfig.filenames,
