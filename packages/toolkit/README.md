@@ -335,7 +335,7 @@ module.exports = (api) => {
 };
 ```
 
-- If your're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
+- If you're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
 
 ## <a id="linting"></a> Linting
 
@@ -692,9 +692,39 @@ See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more inf
 
 10up-toolkit supports several CLI options that can be used to override settings.
 
+### Production Sourcemaps
+> This option was added in 10up-toolkit v6.
+
+All development builds ship source maps by default, if you wish to ship source maps to production builds you can use the `--sourcemap` cli flag to force the generation of source maps even in production builds.
+Alternatively, you can set this up in `package.json`.
+
+```json
+{
+	"name": "tenup-theme",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "10up-toolkit build --watch",
+		"build": "10up-toolkit build",
+		"format-js": "10up-toolkit format-js",
+		"lint-js": "10up-toolkit lint-js",
+		"lint-style": "10up-toolkit lint-style",
+		"test": "10up-toolkit test-unit-jest"
+	},
+	"devDependencies": {
+		"10up-toolkit": "^6.0.0"
+	},
+	"10up-toolkit": {
+		"sourcemap": true,
+		"entry": {
+			"admin": "./assets/js/admin/admin.js"
+		}
+	}
+}
+```
+
 ### Bundle Analyzer
 
-10up-toolkit ships with `webpack-bundle-analyzer` out of the box, and you can enable it by simple passing the `--analyze` option.
+10up-toolkit ships with `webpack-bundle-analyzer` out of the box, and you can enable it by simply passing the `--analyze` option.
 
 `10up-toolkit build --analyze`
 

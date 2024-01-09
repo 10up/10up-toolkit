@@ -166,4 +166,30 @@ describe('webpack.config.js', () => {
 		expect(webpackConfig).toMatchSnapshot();
 		process.argv.pop();
 	});
+
+	it('takes the --sourcemap option into account', () => {
+		const originalNodeEnv = process.env.NODE_ENV;
+		process.env.NODE_ENV = 'production';
+
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+		});
+
+		process.argv.push('--sourcemap');
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe('source-map');
+		process.argv.pop();
+		process.env.NODE_ENV = originalNodeEnv;
+	});
 });

@@ -187,4 +187,51 @@ describe('webpack.config.js', () => {
 
 		expect(webpackConfig).toMatchSnapshot();
 	});
+
+	it('takes the sourcemap config into account', () => {
+		const originalNodeEnv = process.env.NODE_ENV;
+		process.env.NODE_ENV = 'production';
+
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+			'10up-toolkit': {
+				sourcemap: true,
+			},
+		});
+
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe('source-map');
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+			'10up-toolkit': {
+				sourcemap: false,
+			},
+		});
+
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe(false);
+
+		process.env.NODE_ENV = originalNodeEnv;
+	});
 });
