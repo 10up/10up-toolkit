@@ -40,7 +40,7 @@ describe('webpack.config.js', () => {
 	it('includes react-webpack-fast-refresh with the --hot option', () => {
 		process.argv.push('--hot');
 		process.env.NODE_ENV = 'development';
-		hasProjectFileMock.mockReturnValue(true);
+		hasProjectFileMock.mockImplementation((file) => file === 'webpack.config.js');
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};

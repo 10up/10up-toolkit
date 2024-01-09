@@ -136,7 +136,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('properly detects user config files in package mode', () => {
-		hasProjectFileMock.mockReturnValue(true);
 		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
@@ -163,7 +162,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('properly detects user config files in project mode', () => {
-		hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 			entry2: 'entry2.js',
