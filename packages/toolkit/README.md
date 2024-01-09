@@ -695,7 +695,7 @@ See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more inf
 ### Production Sourcemaps
 > This option was added in 10up-toolkit v6.
 
-All development builds ship source maps by default, if you wish to ship source maps to productions you can use the `--sourcemap` cli flag to force the generation of source maps even in production builds.
+All development builds ship source maps by default, if you wish to ship source maps to production builds you can use the `--sourcemap` cli flag to force the generation of source maps even in production builds.
 Alternatively, you can set this up in `package.json`.
 
 ```json
