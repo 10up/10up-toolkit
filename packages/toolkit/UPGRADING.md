@@ -41,7 +41,7 @@ For those referencing `postcss-editor-styles` in `postcss.config.js` should upda
 ### Eslint
 The rule `jsdoc/newline-after-description` has been removed in the latest `eslint-plugin-jsdoc` and thus has been removed in the latest version of toolkit. If you have this rule in your own eslint config file you will need to remove it.
 
-When upgrading toolkit, ensure you also update `@10up/eslint-config` to 4, in case you are specifying it in your package.json. If you're not npm should resolve the peer depdency automatically.
+When upgrading toolkit, ensure you also update `@10up/eslint-config` to 4, in case you are specifying it in your package.json. If you're not npm should resolve the peer depedency automatically.
 
 ### Prettier
 
