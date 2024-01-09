@@ -2,6 +2,7 @@ module.exports = {
 	extends: ['stylelint-config-recommended'],
 	plugins: ['stylelint-stylistic', 'stylelint-declaration-strict-value', 'stylelint-order'],
 	rules: {
+		'at-rule-disallowed-list': ['nest'],
 		'at-rule-empty-line-before': [
 			'always',
 			{
