@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.0.0-next.0
+
+### Major Changes
+
+- 47c19c9: - Bump minimum prettier version to v3.
+  - Removed `jsdoc/newline-after-description` eslint rule since it has been removed from the `eslint-plugin-jsdoc`.
+
+### Patch Changes
+
+- Updated dependencies [91f266f]
+  - @10up/babel-preset-default@2.1.1-next.0
+
 ## 3.1.1
 
 ### Patch Changes
