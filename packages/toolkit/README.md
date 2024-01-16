@@ -290,15 +290,15 @@ In some setups (such as Laravel Valet), Websocket SSL connections will fail unle
 
 If you aren't already customizing webpack in your project, create a new `webpack.config.js` file in the root of your project/theme. You need to specify the cert, key, and ca properties for the config.devServer.https object.
 
-```
+```js
 const config = require('10up-toolkit/config/webpack.config.js');
-const fs = require('fs')
+const fs = require('fs');
 
 // Customize this to the appropriate path to your certificate folder
-const certPath = '/Users/youruser/.config/valet'
+const certPath = '/Users/youruser/.config/valet';
 
 // Check if devServer is in use and if so, modify the cert files used
-if( typeof config.devServer === 'object ) {
+if( typeof config.devServer === 'object' ) {
   config.devServer.https = {
     key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
     cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
