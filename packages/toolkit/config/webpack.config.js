@@ -50,7 +50,7 @@ const config = {
 };
 
 module.exports = {
-	devtool: isProduction ? false : 'source-map',
+	devtool: !isProduction || projectConfig.sourcemap ? 'source-map' : false,
 	mode,
 	devServer: getDevServer(config),
 	// using a function here in order to re-evaluate

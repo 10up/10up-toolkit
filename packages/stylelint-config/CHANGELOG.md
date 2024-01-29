@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- ea9ca67: Discourage usage of `@nest` by disallowing the at-rule.
+  Adding support for new way of doing nesting as per latest Nesting Spec (as implemented by browsers in 2023).
+- 3fce625: Upgrading `stylelint` to version `15.0.0` and decouple from `@wordpress/stylelint-config`.
+
 ## 2.0.5
 
 ### Patch Changes
