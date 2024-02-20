@@ -25,7 +25,7 @@ module.exports = {
 			},
 		],
 		'custom-property-pattern': [
-			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^wp--([a-z][a-z0-9]*)([-]{1,2}[a-z0-9]+)*$',
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^wp[-]{1,2}([a-z][a-z0-9]*)([-]{1,2}[a-z0-9]+)*$'
 			{
 				message: 'Expected custom property name to be kebab-case or wp--kebab--case',
 			},
