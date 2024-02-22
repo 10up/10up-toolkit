@@ -11,6 +11,7 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "funny-dogs-learn",
     "gentle-falcons-shop",
     "good-pumas-teach",
     "grumpy-experts-wait",
@@ -18,6 +19,7 @@
     "healthy-radios-own",
     "hot-crabs-exercise",
     "mean-pens-juggle",
+    "pink-dots-grab",
     "rare-ducks-hang",
     "six-crabs-cry",
     "smooth-trees-pump",
