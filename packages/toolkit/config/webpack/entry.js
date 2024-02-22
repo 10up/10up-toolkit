@@ -7,6 +7,7 @@ const removeDistFolder = (file) => {
 };
 
 module.exports = ({
+	buildType = 'script',
 	isPackage,
 	projectConfig: { devServer, paths, useBlockAssets, filenames },
 	packageConfig: { packageType, source, main, umd, libraryName },
@@ -36,12 +37,31 @@ module.exports = ({
 			// at which point they are completely empty and therefore not valid JSON
 			try {
 				// get all assets from the block.json file
-				const { editorScript, script, viewScript, style, editorStyle } = JSON.parse(
-					readFileSync(blockMetadataFile),
-				);
+				const {
+					editorScript,
+					script,
+					viewScript,
+					scriptModule,
+					viewScriptModule,
+					style,
+					editorStyle,
+					viewStyle,
+				} = JSON.parse(readFileSync(blockMetadataFile));
+
+				const assets = [];
+
+				if (buildType === 'script') {
+					assets.push(
+						...[editorScript, script, viewScript, style, editorStyle, viewStyle].filter(
+							Boolean,
+						),
+					);
+				} else if (buildType === 'module') {
+					assets.push(...[scriptModule, viewScriptModule].filter(Boolean));
+				}
 
 				// generate a new entrypoint for each of the assets
-				[editorScript, script, viewScript, style, editorStyle]
+				assets
 					.flat()
 					.filter((rawFilepath) => rawFilepath && rawFilepath.startsWith('file:')) // assets can be files or handles. we only want files
 					.forEach((rawFilepath) => {
@@ -82,6 +102,10 @@ module.exports = ({
 				return accumulator;
 			}
 		}, {});
+	}
+
+	if (buildType === 'module') {
+		return additionalEntrypoints;
 	}
 
 	// merge the new entrypoints with the existing ones

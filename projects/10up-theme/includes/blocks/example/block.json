@@ -36,11 +36,13 @@
 		"reusable": false,
 		"spacing": {
 			"padding": false
-		}
+		},
+		"interactivity": true
 	},
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
 	"viewScript": "file:./view.js",
+	"viewScriptModule": "file:./view-module.js",
 	"script": "file:./script.js"
 }

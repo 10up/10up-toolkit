@@ -23,7 +23,7 @@ module.exports = ({
 
 	return {
 		// when in hot reload mode we should not clear dist folder between builds
-		clean: !hot,
+		clean: false,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
 		publicPath,

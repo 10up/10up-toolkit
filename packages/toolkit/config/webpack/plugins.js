@@ -34,6 +34,7 @@ const webpackbarArguments =
 
 module.exports = ({
 	isPackage,
+	isModule = false,
 	isProduction,
 	projectConfig: {
 		devServer,
@@ -202,6 +203,10 @@ module.exports = ({
 				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
+						if (isModule) {
+							return undefined;
+						}
+
 						return 'tenup-toolkit-react-refresh-runtime';
 					}
 

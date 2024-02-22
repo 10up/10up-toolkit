@@ -49,13 +49,10 @@ const config = {
 	defaultTargets,
 };
 
-module.exports = {
+const baseConfig = {
 	devtool: !isProduction || projectConfig.sourcemap ? 'source-map' : false,
 	mode,
 	devServer: getDevServer(config),
-	// using a function here in order to re-evaluate
-	// the entrypoints whenever something changes
-	entry: () => getEntryPoints(config),
 	output: getOutput(config),
 	target: getTarget(config),
 	resolve: getResolve(config),
@@ -69,3 +66,33 @@ module.exports = {
 		outputModule: packageConfig.packageType === 'module',
 	},
 };
+
+const scriptsConfig = {
+	...baseConfig,
+	entry: () => getEntryPoints({ ...config, buildType: 'script' }),
+};
+
+const moduleConfig = {
+	...baseConfig,
+
+	entry: () => getEntryPoints({ ...config, buildType: 'module' }),
+	plugins: getPlugins({ ...config, isModule: true }),
+
+	experiments: {
+		...baseConfig.experiments,
+		outputModule: true,
+	},
+
+	output: {
+		clean: false,
+		module: true,
+		chunkFormat: 'module',
+		library: {
+			...baseConfig.output.library,
+			type: 'module',
+		},
+		filename: 'blocks/[name].js',
+	},
+};
+
+module.exports = [scriptsConfig, moduleConfig];
