@@ -1,0 +1,5 @@
+:root {
+	--wp--preset--font-family--system-font: "font-name";
+	--wp--preset--spacing--m: 1.5rem;
+	--wp-admin--admin-bar--height: 60px;
+}
