@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0-next.1
+
+### Patch Changes
+
+- 5734ef9: Update `custom-property-pattern` regular expression to also match custom properties that use a singular `-` as a group separator
+- ae04aa8: fix update custom property pattern to also allow for single `-` separator
+
 ## 3.0.0-next.0
 
 ### Major Changes
