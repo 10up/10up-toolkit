@@ -1,7 +1,6 @@
 import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
-import webpackSerializer from '../../test-utils/webpack-serializer';
 
 jest.mock('../../utils/package', () => {
 	const module = jest.requireActual('../../utils/package');
@@ -28,10 +27,6 @@ jest.mock('../../utils/file', () => {
 });
 
 describe('webpack.config.js', () => {
-	beforeAll(() => {
-		expect.addSnapshotSerializer(webpackSerializer);
-	});
-
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();
@@ -93,7 +88,6 @@ describe('webpack.config.js', () => {
 
 	it('allows changing browsersync port', () => {
 		process.argv.push('--port=3000');
-		hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};
@@ -116,7 +110,6 @@ describe('webpack.config.js', () => {
 	it('includes webpack-bundle-analyzer when using --analyze', () => {
 		process.argv.push('--analyze');
 		process.env.NODE_ENV = 'production';
-		hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};
@@ -172,5 +165,31 @@ describe('webpack.config.js', () => {
 
 		expect(webpackConfig).toMatchSnapshot();
 		process.argv.pop();
+	});
+
+	it('takes the --sourcemap option into account', () => {
+		const originalNodeEnv = process.env.NODE_ENV;
+		process.env.NODE_ENV = 'production';
+
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+		});
+
+		process.argv.push('--sourcemap');
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe('source-map');
+		process.argv.pop();
+		process.env.NODE_ENV = originalNodeEnv;
 	});
 });

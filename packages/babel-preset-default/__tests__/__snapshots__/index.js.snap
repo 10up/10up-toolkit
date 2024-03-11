@@ -109,8 +109,7 @@ class ClassComponent extends _react.Component {
     }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default transpiles without removing proptypes in dev mode 1`] = `
@@ -201,8 +200,7 @@ class ClassComponent extends _react.Component {
 ClassComponent.propTypes = {
   title: _propTypes.default.string.isRequired
 };
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default transpiles without transforming es6 imports 1`] = `
@@ -278,95 +276,7 @@ class ClassComponent extends _react.Component {
     }, (0, _element.createElement)(\\"h1\\", null, title));
   }
 }
-var _default = FCComponent;
-exports.default = _default;"
-`;
-
-exports[`Babel preset default with automatic runtime transpiles react code properly with automatic runtime 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.default = void 0;
-var _react = require(\\"react\\");
-// eslint-disable-line import/no-extraneous-dependencies
-// eslint-disable-line import/no-extraneous-dependencies
-
-const FCComponent = ({
-  title,
-  url,
-  description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, /*#__PURE__*/React.createElement(\\"a\\", {
-  href: url,
-  title: title
-}, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
-FCComponent.defaultProps = {
-  title: '',
-  url: '',
-  description: ''
-};
-class ClassComponent extends _react.Component {
-  componentDidMount() {
-    // doing something
-  }
-  render() {
-    const {
-      title
-    } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
-      className: \\"Class Component\\"
-    }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
-  }
-}
-var _default = FCComponent;
-exports.default = _default;"
-`;
-
-exports[`Babel preset default with automatic runtime transpiles wordpress code properly even when jsx-runtime.js is present 1`] = `
-"\\"use strict\\";
-
-Object.defineProperty(exports, \\"__esModule\\", {
-  value: true
-});
-exports.default = void 0;
-var _element = require(\\"@wordpress/element\\");
-var _react = require(\\"react\\");
-// eslint-disable-line import/no-extraneous-dependencies
-// eslint-disable-line import/no-extraneous-dependencies
-
-const FCComponent = ({
-  title,
-  url,
-  description
-}) => (0, _element.createElement)(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, (0, _element.createElement)(\\"a\\", {
-  href: url,
-  title: title
-}, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
-FCComponent.defaultProps = {
-  title: '',
-  url: '',
-  description: ''
-};
-class ClassComponent extends _react.Component {
-  componentDidMount() {
-    // doing something
-  }
-  render() {
-    const {
-      title
-    } = this.props;
-    return (0, _element.createElement)(\\"div\\", {
-      className: \\"Class Component\\"
-    }, (0, _element.createElement)(\\"h1\\", null, title));
-  }
-}
-var _default = FCComponent;
-exports.default = _default;"
+var _default = exports.default = FCComponent;"
 `;
 
 exports[`compiles typescript transpiles typescript code properly 1`] = `

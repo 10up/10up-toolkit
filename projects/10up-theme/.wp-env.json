@@ -1,3 +1,6 @@
 {
-  "themes": [ "." ]
+  "themes": [ "." ],
+  "config": {
+    "WP_ENVIRONMENT_TYPE": "local"
+  }
 }

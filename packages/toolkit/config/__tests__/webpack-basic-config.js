@@ -1,7 +1,6 @@
 import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
-import webpackSerializer from '../../test-utils/webpack-serializer';
 
 jest.mock('../../utils/package', () => {
 	const module = jest.requireActual('../../utils/package');
@@ -28,10 +27,6 @@ jest.mock('../../utils/file', () => {
 });
 
 describe('webpack.config.js', () => {
-	beforeAll(() => {
-		expect.addSnapshotSerializer(webpackSerializer);
-	});
-
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();
@@ -141,7 +136,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('properly detects user config files in package mode', () => {
-		hasProjectFileMock.mockReturnValue(true);
 		getBuildFilesMock.mockReturnValue({});
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
@@ -168,7 +162,6 @@ describe('webpack.config.js', () => {
 	});
 
 	it('properly detects user config files in project mode', () => {
-		hasProjectFileMock.mockReturnValue(true);
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 			entry2: 'entry2.js',
@@ -193,5 +186,52 @@ describe('webpack.config.js', () => {
 		});
 
 		expect(webpackConfig).toMatchSnapshot();
+	});
+
+	it('takes the sourcemap config into account', () => {
+		const originalNodeEnv = process.env.NODE_ENV;
+		process.env.NODE_ENV = 'production';
+
+		getBuildFilesMock.mockReturnValue({});
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+			'10up-toolkit': {
+				sourcemap: true,
+			},
+		});
+
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe('source-map');
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+			},
+			'10up-toolkit': {
+				sourcemap: false,
+			},
+		});
+
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig.devtool).toBe(false);
+
+		process.env.NODE_ENV = originalNodeEnv;
 	});
 });

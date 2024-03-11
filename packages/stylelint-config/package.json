@@ -1,54 +1,58 @@
 {
-  "name": "@10up/stylelint-config",
-  "version": "2.0.5",
-  "description": "10up stylelint config for WordPress projects",
-  "main": "index.js",
-  "homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/10up/10up-toolkit.git",
-    "directory": "packages/stylelint-config"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "lint": "eslint ."
-  },
-  "keywords": [
-    "stylelint",
-    "stylelint-config",
-    "wordpress",
-    "coding-standards",
-    "10up"
-  ],
-  "files": [
-    "index.js",
-    "scss.js"
-  ],
-  "author": {
-    "name": "10up",
-    "email": "info@10up.com",
-    "url": "https://10up.com",
-    "role": "developer"
-  },
-  "license": "GPL-2.0-or-later",
-  "bugs": {
-    "url": "https://github.com/10up/10up-toolkit/issues"
-  },
-  "engineStrict": true,
-  "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
-  },
-  "devDependencies": {
-    "@10up/eslint-config": "^3.1.1-next.0"
-  },
-  "peerDependencies": {
-    "stylelint": "^14.0.0"
-  },
-  "dependencies": {
-    "@wordpress/stylelint-config": "^20.0.3",
-    "stylelint-declaration-strict-value": "^1.9.2",
-    "stylelint-order": "^5.0.0"
-  }
+	"name": "@10up/stylelint-config",
+	"version": "3.0.0-next.1",
+	"description": "10up stylelint config for WordPress projects",
+	"main": "index.js",
+	"homepage": "https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/10up/10up-toolkit.git",
+		"directory": "packages/stylelint-config"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"test": "jest",
+		"test:watch": "jest --watch"
+	},
+	"keywords": [
+		"stylelint",
+		"stylelint-config",
+		"wordpress",
+		"coding-standards",
+		"10up"
+	],
+	"files": [
+		"index.js",
+		"scss.js"
+	],
+	"author": {
+		"name": "10up",
+		"email": "info@10up.com",
+		"url": "https://10up.com",
+		"role": "developer"
+	},
+	"license": "GPL-2.0-or-later",
+	"bugs": {
+		"url": "https://github.com/10up/10up-toolkit/issues"
+	},
+	"engineStrict": true,
+	"engines": {
+		"node": "^16.0.0 || ^18.0.0 || ^20.0.0"
+	},
+	"devDependencies": {
+		"@10up/eslint-config": "^4.0.0-next.0",
+		"jest": "^29.7.0"
+	},
+	"peerDependencies": {
+		"stylelint": "^15.0.0"
+	},
+	"dependencies": {
+		"stylelint-config-recommended": "^13.0.0",
+		"stylelint-declaration-strict-value": "^1.9.2",
+		"stylelint-order": "^6.0.3",
+		"stylelint-stylistic": "^0.4.3"
+	}
 }

@@ -1,7 +1,6 @@
 import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
-import webpackSerializer from '../../test-utils/webpack-serializer';
 
 jest.mock('../../utils/package', () => {
 	const module = jest.requireActual('../../utils/package');
@@ -28,10 +27,6 @@ jest.mock('../../utils/file', () => {
 });
 
 describe('webpack.config.js', () => {
-	beforeAll(() => {
-		expect.addSnapshotSerializer(webpackSerializer);
-	});
-
 	it('returns proper webpack fast refresh configs for project configs', () => {
 		let webpackConfig;
 		jest.isolateModules(() => {
@@ -45,7 +40,7 @@ describe('webpack.config.js', () => {
 	it('includes react-webpack-fast-refresh with the --hot option', () => {
 		process.argv.push('--hot');
 		process.env.NODE_ENV = 'development';
-		hasProjectFileMock.mockReturnValue(true);
+		hasProjectFileMock.mockImplementation((file) => file === 'webpack.config.js');
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};

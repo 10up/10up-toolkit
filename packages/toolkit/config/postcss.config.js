@@ -16,7 +16,7 @@ module.exports = ({ file, env }) => {
 
 	// Only load postcss-editor-styles plugin when we're processing the editor-style.css file.
 	if (path.basename(file) === 'editor-style.css') {
-		config.plugins['postcss-editor-styles'] = {
+		config.plugins['postcss-editor-styles-wrapper'] = {
 			scopeTo: '.editor-styles-wrapper',
 			ignore: [':root', '.edit-post-visual-editor.editor-styles-wrapper', '.wp-toolbar'],
 			remove: ['html', ':disabled', '[readonly]', '[disabled]'],
@@ -42,7 +42,7 @@ module.exports = ({ file, env }) => {
 							zindex: false,
 						},
 					],
-			  }
+				}
 			: false;
 
 	return config;

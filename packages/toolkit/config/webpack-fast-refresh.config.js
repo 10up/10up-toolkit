@@ -14,8 +14,9 @@ module.exports = [
 		...sharedConfig,
 		name: 'react-refresh-entry',
 		entry: {
-			'react-refresh-entry':
+			'react-refresh-entry': require.resolve(
 				'@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js',
+			),
 		},
 		plugins: [new DependencyExtractionWebpackPlugin()],
 	},

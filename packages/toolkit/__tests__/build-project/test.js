@@ -60,4 +60,24 @@ describe('build a project (without useBlockAssets)', () => {
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.css')),
 		).toBeTruthy();
 	});
+
+	it('builds and compiles js and css with sourcemaps (--sourcemap)', async () => {
+		spawn.sync('node', ['../../scripts/build', '--sourcemap'], {
+			cwd: __dirname,
+		});
+
+		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.js.map'))).toBeTruthy();
+		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'frontend.js.map'))).toBeTruthy();
+		expect(
+			fs.existsSync(path.join(__dirname, 'dist', 'css', 'frontend-css.css.map')),
+		).toBeTruthy();
+		expect(
+			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.js.map')),
+		).toBeTruthy();
+		expect(
+			fs.existsSync(
+				path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.css.map'),
+			),
+		).toBeTruthy();
+	});
 });

@@ -84,7 +84,7 @@ module.exports = ({
 						},
 					],
 				],
-		  }
+			}
 		: {};
 
 	if (isPackageInstalled('@linaria/babel-preset') && !hasBabelConfig()) {
@@ -126,6 +126,10 @@ module.exports = ({
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
 							extension: LINARIA_EXTENSION,
+							// Fix $RefreshReg$ is not defined errors with linaria and react-fast-refresh
+							// another option is to disable react fast refresh in babel preset via api.caller
+							// @see https://github.com/callstack/linaria/issues/1308#issuecomment-1732385974
+							overrideContext: (context) => ({ ...context, $RefreshReg$: () => {} }),
 							babelOptions: babelConfig,
 						},
 					},

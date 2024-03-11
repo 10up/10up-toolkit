@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1-next.0
+
+### Patch Changes
+
+- 91f266f: Fix HRM (again)
+
 ## 2.1.0
 
 ### Minor Changes
