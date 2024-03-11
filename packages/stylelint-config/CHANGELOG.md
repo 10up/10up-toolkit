@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.0
+
+### Major Changes
+
+- ea9ca67: Discourage usage of `@nest` by disallowing the at-rule.
+  Adding support for new way of doing nesting as per latest Nesting Spec (as implemented by browsers in 2023).
+- 3fce625: Upgrading `stylelint` to version `15.0.0` and decouple from `@wordpress/stylelint-config`.
+
+### Patch Changes
+
+- 5734ef9: Update `custom-property-pattern` regular expression to also match custom properties that use a singular `-` as a group separator
+- ae04aa8: fix update custom property pattern to also allow for single `-` separator
+
 ## 3.0.0-next.1
 
 ### Patch Changes

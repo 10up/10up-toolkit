@@ -1,5 +1,37 @@
 # Changelog
 
+## 6.0.0
+
+### Major Changes
+
+- 71460c9: update default value of `useBlockAssets` to true. If you are not ready for it yet. Set `useBlockAssets` to false in your 10up-toolkit `package.json` config.
+
+  ```json
+  {
+    "name": "your-project",
+    "10up-toolkit": {
+      "useBlockAssets": false
+    }
+  }
+  ```
+
+- 091bb26: Update postcss-preset-env to ^9.0.0 from ^7.0.0
+  Swap postcss-editor-styles with postcss-editor-styles-wrapper which is compatible with PostCSS 8
+- e6c5140: Update linaria to next major and fix an issue with react-refresh plugin. Also drops support for node 14.
+
+### Minor Changes
+
+- e29ee64: Feature: sourcemap option for production builds
+- 0c969ef: Add support to configure Webpack's publicPath
+
+### Patch Changes
+
+- 08f7c78: Add `.local` to the default list of supported domains.
+- 6c8dbb5: Update dependencies
+- 91f266f: Fix HRM (again)
+- 5a8f979: Stop using react fast refresh fork in favor of the upstream package
+- 01ade56: Fix: allow overriding buildfiles.config.js, filenames.config.js and paths.config.js as stated in README
+
 ## 6.0.0-next.0
 
 ### Major Changes
