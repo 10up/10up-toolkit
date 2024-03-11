@@ -41,7 +41,7 @@
 		"@10up/babel-preset-default": "^2.1.1-next.0"
 	},
 	"devDependencies": {
-		"@wordpress/eslint-plugin": "^14.9.0",
+		"@wordpress/eslint-plugin": "^17.5.0",
 		"eslint": "^8.40.0",
 		"prettier": "^3.1.1"
 	},
