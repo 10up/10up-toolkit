@@ -526,7 +526,7 @@ import "core-js/es/array/from";
 import "core-js/web/dom-collections";
 ```
 
-The second difference is that 10up-toolkit **wil not** include the dependencies (or peer dependencies) in the final bundle.
+The second difference is that 10up-toolkit **will not** include the dependencies (or peer dependencies) in the final bundle.
 The reason for this is that, it's responsibility of the consumer bundle to resolve and include dependencies in the final bundle. Doing otherwise could lead to duplication of packages in the application final bundle.
 
 This behavior is inspired in [how microbundle](https://github.com/developit/microbundle/wiki/How-Microbundle-decides-which-dependencies-to-bundle) handle bundling packages.

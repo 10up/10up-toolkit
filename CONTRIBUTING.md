@@ -79,7 +79,7 @@ Here's a summary of the process
 3. Optionally merge more PRs into `develop` if you want to include other changes in the same release. Doing so will update the `Release (next)` PR automatically.
 4. Merge the PR opened by `changeset` into `develop`.
 5. A new release under the `next` tag will be pushed to npm.
-6. A new Github Release with the changelog will be created automatically.
+6. A new GitHub Release with the changelog will be created automatically.
 
 ### Stable releases
 
@@ -96,4 +96,4 @@ Here's a summary of the process
 4. Merge the PR opened by `changeset` into `trunk`.
 5. A new release under the `latest` tag will be pushed to npm.
 6. Merge `trunk` back into `develop`.
-7. A new Github Release with the changelog will be created automatically.
+7. A new GitHub Release with the changelog will be created automatically.
