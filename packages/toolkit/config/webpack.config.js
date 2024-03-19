@@ -87,7 +87,7 @@ const moduleConfig = {
 	},
 
 	output: {
-		clean: false,
+		clean: isProduction,
 		module: true,
 		chunkFormat: 'module',
 		library: {

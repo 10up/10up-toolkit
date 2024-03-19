@@ -2,8 +2,9 @@ const path = require('path');
 
 module.exports = ({
 	isPackage,
+	isProduction,
 	packageConfig: { packageType, main },
-	projectConfig: { filenames, hot, publicPath },
+	projectConfig: { filenames, publicPath },
 	buildFiles,
 }) => {
 	if (isPackage) {
@@ -22,8 +23,9 @@ module.exports = ({
 	}
 
 	return {
-		// when in hot reload mode we should not clear dist folder between builds
-		clean: false,
+		// only clean the dist folder for production builds.
+		// this is to prevent issues with multiple webpack instances
+		clean: isProduction,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
 		publicPath,
