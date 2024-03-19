@@ -79,6 +79,7 @@ const moduleConfig = {
 	plugins: getPlugins({ ...config, isModule: true }),
 	devServer: getDevServer({ ...config, isModule: true }),
 	module: getModules({ ...config, isModule: true }),
+	target: getTarget({ ...config, isModule: true }),
 
 	experiments: {
 		...baseConfig.experiments,
