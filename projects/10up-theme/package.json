@@ -3,9 +3,9 @@
   "version": "1.1.5-next.7",
   "private": true,
   "scripts": {
-    "start": "10up-toolkit start --port=3002 --hot --include=@10up/block-components",
-    "watch": "10up-toolkit start --include=@10up/block-components",
-    "build": "10up-toolkit build --include=@10up/block-components",
+    "start": "10up-toolkit start",
+    "watch": "10up-toolkit start",
+    "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
     "lint": "npm run lint-js && npm run lint-style",
     "lint-js": "10up-toolkit lint-js",
@@ -23,7 +23,7 @@
     "10up-toolkit": "^6.0.0"
   },
   "dependencies": {
-    "@10up/block-components": "1.7.0",
+    "@10up/block-components": "^1.18.0",
     "@10up/component-accordion": "^2.1.5",
     "@linaria/core": "^5.0.2",
     "@linaria/react": "^5.0.3",
@@ -33,11 +33,9 @@
     "react-dom": "^18.2.0"
   },
   "10up-toolkit": {
-    "devURL": "https://my-project.test",
     "useBlockAssets": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
-      "blocks": "./includes/blocks/blocks.js",
       "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js",
       "styleguide": "./assets/js/styleguide/styleguide.js",
