@@ -3,9 +3,11 @@ import { store } from '@wordpress/interactivity';
 store('example', {
 	actions: {
 		toggle: () => {
-			console.log('Hello, world!');
+			// eslint-disable-next-line no-console
+			console.log('Toggle Action');
 		},
 	},
 });
 
-console.log('Loaded');
+// eslint-disable-next-line no-console
+console.log('View Module Loaded');
