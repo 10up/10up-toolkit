@@ -1,16 +1,20 @@
-module.exports = ({ isPackage, projectConfig: { devServer, devURL, hot, devServerPort } }) => {
+module.exports = ({
+	isPackage,
+	isModule,
+	projectConfig: { devServer, devURL, hot, devServerPort },
+}) => {
 	if (!devServer && !hot) {
 		return undefined;
 	}
 
-	if (isPackage && devServer) {
+	if ((isPackage && devServer) || (isModule && devServer)) {
 		return {
 			compress: true,
 			port: Number(devServerPort),
 		};
 	}
 
-	if (!isPackage && hot) {
+	if ((!isPackage && hot) || (!isModule && hot)) {
 		const allowedHosts = ['.test', '.local'];
 
 		try {

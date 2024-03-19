@@ -50,7 +50,7 @@ module.exports = ({
 	packageConfig: { style },
 	buildFiles,
 }) => {
-	const hasReactFastRefresh = hot && !isProduction;
+	const hasReactFastRefresh = hot && !isProduction && !isModule;
 
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');

@@ -77,6 +77,8 @@ const moduleConfig = {
 
 	entry: () => getEntryPoints({ ...config, buildType: 'module' }),
 	plugins: getPlugins({ ...config, isModule: true }),
+	devServer: getDevServer({ ...config, isModule: true }),
+	module: getModules({ ...config, isModule: true }),
 
 	experiments: {
 		...baseConfig.experiments,
