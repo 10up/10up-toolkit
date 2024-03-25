@@ -68,9 +68,9 @@
 		"core-js-pure": "^3.35.0"
 	},
 	"devDependencies": {
-		"@10up/babel-preset-default": "^2.1.1",
-		"@10up/eslint-config": "^4.0.0",
-		"@10up/stylelint-config": "^3.0.0"
+		"@10up/babel-preset-default": ">=2.1.1",
+		"@10up/eslint-config": ">=4.0.0",
+		"@10up/stylelint-config": ">=3.0.0"
 	},
 	"peerDependencies": {
 		"typescript": ">=5.0.0",
