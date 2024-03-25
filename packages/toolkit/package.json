@@ -13,7 +13,7 @@
 		"url": "git+https://github.com/10up/10up-toolkit.git",
 		"directory": "packages/toolkit"
 	},
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"bin": {
 		"10up-toolkit": "bin/10up-toolkit.js"
 	},
