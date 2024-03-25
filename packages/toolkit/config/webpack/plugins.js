@@ -107,7 +107,7 @@ module.exports = ({
 				try {
 					// with the react fast refresh plugin
 					// we cannot always assume there's a single entry module
-					// so we need to check if any of the entry modules are relative to blocksSourceDiretory
+					// so we need to check if any of the entry modules are relative to blocksSourceDirectory
 					entryModules = options.chunk.getModules().filter((module) => {
 						return module.isEntryModule();
 					});

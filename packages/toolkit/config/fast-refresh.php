@@ -53,7 +53,7 @@ add_action( 'init',
 		$dist_url = $vars['dist_url'];
 
 		if ( ! $dist_url || ! $dist_path ) {
-			wp_die( '10up-toolkit error: you must defined call TenUpToolkit\set_dist_url_path with the URL and path to dist folfer to get fast refresh to work' );
+			wp_die( '10up-toolkit error: you must defined call TenUpToolkit\set_dist_url_path with the URL and path to dist folder to get fast refresh to work' );
 		}
 
 		$react_fast_refresh_entry   = $dist_url . 'fast-refresh/react-refresh-entry/index.min.js';

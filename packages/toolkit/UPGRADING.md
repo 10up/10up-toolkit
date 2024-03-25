@@ -49,15 +49,15 @@ See the [postcss-preset-env changelog](https://github.com/csstools/postcss-plugi
 ### Eslint
 The rule `jsdoc/newline-after-description` has been removed in the latest `eslint-plugin-jsdoc` and thus has been removed in the latest version of toolkit. If you have this rule in your own eslint config file you will need to remove it.
 
-When upgrading toolkit, ensure you also update `@10up/eslint-config` to 4, in case you are specifying it in your package.json. If you're not npm should resolve the peer depedency automatically.
+When upgrading toolkit, ensure you also update `@10up/eslint-config` to 4, in case you are specifying it in your package.json. If you're not npm should resolve the peer dependency automatically.
 
 ### Prettier
 
-Prettier have been upgraded to v3. We also recommend that you specify a [prettier exact version](https://prettier.io/docs/en/install#summary) in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependecy, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
+Prettier have been upgraded to v3. We also recommend that you specify a [prettier exact version](https://prettier.io/docs/en/install#summary) in your own package.json going forward. If you haven't, add prettier v3 to your package.json and if you already have prettier listed as a dependency, update it to v3. Updating prettier will now be responsibility of the project since updating prettier often requires other code changes to adhere to new formatting rules.
 
 ### Jest
 
-The jest packages have been updated, if you're using `10up-toolkit test-unit-jest` and using `testEnvironment: jsdom`, add `jest-environment-jsdom` as a dependecy to your project.
+The jest packages have been updated, if you're using `10up-toolkit test-unit-jest` and using `testEnvironment: jsdom`, add `jest-environment-jsdom` as a dependency to your project.
 
 ## Upgrading from 3 to 4
 

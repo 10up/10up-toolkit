@@ -10,7 +10,7 @@ class NoBrowserSyncPlugin {
 				this.displayed = true;
 				const logger = compilation.getLogger('10upToolkitBrowserSyncDeprecationNotice');
 				logger.warn(
-					'BrowserSync suppport has been deprecated in 10up-toolkit in favor of the `--hot` option and will be completely removed in the next major release!',
+					'BrowserSync support has been deprecated in 10up-toolkit in favor of the `--hot` option and will be completely removed in the next major release!',
 				);
 				logger.warn(
 					'If you still wish to use BrowserSync you must manually install the `browser-sync` and `browser-sync-webpack-plugin` packages.',
