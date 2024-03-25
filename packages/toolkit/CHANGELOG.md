@@ -300,7 +300,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 ## 4.0.0
 
 - Changed: 10up-toolkit no longer transpiles `@10up/block-components`. Make sure to use the latest version of `@10up/block-components` that already ships transpiled code. [#181](https://github.com/10up/10up-toolkit/pull/181)
-- Changed [BREAKING CHANGE]: Stop injecting `wp-polyfill` as dependecy of scripts built by 10up-toolkit. [#193](https://github.com/10up/10up-toolkit/pull/193).
+- Changed [BREAKING CHANGE]: Stop injecting `wp-polyfill` as dependency of scripts built by 10up-toolkit. [#193](https://github.com/10up/10up-toolkit/pull/193).
 - Updated: Dependencies [#182](https://github.com/10up/10up-toolkit/pull/182)
 - Changed [BREAKING CHANGE]: Stylelint and eslint are now peerDependencies. This is a breaking change only for those not using npm >= 7. [#179](https://github.com/10up/10up-toolkit/pull/179)
 
@@ -325,7 +325,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 - Added - Introduced `TenUpToolkitTscPlugin` that runs tsc both on build and watch if tsconfig.json is present. [#151](https://github.com/10up/10up-toolkit/pull/161)
 - Changed - Eslint and stylelint now only lint changed files when building with webpack (lintDirtyModulesOnly) [#146](https://github.com/10up/10up-toolkit/pull/146)
 - Changed - Replaced `imagemin-webpack-plugin` with `image-minimizer-webpack-plugin` [#147](https://github.com/10up/10up-toolkit/pull/147)
-- Changed - Droped `imagemin` in favor of `squoosh` [#157](https://github.com/10up/10up-toolkit/pull/157)
+- Changed - Dropped `imagemin` in favor of `squoosh` [#157](https://github.com/10up/10up-toolkit/pull/157)
 - Changed - Updated `@svgr/webpack` to 6.2.1 and removed `postcss-object-fit-image` as it's not necessary.
 - Deprecated - BrowserSync [#159](https://github.com/10up/10up-toolkit/pull/159)
 
@@ -370,7 +370,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 ## 1.0.8
 
 - Fixed PostCSS nested plugin. props @rdimascio
-- Fixed: Typo in HtmlWebpackPlugin where it was looking for the template in pulic folder instead of folder. Additionally, it now only defines a custom template if it is defined in the project.
+- Fixed: Typo in HtmlWebpackPlugin where it was looking for the template in public folder instead of folder. Additionally, it now only defines a custom template if it is defined in the project.
 
 ## 1.0.7
 

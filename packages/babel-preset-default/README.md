@@ -3,7 +3,7 @@ Babel preset for transforming JavaScript at 10up.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level)
 
-## Instalation
+## Installation
 
 ```sh
 npm install --save-dev @10up/babel-preset-default
@@ -51,12 +51,12 @@ It's the `@babel/preset-env` [modules](https://babeljs.io/docs/en/babel-preset-e
 When enabled will load `@wordpress/babel-preset-default`. Required when building WordPress Gutenberg blocks.
 
 #### options.debug
-Enables debug messages. Usefull to review which presets and plugins babel is using.
+Enables debug messages. Useful to review which presets and plugins babel is using.
 
 #### options.removePropTypes
 By default this babel preset will remove any prop-types declarations when building for production.
 
-You rarelly will need to change this setting, but in case you do, this option let's you specify any of the [babel-plugin-transform-react-remove-prop-types](https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types) options. 
+You rarely will need to change this setting, but in case you do, this option let's you specify any of the [babel-plugin-transform-react-remove-prop-types](https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types) options. 
 
 #### options.targets
 

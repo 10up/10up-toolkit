@@ -2,7 +2,7 @@ const path = require('path');
 const output = require('../output');
 
 describe('output module function', () => {
-	it('return package output config when isPacakge is true', () => {
+	it('return package output config when isPackage is true', () => {
 		let o = output({
 			isPackage: true,
 			packageConfig: { main: 'index.js', packageType: 'all' },
@@ -22,7 +22,7 @@ describe('output module function', () => {
 		expect(o.path).toBe(path.resolve(process.cwd(), 'dist'));
 	});
 
-	it('return project output config when isPacakge is false', () => {
+	it('return project output config when isPackage is false', () => {
 		expect(
 			output({
 				isPackage: false,
