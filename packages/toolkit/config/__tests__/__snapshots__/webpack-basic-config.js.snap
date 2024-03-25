@@ -1,86 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`webpack.config.js properly detects user config files in package mode 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "lodash": "commonjs2 lodash",
-    "read-pkg": "commonjs2 read-pkg",
-    "read-pkg-up": "commonjs2 read-pkg-up",
-    "resolve-bin": "commonjs2 resolve-bin",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": false,
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "lodash": "commonjs2 lodash",
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -127,265 +79,582 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
-        "type": "asset/resource",
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "libraryTarget": "commonjs2",
-    "path": "/dist",
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "libraryTarget": "commonjs2",
+      "path": "/dist",
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "lodash": "commonjs2 lodash",
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;
 
 exports[`webpack.config.js properly detects user config files in project mode 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "jquery": "jQuery",
-    "lodash": "lodash",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": "usage",
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": "usage",
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "jquery": "jQuery",
+      "lodash": "lodash",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -432,143 +701,195 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": "usage",
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": "usage",
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": false,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": false,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": false,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
-    "filename": "pathData => {
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFilename": "js/[name].[contenthash].chunk.js",
+      "clean": false,
+      "filename": "pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
       }
@@ -576,130 +897,391 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
       const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
       return isBlockAsset ? filenames.block : filenames.js;
     }",
-    "path": "/dist",
-    "publicPath": undefined,
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "CopyPlugin: {}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+      "path": "/dist",
+      "publicPath": undefined,
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "CopyPlugin: {}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "jquery": "jQuery",
+      "lodash": "lodash",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": "usage",
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": "usage",
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": "usage",
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": "usage",
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "CopyPlugin: {}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;
 
 exports[`webpack.config.js returns proper configs for package config 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "read-pkg": "commonjs2 read-pkg",
-    "read-pkg-up": "commonjs2 read-pkg-up",
-    "resolve-bin": "commonjs2 resolve-bin",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": false,
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -746,266 +1328,582 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
-        "type": "asset/resource",
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "libraryTarget": "commonjs2",
-    "path": "/dist",
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "libraryTarget": "commonjs2",
+      "path": "/dist",
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;
 
 exports[`webpack.config.js returns proper configs for package config with commonjs2 format 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "read-pkg": "commonjs2 read-pkg",
-    "read-pkg-up": "commonjs2 read-pkg-up",
-    "resolve-bin": "commonjs2 resolve-bin",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": false,
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -1052,267 +1950,583 @@ exports[`webpack.config.js returns proper configs for package config with common
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
-        "type": "asset/resource",
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "libraryTarget": "commonjs2",
-    "path": "/dist",
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "libraryTarget": "commonjs2",
+      "path": "/dist",
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;
 
 exports[`webpack.config.js returns proper configs for package config with peer deps 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "lodash": "commonjs2 lodash",
-    "read-pkg": "commonjs2 read-pkg",
-    "read-pkg-up": "commonjs2 read-pkg-up",
-    "resolve-bin": "commonjs2 resolve-bin",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": false,
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": false,
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "lodash": "commonjs2 lodash",
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -1359,265 +2573,582 @@ exports[`webpack.config.js returns proper configs for package config with peer d
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": true,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": true,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
-        "type": "asset/resource",
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "libraryTarget": "commonjs2",
-    "path": "/dist",
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "libraryTarget": "commonjs2",
+      "path": "/dist",
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "lodash": "commonjs2 lodash",
+      "read-pkg": "commonjs2 read-pkg",
+      "read-pkg-up": "commonjs2 read-pkg-up",
+      "resolve-bin": "commonjs2 resolve-bin",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": false,
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": false,
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": false,
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": false,
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": true,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.\\(woff\\(2\\)\\?\\|ttf\\|eot\\|svg\\|jpg\\|jpeg\\|png\\|giff\\|webp\\)\\(\\\\\\?v=\\\\d\\+\\\\\\.\\\\d\\+\\\\\\.\\\\d\\+\\)\\?\\$/,
+          "type": "asset/resource",
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;
 
 exports[`webpack.config.js returns proper configs for project configs 1`] = `
-{
-  "devServer": undefined,
-  "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
-  "experiments": {
-    "outputModule": false,
-  },
-  "externals": {
-    "jquery": "jQuery",
-    "lodash": "lodash",
-  },
-  "mode": "development",
-  "module": {
-    "rules": [
-      {
-        "exclude": "input => shouldExclude(input, include)",
-        "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
-        "use": [
-          {
-            "loader": "/config/webpack/plugins/noop-loader.js",
-          },
-          {
-            "loader": "/node_modules/babel-loader/lib/index.js",
-            "options": {
-              "babelrc": false,
-              "cacheDirectory": true,
-              "configFile": false,
-              "plugins": [],
-              "presets": [
-                [
-                  "/packages/babel-preset-default/index.js",
-                  {
-                    "targets": [
-                      "> 1%",
-                      "Firefox ESR",
-                      "last 2 versions",
-                      "not ie <= 11",
-                      "not ie_mob <=11",
-                    ],
-                    "useBuiltIns": "usage",
-                    "wordpress": true,
-                  },
-                ],
-                [
-                  "@linaria",
-                  {
-                    "babelOptions": {
-                      "babelrc": false,
-                      "configFile": false,
-                      "presets": [
-                        [
-                          "/packages/babel-preset-default/index.js",
-                          {
-                            "targets": [
-                              "> 1%",
-                              "Firefox ESR",
-                              "last 2 versions",
-                              "not ie <= 11",
-                              "not ie_mob <=11",
-                            ],
-                            "useBuiltIns": "usage",
-                            "wordpress": true,
-                          },
-                        ],
-                      ],
-                      "sourceType": "unambiguous",
-                    },
-                  },
-                ],
-              ],
-              "sourceType": "unambiguous",
+[
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
+    "experiments": {
+      "outputModule": false,
+    },
+    "externals": {
+      "jquery": "jQuery",
+      "lodash": "lodash",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
             },
-          },
-          {
-            "loader": "@linaria/webpack-loader",
-            "options": {
-              "babelOptions": {
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
                 "babelrc": false,
+                "cacheDirectory": true,
                 "configFile": false,
                 "plugins": [],
                 "presets": [
@@ -1664,143 +3195,195 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
                 ],
                 "sourceType": "unambiguous",
               },
-              "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": "usage",
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": "usage",
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.svg\\$/,
-        "use": [
-          "@svgr/webpack",
-          "url-loader",
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": false,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+                "sourceMap": true,
               },
             },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.module\\\\\\.css\\$/,
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        ],
-        "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-              "url": false,
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
-            },
-          },
-        ],
-      },
-      {
-        "exclude": [
-          /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
-        ],
-        "test": /\\\\\\.module\\\\\\.css\\$/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "/node_modules/css-loader/dist/cjs.js",
-            "options": {
-              "import": false,
-              "modules": true,
-              "sourceMap": true,
-              "url": false,
-            },
-          },
-          {
-            "loader": "/node_modules/postcss-loader/dist/cjs.js",
-            "options": {
-              "postcssOptions": {
-                "config": "/config/postcss.config.js",
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
               },
             },
-          },
-          {
-            "loader": "/node_modules/sass-loader/dist/cjs.js",
-            "options": {
-              "sourceMap": true,
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
             },
-          },
-        ],
-      },
-      {
-        "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
-        "use": [
-          {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
-          },
-          {
-            "loader": "css-loader",
-          },
-        ],
-      },
-    ],
-  },
-  "optimization": {
-    "concatenateModules": false,
-    "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-    ],
-    "runtimeChunk": false,
-  },
-  "output": {
-    "chunkFilename": "js/[name].[contenthash].chunk.js",
-    "clean": true,
-    "filename": "pathData => {
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFilename": "js/[name].[contenthash].chunk.js",
+      "clean": false,
+      "filename": "pathData => {
       if (pathData.chunk.name === 'runtime') {
         return 'fast-refresh/hmr-runtime.js';
       }
@@ -1808,47 +3391,357 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
       const isBlockAsset = buildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || buildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
       return isBlockAsset ? filenames.block : filenames.js;
     }",
-    "path": "/dist",
-    "publicPath": undefined,
-  },
-  "performance": {
-    "hints": "warning",
-    "maxAssetSize": 10240000,
-    "maxEntrypointSize": 40960000,
-  },
-  "plugins": [
-    "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "CopyPlugin: {}",
-    "NoBrowserSyncPlugin: {}",
-    "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
-    "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
-    "CleanExtractedDeps: {}",
-    "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
-    "TenUpToolkitTscPlugin: {}",
-  ],
-  "resolve": {
-    "alias": {
-      "lodash-es": "lodash",
+      "path": "/dist",
+      "publicPath": undefined,
     },
-    "extensions": [
-      ".tsx",
-      ".ts",
-      ".js",
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "CopyPlugin: {}",
+      "NoBrowserSyncPlugin: {}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
     ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
   },
-  "stats": {
-    "all": false,
-    "assets": true,
-    "errorDetails": true,
-    "errors": true,
-    "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
-    "moduleTrace": true,
-    "modules": true,
-    "performance": true,
-    "warnings": true,
+  {
+    "devServer": undefined,
+    "devtool": "source-map",
+    "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'module'
+  })",
+    "experiments": {
+      "outputModule": true,
+    },
+    "externals": {
+      "jquery": "jQuery",
+      "lodash": "lodash",
+    },
+    "mode": "development",
+    "module": {
+      "rules": [
+        {
+          "exclude": "input => shouldExclude(input, include)",
+          "test": /\\^\\(\\?!\\.\\*\\\\\\.d\\\\\\.tsx\\?\\$\\)\\.\\*\\\\\\.\\[tj\\]sx\\?\\$/,
+          "use": [
+            {
+              "loader": "/config/webpack/plugins/noop-loader.js",
+            },
+            {
+              "loader": "/node_modules/babel-loader/lib/index.js",
+              "options": {
+                "babelrc": false,
+                "cacheDirectory": true,
+                "configFile": false,
+                "plugins": [],
+                "presets": [
+                  [
+                    "/packages/babel-preset-default/index.js",
+                    {
+                      "targets": [
+                        "> 1%",
+                        "Firefox ESR",
+                        "last 2 versions",
+                        "not ie <= 11",
+                        "not ie_mob <=11",
+                      ],
+                      "useBuiltIns": "usage",
+                      "wordpress": true,
+                    },
+                  ],
+                  [
+                    "@linaria",
+                    {
+                      "babelOptions": {
+                        "babelrc": false,
+                        "configFile": false,
+                        "presets": [
+                          [
+                            "/packages/babel-preset-default/index.js",
+                            {
+                              "targets": [
+                                "> 1%",
+                                "Firefox ESR",
+                                "last 2 versions",
+                                "not ie <= 11",
+                                "not ie_mob <=11",
+                              ],
+                              "useBuiltIns": "usage",
+                              "wordpress": true,
+                            },
+                          ],
+                        ],
+                        "sourceType": "unambiguous",
+                      },
+                    },
+                  ],
+                ],
+                "sourceType": "unambiguous",
+              },
+            },
+            {
+              "loader": "@linaria/webpack-loader",
+              "options": {
+                "babelOptions": {
+                  "babelrc": false,
+                  "configFile": false,
+                  "plugins": [],
+                  "presets": [
+                    [
+                      "/packages/babel-preset-default/index.js",
+                      {
+                        "targets": [
+                          "> 1%",
+                          "Firefox ESR",
+                          "last 2 versions",
+                          "not ie <= 11",
+                          "not ie_mob <=11",
+                        ],
+                        "useBuiltIns": "usage",
+                        "wordpress": true,
+                      },
+                    ],
+                    [
+                      "@linaria",
+                      {
+                        "babelOptions": {
+                          "babelrc": false,
+                          "configFile": false,
+                          "presets": [
+                            [
+                              "/packages/babel-preset-default/index.js",
+                              {
+                                "targets": [
+                                  "> 1%",
+                                  "Firefox ESR",
+                                  "last 2 versions",
+                                  "not ie <= 11",
+                                  "not ie_mob <=11",
+                                ],
+                                "useBuiltIns": "usage",
+                                "wordpress": true,
+                              },
+                            ],
+                          ],
+                          "sourceType": "unambiguous",
+                        },
+                      },
+                    ],
+                  ],
+                  "sourceType": "unambiguous",
+                },
+                "extension": ".linaria.module.css",
+                "overrideContext": "context => ({
+            ...context,
+            $RefreshReg$: () => {}
+          })",
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.svg\\$/,
+          "use": [
+            "@svgr/webpack",
+            "url-loader",
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.module\\\\\\.css\\$/,
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          ],
+          "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "exclude": [
+            /\\\\\\.linaria\\\\\\.module\\\\\\.css\\$/,
+          ],
+          "test": /\\\\\\.module\\\\\\.css\\$/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "/node_modules/css-loader/dist/cjs.js",
+              "options": {
+                "import": false,
+                "modules": true,
+                "sourceMap": true,
+                "url": false,
+              },
+            },
+            {
+              "loader": "/node_modules/postcss-loader/dist/cjs.js",
+              "options": {
+                "postcssOptions": {
+                  "config": "/config/postcss.config.js",
+                },
+              },
+            },
+            {
+              "loader": "/node_modules/sass-loader/dist/cjs.js",
+              "options": {
+                "sourceMap": true,
+              },
+            },
+          ],
+        },
+        {
+          "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
+          "use": [
+            {
+              "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            },
+            {
+              "loader": "css-loader",
+            },
+          ],
+        },
+      ],
+    },
+    "optimization": {
+      "concatenateModules": false,
+      "minimizer": [
+        "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
+      ],
+      "runtimeChunk": false,
+    },
+    "output": {
+      "chunkFormat": "module",
+      "clean": false,
+      "filename": "blocks/[name].js",
+      "library": {
+        "type": "module",
+      },
+      "module": true,
+    },
+    "performance": {
+      "hints": "warning",
+      "maxAssetSize": 10240000,
+      "maxEntrypointSize": 40960000,
+    },
+    "plugins": [
+      "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
+      "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+      "CopyPlugin: {}",
+      "NoBrowserSyncPlugin: {}",
+      "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
+      "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
+      "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+      "CleanExtractedDeps: {}",
+      "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
+      "TenUpToolkitTscPlugin: {}",
+    ],
+    "resolve": {
+      "alias": {
+        "lodash-es": "lodash",
+      },
+      "extensions": [
+        ".tsx",
+        ".ts",
+        ".js",
+      ],
+    },
+    "stats": {
+      "all": false,
+      "assets": true,
+      "errorDetails": true,
+      "errors": true,
+      "excludeAssets": /\\\\\\.\\(jpe\\?g\\|png\\|gif\\|svg\\|woff\\|woff2\\)\\$/i,
+      "moduleTrace": true,
+      "modules": true,
+      "performance": true,
+      "warnings": true,
+    },
+    "target": "es2020",
   },
-  "target": "browserslist:> 1%, Firefox ESR, last 2 versions, not ie <= 11, not ie_mob <=11",
-}
+]
 `;

@@ -211,7 +211,7 @@ describe('webpack.config.js', () => {
 			webpackConfig = require('../webpack.config');
 		});
 
-		expect(webpackConfig.devtool).toBe('source-map');
+		expect(webpackConfig[0].devtool).toBe('source-map');
 
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
@@ -230,7 +230,7 @@ describe('webpack.config.js', () => {
 			webpackConfig = require('../webpack.config');
 		});
 
-		expect(webpackConfig.devtool).toBe(false);
+		expect(webpackConfig[0].devtool).toBe(false);
 
 		process.env.NODE_ENV = originalNodeEnv;
 	});

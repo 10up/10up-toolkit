@@ -187,8 +187,7 @@ describe('webpack.config.js', () => {
 			// eslint-disable-next-line global-require
 			webpackConfig = require('../webpack.config');
 		});
-
-		expect(webpackConfig.devtool).toBe('source-map');
+		expect(webpackConfig[0].devtool).toBe('source-map');
 		process.argv.pop();
 		process.env.NODE_ENV = originalNodeEnv;
 	});

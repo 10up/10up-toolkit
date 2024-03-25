@@ -25,6 +25,7 @@ describe('output module function', () => {
 	it('return project output config when isPacakge is false', () => {
 		expect(
 			output({
+				isProduction: true,
 				isPackage: false,
 				packageConfig: {},
 				projectConfig: { hot: false, filenames: { jsChunk: 'js/[name].js' } },
@@ -37,6 +38,7 @@ describe('output module function', () => {
 
 		expect(
 			output({
+				isProduction: false,
 				isPackage: false,
 				packageConfig: {},
 				projectConfig: { hot: true, filenames: { jsChunk: 'js/[name].js' } },
