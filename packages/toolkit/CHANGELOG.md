@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.1
+
+### Patch Changes
+
+- 73a9d57: Fix peer deps
+
 ## 6.0.0
 
 ### Major Changes
