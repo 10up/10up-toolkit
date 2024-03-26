@@ -22,8 +22,7 @@ module.exports = ({
 	}
 
 	return {
-		// only clean the dist folder for production builds.
-		// this is to prevent issues with multiple webpack instances
+		// when in block module mode or when hot reloading is active we should not clear dist folder between builds
 		clean: !useBlockModules && !hot,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
