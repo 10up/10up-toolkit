@@ -30,6 +30,7 @@ const buildFiles = getBuildFiles();
 const isPackage = typeof source !== 'undefined' && typeof main !== 'undefined';
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
+const useBlockModules = projectConfig.useBlockModules || false;
 
 const defaultTargets = [
 	'> 1%',
@@ -98,4 +99,4 @@ const moduleConfig = {
 	},
 };
 
-module.exports = [scriptsConfig, moduleConfig];
+module.exports = useBlockModules ? [scriptsConfig, moduleConfig] : scriptsConfig;
