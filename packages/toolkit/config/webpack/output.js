@@ -2,9 +2,8 @@ const path = require('path');
 
 module.exports = ({
 	isPackage,
-	isProduction,
 	packageConfig: { packageType, main },
-	projectConfig: { filenames, publicPath },
+	projectConfig: { filenames, useBlockModules, hot, publicPath },
 	buildFiles,
 }) => {
 	if (isPackage) {
@@ -25,7 +24,7 @@ module.exports = ({
 	return {
 		// only clean the dist folder for production builds.
 		// this is to prevent issues with multiple webpack instances
-		clean: isProduction,
+		clean: !useBlockModules && !hot,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
 		publicPath,
