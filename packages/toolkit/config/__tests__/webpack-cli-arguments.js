@@ -187,7 +187,39 @@ describe('webpack.config.js', () => {
 			// eslint-disable-next-line global-require
 			webpackConfig = require('../webpack.config');
 		});
-		expect(webpackConfig[0].devtool).toBe('source-map');
+		expect(webpackConfig.devtool).toBe('source-map');
+		process.argv.pop();
+		process.env.NODE_ENV = originalNodeEnv;
+	});
+
+	it('builds modules', () => {
+		const originalNodeEnv = process.env.NODE_ENV;
+		process.env.NODE_ENV = 'production';
+		process.argv.push('--block-modules');
+		const entryBuildFiles = {
+			entry1: 'entry1.js',
+			entry2: 'entry2.js',
+			entry3: 'entry3.js',
+		};
+		getBuildFilesMock.mockReturnValue(entryBuildFiles);
+		getPackageMock.mockReturnValue({
+			'10up-toolkit': {
+				entry: entryBuildFiles,
+				paths: {
+					blocksDir: './includes2/blocks/',
+					srcDir: './assets2/',
+					cssLoaderPaths: ['./assets2/css', './includes2/blocks'],
+					copyAssetsDir: './assets2/',
+				},
+			},
+		});
+		let webpackConfig;
+		jest.isolateModules(() => {
+			// eslint-disable-next-line global-require
+			webpackConfig = require('../webpack.config');
+		});
+
+		expect(webpackConfig).toMatchSnapshot();
 		process.argv.pop();
 		process.env.NODE_ENV = originalNodeEnv;
 	});
