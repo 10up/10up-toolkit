@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0-next.0
+
+### Minor Changes
+
+- a41a046: Add support for `scriptModule` & `viewScriptModule` assets
+
 ## 6.0.1
 
 ### Patch Changes
