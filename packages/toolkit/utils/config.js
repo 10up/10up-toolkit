@@ -109,6 +109,7 @@ const getDefaultConfig = () => {
 	const analyze = hasArgInCLI('--analyze');
 	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
 	const sourcemap = hasArgInCLI('--sourcemap');
+	const useBlockModules = hasArgInCLI('--block-modules') || false;
 
 	const buildFilesPath = hasProjectFile('buildfiles.config.js')
 		? fromProjectRoot('buildfiles.config.js')
@@ -138,6 +139,7 @@ const getDefaultConfig = () => {
 			!process.env.TENUP_NO_EXTERNALS,
 		publicPath: process.env.ASSET_PATH || undefined,
 		useBlockAssets: true,
+		useBlockModules,
 		include,
 	};
 };

@@ -4,7 +4,10 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
@@ -311,7 +314,10 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
@@ -624,7 +630,10 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
@@ -930,7 +939,10 @@ exports[`webpack.config.js returns proper configs for package config with common
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
@@ -1236,7 +1248,10 @@ exports[`webpack.config.js returns proper configs for package config with peer d
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
@@ -1543,7 +1558,10 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
 {
   "devServer": undefined,
   "devtool": "source-map",
-  "entry": "() => getEntryPoints(config)",
+  "entry": "() => getEntryPoints({
+    ...config,
+    buildType: 'script'
+  })",
   "experiments": {
     "outputModule": false,
   },
