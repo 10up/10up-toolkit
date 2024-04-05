@@ -1,0 +1,6 @@
+{
+	"project_name": "10up Project",
+	"main_branch": "trunk",
+	"php_version": "8.2",
+	"build_script_path": "./deploy-scripts/build.sh"
+}

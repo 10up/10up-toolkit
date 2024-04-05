@@ -34,8 +34,11 @@ const { displayWebpackStats } = require('./webpack');
 
 const { maybeInsertStyleVersionHash } = require('./blocks');
 
+const { recursivelyCloneDirectory, getProjectRoot } = require('./project');
+
 module.exports = {
 	fromProjectRoot,
+	getProjectRoot,
 	fromConfigRoot,
 	getArgFromCLI,
 	getArgsFromCLI,
@@ -45,6 +48,7 @@ module.exports = {
 	hasBabelConfig,
 	hasArgInCLI,
 	hasFileArgInCLI,
+	recursivelyCloneDirectory,
 	getJestOverrideConfigFile,
 	hasJestConfig,
 	hasPackageProp,
