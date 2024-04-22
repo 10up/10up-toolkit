@@ -1,10 +1,24 @@
 const path = require('path');
+const glob = require('fast-glob');
+
+const { getTenUpScriptsConfig } = require('../utils');
 
 module.exports = ({ file, env }) => {
+	const projectConfig = getTenUpScriptsConfig();
+	const { globalStylesDir, globalMixinsDir } = projectConfig.paths;
+
+	const globalCssFiles = glob.sync(`${globalStylesDir}**/*.css`);
+	const globalMixinFiles = glob.sync(`${globalMixinsDir}**/*.css`);
+
 	const config = {
 		plugins: {
 			'postcss-import': {},
-			'postcss-mixins': {},
+			'@csstools/postcss-global-data': {
+				files: globalCssFiles,
+			},
+			'postcss-mixins': {
+				mixinsFiles: globalMixinFiles,
+			},
 			'postcss-preset-env': {
 				stage: 0,
 				features: {
