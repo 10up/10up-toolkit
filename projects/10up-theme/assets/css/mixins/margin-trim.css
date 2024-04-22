@@ -1,9 +1,9 @@
 @define-mixin margin-trim {
 	margin-trim: block;
 
+	/* Fallback for browsers that don't support margin-trim */
 	@supports not (margin-trim: block) {
-		/* Fallback for browsers that don't support margin-trim */
-		
+	
 		& > *:first-child {
 			margin-top: 0;
 		}
