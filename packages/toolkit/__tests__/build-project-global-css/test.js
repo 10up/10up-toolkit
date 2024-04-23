@@ -9,15 +9,16 @@ describe('build a project', () => {
 			cwd: __dirname,
 		});
 
-		/* expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.js'))).toBeTruthy();
-		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.asset.php'))).toBeTruthy();
-		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'frontend.js'))).toBeTruthy();
-		expect(
-			fs.existsSync(path.join(__dirname, 'dist', 'js', 'frontend.asset.php')),
-		). toBeTruthy(); */
-		expect(fs.existsSync(path.join(__dirname, 'dist', 'css', 'frontend-css.css'))).toBeTruthy();
+		const frontendCss = path.join(__dirname, 'dist', 'css', 'frontend-css.css');
+
+		expect(fs.existsSync(frontendCss)).toBeTruthy();
 		expect(
 			fs.existsSync(path.join(__dirname, 'dist', 'css', 'frontend-css.asset.php')),
 		).toBeTruthy();
+
+		const compiledCSS = fs.readFileSync(frontendCss).toString();
+		expect(compiledCSS).toMatch('@media (--bp-small)');
+
+		// TODO: ensure mixins are processed correctly
 	});
 });
