@@ -1,0 +1,9 @@
+{
+	"name": "test-build-project-global-css",
+	"10up-toolkit": {
+		"useBlockAssets": false,
+		"entry": {
+			"frontend-css": "./__fixtures__/assets/css/frontend/styles.css"
+		}
+	}
+}
