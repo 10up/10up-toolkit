@@ -46,6 +46,9 @@
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "test-style": "./assets/css/frontend/testing.scss"
-    }
+    },
+	"moduleEntry": {
+		"frontend-module": "./assets/js/frontend/frontend-module.js"
+	}
   }
 }

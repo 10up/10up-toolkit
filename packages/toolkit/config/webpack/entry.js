@@ -12,6 +12,7 @@ module.exports = ({
 	projectConfig: { devServer, paths, useBlockAssets, filenames },
 	packageConfig: { packageType, source, main, umd, libraryName },
 	buildFiles,
+	moduleBuildFiles,
 }) => {
 	let additionalEntrypoints = {};
 	if (useBlockAssets) {
@@ -105,7 +106,8 @@ module.exports = ({
 	}
 
 	if (buildType === 'module') {
-		return additionalEntrypoints;
+		Object.assign(moduleBuildFiles, additionalEntrypoints);
+		return moduleBuildFiles;
 	}
 
 	// merge the new entrypoints with the existing ones
