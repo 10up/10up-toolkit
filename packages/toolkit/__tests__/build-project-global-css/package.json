@@ -1,0 +1,15 @@
+{
+	"name": "test-build-project-global-css",
+	"10up-toolkit": {
+		"useBlockAssets": false,
+		"entry": {
+			"frontend-css": "./__fixtures__/assets/css/frontend/styles.css"
+		},
+		"paths": {
+			"srcDir": "./__fixtures__/assets/",
+			"cssLoaderPaths": ["./__fixtures__/assets/css", "./includes/blocks"],
+			"globalStylesDir": "./__fixtures__/assets/css/globals/",
+			"globalMixinsDir": "./__fixtures__/assets/css/mixins/"
+		}
+	}
+}
