@@ -3,7 +3,7 @@
 exports[`webpack.config.js properly detects user config files in package mode 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -17,7 +17,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
     "read-pkg-up": "commonjs2 read-pkg-up",
     "resolve-bin": "commonjs2 resolve-bin",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -135,7 +135,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -160,7 +160,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -187,7 +187,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -202,7 +202,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -221,7 +221,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -236,7 +236,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -259,7 +259,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -273,8 +273,8 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
@@ -313,7 +313,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
 exports[`webpack.config.js properly detects user config files in project mode 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -325,7 +325,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
     "jquery": "jQuery",
     "lodash": "lodash",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -443,7 +443,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -468,7 +468,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -495,7 +495,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -510,7 +510,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -529,7 +529,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -544,7 +544,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -563,7 +563,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -587,8 +587,8 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
@@ -629,7 +629,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
 exports[`webpack.config.js returns proper configs for package config 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -642,7 +642,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
     "read-pkg-up": "commonjs2 read-pkg-up",
     "resolve-bin": "commonjs2 resolve-bin",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -760,7 +760,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -785,7 +785,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -812,7 +812,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -827,7 +827,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -846,7 +846,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -861,7 +861,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -884,7 +884,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -898,8 +898,8 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
@@ -938,7 +938,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
 exports[`webpack.config.js returns proper configs for package config with commonjs2 format 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -951,7 +951,7 @@ exports[`webpack.config.js returns proper configs for package config with common
     "read-pkg-up": "commonjs2 read-pkg-up",
     "resolve-bin": "commonjs2 resolve-bin",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -1069,7 +1069,7 @@ exports[`webpack.config.js returns proper configs for package config with common
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1094,7 +1094,7 @@ exports[`webpack.config.js returns proper configs for package config with common
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1121,7 +1121,7 @@ exports[`webpack.config.js returns proper configs for package config with common
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1136,7 +1136,7 @@ exports[`webpack.config.js returns proper configs for package config with common
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1155,7 +1155,7 @@ exports[`webpack.config.js returns proper configs for package config with common
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1170,7 +1170,7 @@ exports[`webpack.config.js returns proper configs for package config with common
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1193,7 +1193,7 @@ exports[`webpack.config.js returns proper configs for package config with common
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -1207,8 +1207,8 @@ exports[`webpack.config.js returns proper configs for package config with common
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
@@ -1247,7 +1247,7 @@ exports[`webpack.config.js returns proper configs for package config with common
 exports[`webpack.config.js returns proper configs for package config with peer deps 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -1261,7 +1261,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
     "read-pkg-up": "commonjs2 read-pkg-up",
     "resolve-bin": "commonjs2 resolve-bin",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -1379,7 +1379,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1404,7 +1404,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1431,7 +1431,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1446,7 +1446,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1465,7 +1465,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": true,
             },
           },
@@ -1480,7 +1480,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1503,7 +1503,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -1517,8 +1517,8 @@ exports[`webpack.config.js returns proper configs for package config with peer d
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
@@ -1557,7 +1557,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
 exports[`webpack.config.js returns proper configs for project configs 1`] = `
 {
   "devServer": undefined,
-  "devtool": false,
+  "devtool": "source-map",
   "entry": "() => getEntryPoints({
     ...config,
     buildType: 'script'
@@ -1569,7 +1569,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
     "jquery": "jQuery",
     "lodash": "lodash",
   },
-  "mode": "production",
+  "mode": "development",
   "module": {
     "rules": [
       {
@@ -1687,7 +1687,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
             ...context,
             $RefreshReg$: () => {}
           })",
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1712,7 +1712,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -1739,7 +1739,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -1754,7 +1754,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1773,7 +1773,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
             "options": {
               "import": false,
               "modules": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "url": false,
             },
           },
@@ -1788,7 +1788,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
           {
             "loader": "/node_modules/sass-loader/dist/cjs.js",
             "options": {
-              "sourceMap": false,
+              "sourceMap": true,
             },
           },
         ],
@@ -1807,7 +1807,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
     ],
   },
   "optimization": {
-    "concatenateModules": true,
+    "concatenateModules": false,
     "minimizer": [
       "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
@@ -1831,13 +1831,14 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
   },
   "performance": {
     "hints": "warning",
-    "maxAssetSize": 102400,
-    "maxEntrypointSize": 409600,
+    "maxAssetSize": 10240000,
+    "maxEntrypointSize": 40960000,
   },
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
     "CopyPlugin: {}",
+    "NoBrowserSyncPlugin: {}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
