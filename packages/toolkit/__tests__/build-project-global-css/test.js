@@ -17,8 +17,8 @@ describe('build a project', () => {
 		).toBeTruthy();
 
 		const compiledCSS = fs.readFileSync(frontendCss).toString();
-		expect(compiledCSS).toMatch('@media (--bp-small)');
 
-		// TODO: ensure mixins are processed correctly
+		// expect the compiled CSS to contain "min-width: 30em"
+		expect(compiledCSS).toMatch('min-width: 30em');
 	});
 });
