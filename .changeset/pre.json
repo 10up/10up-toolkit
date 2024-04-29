@@ -11,6 +11,8 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
-    "early-kiwis-arrive"
+    "early-kiwis-arrive",
+    "neat-trees-roll",
+    "thin-geckos-sparkle"
   ]
 }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.1.0-next.1
+
+### Minor Changes
+
+- 1693913: Bundle PostCSS Global Data Plugin with default configuration
+
+### Patch Changes
+
+- 20d2e65: Feature: allow defining module script entrypoints via `moduleEntry` key in `package.json` decoupled from blocks
+
 ## 6.1.0-next.0
 
 ### Minor Changes
