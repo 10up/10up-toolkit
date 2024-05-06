@@ -1,9 +1,9 @@
-module.exports = ({ defaultTargets, packageConfig: { target, packageType } }) => {
+module.exports = ({ defaultTargets, isModule, packageConfig: { target, packageType } }) => {
 	if (target) {
 		return target;
 	}
 
-	if (packageType === 'module') {
+	if (packageType === 'module' || isModule) {
 		return 'es2020';
 	}
 

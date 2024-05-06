@@ -59,10 +59,11 @@ const LINARIA_EXTENSION_REGEXP = /\.linaria\.module\.css/;
 module.exports = ({
 	isProduction,
 	isPackage,
+	isModule,
 	defaultTargets,
 	projectConfig: { wordpress, hot, include },
 }) => {
-	const hasReactFastRefresh = hot && !isProduction;
+	const hasReactFastRefresh = hot && !isProduction && !isModule;
 
 	// Provide a default configuration if there's not
 	// one explicitly available in the project.

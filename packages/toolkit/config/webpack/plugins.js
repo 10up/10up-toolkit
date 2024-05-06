@@ -34,6 +34,7 @@ const webpackbarArguments =
 
 module.exports = ({
 	isPackage,
+	isModule = false,
 	isProduction,
 	projectConfig: {
 		devServer,
@@ -49,7 +50,7 @@ module.exports = ({
 	packageConfig: { style },
 	buildFiles,
 }) => {
-	const hasReactFastRefresh = hot && !isProduction;
+	const hasReactFastRefresh = hot && !isProduction && !isModule;
 
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
@@ -202,6 +203,10 @@ module.exports = ({
 				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
+						if (isModule) {
+							return undefined;
+						}
+
 						return 'tenup-toolkit-react-refresh-runtime';
 					}
 
