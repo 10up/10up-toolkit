@@ -238,7 +238,7 @@ By default, the source directory for blocks is `./includes/blocks/`. This can be
 
 Since WordPress 6.5 ESM scripts are now officially supported. In fact, they are required in order to use some new features such as the Interactivity API. In WordPress these script modules need to coexist with commonJs scripts though. So it's not as easy as just switching the entire toolkit mode to output ESM instead of commonJS.
 
-Since Toolkit 6.1 it is possible to enable `useScriptModules` in the toolkit config. This mode allows you to have both commonJS and ESM scripts at the same time. Any existing entrypoints will continue to work as before. But a new `moduleEntry` key now allows for adding any additional ESM entrypoints to the toolkit config. Additionally any `scriptModule` & `viewScriptModule` files references inside `block.json` files will also get picked up and built as ESM scripts.
+Since Toolkit 6.1 it is possible to enable `useScriptModules` in the toolkit config. This mode allows you to have both CommonJS and ESM scripts at the same time. Any existing entrypoints will continue to work as before. But a new `moduleEntry` key now allows for adding any additional ESM entrypoints to the toolkit config. Additionally any `scriptModule` & `viewScriptModule` files references inside `block.json` files will also get picked up and built as ESM scripts.
 
 ### WordPress Editor Styles
 
