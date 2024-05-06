@@ -219,7 +219,7 @@ Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN)
 
 _NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
 
-If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` ans `viewScriptModule` the `useScriptModules` mode needs to be enabled.
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` and `viewScriptModule` the `useScriptModules` mode needs to be enabled.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
