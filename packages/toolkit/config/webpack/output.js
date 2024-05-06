@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = ({
 	isPackage,
 	packageConfig: { packageType, main },
-	projectConfig: { filenames, useBlockModules, hot, publicPath },
+	projectConfig: { filenames, useScriptModules, hot, publicPath },
 	buildFiles,
 }) => {
 	if (isPackage) {
@@ -23,7 +23,7 @@ module.exports = ({
 
 	return {
 		// when in block module mode or when hot reloading is active we should not clear dist folder between builds
-		clean: !useBlockModules && !hot,
+		clean: !useScriptModules && !hot,
 		path: path.resolve(process.cwd(), 'dist'),
 		chunkFilename: filenames.jsChunk,
 		publicPath,

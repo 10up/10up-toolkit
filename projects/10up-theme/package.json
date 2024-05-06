@@ -34,7 +34,7 @@
   },
   "10up-toolkit": {
     "useBlockAssets": true,
-    "useBlockModules": true,
+    "useScriptModules": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",
