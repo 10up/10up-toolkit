@@ -600,6 +600,25 @@ module.exports = config;
 
 > [!NOTE]
 > When `useScriptModules` mode is enabled the config returned from webpack here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
+> ```js
+> // webpack.config.js
+> const config = require("10up-toolkit/config/webpack.config.js");
+> const ProjectSpecificPlugin = require("project-specific-plugin");
+>
+> // We can now either add it to the first standard config
+> config[0].plugins.push(
+> // Append project specific plugin config.
+> 	new ProjectSpecificPlugin()
+> );
+> 
+> // or to the second module specific config
+> config[1].plugins.push(
+> // Append project specific plugin config.
+>  new ProjectSpecificPlugin()
+> );
+>
+> module.exports = config;
+>```
 
 ### Customizing eslint and styling
 
