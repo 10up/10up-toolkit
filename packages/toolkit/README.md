@@ -251,7 +251,7 @@ With the introduction of block-specific stylesheets, we've started to break out 
 
 One downside to this approach however was that any postcss globals such as custom media queries, custom selectors, variables, and mixins defined in the main css file are not available to all the other block-specific stylesheets.
 
-To fix this Toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by Webpack. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
+To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by Webpack. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
 
 > [!WARNING]
 > Please note that [PostCSS Global Data](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-global-data) does not add anything to the output of your CSS. It only injects data into PostCSS so that other plugins can actually use it.
