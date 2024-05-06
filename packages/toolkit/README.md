@@ -219,7 +219,7 @@ Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN)
 
 _NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
 
-If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack.
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` ans `viewScriptModule` the `useScriptModules` mode needs to be enabled.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
@@ -233,6 +233,12 @@ Since 10up-toolkit@6 this mode is on by default. To opt out of this mode you nee
 ```
 
 By default, the source directory for blocks is `./includes/blocks/`. This can be customized via the `blocksDir` key in the paths' config.
+
+### WordPress Script Module Handling
+
+Since WordPress 6.5 ESM scripts are now officially supported. In fact, they are required in order to use some new features such as the Interactivity API. In WordPress these script modules need to coexist with commonJs scripts though. So it's not as easy as just switching the entire toolkit mode to output ESM instead of commonJS.
+
+Since Toolkit 6.1 it is possible to enable `useScriptModules` in the toolkit config. This mode allows you to have both commonJS and ESM scripts at the same time. Any existing entrypoints will continue to work as before. But a new `moduleEntry` key now allows for adding any additional ESM entrypoints to the toolkit config. Additionally any `scriptModule` & `viewScriptModule` files references inside `block.json` files will also get picked up and built as ESM scripts.
 
 ### WordPress Editor Styles
 
@@ -568,6 +574,9 @@ config.plugins.push(
 module.exports = config;
 ```
 
+> [!NOTE]
+> When `useScriptModules` mode is enabled the config returned from webpack here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
+
 ### Customizing eslint and styling
 
 To customize eslint, create a supported eslint config file at the root of your project. Make sure to extend the `@10up/eslint-config` package.
@@ -815,6 +824,11 @@ To override, use the `-f` or `--format` option
 ```bash
 10up-toolkit build -f=commonjs
 ```
+
+There also is a special mode for outputting both CommonJS and ESM assets at the same time. It can be enabled via the `useScriptModules` flag in the toolkit settings and enables you to define any module entrypoints via the `moduleEntry` key in the settings. At the same time enabling this flag also means that the `scriptModule` & `viewScriptModule` keys in `block.json` files automatically get built as modules.
+
+> [!NOTE]
+> Enabling has the side-effect that toolkit now needs to run two separate webpack instances. So the webpack config changes from an object to an array of objects. This is important to watch out for if you have a custom `webpack.config.js` file in your project and are customizing webpack yourself.
 
 ### Externals
 
