@@ -1,0 +1,12 @@
+{
+	"name": "test-build-project",
+	"10up-toolkit": {
+		"useBlockAssets": false,
+		"entry": {
+			"frontend-css": "./__fixtures__/assets/css/frontend.css"
+		},
+		"moduleEntry": {
+			"admin": "./__fixtures__/assets/js/admin.js"
+		}
+	}
+}

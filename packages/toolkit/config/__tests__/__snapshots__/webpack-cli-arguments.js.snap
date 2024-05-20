@@ -1208,7 +1208,10 @@ exports[`webpack.config.js builds modules 1`] = `
     "output": {
       "chunkFormat": "module",
       "clean": false,
-      "filename": "blocks/[name].js",
+      "filename": "pathData => {
+      const isBlockAsset = moduleBuildFiles[pathData.chunk.name].match(/\\/blocks?\\//) || moduleBuildFiles[pathData.chunk.name].match(/\\\\blocks?\\\\/);
+      return isBlockAsset ? projectConfig.filenames.block : projectConfig.filenames.js;
+    }",
       "library": {
         "type": "module",
       },
