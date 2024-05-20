@@ -1,8 +1,0 @@
-variables:
-	project_name: "{{{ project_name }}}"
-	main_branch: "{{{ main_branch }}}"
-	snapshot_id: "{{{ snapshot_id }}}"
-	php_version: "{{{ php_version }}}"
-	build_script_path: "{{{ build_script_path }}}"
-	production_deploy_server: "{{{ production_deploy_server }"
-	production_remote_deploy_path: "{{{ production_remote_deploy_path }}}"

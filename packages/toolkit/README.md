@@ -9,9 +9,10 @@ A collection of bundled scripts for 10up development.
 5. [Authoring Libraries](#libraries)
 6. [Customizations](#customizations)
 7. [CLI Options](#cli)
-8. [TypeScript Support](#typescript)
-9. [React & WordPress](#react)
-10. [Linaria (CSS-in-JS)](#linaria)
+8. [10up Projects](PROJECTS.md)
+9. [TypeScript Support](#typescript)
+10. [React & WordPress](#react)
+11. [Linaria (CSS-in-JS)](#linaria)
 
 ## <a id="introduction"></a>Introduction
 
@@ -291,19 +292,19 @@ In some setups (such as Laravel Valet), Websocket SSL connections will fail unle
 If you aren't already customizing webpack in your project, create a new `webpack.config.js` file in the root of your project/theme. You need to specify the cert, key, and ca properties for the config.devServer.https object.
 
 ```js
-const config = require('10up-toolkit/config/webpack.config.js');
-const fs = require('fs');
+const config = require("10up-toolkit/config/webpack.config.js");
+const fs = require("fs");
 
 // Customize this to the appropriate path to your certificate folder
-const certPath = '/Users/youruser/.config/valet';
+const certPath = "/Users/youruser/.config/valet";
 
 // Check if devServer is in use and if so, modify the cert files used
-if( typeof config.devServer === 'object' ) {
-  config.devServer.https = {
-    key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
-    cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
-    ca: fs.readFileSync(`${certPath}/CA/LaravelValetCASelfSigned.pem`),
-  }
+if (typeof config.devServer === "object") {
+	config.devServer.https = {
+		key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
+		cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
+		ca: fs.readFileSync(`${certPath}/CA/LaravelValetCASelfSigned.pem`),
+	};
 }
 
 module.exports = config;
@@ -562,7 +563,7 @@ const ProjectSpecificPlugin = require("project-specific-plugin");
 
 config.plugins.push(
 	// Append project specific plugin config.
-	new ProjectSpecificPlugin()
+	new ProjectSpecificPlugin(),
 );
 
 module.exports = config;
@@ -693,6 +694,7 @@ See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more inf
 10up-toolkit supports several CLI options that can be used to override settings.
 
 ### Production Sourcemaps
+
 > This option was added in 10up-toolkit v6.
 
 All development builds ship source maps by default, if you wish to ship source maps to production builds you can use the `--sourcemap` cli flag to force the generation of source maps even in production builds.
@@ -778,7 +780,7 @@ If you need to override the default html template, create a `index.html` file un
 
 ```html
 <!-- public/index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />

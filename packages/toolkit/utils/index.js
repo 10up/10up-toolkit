@@ -34,13 +34,24 @@ const { displayWebpackStats } = require('./webpack');
 
 const { maybeInsertStyleVersionHash } = require('./blocks');
 
-const { recursivelyCloneDirectory, getProjectRoot } = require('./project');
+const {
+	getProjectRoot,
+	setEnvVariables,
+	getProjectVariables,
+	getEnvironmentFromBranch,
+	replaceVariables,
+	getWordPressLatestVersion,
+} = require('./project');
 
 module.exports = {
 	fromProjectRoot,
 	getProjectRoot,
+	setEnvVariables,
+	getWordPressLatestVersion,
 	fromConfigRoot,
+	getProjectVariables,
 	getArgFromCLI,
+	replaceVariables,
 	getArgsFromCLI,
 	getFileArgsFromCLI,
 	getNodeArgsFromCLI,
@@ -48,9 +59,9 @@ module.exports = {
 	hasBabelConfig,
 	hasArgInCLI,
 	hasFileArgInCLI,
-	recursivelyCloneDirectory,
 	getJestOverrideConfigFile,
 	hasJestConfig,
+	getEnvironmentFromBranch,
 	hasPackageProp,
 	hasPrettierConfig,
 	hasEslintConfig,

@@ -3,3 +3,4 @@ examples
 dist
 .vscode
 package-lock.json
+test-project

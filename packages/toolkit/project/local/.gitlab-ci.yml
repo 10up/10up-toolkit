@@ -1,3 +1,0 @@
-include:
-	- './.tenup-ci.yml'
-	- './gitlab-ci-parent.yml'

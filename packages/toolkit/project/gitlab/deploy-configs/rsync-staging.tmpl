@@ -1,0 +1,13 @@
+deploy_{{branch}}:
+  stage: deploy
+  extends: .wordpress-deploy-rsync
+  environment:
+    name: {{branch}}
+    url: {{url}}
+  variables:
+    DESTINATION: {{deploy_to}}
+    SUBDIR: {{deploy_to_subdir}}
+    EXCLUDES: {{deploy_file_excludes}}
+  only:
+    refs:
+      - {{branch}}
