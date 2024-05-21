@@ -61,7 +61,8 @@ const run = async () => {
 
 				return true;
 			},
-			message: 'Project name (Letters, numbers, and spaces only. Must start with a letter.):',
+			message:
+				'Project name (Letters, numbers, and spaces only. Must start with a letter. Minimum 4 characters):',
 		});
 	}
 
@@ -99,18 +100,26 @@ const run = async () => {
 	variables.init_path = resolve(path);
 	variables.template = results.template || template;
 
-	variables.name = results.name || name;
+	variables.project_name = results.name || name;
 
 	// Make name camel case
-	variables.name_camel_case = variables.name
+	variables.project_name_camel_case = variables.project_name
 		.replace(/-([a-z])/g, function (g) {
 			return g[1].toUpperCase();
 		})
 		.replace(/ /g, '');
 
-	variables.name_lowercase_underscore = variables.name.replace(/ /g, '_').toLowerCase();
+	variables.project_name_lowercase_underscore = variables.project_name
+		.replace(/ /g, '_')
+		.toLowerCase();
 
-	variables.name_uppercase_underscore = variables.name.replace(/ /g, '_').toUpperCase();
+	variables.project_name_lowercase_hypen = variables.project_name
+		.replace(/ /g, '-')
+		.toLowerCase();
+
+	variables.project_name_uppercase_underscore = variables.project_name
+		.replace(/ /g, '_')
+		.toUpperCase();
 
 	Object.keys(variables).forEach((key) => {
 		process.env[key] = variables[key];
