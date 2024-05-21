@@ -7,7 +7,6 @@ const fs = require('fs');
 
 const { execSync } = require('child_process');
 
-const { config } = require('process');
 const { getWordPressLatestVersion, replaceVariables } = require('../../utils/project');
 
 const { getArgFromCLI, hasArgInCLI } = require('../../utils');
@@ -15,8 +14,6 @@ const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 const path = hasArgInCLI('--path') ? getArgFromCLI('--path') : '.';
 
 const name = hasArgInCLI('--name') ? getArgFromCLI('--name') : '';
-
-const deployLocation = hasArgInCLI('--deploy_location') ? getArgFromCLI('--deploy_location') : '';
 
 const confirm = !!hasArgInCLI('--confirm');
 

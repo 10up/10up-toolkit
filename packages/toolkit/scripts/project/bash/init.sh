@@ -31,14 +31,27 @@ find "$init_path" -type f -exec sed -i '' -e "s/TENUP_/${project_name_uppercase_
 # Replace tenup_
 find "$init_path" -type f -exec sed -i '' -e "s/tenup_/${project_name_lowercase_underscore}_/g" {} \;
 
+theme_path="$init_path/themes/${project_name_lowercase_hypen}-theme"
+plugin_path="$init_path/plugins/${project_name_lowercase_hypen}-plugin"
+
 # Rename directory themes/tenup-theme to themes/$project_name_lowercase_hypen-theme
 if [ -d "$init_path/themes/tenup-theme" ]; then
-	mv "$init_path/themes/tenup-theme" "$init_path/themes/${project_name_lowercase_hypen}-theme"
+	mv "$init_path/themes/tenup-theme" "$theme_path"
 fi
 
 # Rename directory plugins/tenup-plugin to plugins/$project_name_lowercase_hypen-plugin
 if [ -d "$init_path/plugins/tenup-plugin" ]; then
-	mv "$init_path/plugins/tenup-plugin" "$init_path/plugins/${project_name_lowercase_hypen}-plugin"
+	mv "$init_path/plugins/tenup-plugin" "$plugin_path"
+fi
+
+# Rename directory themes/tenup-theme to themes/$project_name_lowercase_hypen-theme
+if [ -d "$init_path/themes/10up-theme" ]; then
+	mv "$init_path/themes/10up-theme" "$theme_path"
+fi
+
+# Rename directory plugins/tenup-plugin to plugins/$project_name_lowercase_hypen-plugin
+if [ -d "$init_path/plugins/10up-plugin" ]; then
+	mv "$init_path/plugins/10up-plugin" "$plugin_path"
 fi
 
 # Replace tenup-theme
@@ -55,5 +68,11 @@ find "$init_path" -type f -exec sed -i '' -e "s/Tenup Theme/${project_name} Them
 rsync -rc "$toolkit_path/project/local/" "$init_path"
 
 composer update --no-interaction --working-dir="$init_path"
-composer update --no-interaction --working-dir="$init_path/themes/${project_name_lowercase_hypen}-theme"
-composer update --no-interaction --working-dir="$init_path/plugins/${project_name_lowercase_hypen}-plugin"
+
+if [ -d "$theme_path" ]; then
+	composer update --no-interaction --working-dir="$theme_path"
+fi
+
+if [ -d "$plugin_path" ]; then
+	composer update --no-interaction --working-dir="$plugin_path"
+fi
