@@ -33,6 +33,7 @@ find "$init_path" -type f -exec sed -i '' -e "s/tenup_/${project_name_lowercase_
 
 theme_path="$init_path/themes/${project_name_lowercase_hypen}-theme"
 plugin_path="$init_path/plugins/${project_name_lowercase_hypen}-plugin"
+mu_plugin_path="$init_path/mu-plugins/${project_name_lowercase_hypen}-plugin"
 
 # Rename directory themes/tenup-theme to themes/$project_name_lowercase_hypen-theme
 if [ -d "$init_path/themes/tenup-theme" ]; then
@@ -54,11 +55,21 @@ if [ -d "$init_path/plugins/10up-plugin" ]; then
 	mv "$init_path/plugins/10up-plugin" "$plugin_path"
 fi
 
-# Replace tenup-theme
+if [ -d "$init_path/mu-plugins/10up-plugin" ]; then
+	mv "$init_path/mu-plugins/10up-plugin" "$mu_plugin_path"
+fi
+
 find "$init_path" -type f -exec sed -i '' -e "s/tenup-theme/${project_name_lowercase_hypen}-theme/g" {} \;
 
-# Replace tenup-plugin
 find "$init_path" -type f -exec sed -i '' -e "s/tenup-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
+
+find "$init_path" -type f -exec sed -i '' -e "s/10up-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
+
+find "$init_path" -type f -exec sed -i '' -e "s/tenup-wp-scaffold/${project_name_lowercase_hypen}/g" {} \;
+
+find "$init_path" -type f -exec sed -i '' -e "s/10up\/wp-theme/10up\/${project_name_lowercase_hypen}-theme/g" {} \;
+
+find "$init_path" -type f -exec sed -i '' -e "s/10up\/wp-plugin/10up\/${project_name_lowercase_hypen}-plugin/g" {} \;
 
 find "$init_path" -type f -exec sed -i '' -e "s/10up Plugin/${project_name} Plugin/g" {} \;
 find "$init_path" -type f -exec sed -i '' -e "s/Tenup Plugin/${project_name} Plugin/g" {} \;
@@ -75,4 +86,8 @@ fi
 
 if [ -d "$plugin_path" ]; then
 	composer update --no-interaction --working-dir="$plugin_path"
+fi
+
+if [ -d "$mu_plugin_path" ]; then
+	composer update --no-interaction --working-dir="$mu_plugin_path"
 fi
