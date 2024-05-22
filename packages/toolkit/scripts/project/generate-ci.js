@@ -11,13 +11,19 @@ const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 
 const confirm = !!hasArgInCLI('--confirm');
 
+let path = hasArgInCLI('--path') ? getArgFromCLI('--path') : '.';
+
 let type = hasArgInCLI('--type') ? getArgFromCLI('--type') : '';
 
-const description = '10up-toolkit project generate-ci [--type=<type>]';
+const description = '10up-toolkit project generate-ci [--type=<type>] [--path=<path>]';
 
-const run = async (cnf = false) => {
-	const variables = getProjectVariables();
-	const root = getProjectRoot();
+const run = async (cnf = false, pth = null) => {
+	if (pth) {
+		path = pth;
+	}
+
+	const variables = getProjectVariables(path);
+	const root = getProjectRoot(path);
 
 	const questions = [];
 	let results = {};
@@ -32,7 +38,7 @@ const run = async (cnf = false) => {
 			{
 				type: 'confirm',
 				name: 'confirm',
-				message: 'Are you sure you want do this? It will overwrite an existing CI files.',
+				message: 'Are you sure you want do this? It will overwrite any existing CI files.',
 				default: 'y',
 			},
 		]);

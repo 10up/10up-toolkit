@@ -3,16 +3,16 @@ const fs = require('fs');
 
 const { resolve } = require('path');
 const fetch = require('node-fetch');
-const { match } = require('assert');
 
 /**
  * The project root contains .tenup.yml
  *
+ * @param {string} path Path to check
  * @returns {string|null}
  */
-const getProjectRoot = () => {
+const getProjectRoot = (path = '.') => {
 	// Find the project root by looking for .tenup.yml in parent directories
-	let projectRoot = process.cwd();
+	let projectRoot = path === '.' ? process.cwd() : path;
 	const dirLimit = 50;
 	let level = 0;
 
@@ -33,9 +33,6 @@ const getProjectRoot = () => {
 	if (!found) {
 		return null;
 	}
-
-	// Make path not relative
-	projectRoot = resolve(projectRoot);
 
 	return projectRoot;
 };
@@ -100,10 +97,11 @@ const getEnvironmentFromBranch = (branch, environments = []) => {
 /**
  * Get variables from .tenup.yml
  *
+ * @param {string} path Path to check
  * @returns {object|null}
  */
-const getProjectVariables = () => {
-	const projectRoot = getProjectRoot();
+const getProjectVariables = (path = '.') => {
+	const projectRoot = getProjectRoot(path);
 
 	if (!projectRoot) {
 		return null;

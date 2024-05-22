@@ -137,7 +137,7 @@ const run = async () => {
 	log(chalk.green('Project initialized.'));
 
 	// Now generate CI
-	await require('./generate-ci').run(true);
+	await require('./generate-ci').run(true, path);
 };
 
 module.exports = { run, description };

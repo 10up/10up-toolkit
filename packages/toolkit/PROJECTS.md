@@ -92,7 +92,7 @@ List of commands:
 This command creates a payload directory of the built project (including WordPress) for deployment. Engineers likely won't need to run this command themselves as GitLab does it automatically. You must provide a branch that corresponds to an environment in `.tenup.yml`.
 
 ```bash
-10up-toolkit project generate-ci [--confirm]
+10up-toolkit project generate-ci [--confirm] [--path=<path>]
 ```
 
 This command generates necessary CI files. For GitLab, this would be `.gitlab-ci.yml`. Right now this only supports GitLab but we will add support for GitHub in the future.
