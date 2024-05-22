@@ -34,6 +34,8 @@ module.exports = {
 			files: ['*.ts', '*.tsx'],
 			rules: {
 				'react/prop-types': 0,
+				'react/require-default-props': ['error', { functions: 'defaultArguments' }],
+				'jsdoc/require-returns-type': 'off',
 			},
 		},
 	],
