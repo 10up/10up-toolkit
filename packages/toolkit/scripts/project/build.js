@@ -23,11 +23,6 @@ const run = async () => {
 		process.exit(1);
 	}
 
-	// Loop through variables and set them as environment variables
-	Object.keys(variables).forEach((key) => {
-		process.env[key] = variables[key];
-	});
-
 	setEnvVariables(variables);
 
 	if (fs.existsSync(variables.build_script_path)) {

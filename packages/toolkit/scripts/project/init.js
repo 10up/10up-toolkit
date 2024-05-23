@@ -7,7 +7,11 @@ const fs = require('fs');
 
 const { execSync } = require('child_process');
 
-const { getWordPressLatestVersion, replaceVariables } = require('../../utils/project');
+const {
+	getWordPressLatestVersion,
+	replaceVariables,
+	setEnvVariables,
+} = require('../../utils/project');
 
 const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 
@@ -118,9 +122,7 @@ const run = async () => {
 		.replace(/ /g, '_')
 		.toUpperCase();
 
-	Object.keys(variables).forEach((key) => {
-		process.env[key] = variables[key];
-	});
+	setEnvVariables(variables);
 
 	const initScript = `${__dirname}/bash/init.sh`;
 
