@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.0-next.1
+
+### Patch Changes
+
+- 1aba76c: Fix project init command
+
 ## 6.2.0-next.0
 
 ### Minor Changes
