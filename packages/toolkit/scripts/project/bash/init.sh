@@ -19,17 +19,25 @@ fi
 # Fixes weird sed error
 LANG=C
 
+if [ "$(uname)" = "Darwin" ]; then
+	sediopt=( -i '')
+else
+	sediopt=( -i )
+fi
+
+set -o xtrace
+
 # Replace TenUpTheme in all files inside init_path with $name_camel_case recursively
-find "$init_path" -type f -exec sed -i -e "s/TenUpTheme/${project_name_camel_case}Theme/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/TenupTheme/${project_name_camel_case}Theme/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/TenUpPlugin/${project_name_camel_case}Plugin/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/TenupPlugin/${project_name_camel_case}Plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenUpTheme/${project_name_camel_case}Theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenupTheme/${project_name_camel_case}Theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenUpPlugin/${project_name_camel_case}Plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenupPlugin/${project_name_camel_case}Plugin/g" {} \;
 
 # Replace TENUP_
-find "$init_path" -type f -exec sed -i -e "s/TENUP_/${project_name_uppercase_underscore}_/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TENUP_/${project_name_uppercase_underscore}_/g" {} \;
 
 # Replace tenup_
-find "$init_path" -type f -exec sed -i -e "s/tenup_/${project_name_lowercase_underscore}_/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/tenup_/${project_name_lowercase_underscore}_/g" {} \;
 
 theme_path="$init_path/themes/${project_name_lowercase_hypen}-theme"
 plugin_path="$init_path/plugins/${project_name_lowercase_hypen}-plugin"
@@ -59,22 +67,22 @@ if [ -d "$init_path/mu-plugins/10up-plugin" ]; then
 	mv "$init_path/mu-plugins/10up-plugin" "$mu_plugin_path"
 fi
 
-find "$init_path" -type f -exec sed -i -e "s/tenup-theme/${project_name_lowercase_hypen}-theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/tenup-theme/${project_name_lowercase_hypen}-theme/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/tenup-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/tenup-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/10up-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/10up-plugin/${project_name_lowercase_hypen}-plugin/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/tenup-wp-scaffold/${project_name_lowercase_hypen}/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/tenup-wp-scaffold/${project_name_lowercase_hypen}/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/10up\/wp-theme/10up\/${project_name_lowercase_hypen}-theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/10up\/wp-theme/10up\/${project_name_lowercase_hypen}-theme/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/10up\/wp-plugin/10up\/${project_name_lowercase_hypen}-plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/10up\/wp-plugin/10up\/${project_name_lowercase_hypen}-plugin/g" {} \;
 
-find "$init_path" -type f -exec sed -i -e "s/10up Plugin/${project_name} Plugin/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/Tenup Plugin/Project Plugin/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/10up Theme/${project_name} Theme/g" {} \;
-find "$init_path" -type f -exec sed -i -e "s/Tenup Theme/${project_name} Theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/10up Plugin/${project_name} Plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/Tenup Plugin/Project Plugin/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/10up Theme/${project_name} Theme/g" {} \;
+find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/Tenup Theme/${project_name} Theme/g" {} \;
 
 rsync -rc "$toolkit_path/project/local/" "$init_path"
 
