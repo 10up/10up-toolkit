@@ -25,8 +25,6 @@ else
 	sediopt=( -i )
 fi
 
-set -o xtrace
-
 # Replace TenUpTheme in all files inside init_path with $name_camel_case recursively
 find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenUpTheme/${project_name_camel_case}Theme/g" {} \;
 find "$init_path" -type f -exec sed "${sediopt[@]}" -e "s/TenupTheme/${project_name_camel_case}Theme/g" {} \;
