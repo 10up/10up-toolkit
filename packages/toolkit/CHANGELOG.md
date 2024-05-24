@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.2.0-next.0
+
+### Minor Changes
+
+- dba1534: Project Command (BETA)
+
+### Patch Changes
+
+- Updated dependencies [5ddee2c]
+  - @10up/eslint-config@4.1.0-next.0
+
 ## 6.1.0
 
 ### Minor Changes
