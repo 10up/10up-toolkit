@@ -1,5 +1,5 @@
 ---
-"10up-toolkit": patch
+"10up-toolkit": minor
 ---
 
 Project Command (BETA)
