@@ -1,0 +1,16 @@
+deploy_production:
+  stage: deploy
+  extends: .wordpress-deploy-wpe
+  environment:
+    name: Production
+    url: {{url}}
+  variables:
+    GIT_URL: {{deploy_to}}
+  only:
+    refs:
+      - {{branch}}
+  when: manual
+  allow_failure: false
+  except:
+    variables:
+      - $IS_PLUGIN_UPGRADES
