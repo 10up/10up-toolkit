@@ -20,7 +20,7 @@
     "@linaria/babel-preset": "^5.0.3",
     "@linaria/webpack-loader": "^5.0.3",
     "@wordpress/env": "^5.0.0",
-    "10up-toolkit": "^6.1.0-next.0"
+    "10up-toolkit": "^6.1.0"
   },
   "dependencies": {
     "@10up/block-components": "^1.18.0",
@@ -34,7 +34,7 @@
   },
   "10up-toolkit": {
     "useBlockAssets": true,
-    "useBlockModules": true,
+    "useScriptModules": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",
@@ -46,6 +46,9 @@
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "test-style": "./assets/css/frontend/testing.scss"
+    },
+    "moduleEntry": {
+      "frontend-module": "./assets/js/frontend/frontend-module.js"
     }
   }
 }

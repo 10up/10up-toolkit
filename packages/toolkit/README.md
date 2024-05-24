@@ -220,7 +220,7 @@ Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN)
 
 _NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
 
-If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack.
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` and `viewScriptModule` the `useScriptModules` mode needs to be enabled.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
@@ -235,10 +235,40 @@ Since 10up-toolkit@6 this mode is on by default. To opt out of this mode you nee
 
 By default, the source directory for blocks is `./includes/blocks/`. This can be customized via the `blocksDir` key in the paths' config.
 
+### WordPress Script Module Handling
+
+Since WordPress 6.5 ESM scripts are now officially supported. In fact, they are required in order to use some new features such as the Interactivity API. In WordPress these script modules need to coexist with commonJs scripts though. So it's not as easy as just switching the entire toolkit mode to output ESM instead of commonJS.
+
+Since Toolkit 6.1 it is possible to enable `useScriptModules` in the toolkit config. This mode allows you to have both CommonJS and ESM scripts at the same time. Any existing entrypoints will continue to work as before. But a new `moduleEntry` key now allows for adding any additional ESM entrypoints to the toolkit config. Additionally any `scriptModule` & `viewScriptModule` files references inside `block.json` files will also get picked up and built as ESM scripts.
+
 ### WordPress Editor Styles
 
 By default, 10up-toolkit will scope any css file named `editor-style.css` files with the
 `.editor-styles-wrapper` class. Take a look at the default [postcss config](https://github.com/10up/10up-toolkit/blob/develop/packages/toolkit/config/postcss.config.js#L21) for more information.
+
+## Handling of Global postCSS settings
+
+With the introduction of block-specific stylesheets, we've started to break out our CSS from one bog monolithic `frontend.css` file into smaller individual files that only get loaded when the specific block is used on the page.
+
+One downside to this approach however was that any postcss globals such as custom media queries, custom selectors, variables, and mixins defined in the main css file are not available to all the other block-specific stylesheets.
+
+To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by Webpack. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
+
+> [!WARNING]
+> Please note that [PostCSS Global Data](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-global-data) does not add anything to the output of your CSS. It only injects data into PostCSS so that other plugins can actually use it.
+
+If you need to customize the path of these global folders you can do so by modifying the `paths` in the tookit config.
+
+```json
+{
+	"10up-toolkit": {
+		"paths": {
+			"globalStylesDir": "./assets/css/globals/",
+			"globalMixinsDir": "./assets/css/mixins/"
+		}
+	}
+}
+```
 
 ## <a id="fast-refresh"></a>HMR and Fast Refresh
 
@@ -569,6 +599,28 @@ config.plugins.push(
 module.exports = config;
 ```
 
+> [!NOTE]
+> When `useScriptModules` mode is enabled the config returned from webpack here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
+> ```js
+> // webpack.config.js
+> const config = require("10up-toolkit/config/webpack.config.js");
+> const ProjectSpecificPlugin = require("project-specific-plugin");
+>
+> // We can now either add it to the first standard config
+> config[0].plugins.push(
+> // Append project specific plugin config.
+> 	new ProjectSpecificPlugin()
+> );
+> 
+> // or to the second module specific config
+> config[1].plugins.push(
+> // Append project specific plugin config.
+>  new ProjectSpecificPlugin()
+> );
+>
+> module.exports = config;
+>```
+
 ### Customizing eslint and styling
 
 To customize eslint, create a supported eslint config file at the root of your project. Make sure to extend the `@10up/eslint-config` package.
@@ -817,6 +869,11 @@ To override, use the `-f` or `--format` option
 ```bash
 10up-toolkit build -f=commonjs
 ```
+
+There also is a special mode for outputting both CommonJS and ESM assets at the same time. It can be enabled via the `useScriptModules` flag in the toolkit settings and enables you to define any module entrypoints via the `moduleEntry` key in the settings. At the same time enabling this flag also means that the `scriptModule` & `viewScriptModule` keys in `block.json` files automatically get built as modules.
+
+> [!NOTE]
+> Enabling has the side-effect that toolkit now needs to run two separate webpack instances. So the webpack config changes from an object to an array of objects. This is important to watch out for if you have a custom `webpack.config.js` file in your project and are customizing webpack yourself.
 
 ### Externals
 

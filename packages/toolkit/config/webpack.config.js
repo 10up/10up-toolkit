@@ -6,6 +6,7 @@ const {
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
 } = require('../utils');
+const { getModuleBuildFiles } = require('../utils/config');
 
 const {
 	getEntryPoints,
@@ -25,12 +26,13 @@ const projectConfig = getTenUpScriptsConfig();
 const packageConfig = getTenUpScriptsPackageBuildConfig();
 const { source, main } = packageConfig;
 const buildFiles = getBuildFiles();
+const moduleBuildFiles = getModuleBuildFiles();
 
 // assume it's a package if there's source and main
 const isPackage = typeof source !== 'undefined' && typeof main !== 'undefined';
 const isProduction = process.env.NODE_ENV === 'production';
 const mode = isProduction ? 'production' : 'development';
-const useBlockModules = projectConfig.useBlockModules || false;
+const useScriptModules = projectConfig.useScriptModules || false;
 
 const defaultTargets = [
 	'> 1%',
@@ -44,6 +46,7 @@ const config = {
 	projectConfig,
 	packageConfig,
 	buildFiles,
+	moduleBuildFiles,
 	isPackage,
 	mode,
 	isProduction,
@@ -95,8 +98,13 @@ const moduleConfig = {
 			...baseConfig.output.library,
 			type: 'module',
 		},
-		filename: 'blocks/[name].js',
+		filename: (pathData) => {
+			const isBlockAsset =
+				moduleBuildFiles[pathData.chunk.name].match(/\/blocks?\//) ||
+				moduleBuildFiles[pathData.chunk.name].match(/\\blocks?\\/);
+			return isBlockAsset ? projectConfig.filenames.block : projectConfig.filenames.js;
+		},
 	},
 };
 
-module.exports = useBlockModules ? [scriptsConfig, moduleConfig] : scriptsConfig;
+module.exports = useScriptModules ? [scriptsConfig, moduleConfig] : scriptsConfig;

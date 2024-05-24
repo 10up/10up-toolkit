@@ -252,9 +252,14 @@ a c, b c, a d, b d {
 exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=development 1`] = `
 {
   "plugins": {
+    "@csstools/postcss-global-data": {
+      "files": [],
+    },
     "cssnano": false,
     "postcss-import": {},
-    "postcss-mixins": {},
+    "postcss-mixins": {
+      "mixinsFiles": [],
+    },
     "postcss-preset-env": {
       "features": {
         "custom-properties": false,
@@ -268,6 +273,9 @@ exports[`postcss.config.js build a proper postcss config file for non-editor sty
 exports[`postcss.config.js build a proper postcss config file for non-editor styles: env=production 1`] = `
 {
   "plugins": {
+    "@csstools/postcss-global-data": {
+      "files": [],
+    },
     "cssnano": {
       "preset": [
         "default",
@@ -286,7 +294,9 @@ exports[`postcss.config.js build a proper postcss config file for non-editor sty
       ],
     },
     "postcss-import": {},
-    "postcss-mixins": {},
+    "postcss-mixins": {
+      "mixinsFiles": [],
+    },
     "postcss-preset-env": {
       "features": {
         "custom-properties": false,
@@ -300,6 +310,9 @@ exports[`postcss.config.js build a proper postcss config file for non-editor sty
 exports[`postcss.config.js builds a proper postcss config file for editor styles: env=development 1`] = `
 {
   "plugins": {
+    "@csstools/postcss-global-data": {
+      "files": [],
+    },
     "cssnano": false,
     "postcss-editor-styles-wrapper": {
       "ignore": [
@@ -324,7 +337,9 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
       ],
     },
     "postcss-import": {},
-    "postcss-mixins": {},
+    "postcss-mixins": {
+      "mixinsFiles": [],
+    },
     "postcss-preset-env": {
       "features": {
         "custom-properties": false,
@@ -338,6 +353,9 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
 exports[`postcss.config.js builds a proper postcss config file for editor styles: env=production 1`] = `
 {
   "plugins": {
+    "@csstools/postcss-global-data": {
+      "files": [],
+    },
     "cssnano": {
       "preset": [
         "default",
@@ -378,7 +396,9 @@ exports[`postcss.config.js builds a proper postcss config file for editor styles
       ],
     },
     "postcss-import": {},
-    "postcss-mixins": {},
+    "postcss-mixins": {
+      "mixinsFiles": [],
+    },
     "postcss-preset-env": {
       "features": {
         "custom-properties": false,

@@ -109,7 +109,7 @@ const getDefaultConfig = () => {
 	const analyze = hasArgInCLI('--analyze');
 	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
 	const sourcemap = hasArgInCLI('--sourcemap');
-	const useBlockModules = hasArgInCLI('--block-modules') || false;
+	const useScriptModules = hasArgInCLI('--block-modules') || false;
 
 	const buildFilesPath = hasProjectFile('buildfiles.config.js')
 		? fromProjectRoot('buildfiles.config.js')
@@ -124,6 +124,7 @@ const getDefaultConfig = () => {
 
 	return {
 		entry: require(buildFilesPath),
+		moduleEntry: {},
 		filenames: require(filenamesPath),
 		paths: require(pathsPath),
 		wordpress: wpMode !== 'false',
@@ -139,7 +140,7 @@ const getDefaultConfig = () => {
 			!process.env.TENUP_NO_EXTERNALS,
 		publicPath: process.env.ASSET_PATH || undefined,
 		useBlockAssets: true,
-		useBlockModules,
+		useScriptModules,
 		include,
 	};
 };
@@ -295,6 +296,22 @@ const getBuildFiles = () => {
 	return entries;
 };
 
+const getModuleBuildFiles = () => {
+	const { moduleEntry } = getTenUpScriptsConfig();
+
+	const entries = {};
+
+	Object.keys(moduleEntry).forEach((key) => {
+		const filePath = path.resolve(process.cwd(), moduleEntry[key]);
+
+		if (fileExists(filePath)) {
+			entries[key] = filePath;
+		}
+	});
+
+	return entries;
+};
+
 module.exports = {
 	hasBabelConfig,
 	getJestOverrideConfigFile,
@@ -303,6 +320,7 @@ module.exports = {
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
+	getModuleBuildFiles,
 	hasEslintignoreConfig,
 	hasEslintConfig,
 	getTenUpScriptsConfig,
