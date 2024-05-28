@@ -20,7 +20,7 @@ fi
 LANG=C
 
 if [ "$(uname)" = "Darwin" ]; then
-	sediopt=( -i '')
+	sediopt=( -i '' )
 else
 	sediopt=( -i )
 fi
