@@ -53,7 +53,7 @@ const run = async () => {
 	await require('./build').run();
 
 	if (fs.existsSync(variables.create_payload_script_path)) {
-		execSync(`sh ${variables.create_payload_script_path}`, { stdio: 'inherit' });
+		execSync(`bash ${variables.create_payload_script_path}`, { stdio: 'inherit' });
 	}
 
 	log(chalk.green('Payload created.'));

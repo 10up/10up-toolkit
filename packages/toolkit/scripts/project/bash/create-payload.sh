@@ -1,3 +1,5 @@
+#!/bin/bash
+
 download() {
 	if [ `which curl` ]; then
 		curl -s "$1" > "$2";
