@@ -137,7 +137,7 @@ const getProjectVariables = (path = '.') => {
 	}
 
 	if (!data.deploy_file_excludes) {
-		data.deploy_file_excludes = `./toolkit/packages/toolkit/project/deploy-file-excludes.txt`;
+		data.deploy_file_excludes = `./scripts/deploy-excludes.txt`;
 	}
 
 	data.toolkit_path = resolve(`${__dirname}/../`);
