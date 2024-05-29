@@ -7,21 +7,6 @@ include:
     ref: trunk
     file: /main.yml
 
-setup_10up_toolkit:
-  stage: .pre
-  script: |
-    if [ ! -d "toolkit" ] ; then
-      git clone --verbose -b project-command https://github.com/10up/10up-toolkit.git toolkit
-    fi
-    rm -rf 10up-toolkit
-    ln -s toolkit/packages/toolkit/bin/10up-toolkit.js 10up-toolkit
-    cd toolkit
-    npm install
-  artifacts:
-    paths:
-      - toolkit
-      - 10up-toolkit
-
 test_syntax:
   stage: test
   script:
@@ -39,7 +24,8 @@ test_virusscan:
 build_plugins_and_themes:
   stage: build
   script:
-    - ./10up-toolkit project create-payload $CI_COMMIT_REF_NAME
+    - nvm install 18
+    - npx 10up-toolkit@next project create-payload $CI_COMMIT_REF_NAME
   artifacts:
     paths:
       - payload

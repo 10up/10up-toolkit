@@ -64,7 +64,6 @@ The following are additional optional variables that allow you to use custom scr
 deploy_script_path: "" # Custom deploy script
 build_script_path: "" # For using a build script in a different location
 create_payload_script_path: "" # Custom create payload script
-deploy_file_excludes: "" # Custom deploy file exclusions
 ```
 
 ## Commands

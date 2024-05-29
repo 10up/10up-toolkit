@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Create dir if it does not exist
 if [ ! -d "$init_path" ]; then
 	mkdir -p "$init_path"
@@ -20,7 +22,7 @@ fi
 LANG=C
 
 if [ "$(uname)" = "Darwin" ]; then
-	sediopt=( -i '')
+	sediopt=( -i '' )
 else
 	sediopt=( -i )
 fi

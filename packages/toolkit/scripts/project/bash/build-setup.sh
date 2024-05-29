@@ -1,3 +1,5 @@
+#!/bin/bash
+
 maybe_init_nvm() {
 
   if [ $(find . -name .nvmrc | wc -l) -gt 0 ] && [ ! -f $NVM_DIR/nvm.sh ]; then

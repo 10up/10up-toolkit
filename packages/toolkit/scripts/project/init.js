@@ -126,7 +126,7 @@ const run = async () => {
 
 	const initScript = `${__dirname}/bash/init.sh`;
 
-	execSync(`sh ${initScript}`, { stdio: 'inherit' });
+	execSync(`bash ${initScript}`, { stdio: 'inherit' });
 
 	// Load the contents of the .tenup.yml file into a string
 	let configFile = fs.readFileSync(`${path}/.tenup.yml`, 'utf8');

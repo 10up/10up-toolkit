@@ -136,9 +136,8 @@ const getProjectVariables = (path = '.') => {
 		data.build_script_path = `${projectRoot}/scripts/build.sh`;
 	}
 
-	if (!data.deploy_file_excludes) {
-		data.deploy_file_excludes = `./toolkit/packages/toolkit/project/deploy-file-excludes.txt`;
-	}
+	data.deploy_file_excludes = `./scripts/deploy-excludes.txt`;
+	data.deploy_file_excludes_absolute = `${projectRoot}/scripts/deploy-excludes.txt`;
 
 	data.toolkit_path = resolve(`${__dirname}/../`);
 
