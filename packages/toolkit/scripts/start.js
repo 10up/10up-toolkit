@@ -32,9 +32,11 @@ const runWebpack = () => {
 
 	const { devServer } = config;
 
+	let server;
+
 	if (devServer) {
 		const devServerOptions = { ...devServer, host: '127.0.0.1', open: false };
-		const server = new WebpackDevServer(devServerOptions, compiler);
+		server = new WebpackDevServer(devServerOptions, compiler);
 
 		server.start();
 	} else {
@@ -47,6 +49,14 @@ const runWebpack = () => {
 			},
 		);
 	}
+
+	process.on('SIGINT', () => {
+		if (server) {
+			server.close();
+		}
+
+		compiler.close();
+	});
 };
 
 const hot = hasArgInCLI('--hot');
