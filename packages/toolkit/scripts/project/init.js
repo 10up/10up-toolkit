@@ -6,7 +6,6 @@ const { log } = console;
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const replace = require('replace-in-file');
 const fg = require('fast-glob');
 
 const { getWordPressLatestVersion, replaceVariables } = require('../../utils/project');
@@ -26,7 +25,7 @@ let template = hasArgInCLI('--template') ? getArgFromCLI('--template') : '';
 const variables = require(`../../project/default-variables.json`);
 
 const description =
-	'10up-toolkit project init [--path=<path>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm] [--deploy_location=<deploy_location>]';
+	'10up-toolkit project init [--path=<path>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
 
 const run = async () => {
 	const questions = [];
@@ -137,6 +136,8 @@ const run = async () => {
 		fs.rmdirSync(path.join(initPath, '.git'), { recursive: true });
 	}
 
+	const tenupComposerFiles = [];
+
 	const replaceOptions = [
 		{ from: /TenUpPlugin/g, to: `${projectNameCamelCase}Plugin` },
 		{ from: /TenupPlugin/g, to: `${projectNameCamelCase}Plugin` },
@@ -150,23 +151,55 @@ const run = async () => {
 		{ from: /tenup-wp-scaffold/g, to: `${projectNameLowercaseHypen}` },
 		{ from: /10up\/wp-theme/g, to: `10up/${projectNameLowercaseHypen}-theme` },
 		{ from: /10up\/wp-plugin/g, to: `10up/${projectNameLowercaseHypen}-plugin` },
+		{ from: /10up\/.*-scaffold/g, to: `10up/${projectNameLowercaseHypen}` },
 		{ from: /10up Plugin/g, to: `${projectName} Plugin` },
 		{ from: /Tenup Plugin/g, to: `${projectName} Plugin` },
 		{ from: /10up Theme/g, to: `${projectName} Theme` },
 		{ from: /Tenup Theme/g, to: `${projectName} Theme` },
 	];
 
-	replaceOptions.forEach((option) => {
-		try {
-			replace.sync({ ...option, files: `${initPath}/**/*` });
-		} catch (error) {
-			console.log('Error occurred:', error);
+	const files = await fg(`${initPath}/**/*`, {
+		ignore: ['**/*/node_modules', '**/*/vendor'],
+		dot: true,
+	});
+
+	files.forEach((file) => {
+		let fileContents = fs.readFileSync(file, 'utf8');
+
+		replaceOptions.forEach((option) => {
+			fileContents = fileContents.replace(option.from, option.to);
+		});
+
+		fs.writeFileSync(file, fileContents);
+
+		if (file.match(/composer.json$/)) {
+			const composerData = JSON.parse(fileContents);
+
+			if (composerData.name.match(/^10up\//)) {
+				tenupComposerFiles.push(file);
+			}
 		}
 	});
 
 	const themePath = `${initPath}/themes/${projectNameLowercaseHypen}-theme`;
 	const pluginPath = `${initPath}/plugins/${projectNameLowercaseHypen}-plugin`;
 	const muPluginPath = `${initPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
+
+	// Copy contents of toolkitPath/project/local into initPath
+	execSync(`rsync -rc "${toolkitPath}/project/local/" "${initPath}"`);
+	tenupComposerFiles.forEach((file) => {
+		const command = `composer install --working-dir=${path
+			.dirname(file)
+			.replace(`${initPath}`, './')
+			.replace('//', '/')}\n`;
+		fs.appendFileSync(`${initPath}/scripts/build.sh`, command);
+	});
+
+	if (!skipComposer) {
+		tenupComposerFiles.forEach((file) => {
+			execSync(`composer install --working-dir="${path.dirname(file)}"`);
+		});
+	}
 
 	const renameDirs = [
 		{ from: `${initPath}/themes/tenup-theme`, to: themePath },
@@ -181,23 +214,6 @@ const run = async () => {
 			fs.renameSync(dir.from, dir.to);
 		}
 	});
-
-	if (!skipComposer) {
-		const composerFiles = await fg(`${initPath}/**/composer.json`);
-
-		composerFiles.forEach((file) => {
-			const composerFile = fs.readFileSync(file, 'utf8');
-
-			const composerData = JSON.parse(composerFile);
-
-			if (composerData.name.match(/^10up\//)) {
-				execSync(`composer update --no-interaction --working-dir="${path.dirname(file)}"`);
-			}
-		});
-	}
-
-	// Copy contents of toolkitPath/project/local into initPath
-	execSync(`rsync -rc "${toolkitPath}/project/local/" "${initPath}"`);
 
 	// Load the contents of the .tenup.yml file into a string
 	let configFile = fs.readFileSync(`${initPath}/.tenup.yml`, 'utf8');
