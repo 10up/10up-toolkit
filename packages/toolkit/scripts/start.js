@@ -26,13 +26,14 @@ if (hasWebpackConfig()) {
 	configPath = fromProjectRoot('webpack.config.js');
 }
 
+let server;
+let compiler;
+
 const runWebpack = () => {
 	const config = require(configPath);
-	const compiler = webpack(config);
+	compiler = webpack(config);
 
 	const { devServer } = config;
-
-	let server;
 
 	if (devServer) {
 		const devServerOptions = { ...devServer, host: '127.0.0.1', open: false };
@@ -49,26 +50,11 @@ const runWebpack = () => {
 			},
 		);
 	}
-
-	process.on('SIGINT', () => {
-		if (server) {
-			server.close();
-		}
-
-		compiler.close();
-	});
 };
 
 const hot = hasArgInCLI('--hot');
 
 if (hot) {
-	process.on('SIGINT', () => {
-		// when gracefully leaving hot mode, clean up dist folder.
-		// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
-		console.log('\n10up-toolkit: Cleaning up dist folder...');
-
-		fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
-	});
 	// compile the fast refresh bundle
 	const config = require(fromConfigRoot('webpack-fast-refresh.config.js'));
 	const compiler = webpack(config);
@@ -88,3 +74,17 @@ if (hot) {
 } else {
 	runWebpack();
 }
+
+process.on('SIGINT', () => {
+	if (server) {
+		server.close();
+	}
+
+	compiler.close();
+
+	// when gracefully leaving hot mode, clean up dist folder.
+	// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
+	console.log('\n10up-toolkit: Cleaning up dist folder...');
+
+	fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
+});
