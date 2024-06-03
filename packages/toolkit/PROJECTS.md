@@ -64,7 +64,6 @@ The following are additional optional variables that allow you to use custom scr
 deploy_script_path: "" # Custom deploy script
 build_script_path: "" # For using a build script in a different location
 create_payload_script_path: "" # Custom create payload script
-deploy_file_excludes: "" # Custom deploy file exclusions
 ```
 
 ## Commands
@@ -74,7 +73,7 @@ The project subcommand provides a variety of utlities for creating, building, an
 List of commands:
 
 ```bash
-10up-toolkit project init [<path>] [--template=<Git repository>] [--name=<Project Name>] [--confirm]
+10up-toolkit project init [<path>] [--template=<Git repository>] [--name=<Project Name>] [--confirm] [--skip-composer]
 ```
 
 `init` creates a project. You can optionally provide it a number of parameters or answer the prompts. If no path is provided, it will initialize the project in the current directory. You will be prompted to choose a template e.g. [WP Scaffold](https://github.com/10up/wp-scaffold). Init will automatically search and replace prefixes using the project name you provide.

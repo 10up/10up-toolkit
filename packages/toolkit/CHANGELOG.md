@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.2.0-next.3
+
+### Patch Changes
+
+- d9f3642: Refactor init command
+
+## 6.2.0-next.2
+
+### Patch Changes
+
+- 58d5861: Fix init command
+
 ## 6.2.0-next.1
 
 ### Patch Changes
