@@ -82,9 +82,11 @@ process.on('SIGINT', () => {
 
 	compiler.close();
 
-	// when gracefully leaving hot mode, clean up dist folder.
-	// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
-	console.log('\n10up-toolkit: Cleaning up dist folder...');
+	if (hot) {
+		// when gracefully leaving hot mode, clean up dist folder.
+		// this avoids leaving js code with the fast refresh instrumentation and thus reducing confusion
+		console.log('\n10up-toolkit: Cleaning up dist folder...');
 
-	fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
+		fs.rmSync(fromProjectRoot('dist'), { recursive: true, force: true });
+	}
 });
