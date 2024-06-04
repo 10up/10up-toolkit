@@ -159,7 +159,7 @@ const run = async () => {
 	];
 
 	const files = await fg(`${initPath}/**/*`, {
-		ignore: ['**/*/node_modules', '**/*/vendor'],
+		ignore: ['**/*/node_modules', '**/*/vendor', '**/*/dist'],
 		dot: true,
 	});
 
