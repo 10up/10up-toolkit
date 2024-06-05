@@ -11,10 +11,12 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "clean-ravens-film",
     "fifty-ants-call",
     "gorgeous-ants-grow",
     "hip-toys-learn",
     "poor-birds-rhyme",
-    "weak-oranges-promise"
+    "weak-oranges-promise",
+    "yellow-pumpkins-fail"
   ]
 }
