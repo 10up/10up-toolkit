@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.2.0-next.4
+
+### Patch Changes
+
+- dcc09bb: Fix: watch close when using modules
+- 1f612a2: Update `project` command to use latest
+
 ## 6.2.0-next.3
 
 ### Patch Changes
