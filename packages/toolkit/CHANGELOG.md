@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.2.0
+
+### Minor Changes
+
+- dba1534: Project Command (BETA)
+
+### Patch Changes
+
+- dcc09bb: Fix: watch close when using modules
+- 1aba76c: Fix project init command
+- 58d5861: Fix init command
+- d9f3642: Refactor init command
+- 1f612a2: Update `project` command to use latest
+
 ## 6.2.0-next.4
 
 ### Patch Changes
