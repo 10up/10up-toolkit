@@ -11,9 +11,16 @@ const readPkg = require('read-pkg');
  */
 const { getCurrentWorkingDirectory } = require('./process');
 
-const { packageJson: pkg, path: pkgPath } = readPkgUp.sync({
+let pkg;
+let pkgPath;
+const packageData = readPkgUp.sync({
 	cwd: realpathSync(getCurrentWorkingDirectory()),
 });
+
+if (packageData && packageData.packageJson && packageData.path) {
+	pkg = packageData.packageJson;
+	pkgPath = packageData.path;
+}
 
 const getPackage = () => pkg;
 

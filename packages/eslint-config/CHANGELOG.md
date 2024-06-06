@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0-next.0
+
+### Minor Changes
+
+- 5ddee2c: Update eslint rule for typescript to use default arguments for default props.
+
 ## 4.0.0
 
 ### Major Changes

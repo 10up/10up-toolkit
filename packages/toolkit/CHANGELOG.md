@@ -1,5 +1,41 @@
 # Changelog
 
+## 6.2.0-next.4
+
+### Patch Changes
+
+- dcc09bb: Fix: watch close when using modules
+- 1f612a2: Update `project` command to use latest
+
+## 6.2.0-next.3
+
+### Patch Changes
+
+- d9f3642: Refactor init command
+
+## 6.2.0-next.2
+
+### Patch Changes
+
+- 58d5861: Fix init command
+
+## 6.2.0-next.1
+
+### Patch Changes
+
+- 1aba76c: Fix project init command
+
+## 6.2.0-next.0
+
+### Minor Changes
+
+- dba1534: Project Command (BETA)
+
+### Patch Changes
+
+- Updated dependencies [5ddee2c]
+  - @10up/eslint-config@4.1.0-next.0
+
 ## 6.1.0
 
 ### Minor Changes

@@ -1,0 +1,12 @@
+deploy_{{branch}}:
+  stage: deploy
+  extends: .wordpress-deploy-wpe
+  environment:
+    name: {{branch}}
+    url: {{url}}
+  variables:
+    GIT_URL: {{deploy_to}}
+  only:
+    refs:
+      - {{branch}}
+  when: on_success
