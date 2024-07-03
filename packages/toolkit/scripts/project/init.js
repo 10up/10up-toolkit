@@ -132,7 +132,7 @@ const run = async () => {
 			process.exit(1);
 		}
 
-		execSync(`git clone ${template} ${initPath}`);
+		execSync(`git clone ${template} '${initPath}'`);
 		fs.rmdirSync(path.join(initPath, '.git'), { recursive: true });
 	}
 
