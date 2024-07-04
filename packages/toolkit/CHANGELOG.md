@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.0-next.5
+
+### Patch Changes
+
+- 868ffdc: Fixing git clone path inside project command to support paths with spaces.
+
 ## 6.2.0-next.4
 
 ### Patch Changes
