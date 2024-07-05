@@ -73,7 +73,7 @@ The project subcommand provides a variety of utlities for creating, building, an
 List of commands:
 
 ```bash
-10up-toolkit project init [<path>] [--template=<Git repository>] [--name=<Project Name>] [--confirm] [--skip-composer]
+10up-toolkit project init [--path=<path>] [--template=<Git repository>] [--name=<Project Name>] [--confirm] [--skip-composer]
 ```
 
 `init` creates a project. You can optionally provide it a number of parameters or answer the prompts. If no path is provided, it will initialize the project in the current directory. You will be prompted to choose a template e.g. [WP Scaffold](https://github.com/10up/wp-scaffold). Init will automatically search and replace prefixes using the project name you provide.
