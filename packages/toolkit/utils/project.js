@@ -136,8 +136,8 @@ const getProjectVariables = (path = '.') => {
 		data.build_script_path = `${projectRoot}/scripts/build.sh`;
 	}
 
-	data.deploy_file_excludes = `./scripts/deploy-excludes.txt`;
-	data.deploy_file_excludes_absolute = `${projectRoot}/scripts/deploy-excludes.txt`;
+	data.rsync_file_excludes = `./scripts/rsync-excludess.txt`;
+	data.rsync_file_excludes_absolute = `${projectRoot}/scripts/rsync-excludess.txt`;
 
 	data.toolkit_path = resolve(`${__dirname}/../`);
 

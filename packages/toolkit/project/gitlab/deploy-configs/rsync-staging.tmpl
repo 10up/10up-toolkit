@@ -7,7 +7,7 @@ deploy_{{branch}}:
   variables:
     DESTINATION: {{deploy_to}}
     SUBDIR: {{deploy_to_subdir}}
-    EXCLUDES: {{deploy_file_excludes}}
+    EXCLUDES: {{rsync_file_excludes}}
   only:
     refs:
       - {{branch}}

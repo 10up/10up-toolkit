@@ -16,7 +16,8 @@ const run = async () => {
 		process.exit(1);
 	}
 
-	const variables = getProjectVariables();
+	// combine project variables with actual environment variables
+	const variables = { ...getProjectVariables(), ...process.env };
 
 	if (!variables) {
 		log(chalk.red('No .tenup.yml found.'));
@@ -26,7 +27,7 @@ const run = async () => {
 	setEnvVariables(variables);
 
 	if (fs.existsSync(variables.build_script_path)) {
-		execSync(`. ${__dirname}/bash/build-setup.sh; . ${variables.build_script_path}`, {
+		execSync(`bash -l ${__dirname}/bash/build-setup.sh local`, {
 			stdio: 'inherit',
 		});
 	} else {

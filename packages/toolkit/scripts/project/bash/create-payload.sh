@@ -17,4 +17,4 @@ download https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz wordpress.t
 tar --strip-components=1 -zxmf wordpress.tar.gz -C .
 rm wordpress.tar.gz
 
-rsync -avz --exclude-from=$deploy_file_excludes_absolute $project_root/$deploy_from $deploy_to_subdir
+rsync -avz --exclude-from=$rsync_file_excludes_absolute $project_root/$deploy_from $deploy_to_subdir

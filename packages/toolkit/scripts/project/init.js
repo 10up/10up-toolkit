@@ -117,7 +117,9 @@ const run = async () => {
 
 	const toolkitPath = resolve(`${__dirname}/../../`);
 	const initPath =
-		projectLayout === 'modern' ? `${resolve(cliPath)}${path.sep}wordpress` : resolve(cliPath);
+		projectLayout === 'modern'
+			? `${resolve(cliPath)}${path.sep}wordpress${path.sep}wp-content`
+			: resolve(cliPath);
 	template = results.template || template;
 
 	const projectName = results.name || name;
@@ -205,14 +207,20 @@ const run = async () => {
 	const pluginPath = `${initPath}/plugins/${projectNameLowercaseHypen}-plugin`;
 	const muPluginPath = `${initPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
 
-	// Copy contents of toolkitPath/project/local into initPath
+	// Copy contents of toolkitPath/project/local into cliPath
 	execSync(`rsync -rc "${toolkitPath}/project/local/" "${cliPath}"`);
 	tenupComposerFiles.forEach((file) => {
-		const command = `composer install --working-dir=${path
-			.dirname(file)
-			.replace(`${initPath}`, './')
-			.replace('//', '/')}\n`;
-		fs.appendFileSync(`${cliPath}/scripts/build.sh`, command);
+		// skip wp-content building, that's free in the build scripts already
+		if (path.basename(path.dirname(file)) !== 'wp-content') {
+			const workingDir = path.dirname(file).slice(resolve(cliPath).length).replace('//', '/');
+			const command = `composer install --working-dir=.${workingDir}\n`;
+
+			// FIXME: don't actually output the file, it results in brokeness
+			// fs.appendFileSync(
+			// 	`${cliPath}/scripts/build-${path.basename(path.dirname(file))}.sh`,
+			// 	command,
+			// );
+		}
 	});
 
 	if (!skipComposer) {

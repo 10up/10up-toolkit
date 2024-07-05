@@ -4,24 +4,11 @@ const chalk = require('chalk');
 const { log } = console;
 
 const fs = require('fs');
-const {
-	getProjectRoot,
-	getProjectVariables,
-	setEnvVariables,
-	getEnvironmentFromBranch,
-} = require('../../utils');
+const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
 
-const description = '10up-toolkit project create-payload <branch>';
+const description = '10up-toolkit project build';
 
 const run = async () => {
-	const branch = process.argv.slice(3)[0];
-
-	if (!branch || branch.match(/--/)) {
-		log(description);
-		log(chalk.red('No branch specified.'));
-		process.exit(1);
-	}
-
 	const root = getProjectRoot();
 
 	if (!root) {
@@ -29,34 +16,29 @@ const run = async () => {
 		process.exit(1);
 	}
 
-	let variables = getProjectVariables();
+	// combine project variables with actual environment variables
+	const variables = { ...getProjectVariables(), ...process.env };
+
+	// FIXME: This is a hack to force "create-payload" to behave like ci
+	variables.CI = true;
 
 	if (!variables) {
 		log(chalk.red('No .tenup.yml found.'));
 		process.exit(1);
 	}
 
-	const matchedEnvironment = getEnvironmentFromBranch(branch, variables.environments);
-
-	if (!matchedEnvironment) {
-		log(chalk.red(`No environment found matching branch \`${branch}\`.`));
-		process.exit(0);
-	}
-
-	variables = { ...variables, ...matchedEnvironment };
-
-	log(`Creating payload for environment ${matchedEnvironment.environment}.`);
-
 	setEnvVariables(variables);
 
-	// First run build
-	await require('./build').run();
-
-	if (fs.existsSync(variables.create_payload_script_path)) {
-		execSync(`bash ${variables.create_payload_script_path}`, { stdio: 'inherit' });
+	if (fs.existsSync(variables.build_script_path)) {
+		execSync(`bash -l ${__dirname}/bash/build-setup.sh full`, {
+			stdio: 'inherit',
+		});
+	} else {
+		log(chalk.red('No build script found.'));
+		process.exit(1);
 	}
 
-	log(chalk.green('Payload created.'));
+	log(chalk.green('Build complete.'));
 };
 
 module.exports = { run, description };
