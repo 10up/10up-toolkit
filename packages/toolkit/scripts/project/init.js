@@ -212,8 +212,8 @@ const run = async () => {
 	tenupComposerFiles.forEach((file) => {
 		// skip wp-content building, that's free in the build scripts already
 		if (path.basename(path.dirname(file)) !== 'wp-content') {
-			const workingDir = path.dirname(file).slice(resolve(cliPath).length).replace('//', '/');
-			const command = `composer install --working-dir=.${workingDir}\n`;
+			// const workingDir = path.dirname(file).slice(resolve(cliPath).length).replace('//', '/');
+			// const command = `composer install --working-dir=.${workingDir}\n`;
 
 			// FIXME: don't actually output the file, it results in brokeness
 			// fs.appendFileSync(
