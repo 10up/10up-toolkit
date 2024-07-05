@@ -14,6 +14,8 @@ const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 
 const cliPath = hasArgInCLI('--path') ? getArgFromCLI('--path') : '.';
 
+const projectLayout = hasArgInCLI('--layout') ? getArgFromCLI('--layout') : 'legacy';
+
 const name = hasArgInCLI('--name') ? getArgFromCLI('--name') : '';
 
 const confirm = !!hasArgInCLI('--confirm');
@@ -25,7 +27,7 @@ let template = hasArgInCLI('--template') ? getArgFromCLI('--template') : '';
 const variables = require(`../../project/default-variables.json`);
 
 const description =
-	'10up-toolkit project init [--path=<path>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
+	'10up-toolkit project init [--path=<path>] [--layout=<legacy>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
 
 const run = async () => {
 	const questions = [];
@@ -45,6 +47,23 @@ const run = async () => {
 			process.exit(1);
 		}
 	}
+
+	// we purposely do not actually expose projectLayout as a question for now and leave it as an advanced, semi-hidden option
+	/*
+	if (projectLayout === 'legacy') {
+		questions.push({
+			type: 'input',
+			name: 'layout',
+			validate: (input) => {
+				if (!['legacy','modern'].includes(input)) {
+					return false;
+				}
+				return true;
+			},
+			message: 'Project Layout (legacy or modern):',
+		});
+	}
+	*/
 
 	if (!name) {
 		questions.push({
@@ -92,12 +111,13 @@ const run = async () => {
 		results = await inquirer.prompt(questions);
 	}
 
-	log(`Initializing project at ${cliPath}`);
+	log(`Initializing project at ${cliPath} with a ${projectLayout} project layout`);
 
 	variables.wordpress_version = await getWordPressLatestVersion();
 
 	const toolkitPath = resolve(`${__dirname}/../../`);
-	const initPath = resolve(cliPath);
+	const initPath =
+		projectLayout === 'modern' ? `${resolve(cliPath)}${path.sep}wordpress` : resolve(cliPath);
 	template = results.template || template;
 
 	const projectName = results.name || name;
@@ -133,7 +153,7 @@ const run = async () => {
 		}
 
 		execSync(`git clone ${template} '${initPath}'`);
-		fs.rmdirSync(path.join(initPath, '.git'), { recursive: true });
+		fs.rmSync(path.join(initPath, '.git'), { recursive: true });
 	}
 
 	const tenupComposerFiles = [];
@@ -186,13 +206,13 @@ const run = async () => {
 	const muPluginPath = `${initPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
 
 	// Copy contents of toolkitPath/project/local into initPath
-	execSync(`rsync -rc "${toolkitPath}/project/local/" "${initPath}"`);
+	execSync(`rsync -rc "${toolkitPath}/project/local/" "${cliPath}"`);
 	tenupComposerFiles.forEach((file) => {
 		const command = `composer install --working-dir=${path
 			.dirname(file)
 			.replace(`${initPath}`, './')
 			.replace('//', '/')}\n`;
-		fs.appendFileSync(`${initPath}/scripts/build.sh`, command);
+		fs.appendFileSync(`${cliPath}/scripts/build.sh`, command);
 	});
 
 	if (!skipComposer) {
@@ -216,12 +236,12 @@ const run = async () => {
 	});
 
 	// Load the contents of the .tenup.yml file into a string
-	let configFile = fs.readFileSync(`${initPath}/.tenup.yml`, 'utf8');
+	let configFile = fs.readFileSync(`${cliPath}/.tenup.yml`, 'utf8');
 
 	configFile = replaceVariables(configFile, variables);
 
 	// Write config file back to disk
-	fs.writeFileSync(`${initPath}/.tenup.yml`, configFile);
+	fs.writeFileSync(`${cliPath}/.tenup.yml`, configFile);
 
 	log(chalk.green('Project initialized.'));
 
