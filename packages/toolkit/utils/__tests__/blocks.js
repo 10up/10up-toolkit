@@ -1,5 +1,5 @@
 import path from 'path';
-import { maybeInsertStyleVersionHash } from '../blocks';
+import { transformBlockJson } from '../blocks';
 import { getFileContentHash as getFileContentHashMock } from '../file';
 
 jest.mock('../file', () => {
@@ -10,12 +10,12 @@ jest.mock('../file', () => {
 	return module;
 });
 
-describe('maybeInsertStyleVersionHash', () => {
+describe('transformBlockJson', () => {
 	const absoluteteFileName = path.join('dist', 'blocks', 'block.json');
 
 	it('does nothing if version is set', () => {
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					version: 1,
 					style: 'file:./style.css',
@@ -27,7 +27,7 @@ describe('maybeInsertStyleVersionHash', () => {
 
 	it('does nothing if style is not set', () => {
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					script: 'file:./script.js',
 				}),
@@ -42,7 +42,7 @@ describe('maybeInsertStyleVersionHash', () => {
 
 	it('does nothing if style does not start with file:', () => {
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					style: 'style.css',
 				}),
@@ -51,7 +51,7 @@ describe('maybeInsertStyleVersionHash', () => {
 		).toEqual(JSON.stringify({ style: 'style.css' }));
 
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					style: ['another-css', 'style.css'],
 				}),
@@ -64,7 +64,7 @@ describe('maybeInsertStyleVersionHash', () => {
 		getFileContentHashMock.mockReturnValue('12345678');
 
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					style: 'file:./style.css',
 				}),
@@ -86,7 +86,7 @@ describe('maybeInsertStyleVersionHash', () => {
 		);
 
 		expect(
-			maybeInsertStyleVersionHash(
+			transformBlockJson(
 				JSON.stringify({
 					style: ['another-style', 'file:./style2.css'],
 				}),

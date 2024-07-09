@@ -1,7 +1,7 @@
 const path = require('path');
 const { getFileContentHash } = require('./file');
 
-const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
+const transformBlockJson = (content, absoluteFilename) => {
 	const rawMetadata = content.toString();
 	if (rawMetadata === '') {
 		return content;
@@ -32,14 +32,39 @@ const maybeInsertStyleVersionHash = (content, absoluteFilename) => {
 		styleFileContentHash += getFileContentHash(absoluteStylePath);
 	});
 
+	const { script, editorScript, viewScript, viewScriptModule, scriptModule } = metadata;
+
+	const jsAssets = [script, editorScript, viewScript, viewScriptModule, scriptModule].filter(
+		Boolean,
+	);
+
+	const transformedJsAssets = jsAssets.map((asset) => {
+		const assetArray = Array.isArray(asset) ? asset : [asset];
+
+		return assetArray.map((rawJsPath) => {
+			if (!rawJsPath.startsWith('file:')) {
+				return rawJsPath;
+			}
+			const isFilePath = rawJsPath.startsWith('file:');
+			if (!isFilePath) {
+				return rawJsPath;
+			}
+
+			// replace the `.ts or .tsx` extension with `.js`
+			const jsPath = rawJsPath.replace(/\.tsx?$/, '.js');
+			return jsPath;
+		});
+	});
+
 	return JSON.stringify(
 		{
 			...metadata,
 			version: styleFileContentHash,
+			...transformedJsAssets,
 		},
 		null,
 		2,
 	);
 };
 
-module.exports = { maybeInsertStyleVersionHash };
+module.exports = { transformBlockJson };
