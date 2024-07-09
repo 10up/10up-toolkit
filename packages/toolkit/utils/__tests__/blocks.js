@@ -107,4 +107,55 @@ describe('transformBlockJson', () => {
 			path.join('dist', 'blocks', 'style2.css'),
 		);
 	});
+
+	it('transforms ts and tsx to js', () => {
+		expect(
+			transformBlockJson(
+				JSON.stringify({
+					script: 'file:./script.ts',
+					editorScript: 'file:./editor.tsx',
+					viewScript: 'file:./view.ts',
+					viewScriptModule: 'file:./view.tsx',
+					scriptModule: 'file:./script.tsx',
+				}),
+				absoluteteFileName,
+			),
+		).toEqual(
+			JSON.stringify(
+				{
+					script: 'file:./script.js',
+					editorScript: 'file:./editor.js',
+					viewScript: 'file:./view.js',
+					viewScriptModule: 'file:./view.js',
+					scriptModule: 'file:./script.js',
+				},
+				null,
+				2,
+			),
+		);
+		expect(
+			transformBlockJson(
+				JSON.stringify({
+					script: ['file:./script.ts', 'file:./script.tsx'],
+					editorScript: ['file:./editor.ts', 'file:./editor.tsx'],
+					viewScript: ['file:./view.ts', 'file:./view.tsx'],
+					viewScriptModule: ['file:./view.tsx', 'file:./view.ts'],
+					scriptModule: ['file:./script.ts', 'file:./script.tsx'],
+				}),
+				absoluteteFileName,
+			),
+		).toEqual(
+			JSON.stringify(
+				{
+					script: ['file:./script.js', 'file:./script.js'],
+					editorScript: ['file:./editor.js', 'file:./editor.js'],
+					viewScript: ['file:./view.js', 'file:./view.js'],
+					viewScriptModule: ['file:./view.js', 'file:./view.js'],
+					scriptModule: ['file:./script.js', 'file:./script.js'],
+				},
+				null,
+				2,
+			),
+		);
+	});
 });
