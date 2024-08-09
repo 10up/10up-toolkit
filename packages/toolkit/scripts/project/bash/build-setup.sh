@@ -3,10 +3,11 @@
 # Various tasks to determine some things like what kind of project is this
 # such as standard, wp-content rooted...something else?
 function build:preflight {
+  PROJECT_TYPE="standard"
   # Check for a default, standard layout that has a wordpress directory
   if [ -d wordpress ] && [ -d build ]; then # this is probably a standard setup
     echo "Detected standard WordPress repository layout"
-    PROJECT_TYPE="standard"
+
     WORDPRESS_BUILD_ROOT="wordpress/wp-content"
     return
   fi
@@ -39,7 +40,7 @@ function build:version {
       WORDPRESS_VERSION=$(yq '.environments.'${ENVIRONMENT}'.wordpress_version' ${TENUP_CI_FILE})
     fi
   fi
-  
+
   if [ "${WORDPRESS_VERSION}" == "latest" ]; then
     WORDPRESS_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[0].current' | tr -d '"')
   fi
@@ -104,7 +105,7 @@ function build:main {
     composer install
   fi
 
-  
+
   if [ -f package.json ]; then
     # Ensure we have the correct node version installed
     nvm install
@@ -132,6 +133,7 @@ function build:local {
   # extension. They should do their work inside the wordpress directory.
 
   # We always call main.sh first
+  build:preflight
   build:main
 
   # Then call any other drop in scripts next
@@ -169,6 +171,46 @@ function build:full {
   fi
 
 }
+
+function build:update-composer {
+
+  build:preflight
+
+  if [ ${PROJECT_TYPE} == "standard" ]; then
+    pushd wordpress/wp-content
+  else
+    pushd .
+  fi
+
+  if [ ! composer.json ]; then
+    echo "No composer.json file found. Run this from the root of a project and try again."
+    exit 1
+  fi
+
+  for I in $(find . -maxdepth 1 -name composer.json)
+  do
+    composer update --no-install
+  done
+
+  pushd themes
+  for I in $(find . -maxdepth 2 -name composer.json)
+  do
+    pushd $(dirname $I)
+    composer update --no-install
+    popd
+  done
+
+  popd
+  popd
+}
+
+function build:initialize-git {
+  git init .
+  echo
+  echo
+  echo 'Git has been initialized. Please run "git remote add origin <project git url>" to set the remote repository location.'
+}
+
 
 # Converts a git branch to a gitlab compatible slug
 function utilities:create-gitlab-slug {
