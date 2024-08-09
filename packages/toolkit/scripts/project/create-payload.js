@@ -6,7 +6,7 @@ const { log } = console;
 const fs = require('fs');
 const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
 
-const description = '10up-toolkit project build';
+const description = '10up-toolkit project create-payload';
 
 const run = async () => {
 	const root = getProjectRoot();
