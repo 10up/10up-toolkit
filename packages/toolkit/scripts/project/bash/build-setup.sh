@@ -1,5 +1,6 @@
 #!/usr/bin/env bash -l
 
+SHARE_DIR="$(dirname "$(realpath "$0")")"
 # Various tasks to determine some things like what kind of project is this
 # such as standard, wp-content rooted...something else?
 function build:preflight {
@@ -209,6 +210,28 @@ function build:initialize-git {
   echo
   echo
   echo 'Git has been initialized. Please run "git remote add origin <project git url>" to set the remote repository location.'
+}
+
+function build:package {
+
+  if [ -z $(which docker) ]; then
+    echo "You don't seem to have Docker installed but it is required for this to work."
+    exit 1
+  fi
+
+  if [ ! -d payload ]; then
+    echo "No payload directory found. Please run 10up-toolkit project create-payload first."
+    exit 1
+  fi
+
+  # First determine if we are using a project Dockerfile or the included one
+  if [ -f Dockerfile ]; then
+    DOCKERFILE="Dockerfile"
+  else
+    DOCKERFILE="${SHARE_DIR:?}/Dockerfile"
+  fi
+   # FIXME: This should be updated to use variables from .tenup-ci.yml
+  docker buildx build --load -f ${DOCKERFILE} . -t tenup-project:latest
 }
 
 
