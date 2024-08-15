@@ -26,7 +26,7 @@ const run = async () => {
 
 	setEnvVariables(variables);
 
-	execSync(`bash -l ${__dirname}/bash/build-setup.sh update-composer`, {
+	execSync(`bash -l ${__dirname}/bash/scripts.sh update-composer`, {
 		stdio: 'inherit',
 	});
 

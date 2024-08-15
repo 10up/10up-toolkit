@@ -26,7 +26,7 @@ const run = async () => {
 
 	setEnvVariables(variables);
 
-	execSync(`bash -l ${__dirname}/bash/build-setup.sh package`, {
+	execSync(`bash -l ${__dirname}/bash/scripts.sh package`, {
 		stdio: 'inherit',
 	});
 
