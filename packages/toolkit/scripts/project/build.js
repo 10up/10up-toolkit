@@ -3,7 +3,6 @@ const chalk = require('chalk');
 
 const { log } = console;
 
-const fs = require('fs');
 const {
 	getProjectRoot,
 	getProjectVariables,
@@ -13,8 +12,9 @@ const {
 } = require('../../utils');
 
 const buildType = hasArgInCLI('--type') ? getArgFromCLI('--type') : 'local';
+const buildEnvironment = hasArgInCLI('--environment') ? getArgFromCLI('--environment') : null;
 
-const description = '10up-toolkit project build [--type=<type>]';
+const description = '10up-toolkit project build [--type=<type>] [--environment=<environment>]';
 
 const run = async () => {
 	const root = getProjectRoot();
@@ -25,7 +25,7 @@ const run = async () => {
 	}
 
 	// combine project variables with actual environment variables
-	const variables = { ...getProjectVariables(), ...process.env };
+	const variables = { ...getProjectVariables(buildEnvironment), ...process.env };
 
 	if (!variables) {
 		log(chalk.red('No .tenup.yml found.'));

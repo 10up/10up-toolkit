@@ -2,6 +2,7 @@ const YAML = require('yaml');
 const fs = require('fs');
 
 const { resolve } = require('path');
+const { execSync } = require('child_process');
 const fetch = require('node-fetch');
 
 /**
@@ -60,17 +61,42 @@ const getWordPressLatestVersion = async () => {
 };
 
 /**
+ * Flatten an object
+ *
+ * @param {*} obj
+ * @param {*} parentKey
+ * @param {*} result
+ * @returns {*}
+ */
+const flattenObject = (obj, parentKey = '', result = {}) => {
+	Object.keys(obj).forEach((key) => {
+		const newKey = parentKey ? `${parentKey}__${key}` : key;
+		const value = obj[key];
+
+		if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+			// Recursively flatten the nested object
+			flattenObject(value, newKey, result);
+		} else {
+			// Assign the value to the result object with the concatenated key
+			result[newKey] = value;
+		}
+	});
+
+	return result;
+};
+
+/**
  * Setuip environment variables
  *
  * @param {*} variables
  */
 const setEnvVariables = (variables) => {
+	const flattenedVariables = flattenObject(variables);
+
 	// Loop through variables and set them as environment variables
-	Object.keys(variables).forEach((key) => {
-		process.env[key] =
-			typeof variables[key] === 'object' ? JSON.stringify(variables[key]) : variables[key];
-		process.env[key.toUpperCase()] =
-			typeof variables[key] === 'object' ? JSON.stringify(variables[key]) : variables[key];
+	Object.keys(flattenedVariables).forEach((key) => {
+		process.env[key] = flattenedVariables[key];
+		process.env[key.toUpperCase()] = flattenedVariables[key];
 	});
 };
 
@@ -94,13 +120,29 @@ const getEnvironmentFromBranch = (branch, environments = []) => {
 	return matchedEnvironment;
 };
 
+const getGitBranch = () => {
+	let branch = null;
+	try {
+		// Get the current git branch into a variable. Ensure nothing is printed to the stdout
+		branch = execSync('git rev-parse --abbrev-ref HEAD 2>/dev/null', {
+			encoding: 'utf8',
+		})
+			.toString()
+			.trim();
+	} catch (error) {
+		// Do nothing
+	}
+
+	return branch;
+};
+
 /**
  * Get variables from .tenup.yml
  *
  * @param {string} path Path to check
  * @returns {object|null}
  */
-const getProjectVariables = (path = '.') => {
+const getProjectVariables = (environment, path = '.') => {
 	const projectRoot = getProjectRoot(path);
 
 	if (!projectRoot) {
@@ -116,6 +158,25 @@ const getProjectVariables = (path = '.') => {
 
 	if (!data) {
 		return null;
+	}
+
+	if (!environment) {
+		const branch = getGitBranch();
+
+		if (branch) {
+			data.current_branch = branch;
+			const matchedEnvironment = getEnvironmentFromBranch(branch, data.environments);
+
+			if (matchedEnvironment) {
+				data.current_environment = {};
+				Object.keys(matchedEnvironment).forEach((key) => {
+					data.current_environment[key] = matchedEnvironment[key];
+
+					// We hoist these to the root of the object to make it easier to use in shell e.g. WORDPRESS_VERSION
+					data[key] = matchedEnvironment[key];
+				});
+			}
+		}
 	}
 
 	data.project_root = projectRoot;
@@ -142,6 +203,7 @@ module.exports = {
 	getProjectRoot,
 	replaceVariables,
 	setEnvVariables,
+	getGitBranch,
 	getProjectVariables,
 	getWordPressLatestVersion,
 	getEnvironmentFromBranch,

@@ -27,20 +27,10 @@ function build:preflight {
 # Routine to determine what version of WordPress to install
 function build:version {
 
-  WORDPRESS_VERSION="latest"
-  if [ ${CI:-false} = "true" ]; then
-    if [ -z ${WORDPRESS_VERSION} ]; then
-      WORDPRESS_VERSION="latest"
-    fi
-  else
-    GIT_BRANCH=$(git branch --format='%(refname:short)' --show-current)
-    GIT_BRANCH_SLUG=$(utilities:create-gitlab-slug ${GIT_BRANCH})
-    ENVIRONMENT=$(yq eval '.environments | to_entries[] | select(.value.branch == "'${GIT_BRANCH_SLUG}'") | .key' ${TENUP_CI_FILE})
-
-    if [ ${ENVIRONMENT:-null} != "null" ]; then
-      WORDPRESS_VERSION=$(yq '.environments.'${ENVIRONMENT}'.wordpress_version' ${TENUP_CI_FILE})
-    fi
-  fi
+	# If the WORDPRESS_VERSION is not set, set to "latest"
+	if [ -z ${WORDPRESS_VERSION} ]; then
+		WORDPRESS_VERSION="latest"
+	fi
 
   if [ "${WORDPRESS_VERSION}" == "latest" ]; then
     WORDPRESS_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[0].current' | tr -d '"')

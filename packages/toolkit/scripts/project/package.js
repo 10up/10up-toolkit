@@ -3,7 +3,6 @@ const chalk = require('chalk');
 
 const { log } = console;
 
-const fs = require('fs');
 const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
 
 const description = '10up-toolkit project package';
