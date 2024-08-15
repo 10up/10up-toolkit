@@ -4,9 +4,17 @@ const chalk = require('chalk');
 const { log } = console;
 
 const fs = require('fs');
-const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
+const {
+	getProjectRoot,
+	getProjectVariables,
+	setEnvVariables,
+	hasArgInCLI,
+	getArgFromCLI,
+} = require('../../utils');
 
-const description = '10up-toolkit project build';
+const buildType = hasArgInCLI('--type') ? getArgFromCLI('--type') : 'local';
+
+const description = '10up-toolkit project build [--type=<type>]';
 
 const run = async () => {
 	const root = getProjectRoot();
@@ -27,7 +35,7 @@ const run = async () => {
 	setEnvVariables(variables);
 
 	if (fs.existsSync(variables.build_script_path)) {
-		execSync(`bash -l ${__dirname}/bash/build-setup.sh local`, {
+		execSync(`bash -l ${__dirname}/bash/build-setup.sh ${buildType}`, {
 			stdio: 'inherit',
 		});
 	} else {

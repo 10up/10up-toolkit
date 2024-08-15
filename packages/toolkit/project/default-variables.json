@@ -4,6 +4,5 @@
 	"build_script_path": "",
 	"wordpress_version": "",
 	"deploy_script_path": "",
-	"create_payload_script_path": "",
 	"environments": []
 }

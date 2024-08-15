@@ -120,16 +120,6 @@ const getProjectVariables = (path = '.') => {
 
 	data.project_root = projectRoot;
 
-	if (data.create_payload_script_path) {
-		data.create_payload_script_path = resolve(
-			`${projectRoot}/${data.create_payload_script_path}`,
-		);
-	} else {
-		data.create_payload_script_path = resolve(
-			`${__dirname}/../scripts/project/bash/create-payload.sh`,
-		);
-	}
-
 	if (data.build_script_path) {
 		data.build_script_path = resolve(`${projectRoot}/${data.build_script_path}`);
 	} else {

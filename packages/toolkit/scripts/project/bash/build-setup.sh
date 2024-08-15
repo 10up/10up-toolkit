@@ -2,12 +2,12 @@
 
 SHARE_DIR="$(dirname "$(realpath "$0")")"
 # Various tasks to determine some things like what kind of project is this
-# such as standard, wp-content rooted...something else?
+# such as wpparent, wp-content rooted...something else?
 function build:preflight {
-  PROJECT_TYPE="standard"
-  # Check for a default, standard layout that has a wordpress directory
-  if [ -d wordpress ] && [ -d build ]; then # this is probably a standard setup
-    echo "Detected standard WordPress repository layout"
+  PROJECT_TYPE="wpparent"
+  # Check for a parent layout that has a wordpress directory
+  if [ -d wordpress ] && [ -d build ]; then # this is probably a wpparent setup
+    echo "Detected parent WordPress repository layout"
 
     WORDPRESS_BUILD_ROOT="wordpress/wp-content"
     return
@@ -61,7 +61,7 @@ function build:install {
   local WORDPRESS_VERSION=$(build:version)
   echo "Installing WordPress version: ${WORDPRESS_VERSION}"
 
-  if [ ${PROJECT_TYPE} = "standard" ]; then
+  if [ ${PROJECT_TYPE} = "wpparent" ]; then
     mkdir -p wordpress/wp-content
     pushd wordpress
   else
@@ -88,7 +88,7 @@ function build:main {
   # but you are free to modify it as required for your project. Remember, you can also
   # drop in any number of scripts and they will be run in alphabetical order AFTER main.sh
 
-  # detect if this is a standard layout or not
+  # detect if this is a wpparent layout or not
 
   if [ -d wordpress/wp-content ]; then
     pushd wordpress/wp-content
@@ -220,7 +220,7 @@ function build:package {
   fi
 
   if [ ! -d payload ]; then
-    echo "No payload directory found. Please run 10up-toolkit project create-payload first."
+    echo "No payload directory found. Please run 10up-toolkit project build --type=full first."
     exit 1
   fi
 

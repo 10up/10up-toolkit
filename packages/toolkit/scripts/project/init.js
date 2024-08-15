@@ -14,7 +14,7 @@ const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 
 const cliPath = hasArgInCLI('--path') ? getArgFromCLI('--path') : '.';
 
-const projectLayout = hasArgInCLI('--layout') ? getArgFromCLI('--layout') : 'common';
+const projectLayout = hasArgInCLI('--layout') ? getArgFromCLI('--layout') : 'wpcontent';
 
 const name = hasArgInCLI('--name') ? getArgFromCLI('--name') : '';
 
@@ -47,23 +47,6 @@ const run = async () => {
 			process.exit(1);
 		}
 	}
-
-	// we purposely do not actually expose projectLayout as a question for now and leave it as an advanced, semi-hidden option
-	/*
-	if (projectLayout === 'common') {
-		questions.push({
-			type: 'input',
-			name: 'layout',
-			validate: (input) => {
-				if (!['common','monorepo'].includes(input)) {
-					return false;
-				}
-				return true;
-			},
-			message: 'Project Layout (common or monorepo):',
-		});
-	}
-	*/
 
 	if (!name) {
 		questions.push({
@@ -117,7 +100,9 @@ const run = async () => {
 
 	const toolkitPath = resolve(`${__dirname}/../../`);
 	const templateInitPath =
-		projectLayout === 'modern' ? `${resolve(cliPath)}/wordpress/wp-content` : resolve(cliPath);
+		projectLayout === 'wpcontent'
+			? `${resolve(cliPath)}/wordpress/wp-content`
+			: resolve(cliPath);
 	template = results.template || template;
 
 	const projectName = results.name || name;
