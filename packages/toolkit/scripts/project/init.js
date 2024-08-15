@@ -116,10 +116,8 @@ const run = async () => {
 	variables.wordpress_version = await getWordPressLatestVersion();
 
 	const toolkitPath = resolve(`${__dirname}/../../`);
-	const initPath =
-		projectLayout === 'modern'
-			? `${resolve(cliPath)}${path.sep}wordpress${path.sep}wp-content`
-			: resolve(cliPath);
+	const templateInitPath =
+		projectLayout === 'modern' ? `${resolve(cliPath)}/wordpress/wp-content` : resolve(cliPath);
 	template = results.template || template;
 
 	const projectName = results.name || name;
@@ -140,22 +138,22 @@ const run = async () => {
 	const projectNameUppercaseUnderscore = projectName.replace(/ /g, '_').toUpperCase();
 
 	// Create dir if it does not exist
-	if (!fs.existsSync(initPath)) {
-		fs.mkdirSync(initPath, { recursive: true });
+	if (!fs.existsSync(templateInitPath)) {
+		fs.mkdirSync(templateInitPath, { recursive: true });
 	}
 
 	// If template is not empty, git clone template to init_path
 	if (template !== 'none') {
 		// Check if init_path directory is not empty
-		if (fs.readdirSync(initPath).length > 0) {
+		if (fs.readdirSync(templateInitPath).length > 0) {
 			console.error(
-				`Directory ${initPath} is not empty. Please provide an empty directory to initialize the project.`,
+				`Directory ${templateInitPath} is not empty. Please provide an empty directory to initialize the project.`,
 			);
 			process.exit(1);
 		}
 
-		execSync(`git clone ${template} '${initPath}'`);
-		fs.rmSync(path.join(initPath, '.git'), { recursive: true });
+		execSync(`git clone ${template} '${templateInitPath}'`);
+		fs.rmSync(path.join(templateInitPath, '.git'), { recursive: true });
 	}
 
 	const tenupComposerFiles = [];
@@ -180,7 +178,7 @@ const run = async () => {
 		{ from: /Tenup Theme/g, to: `${projectName} Theme` },
 	];
 
-	const files = await fg(`${initPath}/**/*`, {
+	const files = await fg(`${templateInitPath}/**/*`, {
 		ignore: ['**/*/node_modules', '**/*/vendor', '**/*/dist'],
 		dot: true,
 	});
@@ -203,25 +201,12 @@ const run = async () => {
 		}
 	});
 
-	const themePath = `${initPath}/themes/${projectNameLowercaseHypen}-theme`;
-	const pluginPath = `${initPath}/plugins/${projectNameLowercaseHypen}-plugin`;
-	const muPluginPath = `${initPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
+	const themePath = `${templateInitPath}/themes/${projectNameLowercaseHypen}-theme`;
+	const pluginPath = `${templateInitPath}/plugins/${projectNameLowercaseHypen}-plugin`;
+	const muPluginPath = `${templateInitPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
 
 	// Copy contents of toolkitPath/project/local into cliPath
 	execSync(`rsync -rc "${toolkitPath}/project/local/" "${cliPath}"`);
-	tenupComposerFiles.forEach((file) => {
-		// skip wp-content building, that's free in the build scripts already
-		if (path.basename(path.dirname(file)) !== 'wp-content') {
-			// const workingDir = path.dirname(file).slice(resolve(cliPath).length).replace('//', '/');
-			// const command = `composer install --working-dir=.${workingDir}\n`;
-
-			// FIXME: don't actually output the file, it results in brokeness
-			// fs.appendFileSync(
-			// 	`${cliPath}/scripts/build-${path.basename(path.dirname(file))}.sh`,
-			// 	command,
-			// );
-		}
-	});
 
 	if (!skipComposer) {
 		tenupComposerFiles.forEach((file) => {
@@ -230,11 +215,11 @@ const run = async () => {
 	}
 
 	const renameDirs = [
-		{ from: `${initPath}/themes/tenup-theme`, to: themePath },
-		{ from: `${initPath}/plugins/tenup-plugin`, to: pluginPath },
-		{ from: `${initPath}/themes/10up-theme`, to: themePath },
-		{ from: `${initPath}/plugins/10up-plugin`, to: pluginPath },
-		{ from: `${initPath}/mu-plugins/10up-plugin`, to: muPluginPath },
+		{ from: `${templateInitPath}/themes/tenup-theme`, to: themePath },
+		{ from: `${templateInitPath}/plugins/tenup-plugin`, to: pluginPath },
+		{ from: `${templateInitPath}/themes/10up-theme`, to: themePath },
+		{ from: `${templateInitPath}/plugins/10up-plugin`, to: pluginPath },
+		{ from: `${templateInitPath}/mu-plugins/10up-plugin`, to: muPluginPath },
 	];
 
 	renameDirs.forEach((dir) => {
