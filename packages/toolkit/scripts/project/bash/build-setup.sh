@@ -7,7 +7,7 @@ function build:preflight {
   PROJECT_TYPE="wpparent"
   # Check for a parent layout that has a wordpress directory
   if [ -d wordpress ] && [ -d build ]; then # this is probably a wpparent setup
-    echo "Detected parent WordPress repository layout"
+    echo "Detected wpparent WordPress repository layout"
 
     WORDPRESS_BUILD_ROOT="wordpress/wp-content"
     return
