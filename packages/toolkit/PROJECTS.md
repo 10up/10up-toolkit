@@ -58,12 +58,6 @@ In this scenario, `deploy_from` would be set to `wp` and `deploy_to_subdir` woul
 
 `deploy_type` currently supports `rsync`, `wpe` (WP Engine), and `pantheon`. It defaults to `rsync`. If WPE or Pantheon is choosen, `deploy_to` should contain a Git URL. More deploy types will be added in the future.
 
-The following are additional optional variables that allow you to use custom scripts different than the ones provided by 10up Toolkit. You shouldn't need to use these unless you are doing something super custom. All these paths are relative from the root of your project.
-
-```yaml
-deploy_script_path: "" # Custom deploy script
-```
-
 ## Commands
 
 The project subcommand provides a variety of utlities for creating, building, and deploying 10up-specific projects.
