@@ -85,15 +85,21 @@ List of commands:
 `build` simply executes your `scripts/build.sh` file (or other path you specify). `build` will be executed before deploying files.
 
 ```bash
-10up-toolkit project create-payload <branch>
+10up-toolkit project create-payload
 ```
 
-This command creates a payload directory of the built project (including WordPress) for deployment. Engineers likely won't need to run this command themselves as GitLab does it automatically. You must provide a branch that corresponds to an environment in `.tenup.yml`.
+This command performs a simulated CI/CD build and creates a payload directory of the built project (including WordPress core). Useful for validating how a build will behave in CI/CD for deployment. Engineers likely won't need to run this command themselves as CI/CD does it automatically.
 
 ```bash
 10up-toolkit project generate-ci [--confirm] [--path=<path>]
 ```
 
 This command generates necessary CI files. For GitLab, this would be `.gitlab-ci.yml`. Right now this only supports GitLab but we will add support for GitHub in the future.
+
+```bash
+10up-toolkit project update-composer
+```
+
+Convenience function to update all dependencies in all found composer.json files. Also generates updated lock files.
 
 **Note that generating CI files is currently in alpha and may require manual editing to fix issues.**

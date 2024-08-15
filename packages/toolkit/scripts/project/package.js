@@ -6,7 +6,7 @@ const { log } = console;
 const fs = require('fs');
 const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
 
-const description = '10up-toolkit project create-payload';
+const description = '10up-toolkit project package';
 
 const run = async () => {
 	const root = getProjectRoot();
@@ -19,9 +19,6 @@ const run = async () => {
 	// combine project variables with actual environment variables
 	const variables = { ...getProjectVariables(), ...process.env };
 
-	// FIXME: This is a hack to force "create-payload" to behave like ci
-	variables.CI = true;
-
 	if (!variables) {
 		log(chalk.red('No .tenup.yml found.'));
 		process.exit(1);
@@ -30,7 +27,7 @@ const run = async () => {
 	setEnvVariables(variables);
 
 	if (fs.existsSync(variables.build_script_path)) {
-		execSync(`bash -l ${__dirname}/bash/build-setup.sh full`, {
+		execSync(`bash -l ${__dirname}/bash/build-setup.sh package`, {
 			stdio: 'inherit',
 		});
 	} else {
@@ -38,7 +35,7 @@ const run = async () => {
 		process.exit(1);
 	}
 
-	log(chalk.green('Build complete.'));
+	log(chalk.green('Packing process complete.'));
 };
 
 module.exports = { run, description };

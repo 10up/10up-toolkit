@@ -14,7 +14,7 @@ const { getArgFromCLI, hasArgInCLI } = require('../../utils');
 
 const cliPath = hasArgInCLI('--path') ? getArgFromCLI('--path') : '.';
 
-const projectLayout = hasArgInCLI('--layout') ? getArgFromCLI('--layout') : 'legacy';
+const projectLayout = hasArgInCLI('--layout') ? getArgFromCLI('--layout') : 'common';
 
 const name = hasArgInCLI('--name') ? getArgFromCLI('--name') : '';
 
@@ -27,7 +27,7 @@ let template = hasArgInCLI('--template') ? getArgFromCLI('--template') : '';
 const variables = require(`../../project/default-variables.json`);
 
 const description =
-	'10up-toolkit project init [--path=<path>] [--layout=<legacy>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
+	'10up-toolkit project init [--path=<path>] [--layout=<common>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
 
 const run = async () => {
 	const questions = [];
@@ -50,17 +50,17 @@ const run = async () => {
 
 	// we purposely do not actually expose projectLayout as a question for now and leave it as an advanced, semi-hidden option
 	/*
-	if (projectLayout === 'legacy') {
+	if (projectLayout === 'common') {
 		questions.push({
 			type: 'input',
 			name: 'layout',
 			validate: (input) => {
-				if (!['legacy','modern'].includes(input)) {
+				if (!['common','monorepo'].includes(input)) {
 					return false;
 				}
 				return true;
 			},
-			message: 'Project Layout (legacy or modern):',
+			message: 'Project Layout (common or monorepo):',
 		});
 	}
 	*/
@@ -235,6 +235,16 @@ const run = async () => {
 
 	// Write config file back to disk
 	fs.writeFileSync(`${cliPath}/.tenup.yml`, configFile);
+
+	const cwd = process.cwd();
+	process.chdir(cliPath);
+	execSync(`bash -l ${__dirname}/bash/build-setup.sh update-composer`, {
+		stdio: 'inherit',
+	});
+	execSync(`bash -l ${__dirname}/bash/build-setup.sh initialize-git`, {
+		stdio: 'inherit',
+	});
+	process.chdir(cwd);
 
 	log(chalk.green('Project initialized.'));
 
