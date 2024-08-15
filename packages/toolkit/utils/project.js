@@ -120,12 +120,6 @@ const getProjectVariables = (path = '.') => {
 
 	data.project_root = projectRoot;
 
-	if (data.build_script_path) {
-		data.build_script_path = resolve(`${projectRoot}/${data.build_script_path}`);
-	} else {
-		data.build_script_path = `${projectRoot}/scripts/build.sh`;
-	}
-
 	data.rsync_file_excludes = `./scripts/rsync-excludes.txt`;
 	data.rsync_file_excludes_absolute = `${projectRoot}/scripts/rsync-excludes.txt`;
 

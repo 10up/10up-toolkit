@@ -1,7 +1,6 @@
 {
 	"project_name": "10up Project",
 	"php_version": "8.2",
-	"build_script_path": "",
 	"wordpress_version": "",
 	"deploy_script_path": "",
 	"environments": []
