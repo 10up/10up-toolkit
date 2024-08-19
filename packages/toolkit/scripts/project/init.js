@@ -110,6 +110,7 @@ const run = async () => {
 	const projectName = results.name || name;
 
 	variables.projectName = projectName;
+	variables.project_name = projectName;
 
 	// Make name camel case
 	const projectNameCamelCase = projectName
@@ -210,7 +211,7 @@ const run = async () => {
 	const cwd = process.cwd();
 	process.chdir(cliPath);
 
-	if (!skipComposer) {
+	if (template !== 'none' && !skipComposer) {
 		execSync(`bash -l ${__dirname}/bash/scripts.sh update-composer`, {
 			stdio: 'inherit',
 		});
