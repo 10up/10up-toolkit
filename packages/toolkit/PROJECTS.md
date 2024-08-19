@@ -71,10 +71,10 @@ List of commands:
 `init` creates a project. You can optionally provide it a number of parameters or answer the prompts. If no path is provided, it will initialize the project in the current directory. If no layout is provided, it will default to `wpcontent` which means the project is rooted in `wp-content` (The other option is `wpparent` where the root of the project is one directory above WordPress). You will be prompted to choose a template e.g. [WP Scaffold](https://github.com/10up/wp-scaffold). Init will automatically search and replace prefixes using the project name you provide.
 
 ```bash
-10up-toolkit project build
+10up-toolkit project build [--type=<type>]
 ```
 
-`build` simply executes your `scripts/build.sh` file (or other path you specify). `build` will be executed before deploying files.
+`build` will build your project e.g. `composer install`, `npm install`, and `npm run build`. It will execute all the `.sh` files in your `scripts/` directory where you can add custom build logic for your particular project. `--type` defaults to local e.g. build for your local environment. In CI, type will be set to `full`.
 
 ```bash
 10up-toolkit project generate-ci [--confirm] [--path=<path>]
