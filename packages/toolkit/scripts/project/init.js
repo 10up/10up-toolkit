@@ -22,12 +22,14 @@ const confirm = !!hasArgInCLI('--confirm');
 
 const skipComposer = !!hasArgInCLI('--skip-composer');
 
+const skipCI = !!hasArgInCLI('--skip-ci');
+
 let template = hasArgInCLI('--template') ? getArgFromCLI('--template') : '';
 
 const variables = require(`../../project/default-variables.json`);
 
 const description =
-	'10up-toolkit project init [--path=<path>] [--layout=<common>] [--name=<name>] [--template=<template>] [--skip-composer] [--confirm]';
+	'10up-toolkit project init [--path=<path>] [--layout=<layout>] [--name=<name>] [--template=<template>] [--skip-composer] [--skip-ci] [--confirm]';
 
 const run = async () => {
 	const questions = [];
@@ -233,8 +235,10 @@ const run = async () => {
 
 	log(chalk.green('Project initialized.'));
 
-	// Now generate CI
-	await require('./generate-ci').run(true, cliPath);
+	if (!skipCI) {
+		// Now generate CI
+		await require('./generate-ci').run(true, cliPath);
+	}
 };
 
 module.exports = { run, description };
