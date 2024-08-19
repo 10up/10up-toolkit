@@ -70,7 +70,7 @@ function build:main {
 
   # don't call this script directly
   if [ $(shopt -q login_shell) ]; then
-    echo "Please call this using build/local.sh rather than directly"
+    echo "Do not call this script directly."
     exit 1
   fi
 
