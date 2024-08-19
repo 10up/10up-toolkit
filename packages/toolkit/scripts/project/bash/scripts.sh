@@ -150,7 +150,7 @@ function build:full {
     RSYNC_EXCLUDES="scripts/rsync-excludes.txt"
   fi
 
-  if [ ${PROJECT_TYPE} == "standard" ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     rsync -a --exclude-from=${RSYNC_EXCLUDES} wordpress/ payload/
   else
     for I in themes mu-plugins plugins
@@ -167,7 +167,7 @@ function build:update-composer {
 
   build:preflight
 
-  if [ ${PROJECT_TYPE} == "standard" ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     pushd wordpress/wp-content
   else
     pushd .
