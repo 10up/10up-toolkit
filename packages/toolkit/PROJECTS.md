@@ -65,22 +65,16 @@ The project subcommand provides a variety of utlities for creating, building, an
 List of commands:
 
 ```bash
-10up-toolkit project init [--path=<path>] [--template=<Git repository>] [--name=<Project Name>] [--confirm] [--skip-composer]
+10up-toolkit project init [--path=<path>] [--layout=<layout>] [--template=<Git repository>] [--name=<Project Name>] [--confirm] [--skip-composer] [--skip-ci]
 ```
 
-`init` creates a project. You can optionally provide it a number of parameters or answer the prompts. If no path is provided, it will initialize the project in the current directory. You will be prompted to choose a template e.g. [WP Scaffold](https://github.com/10up/wp-scaffold). Init will automatically search and replace prefixes using the project name you provide.
+`init` creates a project. You can optionally provide it a number of parameters or answer the prompts. If no path is provided, it will initialize the project in the current directory. If no layout is provided, it will default to `wpcontent` which means the project is rooted in `wp-content` (The other option is `wpparent` where the root of the project is one directory above WordPress). You will be prompted to choose a template e.g. [WP Scaffold](https://github.com/10up/wp-scaffold). Init will automatically search and replace prefixes using the project name you provide.
 
 ```bash
 10up-toolkit project build
 ```
 
 `build` simply executes your `scripts/build.sh` file (or other path you specify). `build` will be executed before deploying files.
-
-```bash
-10up-toolkit project create-payload
-```
-
-This command performs a simulated CI/CD build and creates a payload directory of the built project (including WordPress core). Useful for validating how a build will behave in CI/CD for deployment. Engineers likely won't need to run this command themselves as CI/CD does it automatically.
 
 ```bash
 10up-toolkit project generate-ci [--confirm] [--path=<path>]
