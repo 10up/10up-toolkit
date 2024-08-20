@@ -34,7 +34,7 @@ const run = async () => {
 
 	setEnvVariables(variables);
 
-	execSync(`bash -l ${__dirname}/bash/scripts.sh ${buildType}`, {
+	execSync(`${process.env.SHELL} ${__dirname}/bash/scripts.sh ${buildType}`, {
 		stdio: 'inherit',
 	});
 

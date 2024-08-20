@@ -4,6 +4,11 @@ SHARE_DIR="$(dirname "$(realpath "$0")")"
 # Various tasks to determine some things like what kind of project is this
 # such as wpparent, wp-content rooted...something else?
 function build:preflight {
+
+	# load nvm if it exists
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 	PROJECT_TYPE="wpparent"
 	# Check for a parent layout that has a wordpress directory
 	if [ -d wordpress ] && [ -d build ]; then # this is probably a wpparent setup
@@ -28,11 +33,11 @@ function build:preflight {
 function build:version {
 
 	# If the WORDPRESS_VERSION is not set, set to "latest"
-	if [ -z ${WORDPRESS_VERSION} ]; then
+	if [[ -z ${WORDPRESS_VERSION} ]]; then
 		WORDPRESS_VERSION="latest"
 	fi
 
-	if [ "${WORDPRESS_VERSION}" == "latest" ]; then
+	if [[ "${WORDPRESS_VERSION}" == "latest" ]]; then
 		WORDPRESS_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[0].current' | tr -d '"')
 	fi
 
@@ -68,42 +73,38 @@ function build:main {
 
 	build:preflight
 
-	# don't call this script directly
-	if [ $(shopt -q login_shell) ]; then
-		echo "Do not call this script directly."
-		exit 1
-	fi
-
 	# This is your "main" build file. By default, it builds a 10up/wp-scaffold style project
 	# but you are free to modify it as required for your project. Remember, you can also
 	# drop in any number of scripts and they will be run in alphabetical order AFTER main.sh
 
 	# detect if this is a wpparent layout or not
-
-	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+	if [[ ${PROJECT_TYPE} == "wpparent" ]]; then
 		pushd wordpress/wp-content
 	elif [ -d plugins ]; then
 		pushd . # go no where, we are already in the right spot
 	fi
-	if [ "${CI:-false}" = "true" ] && [ -f composer.json ]; then
+
+	if [[ ! -z $(command -v nvm) ]]; then
+		# Ensure we have the correct node version installed
+		nvm install
+		nvm use
+	fi
+
+	if [[ "${CI:-false}" = "true" ]] && [[ -f composer.json ]]; then
 		if [ ! -f composer.lock ] && [ -f composer.json ]; then
 			echo "No composer.lock file detected. You should create/commit an up to date composer.lock file!"
 			exit 1
 		else
 			composer install --no-dev
 		fi
-	elif [ -f composer.json ]; then
+	elif [[ -f composer.json ]]; then
 		composer install
 	fi
 
 
-	if [ -f package.json ]; then
-		# Ensure we have the correct node version installed
-		nvm install
-		nvm use
-
-		if [ "${CI:-false}" = "true" ] && [ -f package.json ]; then
-			if [ -f package-lock.json ]; then
+	if [[ -f package.json ]]; then
+		if [[ "${CI:-false}" = "true" ]] && [[ -f package.json ]]; then
+			if [[ -f package-lock.json ]]; then
 				npm ci
 			else
 				echo "No package-lock.json file detected. You should create/commit an up to date package-lock.json file!"
@@ -116,7 +117,7 @@ function build:main {
 		npm run build
 	fi
 
-	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+	if [[ ${PROJECT_TYPE} == "wpparent" ]]; then
 		popd
 	fi
 }
@@ -149,11 +150,11 @@ function build:full {
 	# into a non project template based project you should adjust it
 
 	# First determine if we are using a project rsync-exclude or the included one
-	if [ -f scripts/rsync-excludes.txt ]; then
+	if [[ -f scripts/rsync-excludes.txt ]]; then
 		RSYNC_EXCLUDES="scripts/rsync-excludes.txt"
 	fi
 
-	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+	if [[ ${PROJECT_TYPE} == "wpparent" ]]; then
 		rsync -a --exclude-from=${RSYNC_EXCLUDES} wordpress/ payload/
 	else
 		for I in themes mu-plugins plugins
@@ -170,13 +171,13 @@ function build:update-composer {
 
 	build:preflight
 
-	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+	if [[ ${PROJECT_TYPE} == "wpparent" ]]; then
 		pushd wordpress/wp-content
 	else
 		pushd .
 	fi
 
-	if [ ! composer.json ]; then
+	if [[ ! composer.json ]]; then
 		echo "No composer.json file found. Run this from the root of a project and try again."
 		exit 1
 	fi
@@ -207,18 +208,18 @@ function build:initialize-git {
 
 function build:package {
 
-	if [ -z $(which docker) ]; then
+	if [[ -z $(which docker) ]]; then
 		echo "You don't seem to have Docker installed but it is required for this to work."
 		exit 1
 	fi
 
-	if [ ! -d payload ]; then
+	if [[ ! -d payload ]]; then
 		echo "No payload directory found. Please run 10up-toolkit project build --type=full first."
 		exit 1
 	fi
 
 	# First determine if we are using a project Dockerfile or the included one
-	if [ -f Dockerfile ]; then
+	if [[ -f Dockerfile ]]; then
 		DOCKERFILE="Dockerfile"
 	else
 		DOCKERFILE="${SHARE_DIR:?}/Dockerfile"
