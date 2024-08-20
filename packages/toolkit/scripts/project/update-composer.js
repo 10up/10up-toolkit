@@ -3,7 +3,6 @@ const chalk = require('chalk');
 
 const { log } = console;
 
-const fs = require('fs');
 const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
 
 const description = '10up-toolkit project update-composer';
@@ -26,14 +25,9 @@ const run = async () => {
 
 	setEnvVariables(variables);
 
-	if (fs.existsSync(variables.build_script_path)) {
-		execSync(`bash -l ${__dirname}/bash/build-setup.sh update-composer`, {
-			stdio: 'inherit',
-		});
-	} else {
-		log(chalk.red('No build script found.'));
-		process.exit(1);
-	}
+	execSync(`bash -l ${__dirname}/bash/scripts.sh update-composer`, {
+		stdio: 'inherit',
+	});
 
 	log(chalk.green('Composer update complete.'));
 };

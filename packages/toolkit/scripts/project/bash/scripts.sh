@@ -2,12 +2,12 @@
 
 SHARE_DIR="$(dirname "$(realpath "$0")")"
 # Various tasks to determine some things like what kind of project is this
-# such as standard, wp-content rooted...something else?
+# such as wpparent, wp-content rooted...something else?
 function build:preflight {
-  PROJECT_TYPE="standard"
-  # Check for a default, standard layout that has a wordpress directory
-  if [ -d wordpress ] && [ -d build ]; then # this is probably a standard setup
-    echo "Detected standard WordPress repository layout"
+  PROJECT_TYPE="wpparent"
+  # Check for a parent layout that has a wordpress directory
+  if [ -d wordpress ] && [ -d build ]; then # this is probably a wpparent setup
+    echo "Detected wpparent WordPress repository layout"
 
     WORDPRESS_BUILD_ROOT="wordpress/wp-content"
     return
@@ -27,20 +27,10 @@ function build:preflight {
 # Routine to determine what version of WordPress to install
 function build:version {
 
-  WORDPRESS_VERSION="latest"
-  if [ ${CI:-false} = "true" ]; then
-    if [ -z ${WORDPRESS_VERSION} ]; then
-      WORDPRESS_VERSION="latest"
-    fi
-  else
-    GIT_BRANCH=$(git branch --format='%(refname:short)' --show-current)
-    GIT_BRANCH_SLUG=$(utilities:create-gitlab-slug ${GIT_BRANCH})
-    ENVIRONMENT=$(yq eval '.environments | to_entries[] | select(.value.branch == "'${GIT_BRANCH_SLUG}'") | .key' ${TENUP_CI_FILE})
-
-    if [ ${ENVIRONMENT:-null} != "null" ]; then
-      WORDPRESS_VERSION=$(yq '.environments.'${ENVIRONMENT}'.wordpress_version' ${TENUP_CI_FILE})
-    fi
-  fi
+	# If the WORDPRESS_VERSION is not set, set to "latest"
+	if [ -z ${WORDPRESS_VERSION} ]; then
+		WORDPRESS_VERSION="latest"
+	fi
 
   if [ "${WORDPRESS_VERSION}" == "latest" ]; then
     WORDPRESS_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq '.offers[0].current' | tr -d '"')
@@ -61,7 +51,7 @@ function build:install {
   local WORDPRESS_VERSION=$(build:version)
   echo "Installing WordPress version: ${WORDPRESS_VERSION}"
 
-  if [ ${PROJECT_TYPE} = "standard" ]; then
+  if [ ${PROJECT_TYPE} = "wpparent" ]; then
     mkdir -p wordpress/wp-content
     pushd wordpress
   else
@@ -80,7 +70,7 @@ function build:main {
 
   # don't call this script directly
   if [ $(shopt -q login_shell) ]; then
-    echo "Please call this using build/local.sh rather than directly"
+    echo "Do not call this script directly."
     exit 1
   fi
 
@@ -88,9 +78,9 @@ function build:main {
   # but you are free to modify it as required for your project. Remember, you can also
   # drop in any number of scripts and they will be run in alphabetical order AFTER main.sh
 
-  # detect if this is a standard layout or not
+  # detect if this is a wpparent layout or not
 
-  if [ -d wordpress/wp-content ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     pushd wordpress/wp-content
   elif [ -d plugins ]; then
     pushd . # go no where, we are already in the right spot
@@ -125,7 +115,10 @@ function build:main {
 
     npm run build
   fi
-  popd
+
+	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+  	popd
+	fi
 }
 
 function build:local {
@@ -160,7 +153,7 @@ function build:full {
     RSYNC_EXCLUDES="scripts/rsync-excludes.txt"
   fi
 
-  if [ ${PROJECT_TYPE} == "standard" ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     rsync -a --exclude-from=${RSYNC_EXCLUDES} wordpress/ payload/
   else
     for I in themes mu-plugins plugins
@@ -177,7 +170,7 @@ function build:update-composer {
 
   build:preflight
 
-  if [ ${PROJECT_TYPE} == "standard" ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     pushd wordpress/wp-content
   else
     pushd .
@@ -220,7 +213,7 @@ function build:package {
   fi
 
   if [ ! -d payload ]; then
-    echo "No payload directory found. Please run 10up-toolkit project create-payload first."
+    echo "No payload directory found. Please run 10up-toolkit project build --type=full first."
     exit 1
   fi
 

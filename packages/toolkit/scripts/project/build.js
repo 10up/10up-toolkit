@@ -3,10 +3,18 @@ const chalk = require('chalk');
 
 const { log } = console;
 
-const fs = require('fs');
-const { getProjectRoot, getProjectVariables, setEnvVariables } = require('../../utils');
+const {
+	getProjectRoot,
+	getProjectVariables,
+	setEnvVariables,
+	hasArgInCLI,
+	getArgFromCLI,
+} = require('../../utils');
 
-const description = '10up-toolkit project build';
+const buildType = hasArgInCLI('--type') ? getArgFromCLI('--type') : 'local';
+const buildEnvironment = hasArgInCLI('--environment') ? getArgFromCLI('--environment') : null;
+
+const description = '10up-toolkit project build [--type=<type>] [--environment=<environment>]';
 
 const run = async () => {
 	const root = getProjectRoot();
@@ -17,7 +25,7 @@ const run = async () => {
 	}
 
 	// combine project variables with actual environment variables
-	const variables = { ...getProjectVariables(), ...process.env };
+	const variables = { ...getProjectVariables(buildEnvironment), ...process.env };
 
 	if (!variables) {
 		log(chalk.red('No .tenup.yml found.'));
@@ -26,14 +34,9 @@ const run = async () => {
 
 	setEnvVariables(variables);
 
-	if (fs.existsSync(variables.build_script_path)) {
-		execSync(`bash -l ${__dirname}/bash/build-setup.sh local`, {
-			stdio: 'inherit',
-		});
-	} else {
-		log(chalk.red('No build script found.'));
-		process.exit(1);
-	}
+	execSync(`bash -l ${__dirname}/bash/scripts.sh ${buildType}`, {
+		stdio: 'inherit',
+	});
 
 	log(chalk.green('Build complete.'));
 };
