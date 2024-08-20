@@ -80,7 +80,7 @@ function build:main {
 
   # detect if this is a wpparent layout or not
 
-  if [ -d wordpress/wp-content ]; then
+  if [ ${PROJECT_TYPE} == "wpparent" ]; then
     pushd wordpress/wp-content
   elif [ -d plugins ]; then
     pushd . # go no where, we are already in the right spot
@@ -115,7 +115,10 @@ function build:main {
 
     npm run build
   fi
-  popd
+
+	if [ ${PROJECT_TYPE} == "wpparent" ]; then
+  	popd
+	fi
 }
 
 function build:local {
