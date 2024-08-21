@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.2
+
+### Patch Changes
+
+- 7692784: Simple enhancements to toolkit project command to align with devops needs.
+
 ## 6.2.1
 
 ### Patch Changes
