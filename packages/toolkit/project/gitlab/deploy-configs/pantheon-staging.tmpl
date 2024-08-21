@@ -7,7 +7,7 @@ deploy_{{branch}}:
     MULTI_DEV_ENVIRONMENT: "{{branch}}"
     WORDPRESS_VERSION: {{wordpress_version}}
     GIT_URL: {{deploy_to}}
-    EXCLUDES: {{deploy_file_excludes}}
+    EXCLUDES: {{rsync_file_excludes}}
   allow_failure: false
   only:
     refs:

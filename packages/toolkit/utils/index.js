@@ -37,6 +37,7 @@ const { maybeInsertStyleVersionHash } = require('./blocks');
 const {
 	getProjectRoot,
 	setEnvVariables,
+	getGitBranch,
 	getProjectVariables,
 	getEnvironmentFromBranch,
 	replaceVariables,
@@ -78,5 +79,6 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	getGitBranch,
 	maybeInsertStyleVersionHash,
 };
