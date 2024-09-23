@@ -1,5 +1,4 @@
 .wp-block-heading {
-	background-color: red;
 
 	@mixins margin-trim;
 
