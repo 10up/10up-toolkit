@@ -111,16 +111,15 @@ module.exports = ({
 	// Logic for loading CSS files per block.
 	if (loadBlockSpecificStyles) {
 		// get all stylesheets located in the assets/css/blocks directory and subdirectories
-		const blockStylesheetDirectory = resolve(process.cwd(), paths.blocksStyles);
+		const blockStylesheetDirectory = resolve(process.cwd(), paths.blocksStyles).replace(
+			/\\/g,
+			'/',
+		);
 
 		// get all stylesheets in the blocks directory
-		const stylesheets = glob(
-			// glob only accepts forward-slashes this is required to make things work on Windows
-			`${blockStylesheetDirectory.replace(/\\/g, '/')}/**/*.css`,
-			{
-				absolute: true,
-			},
-		);
+		const stylesheets = glob(`${blockStylesheetDirectory}/**/*.css`, {
+			absolute: true,
+		});
 
 		stylesheets.forEach((filePath) => {
 			const blockName = filePath
