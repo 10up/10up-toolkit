@@ -16,7 +16,7 @@
 html {
 	background: #f5f5f5;
 	padding: 20px;
-	
+
 	@mixin margin-trim;
 
 	@media (--bp-small) {
@@ -39,7 +39,3 @@ p {
 /* Components */
 
 /* @import url("components/index.css"); */
-
-/* Gutenberg blocks */
-
-/* @import url("../blocks/index.css"); */
