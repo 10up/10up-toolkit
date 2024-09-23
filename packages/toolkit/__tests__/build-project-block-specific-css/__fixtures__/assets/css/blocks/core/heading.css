@@ -1,6 +1,6 @@
 .wp-block-heading {
 
-	@mixins margin-trim;
+	@mixin margin-trim;
 
 	@media (--bp-small) {
 		padding: 40px;
