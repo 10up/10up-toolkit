@@ -1,0 +1,14 @@
+deploy_{{branch}}:
+  extends: .wordpress-deploy-pantheon-v2
+  environment:
+    name: {{branch}}
+    url: {{url}}
+  variables:
+    MULTI_DEV_ENVIRONMENT: "{{branch}}"
+    WORDPRESS_VERSION: {{wordpress_version}}
+    GIT_URL: {{deploy_to}}
+    EXCLUDES: {{rsync_file_excludes}}
+  allow_failure: false
+  only:
+    refs:
+      - {{branch}}

@@ -34,10 +34,25 @@ const { displayWebpackStats } = require('./webpack');
 
 const { maybeInsertStyleVersionHash } = require('./blocks');
 
+const {
+	getProjectRoot,
+	setEnvVariables,
+	getGitBranch,
+	getProjectVariables,
+	getEnvironmentFromBranch,
+	replaceVariables,
+	getWordPressLatestVersion,
+} = require('./project');
+
 module.exports = {
 	fromProjectRoot,
+	getProjectRoot,
+	setEnvVariables,
+	getWordPressLatestVersion,
 	fromConfigRoot,
+	getProjectVariables,
 	getArgFromCLI,
+	replaceVariables,
 	getArgsFromCLI,
 	getFileArgsFromCLI,
 	getNodeArgsFromCLI,
@@ -47,6 +62,7 @@ module.exports = {
 	hasFileArgInCLI,
 	getJestOverrideConfigFile,
 	hasJestConfig,
+	getEnvironmentFromBranch,
 	hasPackageProp,
 	hasPrettierConfig,
 	hasEslintConfig,
@@ -63,5 +79,6 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	getGitBranch,
 	maybeInsertStyleVersionHash,
 };
