@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { resolve } = require('path');
+const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
@@ -51,6 +52,7 @@ module.exports = ({
 	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction && !isModule;
+	const shouldCompileVanillaExtract = isPackageInstalled('@vanilla-extract/css');
 
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
@@ -96,7 +98,7 @@ module.exports = ({
 			fix: false,
 			lintDirtyModulesOnly: true,
 		}),
-
+		shouldCompileVanillaExtract && new VanillaExtractPlugin(),
 		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
 		new MiniCSSExtractPlugin({
 			filename: (options) => {
