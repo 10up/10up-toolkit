@@ -1,6 +1,8 @@
 const path = require('path');
 const { getFileContentHash } = require('./file');
 
+const JS_ASSET_KEYS = ['script', 'editorScript', 'viewScript', 'viewScriptModule', 'scriptModule'];
+
 /**
  * Transform the asset path from `.ts or .tsx` to `.js`
  *
@@ -62,25 +64,11 @@ const transformBlockJson = (content, absoluteFilename) => {
 		newMetadata.version = styleFileContentHash;
 	}
 
-	if (metadata.script) {
-		newMetadata.script = transformTSAsset(metadata.script);
-	}
-
-	if (metadata.editorScript) {
-		newMetadata.editorScript = transformTSAsset(metadata.editorScript);
-	}
-
-	if (metadata.viewScript) {
-		newMetadata.viewScript = transformTSAsset(metadata.viewScript);
-	}
-
-	if (metadata.viewScriptModule) {
-		newMetadata.viewScriptModule = transformTSAsset(metadata.viewScriptModule);
-	}
-
-	if (metadata.scriptModule) {
-		newMetadata.scriptModule = transformTSAsset(metadata.scriptModule);
-	}
+	JS_ASSET_KEYS.forEach((key) => {
+		if (metadata[key]) {
+			newMetadata[key] = transformTSAsset(metadata[key]);
+		}
+	});
 
 	return JSON.stringify(newMetadata, null, 2);
 };
