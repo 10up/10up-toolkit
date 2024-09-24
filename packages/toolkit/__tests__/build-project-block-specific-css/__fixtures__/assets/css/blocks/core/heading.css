@@ -1,0 +1,8 @@
+.wp-block-heading {
+
+	@mixin margin-trim;
+
+	@media (--bp-small) {
+		padding: 40px;
+	}
+}

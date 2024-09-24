@@ -22,7 +22,7 @@
 }
 
 .accordion-content {
-  @nest .js & {
+  .js & {
     display: none;
     visibility: hidden;
 

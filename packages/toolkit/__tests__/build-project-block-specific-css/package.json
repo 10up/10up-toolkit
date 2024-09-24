@@ -1,0 +1,13 @@
+{
+	"name": "test-build-project-global-css",
+	"10up-toolkit": {
+		"loadBlockSpecificStyles": true,
+		"paths": {
+			"srcDir": "./__fixtures__/assets/",
+			"blocksStyles": "./__fixtures__/assets/css/blocks/",
+			"cssLoaderPaths": ["./__fixtures__/assets/css", "./includes/blocks"],
+			"globalStylesDir": "./__fixtures__/assets/css/globals/",
+			"globalMixinsDir": "./__fixtures__/assets/css/mixins/"
+		}
+	}
+}
