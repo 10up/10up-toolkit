@@ -35,6 +35,7 @@
   "10up-toolkit": {
     "useBlockAssets": true,
     "useScriptModules": true,
+    "loadBlockSpecificStyles": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
       "frontend": "./assets/js/frontend/frontend.js",

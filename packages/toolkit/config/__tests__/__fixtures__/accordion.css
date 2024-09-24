@@ -5,51 +5,52 @@
 
 
 :root {
-    --primary-font: 'Mr George', Arial, Helvetica, sans-serif;
+	--primary-font: "Mr George", arial, helvetica, sans-serif;
 }
 
 @font-face {
-    font-family: 'Mr George';
-    src: url('./assets/fonts/MrGeorgeHeavy.ttf') format('truetype');
-    font-weight: 900
+	font-family: "Mr George";
+	font-weight: 900;
+	src: url("./assets/fonts/MrGeorgeHeavy.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: 'Mr George';
-    src: url('./assets/fonts/MrGeorge.ttf') format('truetype');
-    font-weight: 400
+	font-family: "Mr George";
+	font-weight: 400;
+	src: url("./assets/fonts/MrGeorge.ttf") format("truetype");
 }
 
 .accordion-header {
-  border-bottom: 1px solid #303030;
-  cursor: pointer;
-  font-size: 1em;
-  padding: 10px 0 10px 20px;
-  position: relative;
-  text-align: left;
-  width: 100%;
+	border-bottom: 1px solid #303030;
+	cursor: pointer;
+	font-size: 1em;
+	padding: 10px 0 10px 20px;
+	position: relative;
+	text-align: left;
+	width: 100%;
 
-  &:before {
-    content: "+";
-    left: 5px;
-    position: absolute;
-    top: 8px;
-  }
+	&::before {
+		content: "+";
+		left: 5px;
+		position: absolute;
+		top: 8px;
+	}
 
-  &.is-active:before {
-    content: "-";
-  }
+	&.is-active::before {
+		content: "-";
+	}
 }
 
 .accordion-content {
-  @nest .js & {
-    display: none;
-    visibility: hidden;
 
-    &.is-active {
-      border-bottom: 1px solid #303030;
-      display: block;
-      visibility: visible;
-    }
-  }
+	.js & {
+		display: none;
+		visibility: hidden;
+
+		&.is-active {
+			border-bottom: 1px solid #303030;
+			display: block;
+			visibility: visible;
+		}
+	}
 }

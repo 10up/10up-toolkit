@@ -9,12 +9,13 @@ const removeDistFolder = (file) => {
 module.exports = ({
 	buildType = 'script',
 	isPackage,
-	projectConfig: { devServer, paths, useBlockAssets, filenames },
+	projectConfig: { devServer, paths, useBlockAssets, filenames, loadBlockSpecificStyles },
 	packageConfig: { packageType, source, main, umd, libraryName },
 	buildFiles,
 	moduleBuildFiles,
 }) => {
 	let additionalEntrypoints = {};
+
 	if (useBlockAssets) {
 		// override default block filenames
 		filenames.block = 'blocks/[name].js';
@@ -105,13 +106,37 @@ module.exports = ({
 		}, {});
 	}
 
+	const blockStyleEntryPoints = {};
+
+	// Logic for loading CSS files per block.
+	if (loadBlockSpecificStyles) {
+		// get all stylesheets located in the assets/css/blocks directory and subdirectories
+		const blockStylesheetDirectory = resolve(process.cwd(), paths.blocksStyles).replace(
+			/\\/g,
+			'/',
+		);
+
+		// get all stylesheets in the blocks directory
+		const stylesheets = glob(`${blockStylesheetDirectory}/**/*.css`, {
+			absolute: true,
+		});
+
+		stylesheets.forEach((filePath) => {
+			const blockName = filePath
+				.replace(`${blockStylesheetDirectory}/`, '')
+				.replace(extname(filePath), '');
+
+			blockStyleEntryPoints[`autoenqueue/${blockName}`] = resolve(filePath);
+		});
+	}
+
 	if (buildType === 'module') {
 		Object.assign(moduleBuildFiles, additionalEntrypoints);
 		return moduleBuildFiles;
 	}
 
 	// merge the new entrypoints with the existing ones
-	Object.assign(buildFiles, additionalEntrypoints);
+	Object.assign(buildFiles, additionalEntrypoints, blockStyleEntryPoints);
 
 	if (isPackage) {
 		const config = {};
