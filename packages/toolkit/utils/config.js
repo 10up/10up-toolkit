@@ -139,6 +139,7 @@ const getDefaultConfig = () => {
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
 		publicPath: process.env.ASSET_PATH || undefined,
+		loadBlockSpecificStyles: false,
 		useBlockAssets: true,
 		useScriptModules,
 		include,

@@ -1,8 +1,9 @@
 module.exports = {
-	srcDir: './assets/',
-	cssLoaderPaths: ['./assets/css', './includes/blocks'],
-	copyAssetsDir: './assets/',
 	blocksDir: './includes/blocks/',
-	globalStylesDir: './assets/css/globals/',
+	blocksStyles: './assets/css/blocks/',
+	copyAssetsDir: './assets/',
+	cssLoaderPaths: ['./assets/css', './includes/blocks'],
 	globalMixinsDir: './assets/css/mixins/',
+	globalStylesDir: './assets/css/globals/',
+	srcDir: './assets/',
 };

@@ -37,6 +37,7 @@ const { transformBlockJson } = require('./blocks');
 const {
 	getProjectRoot,
 	setEnvVariables,
+	getGitBranch,
 	getProjectVariables,
 	getEnvironmentFromBranch,
 	replaceVariables,
@@ -79,4 +80,5 @@ module.exports = {
 	hasWebpackConfig,
 	displayWebpackStats,
 	transformBlockJson,
+	getGitBranch,
 };
