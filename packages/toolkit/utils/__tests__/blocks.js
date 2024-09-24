@@ -22,7 +22,7 @@ describe('transformBlockJson', () => {
 				}),
 				absoluteteFileName,
 			),
-		).toEqual(JSON.stringify({ version: 1, style: 'file:./style.css' }));
+		).toEqual(JSON.stringify({ version: 1, style: 'file:./style.css' }, null, 2));
 	});
 
 	it('does nothing if style is not set', () => {
@@ -34,9 +34,13 @@ describe('transformBlockJson', () => {
 				absoluteteFileName,
 			),
 		).toEqual(
-			JSON.stringify({
-				script: 'file:./script.js',
-			}),
+			JSON.stringify(
+				{
+					script: 'file:./script.js',
+				},
+				null,
+				2,
+			),
 		);
 	});
 
@@ -48,7 +52,7 @@ describe('transformBlockJson', () => {
 				}),
 				absoluteteFileName,
 			),
-		).toEqual(JSON.stringify({ style: 'style.css' }));
+		).toEqual(JSON.stringify({ style: 'style.css' }, null, 2));
 
 		expect(
 			transformBlockJson(
@@ -57,7 +61,7 @@ describe('transformBlockJson', () => {
 				}),
 				absoluteteFileName,
 			),
-		).toEqual(JSON.stringify({ style: ['another-css', 'style.css'] }));
+		).toEqual(JSON.stringify({ style: ['another-css', 'style.css'] }, null, 2));
 	});
 
 	it('adds version if style are set but version is not', () => {

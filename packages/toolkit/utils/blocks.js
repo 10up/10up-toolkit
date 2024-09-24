@@ -1,6 +1,30 @@
 const path = require('path');
 const { getFileContentHash } = require('./file');
 
+/**
+ * Transform the asset path from `.ts or .tsx` to `.js`
+ *
+ * When a block.json file has a script or style property that points to a `.ts or .tsx` file,
+ * this function will transform the path to point to the `.js` file instead.
+ *
+ * @param {string|Array<string>} asset - The asset path to transform
+ * @returns {string|Array<string>}
+ */
+function transformTSAsset(asset) {
+	function replaceExtension(filePath) {
+		const isFilePath = filePath.startsWith('file:');
+		if (!isFilePath) {
+			return filePath;
+		}
+
+		// replace the `.ts or .tsx` extension with `.js`
+		const jsPath = filePath.replace(/\.tsx?$/, '.js');
+		return jsPath;
+	}
+
+	return Array.isArray(asset) ? asset.map(replaceExtension) : replaceExtension(asset);
+}
+
 const transformBlockJson = (content, absoluteFilename) => {
 	const rawMetadata = content.toString();
 	if (rawMetadata === '') {
@@ -15,56 +39,50 @@ const transformBlockJson = (content, absoluteFilename) => {
 	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
 	const hasVersion = version !== undefined;
 
-	if (hasVersion || !isFilePath) {
-		return content;
-	}
-
 	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
 
 	let styleFileContentHash = '';
 
-	styleArray.forEach((rawStylePath) => {
-		if (!rawStylePath.startsWith('file:')) {
-			return;
-		}
-		const stylePath = rawStylePath.replace('file:', '');
-		const absoluteStylePath = path.join(absoluteDirectory, stylePath);
-		styleFileContentHash += getFileContentHash(absoluteStylePath);
-	});
-
-	const { script, editorScript, viewScript, viewScriptModule, scriptModule } = metadata;
-
-	const jsAssets = [script, editorScript, viewScript, viewScriptModule, scriptModule].filter(
-		Boolean,
-	);
-
-	const transformedJsAssets = jsAssets.map((asset) => {
-		const assetArray = Array.isArray(asset) ? asset : [asset];
-
-		return assetArray.map((rawJsPath) => {
-			if (!rawJsPath.startsWith('file:')) {
-				return rawJsPath;
+	if (!hasVersion && isFilePath) {
+		styleArray.forEach((rawStylePath) => {
+			if (!rawStylePath.startsWith('file:')) {
+				return;
 			}
-			const isFilePath = rawJsPath.startsWith('file:');
-			if (!isFilePath) {
-				return rawJsPath;
-			}
-
-			// replace the `.ts or .tsx` extension with `.js`
-			const jsPath = rawJsPath.replace(/\.tsx?$/, '.js');
-			return jsPath;
+			const stylePath = rawStylePath.replace('file:', '');
+			const absoluteStylePath = path.join(absoluteDirectory, stylePath);
+			styleFileContentHash += getFileContentHash(absoluteStylePath);
 		});
-	});
+	}
 
-	return JSON.stringify(
-		{
-			...metadata,
-			version: styleFileContentHash,
-			...transformedJsAssets,
-		},
-		null,
-		2,
-	);
+	const newMetadata = {
+		...metadata,
+	};
+
+	if (!hasVersion && styleFileContentHash) {
+		newMetadata.version = styleFileContentHash;
+	}
+
+	if (metadata.script) {
+		newMetadata.script = transformTSAsset(metadata.script);
+	}
+
+	if (metadata.editorScript) {
+		newMetadata.editorScript = transformTSAsset(metadata.editorScript);
+	}
+
+	if (metadata.viewScript) {
+		newMetadata.viewScript = transformTSAsset(metadata.viewScript);
+	}
+
+	if (metadata.viewScriptModule) {
+		newMetadata.viewScriptModule = transformTSAsset(metadata.viewScriptModule);
+	}
+
+	if (metadata.scriptModule) {
+		newMetadata.scriptModule = transformTSAsset(metadata.scriptModule);
+	}
+
+	return JSON.stringify(newMetadata, null, 2);
 };
 
 module.exports = { transformBlockJson };
