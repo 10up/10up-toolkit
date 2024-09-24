@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.2.2
+
+### Patch Changes
+
+- 7692784: Simple enhancements to toolkit project command to align with devops needs.
+
+## 6.2.1
+
+### Patch Changes
+
+- 868ffdc: Fixing git clone path inside project command to support paths with spaces.
+
+## 6.2.0
+
+### Minor Changes
+
+- dba1534: Project Command (BETA)
+
+### Patch Changes
+
+- dcc09bb: Fix: watch close when using modules
+- 1aba76c: Fix project init command
+- 58d5861: Fix init command
+- d9f3642: Refactor init command
+- 1f612a2: Update `project` command to use latest
+
 ## 6.2.0-next.4
 
 ### Patch Changes
