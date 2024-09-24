@@ -35,7 +35,7 @@
   },
   "10up-toolkit": {
     "useBlockAssets": true,
-    "useScriptModules": false,
+    "useScriptModules": true,
     "loadBlockSpecificStyles": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
