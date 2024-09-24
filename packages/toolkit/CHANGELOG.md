@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.3.0-next.0
+
+### Minor Changes
+
+- 3a5b540: Allow block-specific CSS entry points to get automatically generated for any CSS files in the `assets/css/blocks` directory.
+
+### Patch Changes
+
+- 8b74e5a: Simple enhancements to toolkit project command to align with devops needs.
+- 7ce09d9: Fix: transform file extension for .ts and .tsx assets inside block.json files
+
 ## 6.2.2
 
 ### Patch Changes
