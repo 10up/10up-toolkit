@@ -19,7 +19,7 @@ const {
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
-	maybeInsertStyleVersionHash,
+	transformBlockJson,
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
@@ -164,7 +164,7 @@ module.exports = ({
 						noErrorOnMissing: true,
 						to: 'blocks/[path][name][ext]',
 						transform: (content, absoluteFilename) => {
-							return maybeInsertStyleVersionHash(content, absoluteFilename);
+							return transformBlockJson(content, absoluteFilename);
 						},
 					},
 					useBlockAssets && {
