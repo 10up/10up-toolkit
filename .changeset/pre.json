@@ -11,8 +11,10 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "dull-pigs-cheer",
     "eight-pumpkins-provide",
     "lemon-owls-invent",
+    "light-mice-relate",
     "young-guests-deliver"
   ]
 }

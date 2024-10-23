@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.3.0-next.1
+
+### Minor Changes
+
+- 402c108: Introducing Vanilla-extract support
+
+### Patch Changes
+
+- Updated dependencies [402c108]
+  - @10up/eslint-config@4.1.1-next.0
+
 ## 6.3.0-next.0
 
 ### Minor Changes
