@@ -72,9 +72,12 @@ module.exports = ({
 				babelrc: false,
 				configFile: false,
 				sourceType: 'unambiguous',
-				plugins: [hasReactFastRefresh && require.resolve('react-refresh/babel')].filter(
-					Boolean,
-				),
+				plugins: [
+					hasReactFastRefresh && [
+						require.resolve('react-refresh/babel'),
+						{ skipEnvCheck: true },
+					],
+				].filter(Boolean),
 				presets: [
 					[
 						require.resolve('@10up/babel-preset-default'),

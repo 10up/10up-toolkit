@@ -3,7 +3,7 @@
   "version": "1.1.5-next.7",
   "private": true,
   "scripts": {
-    "start": "10up-toolkit start",
+    "start": "10up-toolkit start --hot",
     "watch": "10up-toolkit start",
     "build": "10up-toolkit build",
     "format-js": "10up-toolkit format-js",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@linaria/babel-preset": "^5.0.3",
     "@linaria/webpack-loader": "^5.0.3",
-    "@wordpress/env": "^5.0.0",
+    "@wordpress/env": "^10.10.0",
     "10up-toolkit": "^6.3.0-next.0"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
   },
   "10up-toolkit": {
     "useBlockAssets": true,
-    "useScriptModules": true,
+    "useScriptModules": false,
     "loadBlockSpecificStyles": true,
     "entry": {
       "admin": "./assets/js/admin/admin.js",
@@ -48,9 +48,6 @@
       "styleguide-style": "./assets/css/styleguide/styleguide.css",
       "core-block-overrides": "./includes/core-block-overrides.js",
       "test-style": "./assets/css/frontend/testing.scss"
-    },
-    "moduleEntry": {
-      "frontend-module": "./assets/js/frontend/frontend-module.js"
     }
   }
 }

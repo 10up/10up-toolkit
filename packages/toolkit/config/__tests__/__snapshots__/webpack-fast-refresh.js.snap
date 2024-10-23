@@ -55,7 +55,12 @@ exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot op
               "cacheDirectory": true,
               "configFile": false,
               "plugins": [
-                "/node_modules/react-refresh/babel.js",
+                [
+                  "/node_modules/react-refresh/babel.js",
+                  {
+                    "skipEnvCheck": true,
+                  },
+                ],
               ],
               "presets": [
                 [
@@ -109,7 +114,12 @@ exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot op
                 "babelrc": false,
                 "configFile": false,
                 "plugins": [
-                  "/node_modules/react-refresh/babel.js",
+                  [
+                    "/node_modules/react-refresh/babel.js",
+                    {
+                      "skipEnvCheck": true,
+                    },
+                  ],
                 ],
                 "presets": [
                   [
