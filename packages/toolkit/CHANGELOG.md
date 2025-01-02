@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.3.0-next.1
+## 6.3.1-next.1
 
 ### Minor Changes
 
@@ -11,7 +11,7 @@
 - Updated dependencies [402c108]
   - @10up/eslint-config@4.1.1-next.0
 
-## 6.3.0-next.0
+## 6.3.0
 
 ### Minor Changes
 
