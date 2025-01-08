@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.1-next.0
+
+### Patch Changes
+
+- 402c108: [eslint-config] update deps
+
 ## 4.1.0
 
 ### Minor Changes

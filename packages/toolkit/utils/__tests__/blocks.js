@@ -162,4 +162,51 @@ describe('transformBlockJson', () => {
 			),
 		);
 	});
+
+	it('transforms sass and scss to css', () => {
+		expect(
+			transformBlockJson(
+				JSON.stringify({
+					style: 'file:./style.sass',
+					editorStyle: 'file:./editor.scss',
+					viewStyle: 'file:./view.sass',
+					version: '12345678',
+				}),
+				absoluteteFileName,
+			),
+		).toEqual(
+			JSON.stringify(
+				{
+					style: 'file:./style.css',
+					editorStyle: 'file:./editor.css',
+					viewStyle: 'file:./view.css',
+					version: '12345678',
+				},
+				null,
+				2,
+			),
+		);
+		expect(
+			transformBlockJson(
+				JSON.stringify({
+					style: ['file:./style.sass', 'file:./style.scss'],
+					editorStyle: ['file:./editor.sass', 'file:./editor.scss'],
+					viewStyle: ['file:./view.sass', 'file:./view.scss'],
+					version: '12345678',
+				}),
+				absoluteteFileName,
+			),
+		).toEqual(
+			JSON.stringify(
+				{
+					style: ['file:./style.css', 'file:./style.css'],
+					editorStyle: ['file:./editor.css', 'file:./editor.css'],
+					viewStyle: ['file:./view.css', 'file:./view.css'],
+					version: '12345678',
+				},
+				null,
+				2,
+			),
+		);
+	});
 });

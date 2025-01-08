@@ -1,0 +1,43 @@
+{
+	"title": "Example Block (With Vanilla Extract)",
+	"description": "An Example Block (With Vanilla Extract)",
+	"textdomain": "tenup-scaffold",
+	"name": "tenup/example-vanilla-extract",
+	"icon": "feedback",
+	"category": "tenup-scaffold-blocks",
+	"attributes": {
+		"title": {
+			"type": "string"
+		}
+	},
+	"example": {
+		"attributes": {
+			"title": "Example Block (With Vanilla Extract)"
+		}
+	},
+	"supports": {
+		"align": false,
+		"alignWide": false,
+		"anchor": false,
+		"color": {
+			"gradients": false,
+			"background": false,
+			"text": false
+		},
+		"customClassName": false,
+		"defaultStylePicker": false,
+		"typography": {
+			"fontSize": false,
+			"lineHeight": true
+		},
+		"html": false,
+		"inserter": true,
+		"multiple": true,
+		"reusable": false,
+		"spacing": {
+			"padding": false
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}

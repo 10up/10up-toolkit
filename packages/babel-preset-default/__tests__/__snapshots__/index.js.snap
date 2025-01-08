@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Babel preset default transpiles ES6+ code properly 1`] = `
-"\\"use strict\\";
+""use strict";
 
 const constVar = 'someConstVar';
 const promise = new Promise(resolve => {
@@ -36,7 +36,7 @@ init().then(result => {
 `;
 
 exports[`Babel preset default transpiles ES6+ code properly with runtimeESModules set to true 1`] = `
-"\\"use strict\\";
+""use strict";
 
 const constVar = 'someConstVar';
 const promise = new Promise(resolve => {
@@ -71,13 +71,13 @@ init().then(result => {
 `;
 
 exports[`Babel preset default transpiles react code properly 1`] = `
-"\\"use strict\\";
+""use strict";
 
-Object.defineProperty(exports, \\"__esModule\\", {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _react = require(\\"react\\");
+var _react = require("react");
 // eslint-disable-line import/no-extraneous-dependencies
 // eslint-disable-line import/no-extraneous-dependencies
 
@@ -85,12 +85,12 @@ const FCComponent = ({
   title,
   url,
   description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, /*#__PURE__*/React.createElement(\\"a\\", {
+}) => /*#__PURE__*/React.createElement("div", {
+  className: "component-test-babel"
+}, /*#__PURE__*/React.createElement("a", {
   href: url,
   title: title
-}, /*#__PURE__*/React.createElement(\\"h1\\", null, title)), /*#__PURE__*/React.createElement(\\"p\\", null, description));
+}, /*#__PURE__*/React.createElement("h1", null, title)), /*#__PURE__*/React.createElement("p", null, description));
 FCComponent.defaultProps = {
   title: '',
   url: '',
@@ -104,40 +104,40 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
-      className: \\"Class Component\\"
-    }, /*#__PURE__*/React.createElement(\\"h1\\", null, title));
+    return /*#__PURE__*/React.createElement("div", {
+      className: "Class Component"
+    }, /*#__PURE__*/React.createElement("h1", null, title));
   }
 }
 var _default = exports.default = FCComponent;"
 `;
 
 exports[`Babel preset default transpiles without removing proptypes in dev mode 1`] = `
-"\\"use strict\\";
+""use strict";
 
-Object.defineProperty(exports, \\"__esModule\\", {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _react = require(\\"react\\");
-var _propTypes = _interopRequireDefault(require(\\"prop-types\\"));
-var _jsxFileName = \\"\\"; // eslint-disable-line import/no-extraneous-dependencies
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = require("react");
+var _propTypes = _interopRequireDefault(require("prop-types"));
+var _jsxFileName = ""; // eslint-disable-line import/no-extraneous-dependencies
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // eslint-disable-line import/no-extraneous-dependencies
 
 const FCComponent = ({
   title,
   url,
   description
-}) => /*#__PURE__*/React.createElement(\\"div\\", {
-  className: \\"component-test-babel\\",
+}) => /*#__PURE__*/React.createElement("div", {
+  className: "component-test-babel",
   __self: void 0,
   __source: {
     fileName: _jsxFileName,
     lineNumber: 5,
     columnNumber: 2
   }
-}, /*#__PURE__*/React.createElement(\\"a\\", {
+}, /*#__PURE__*/React.createElement("a", {
   href: url,
   title: title,
   __self: void 0,
@@ -146,14 +146,14 @@ const FCComponent = ({
     lineNumber: 6,
     columnNumber: 3
   }
-}, /*#__PURE__*/React.createElement(\\"h1\\", {
+}, /*#__PURE__*/React.createElement("h1", {
   __self: void 0,
   __source: {
     fileName: _jsxFileName,
     lineNumber: 7,
     columnNumber: 4
   }
-}, title)), /*#__PURE__*/React.createElement(\\"p\\", {
+}, title)), /*#__PURE__*/React.createElement("p", {
   __self: void 0,
   __source: {
     fileName: _jsxFileName,
@@ -179,15 +179,15 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return /*#__PURE__*/React.createElement(\\"div\\", {
-      className: \\"Class Component\\",
+    return /*#__PURE__*/React.createElement("div", {
+      className: "Class Component",
       __self: this,
       __source: {
         fileName: _jsxFileName,
         lineNumber: 33,
         columnNumber: 4
       }
-    }, /*#__PURE__*/React.createElement(\\"h1\\", {
+    }, /*#__PURE__*/React.createElement("h1", {
       __self: this,
       __source: {
         fileName: _jsxFileName,
@@ -237,14 +237,14 @@ init().then(result => {
 `;
 
 exports[`Babel preset default transpiles wordpress code properly 1`] = `
-"\\"use strict\\";
+""use strict";
 
-Object.defineProperty(exports, \\"__esModule\\", {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _element = require(\\"@wordpress/element\\");
-var _react = require(\\"react\\");
+var _element = require("@wordpress/element");
+var _react = require("react");
 // eslint-disable-line import/no-extraneous-dependencies
 // eslint-disable-line import/no-extraneous-dependencies
 
@@ -252,12 +252,12 @@ const FCComponent = ({
   title,
   url,
   description
-}) => (0, _element.createElement)(\\"div\\", {
-  className: \\"component-test-babel\\"
-}, (0, _element.createElement)(\\"a\\", {
+}) => (0, _element.createElement)("div", {
+  className: "component-test-babel"
+}, (0, _element.createElement)("a", {
   href: url,
   title: title
-}, (0, _element.createElement)(\\"h1\\", null, title)), (0, _element.createElement)(\\"p\\", null, description));
+}, (0, _element.createElement)("h1", null, title)), (0, _element.createElement)("p", null, description));
 FCComponent.defaultProps = {
   title: '',
   url: '',
@@ -271,18 +271,18 @@ class ClassComponent extends _react.Component {
     const {
       title
     } = this.props;
-    return (0, _element.createElement)(\\"div\\", {
-      className: \\"Class Component\\"
-    }, (0, _element.createElement)(\\"h1\\", null, title));
+    return (0, _element.createElement)("div", {
+      className: "Class Component"
+    }, (0, _element.createElement)("h1", null, title));
   }
 }
 var _default = exports.default = FCComponent;"
 `;
 
 exports[`compiles typescript transpiles typescript code properly 1`] = `
-"\\"use strict\\";
+""use strict";
 
-Object.defineProperty(exports, \\"__esModule\\", {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.helloTypeScript = helloTypeScript;

@@ -16,7 +16,7 @@ function register() {
 	};
 	// Register the block.
 	register_block_type_from_metadata(
-		TENUP_THEME_BLOCK_DIST_DIR . '/example-linaria',
+		TENUP_THEME_BLOCK_DIST_DIR . '/example-vanilla-extract',
 		[
 			'render_callback' => $n( 'render_block_callback' ),
 		]
@@ -35,7 +35,7 @@ function register() {
 function render_block_callback( $attributes, $content, $block ) {
 	ob_start();
 	get_template_part(
-		'includes/blocks/example-linaria/markup',
+		'includes/blocks/example-vanilla-extract/markup',
 		null,
 		[
 			'class_name' => 'wp-block-tenup-example',
