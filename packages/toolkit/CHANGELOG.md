@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.3.1-next.2
+
+### Patch Changes
+
+- 6573d42: Fix: transform file extension for .sass and .scss assets inside block.json files
+
 ## 6.3.1-next.1
 
 ### Minor Changes
