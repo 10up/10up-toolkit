@@ -58,9 +58,11 @@ const transformBlockJson = (content, absoluteFilename) => {
 		return content;
 	}
 	const metadata = JSON.parse(rawMetadata);
-	const { version, style } = metadata;
+	const { version, style = [], viewStyle = [] } = metadata;
 
 	const styleArray = Array.isArray(style) ? style : [style];
+	const viewStyleArray = Array.isArray(viewStyle) ? viewStyle : [viewStyle];
+	const combinedStylesArray = [...styleArray, ...viewStyleArray];
 
 	// check whether the style property is defined and a local file path
 	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
@@ -71,7 +73,7 @@ const transformBlockJson = (content, absoluteFilename) => {
 	let styleFileContentHash = '';
 
 	if (!hasVersion && isFilePath) {
-		styleArray.forEach((rawStylePath) => {
+		combinedStylesArray.forEach((rawStylePath) => {
 			if (!rawStylePath.startsWith('file:')) {
 				return;
 			}
