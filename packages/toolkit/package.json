@@ -80,7 +80,7 @@
 	},
 	"peerDependencies": {
 		"@10up/babel-preset-default": ">=2.1.1",
-		"@10up/eslint-config": ">=4.1.1-next.0",
+		"@10up/eslint-config": ">=4.1.1",
 		"@10up/stylelint-config": ">=3.0.0",
 		"@linaria/babel-preset": ">=4.3.3",
 		"@linaria/webpack-loader": ">=4.1.11",
