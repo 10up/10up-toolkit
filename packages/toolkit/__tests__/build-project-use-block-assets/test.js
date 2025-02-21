@@ -51,4 +51,13 @@ describe('build a project (with useBlockAssets)', () => {
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example', 'editor-styles.css')),
 		).toBeTruthy();
 	});
+
+	it('generates version when using style/viewStyle', () => {
+		const blockJson = JSON.parse(
+			fs
+				.readFileSync(path.join(__dirname, 'dist', 'blocks', 'example', 'block.json'))
+				.toString(),
+		);
+		expect(blockJson).toMatchObject({ version: expect.String });
+	});
 });
