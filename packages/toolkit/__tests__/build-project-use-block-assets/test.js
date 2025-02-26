@@ -58,6 +58,8 @@ describe('build a project (with useBlockAssets)', () => {
 				.readFileSync(path.join(__dirname, 'dist', 'blocks', 'example', 'block.json'))
 				.toString(),
 		);
-		expect(blockJson).toMatchObject({ version: expect.String });
+		expect(blockJson).toMatchObject({
+			version: 'c5b9d82d328781bf3f4a5c8f19dfb700494821c2b514b7e5e724154f1eea10eb',
+		});
 	});
 });
