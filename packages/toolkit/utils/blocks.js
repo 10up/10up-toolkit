@@ -65,7 +65,12 @@ const transformBlockJson = (content, absoluteFilename) => {
 	const combinedStylesArray = [...styleArray, ...viewStyleArray];
 
 	// check whether the style property is defined and a local file path
-	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
+	const styleHasFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
+	const viewStyleHasFilePath = viewStyleArray?.some((viewStyleName) =>
+		viewStyleName?.startsWith('file:'),
+	);
+	const isFilePath = styleHasFilePath || viewStyleHasFilePath;
+
 	const hasVersion = version !== undefined;
 
 	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
