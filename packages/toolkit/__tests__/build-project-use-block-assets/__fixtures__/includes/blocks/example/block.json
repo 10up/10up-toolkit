@@ -39,5 +39,6 @@
 		}
 	},
 	"editorScript": "file:./index.js",
-	"editorStyle": "file:./editor-styles.css"
+	"editorStyle": "file:./editor-styles.css",
+	"viewStyle": "file:./view.css"
 }
