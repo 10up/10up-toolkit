@@ -117,7 +117,7 @@ module.exports = ({
 		);
 
 		// get all stylesheets in the blocks directory
-		const stylesheets = glob(`${blockStylesheetDirectory}/**/*.css`, {
+		const stylesheets = glob(`${blockStylesheetDirectory}/**/*.{css,scss,sass}`, {
 			absolute: true,
 		});
 
