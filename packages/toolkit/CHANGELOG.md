@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.4.1
+
+### Patch Changes
+
+- 04fa289: Fix wrong peer deps in some packages and make sure all packages supports v22
+- 394b2db: Fix: Allow Block Specific stylesheets to be scss/sass files
+- d005002: Fix include `viewStyle` assets in dynamic version generation
+- dc8805c: Fix add new block theme related strings to project init replacements
+
 ## 6.4.0
 
 ### Minor Changes
