@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+### Patch Changes
+
+- 04fa289: Fix wrong peer deps in some packages and make sure all packages supports v22
+
 ## 3.0.0
 
 ### Major Changes
