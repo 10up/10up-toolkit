@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.4.2-next.0
+
+### Patch Changes
+
+- 0a962bc: Pin eslint-plugin-jest to v28 to fix conflict with the `@typescript/eslint-plugin` dep.
+
 ## 6.4.1
 
 ### Patch Changes
