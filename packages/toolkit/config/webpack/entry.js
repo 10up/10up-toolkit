@@ -21,19 +21,20 @@ module.exports = ({
 		filenames.block = 'blocks/[name].js';
 		filenames.blockCSS = 'blocks/[name].css';
 
-		const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
+		// Ensure blocksDir is always treated as an array
+		const blocksDirs = Array.isArray(paths.blocksDir) ? paths.blocksDir : [paths.blocksDir];
 
-		// get all block.json files in the blocks directory
-		const blockMetadataFiles = glob(
-			// glob only accepts forward-slashes this is required to make things work on Windows
-			`${blocksSourceDirectory.replace(/\\/g, '/')}/**/block.json`,
-			{
-				absolute: true,
-			},
-		);
+		// Collect all block.json files from all directories
+		const blockMetadataFiles = blocksDirs.flatMap((dir) => {
+			const blocksSourceDirectory = resolve(process.cwd(), dir);
+			// glob only accepts forward-slashes this is required to make things work
+			// on Windows
+			const files = glob(`${blocksSourceDirectory.replace(/\\/g, '/')}/**/block.json`, { absolute: true });
+			return files.map((file) => ({ blockMetadataFile: file, blockDir: blocksSourceDirectory }));
+		});
 
 		// add any additional entrypoints we find in block.json filed to the webpack config
-		additionalEntrypoints = blockMetadataFiles.reduce((accumulator, blockMetadataFile) => {
+		additionalEntrypoints = blockMetadataFiles.reduce((accumulator, { blockMetadataFile, blockDir }) => {
 			// wrapping in try/catch in case the file is malformed
 			// this happens especially when new block.json files are added
 			// at which point they are completely empty and therefore not valid JSON
@@ -76,13 +77,13 @@ module.exports = ({
 						// get the entrypoint name from the filepath by removing the blocks source directory and the file extension
 						const entryName = filepath
 							.replace(extname(filepath), '')
-							.replace(blocksSourceDirectory, '')
+							.replace(blockDir, '')
 							.replace(/\\/g, '/');
 
 						// Detects the proper file extension used in the defined source directory.
 						const [entryFilepath] = glob(
 							// glob only accepts forward-slashes this is required to make things work on Windows
-							`${blocksSourceDirectory.replace(
+							`${blockDir.replace(
 								/\\/g,
 								'/',
 							)}/${entryName}.([jt]s?(x)|?(s)css)`,
