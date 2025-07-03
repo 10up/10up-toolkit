@@ -8,7 +8,7 @@
 		"paths": {
 			"blocksDir": [
 				"./__fixtures__/includes/blocks",
-				"./__fixtures__/includes/blocks-2"
+				"./__fixtures__/includes-2/blocks"
 			]
 		}
 	}

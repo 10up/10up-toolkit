@@ -38,7 +38,7 @@ describe('build a project (with useBlockAssets and multiple block dirs)', () => 
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'css', 'admin-styles.css'))).toBeFalsy();
 	});
 
-	it('builds blocks', () => {
+	it('builds blocks from multiple block dirs', () => {
 		expect(
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example', 'block.json')),
 		).toBeTruthy();
