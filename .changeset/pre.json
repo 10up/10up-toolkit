@@ -11,6 +11,8 @@
     "@10up/library-ts-test": "2.1.5"
   },
   "changesets": [
+    "nasty-drinks-talk",
+    "polite-suits-rush",
     "tidy-coins-wave"
   ]
 }

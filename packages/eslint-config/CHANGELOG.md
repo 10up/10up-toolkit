@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.3-next.0
+
+### Patch Changes
+
+- be6517d: restrict eslint-plugin-jest to <v29
+
 ## 4.1.2
 
 ### Patch Changes
