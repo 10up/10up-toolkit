@@ -128,10 +128,13 @@ module.exports = ({
 					const fullPath = module.resource;
 
 					return fullPath
-						? blocksSourceDirectories.some((dir) => !path
-								.relative(dir, fullPath)
-								// startWith('../') but in a cross-env way
-								.startsWith(path.join('..', '/')))
+						? blocksSourceDirectories.some(
+								(dir) =>
+									!path
+										.relative(dir, fullPath)
+										// startWith('../') but in a cross-env way
+										.startsWith(path.join('..', '/')),
+							)
 						: false;
 				});
 
@@ -161,27 +164,25 @@ module.exports = ({
 						noErrorOnMissing: true,
 						context: path.resolve(process.cwd(), paths.copyAssetsDir),
 					},
-					...(
-						useBlockAssets
-							? blocksSourceDirectories.flatMap((dir) => [
-									{
-										from: path.join(dir, '**/block.json').replace(/\\/g, '/'),
-										context: dir,
-										noErrorOnMissing: true,
-										to: 'blocks/[path][name][ext]',
-										transform: (content, absoluteFilename) => {
-											return transformBlockJson(content, absoluteFilename);
-										},
+					...(useBlockAssets
+						? blocksSourceDirectories.flatMap((dir) => [
+								{
+									from: path.join(dir, '**/block.json').replace(/\\/g, '/'),
+									context: dir,
+									noErrorOnMissing: true,
+									to: 'blocks/[path][name][ext]',
+									transform: (content, absoluteFilename) => {
+										return transformBlockJson(content, absoluteFilename);
 									},
-									{
-										from: path.join(dir, '**/*.php').replace(/\\/g, '/'),
-										context: dir,
-										noErrorOnMissing: true,
-										to: 'blocks/[path][name][ext]',
-									},
-								])
-							: []
-					),
+								},
+								{
+									from: path.join(dir, '**/*.php').replace(/\\/g, '/'),
+									context: dir,
+									noErrorOnMissing: true,
+									to: 'blocks/[path][name][ext]',
+								},
+							])
+						: []),
 					hasReactFastRefresh && {
 						from: fromConfigRoot('fast-refresh.php'),
 						to: '[path][name][ext]',
