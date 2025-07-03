@@ -233,7 +233,9 @@ Since 10up-toolkit@6 this mode is on by default. To opt out of this mode you nee
 }
 ```
 
-By default, the source directory for blocks is `./includes/blocks/`. This can be customized via the `blocksDir` key in the paths' config.
+By default, the source directory for blocks is `./includes/blocks/`. This can be
+customized via the `blocksDir` key in the paths' config. To build blocks from
+multiple directories, pass an array to `blocksDir`.
 
 ### WordPress Script Module Handling
 
