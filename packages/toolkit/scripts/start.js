@@ -77,7 +77,7 @@ if (hot) {
 
 process.on('SIGINT', () => {
 	if (server) {
-		server.close();
+		server.close(() => {});
 	}
 
 	compiler.close();
