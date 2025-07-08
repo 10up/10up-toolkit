@@ -1,5 +1,15 @@
 # Changelog
 
+## 6.5.0
+
+### Minor Changes
+
+- 4d7bc0d: Added callback to webpack server.close
+
+### Patch Changes
+
+- 0a962bc: Pin eslint-plugin-jest to v28 to fix conflict with the `@typescript/eslint-plugin` dep.
+
 ## 6.5.0-next.1
 
 ### Minor Changes
