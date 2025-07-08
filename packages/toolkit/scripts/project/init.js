@@ -195,6 +195,11 @@ const run = async () => {
 				'.md',
 				'.yml',
 				'.yaml',
+				'.mustache',
+				'.sh',
+				'.xml',
+				'.html',
+				'.svg'
 			];
 
 			if (!allowedExtensions.includes(ext)) {
