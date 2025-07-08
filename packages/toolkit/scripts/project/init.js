@@ -100,7 +100,10 @@ const run = async () => {
 
 	variables.wordpress_version = await getWordPressLatestVersion();
 
+	console.log(__dirname);
+
 	const toolkitPath = resolve(`${__dirname}/../../`);
+	console.log(toolkitPath);
 	const templateInitPath =
 		projectLayout === 'wpparent'
 			? `${resolve(cliPath)}/wordpress/wp-content`
@@ -177,6 +180,29 @@ const run = async () => {
 		});
 
 		files.forEach((file) => {
+			// Skip directories
+			if (fs.statSync(file).isDirectory()) {
+				return;
+			}
+
+			// Only process specific file extensions
+			const ext = path.extname(file).toLowerCase();
+			const allowedExtensions = [
+				'.ts',
+				'.js',
+				'.tsx',
+				'.jsx',
+				'.json',
+				'.php',
+				'.md',
+				'.yml',
+				'.yaml',
+			];
+
+			if (!allowedExtensions.includes(ext)) {
+				return;
+			}
+
 			let fileContents = fs.readFileSync(file, 'utf8');
 
 			replaceOptions.forEach((option) => {
