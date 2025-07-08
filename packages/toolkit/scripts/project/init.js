@@ -199,7 +199,7 @@ const run = async () => {
 				'.sh',
 				'.xml',
 				'.html',
-				'.svg'
+				'.svg',
 			];
 
 			if (!allowedExtensions.includes(ext)) {
