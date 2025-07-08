@@ -100,10 +100,8 @@ const run = async () => {
 
 	variables.wordpress_version = await getWordPressLatestVersion();
 
-	console.log(__dirname);
-
 	const toolkitPath = resolve(`${__dirname}/../../`);
-	console.log(toolkitPath);
+
 	const templateInitPath =
 		projectLayout === 'wpparent'
 			? `${resolve(cliPath)}/wordpress/wp-content`
