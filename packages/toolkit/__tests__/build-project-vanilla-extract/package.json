@@ -1,0 +1,9 @@
+{
+	"name": "test-build-project-linaria",
+	"10up-toolkit": {
+		"useBlockAssets": true,
+		"paths": {
+			"blocksDir": "./__fixtures__/includes/blocks"
+		}
+	}
+}

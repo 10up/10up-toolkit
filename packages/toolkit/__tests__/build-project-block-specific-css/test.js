@@ -9,7 +9,7 @@ describe('build a project', () => {
 			cwd: __dirname,
 		});
 
-		const frontendCss = path.join(
+		const headingBlockCSS = path.join(
 			__dirname,
 			'dist',
 			'blocks',
@@ -18,16 +18,28 @@ describe('build a project', () => {
 			'heading.css',
 		);
 
-		expect(fs.existsSync(frontendCss)).toBeTruthy();
+		const groupBlockCSS = path.join(
+			__dirname,
+			'dist',
+			'blocks',
+			'autoenqueue',
+			'core',
+			'group.css',
+		);
+
+		expect(fs.existsSync(headingBlockCSS)).toBeTruthy();
+		expect(fs.existsSync(groupBlockCSS)).toBeTruthy();
 		expect(
 			fs.existsSync(
 				path.join(__dirname, 'dist', 'blocks', 'autoenqueue', 'core', 'heading.asset.php'),
 			),
 		).toBeTruthy();
 
-		const compiledCSS = fs.readFileSync(frontendCss).toString();
+		const compiledHeadingBlockCSS = fs.readFileSync(headingBlockCSS).toString();
+		const compiledGroupBlockCSS = fs.readFileSync(groupBlockCSS).toString();
 
 		// expect the compiled CSS to contain "min-width: 30em"
-		expect(compiledCSS).toMatch('min-width: 30em');
+		expect(compiledHeadingBlockCSS).toMatch('min-width: 30em');
+		expect(compiledGroupBlockCSS).toMatch('min-width: 30em');
 	});
 });

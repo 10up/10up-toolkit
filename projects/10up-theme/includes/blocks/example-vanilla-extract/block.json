@@ -1,8 +1,8 @@
 {
-	"title": "Example Block",
-	"description": "An Example Block",
+	"title": "Example Block (With Vanilla Extract)",
+	"description": "An Example Block (With Vanilla Extract)",
 	"textdomain": "tenup-scaffold",
-	"name": "tenup/example",
+	"name": "tenup/example-vanilla-extract",
 	"icon": "feedback",
 	"category": "tenup-scaffold-blocks",
 	"attributes": {
@@ -12,7 +12,7 @@
 	},
 	"example": {
 		"attributes": {
-			"title": "Example Block"
+			"title": "Example Block (With Vanilla Extract)"
 		}
 	},
 	"supports": {
@@ -38,5 +38,6 @@
 			"padding": false
 		}
 	},
-	"editorScript": "file:../../../../dist/editor.js",
-	"editorStyle": "file:../../../../dist/editor.css"
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}

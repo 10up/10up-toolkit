@@ -2,11 +2,12 @@ const path = require('path');
 const { getFileContentHash } = require('./file');
 
 const JS_ASSET_KEYS = ['script', 'editorScript', 'viewScript', 'viewScriptModule', 'scriptModule'];
+const CSS_ASSET_KEYS = ['style', 'editorStyle', 'viewStyle'];
 
 /**
  * Transform the asset path from `.ts or .tsx` to `.js`
  *
- * When a block.json file has a script or style property that points to a `.ts or .tsx` file,
+ * When a block.json file has a script property that points to a `.ts or .tsx` file,
  * this function will transform the path to point to the `.js` file instead.
  *
  * @param {string|Array<string>} asset - The asset path to transform
@@ -27,18 +28,49 @@ function transformTSAsset(asset) {
 	return Array.isArray(asset) ? asset.map(replaceExtension) : replaceExtension(asset);
 }
 
+/**
+ * Transform the asset path from `.sass or .scss` to `.css`
+ *
+ * When a block.json file has a style property that points to a `.sass or .scss` file,
+ * this function will transform the path to point to the `.css` file instead.
+ *
+ * @param {string|Array<string>} asset - The asset path to transform
+ * @returns {string|Array<string>}
+ */
+function transformSassAsset(asset) {
+	function replaceExtension(filePath) {
+		const isFilePath = filePath.startsWith('file:');
+		if (!isFilePath) {
+			return filePath;
+		}
+
+		// replace the `.sass or .scss` extension with `.css`
+		const cssPath = filePath.replace(/\.s[ac]ss$/, '.css');
+		return cssPath;
+	}
+
+	return Array.isArray(asset) ? asset.map(replaceExtension) : replaceExtension(asset);
+}
+
 const transformBlockJson = (content, absoluteFilename) => {
 	const rawMetadata = content.toString();
 	if (rawMetadata === '') {
 		return content;
 	}
 	const metadata = JSON.parse(rawMetadata);
-	const { version, style } = metadata;
+	const { version, style = [], viewStyle = [] } = metadata;
 
 	const styleArray = Array.isArray(style) ? style : [style];
+	const viewStyleArray = Array.isArray(viewStyle) ? viewStyle : [viewStyle];
+	const combinedStylesArray = [...styleArray, ...viewStyleArray];
 
 	// check whether the style property is defined and a local file path
-	const isFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
+	const styleHasFilePath = styleArray?.some((styleName) => styleName?.startsWith('file:'));
+	const viewStyleHasFilePath = viewStyleArray?.some((viewStyleName) =>
+		viewStyleName?.startsWith('file:'),
+	);
+	const isFilePath = styleHasFilePath || viewStyleHasFilePath;
+
 	const hasVersion = version !== undefined;
 
 	const absoluteDirectory = absoluteFilename.replace(/block\.json$/, '');
@@ -46,7 +78,7 @@ const transformBlockJson = (content, absoluteFilename) => {
 	let styleFileContentHash = '';
 
 	if (!hasVersion && isFilePath) {
-		styleArray.forEach((rawStylePath) => {
+		combinedStylesArray.forEach((rawStylePath) => {
 			if (!rawStylePath.startsWith('file:')) {
 				return;
 			}
@@ -67,6 +99,12 @@ const transformBlockJson = (content, absoluteFilename) => {
 	JS_ASSET_KEYS.forEach((key) => {
 		if (metadata[key]) {
 			newMetadata[key] = transformTSAsset(metadata[key]);
+		}
+	});
+
+	CSS_ASSET_KEYS.forEach((key) => {
+		if (metadata[key]) {
+			newMetadata[key] = transformSassAsset(metadata[key]);
 		}
 	});
 

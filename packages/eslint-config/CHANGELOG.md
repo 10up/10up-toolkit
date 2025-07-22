@@ -1,5 +1,37 @@
 # Changelog
 
+## 4.1.3
+
+### Patch Changes
+
+- be6517d: restrict eslint-plugin-jest to <v29
+
+## 4.1.3-next.0
+
+### Patch Changes
+
+- be6517d: restrict eslint-plugin-jest to <v29
+
+## 4.1.2
+
+### Patch Changes
+
+- 04fa289: Fix wrong peer deps in some packages and make sure all packages supports v22
+- Updated dependencies [04fa289]
+  - @10up/babel-preset-default@2.1.2
+
+## 4.1.1
+
+### Patch Changes
+
+- 402c108: [eslint-config] update deps
+
+## 4.1.1-next.0
+
+### Patch Changes
+
+- 402c108: [eslint-config] update deps
+
 ## 4.1.0
 
 ### Minor Changes

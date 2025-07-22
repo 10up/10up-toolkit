@@ -147,20 +147,28 @@ const run = async () => {
 			{ from: /TenUpPlugin/g, to: `${projectNameCamelCase}Plugin` },
 			{ from: /TenupPlugin/g, to: `${projectNameCamelCase}Plugin` },
 			{ from: /TenUpTheme/g, to: `${projectNameCamelCase}Theme` },
+			{ from: /TenUpBlockTheme/g, to: `${projectNameCamelCase}BlockTheme` },
 			{ from: /TenupTheme/g, to: `${projectNameCamelCase}Theme` },
+			{ from: /TenupBlockTheme/g, to: `${projectNameCamelCase}BlockTheme` },
+			{ from: /TENUP_BLOCK_/g, to: `${projectNameUppercaseUnderscore}_BLOCK_` },
 			{ from: /TENUP_/g, to: `${projectNameUppercaseUnderscore}_` },
 			{ from: /tenup_/g, to: `${projectNameLowercaseUnderscore}_` },
 			{ from: /tenup-theme/g, to: `${projectNameLowercaseHypen}-theme` },
+			{ from: /tenup-block-theme/g, to: `${projectNameLowercaseHypen}-block-theme` },
 			{ from: /tenup-plugin/g, to: `${projectNameLowercaseHypen}-plugin` },
 			{ from: /10up-plugin/g, to: `${projectNameLowercaseHypen}-plugin` },
 			{ from: /tenup-wp-scaffold/g, to: `${projectNameLowercaseHypen}` },
 			{ from: /10up\/wp-theme/g, to: `10up/${projectNameLowercaseHypen}-theme` },
+			{ from: /10up\/wp-block-theme/g, to: `10up/${projectNameLowercaseHypen}-block-theme` },
 			{ from: /10up\/wp-plugin/g, to: `10up/${projectNameLowercaseHypen}-plugin` },
 			{ from: /10up\/.*-scaffold/g, to: `10up/${projectNameLowercaseHypen}` },
 			{ from: /10up Plugin/g, to: `${projectName} Plugin` },
 			{ from: /Tenup Plugin/g, to: `${projectName} Plugin` },
 			{ from: /10up Theme/g, to: `${projectName} Theme` },
+			{ from: /10up Block Theme/g, to: `${projectName} Block Theme` },
 			{ from: /Tenup Theme/g, to: `${projectName} Theme` },
+			{ from: /Tenup Block Theme/g, to: `${projectName} Block Theme` },
+			{ from: /textdomain: 'tenup',/g, to: `textdomain: '${projectNameLowercaseHypen}'` },
 		];
 
 		const files = await fg(`${templateInitPath}/**/*`, {
@@ -179,13 +187,16 @@ const run = async () => {
 		});
 
 		const themePath = `${templateInitPath}/themes/${projectNameLowercaseHypen}-theme`;
+		const blockThemePath = `${templateInitPath}/themes/${projectNameLowercaseHypen}-block-theme`;
 		const pluginPath = `${templateInitPath}/plugins/${projectNameLowercaseHypen}-plugin`;
 		const muPluginPath = `${templateInitPath}/mu-plugins/${projectNameLowercaseHypen}-plugin`;
 
 		const renameDirs = [
 			{ from: `${templateInitPath}/themes/tenup-theme`, to: themePath },
+			{ from: `${templateInitPath}/themes/tenup-block-theme`, to: blockThemePath },
 			{ from: `${templateInitPath}/plugins/tenup-plugin`, to: pluginPath },
 			{ from: `${templateInitPath}/themes/10up-theme`, to: themePath },
+			{ from: `${templateInitPath}/themes/10up-block-theme`, to: blockThemePath },
 			{ from: `${templateInitPath}/plugins/10up-plugin`, to: pluginPath },
 			{ from: `${templateInitPath}/mu-plugins/10up-plugin`, to: muPluginPath },
 		];

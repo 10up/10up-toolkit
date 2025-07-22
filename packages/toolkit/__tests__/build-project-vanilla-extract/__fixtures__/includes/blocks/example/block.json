@@ -38,5 +38,6 @@
 			"padding": false
 		}
 	},
-	"editorScript": "file:../../../../dist/editor.js",
-	"editorStyle": "file:../../../../dist/editor.css"
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}

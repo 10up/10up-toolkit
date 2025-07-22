@@ -1,5 +1,73 @@
 # Changelog
 
+## 6.5.0
+
+### Minor Changes
+
+- 4d7bc0d: Added callback to webpack server.close
+
+### Patch Changes
+
+- 0a962bc: Pin eslint-plugin-jest to v28 to fix conflict with the `@typescript/eslint-plugin` dep.
+
+## 6.5.0-next.1
+
+### Minor Changes
+
+- 4d7bc0d: Added callback to webpack server.close
+
+### Patch Changes
+
+- Updated dependencies [be6517d]
+  - @10up/eslint-config@4.1.3-next.0
+
+## 6.4.2-next.0
+
+### Patch Changes
+
+- 0a962bc: Pin eslint-plugin-jest to v28 to fix conflict with the `@typescript/eslint-plugin` dep.
+
+## 6.4.1
+
+### Patch Changes
+
+- 04fa289: Fix wrong peer deps in some packages and make sure all packages supports v22
+- 394b2db: Fix: Allow Block Specific stylesheets to be scss/sass files
+- d005002: Fix include `viewStyle` assets in dynamic version generation
+- dc8805c: Fix add new block theme related strings to project init replacements
+
+## 6.4.0
+
+### Minor Changes
+
+- 402c108: Introducing Vanilla-extract support
+
+### Patch Changes
+
+- 6573d42: Fix: transform file extension for .sass and .scss assets inside block.json files
+
+## 6.3.1-next.1
+
+### Minor Changes
+
+- 402c108: Introducing Vanilla-extract support
+
+### Patch Changes
+
+- Updated dependencies [402c108]
+  - @10up/eslint-config@4.1.1-next.0
+
+## 6.3.0
+
+### Minor Changes
+
+- 3a5b540: Allow block-specific CSS entry points to get automatically generated for any CSS files in the `assets/css/blocks` directory.
+
+### Patch Changes
+
+- 8b74e5a: Simple enhancements to toolkit project command to align with devops needs.
+- 7ce09d9: Fix: transform file extension for .ts and .tsx assets inside block.json files
+
 ## 6.3.0-next.0
 
 ### Minor Changes

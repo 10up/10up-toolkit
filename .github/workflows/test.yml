@@ -24,7 +24,7 @@ jobs:
       # Enable linting only for node 20 & Ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [16, 18, 20]
+        node: [16, 18, 20, 22]
         include:
           - os: macos-latest
             node: 18
