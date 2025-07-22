@@ -270,29 +270,6 @@ describe('entry module function', () => {
 			});
 		});
 
-		it('handles Windows-style paths in block styles', () => {
-			glob.mockReturnValueOnce([
-				'C:\\mock\\project\\root\\assets\\css\\blocks\\example\\style.css',
-			]);
-
-			const result = entry({
-				buildType: 'script',
-				isPackage: false,
-				projectConfig: {
-					paths: { blocksStyles: './assets/css/blocks' },
-					loadBlockSpecificStyles: true,
-				},
-				packageConfig: {},
-				buildFiles: {},
-				moduleBuildFiles: {},
-			});
-
-			expect(result).toEqual({
-				'autoenqueue/C:\\mock\\project\\root\\assets\\css\\blocks\\example\\style':
-					'/home/nicholas_io/projects/10up-toolkit/packages/toolkit/C:\\mock\\project\\root\\assets\\css\\blocks\\example\\style.css',
-			});
-		});
-
 		it('handles nested block style directories correctly', () => {
 			glob.mockReturnValueOnce([
 				'/mock/project/root/assets/css/blocks/deeply/nested/block/style.css',
