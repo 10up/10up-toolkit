@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.5.1-next.0
+
+### Patch Changes
+
+- Updated dependencies [064daa3]
+  - @10up/eslint-config@4.1.4-next.0
+
 ## 6.5.0
 
 ### Minor Changes

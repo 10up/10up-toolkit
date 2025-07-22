@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.4-next.0
+
+### Patch Changes
+
+- 064daa3: Bump eslint-config-prettier and eslint-plugin-prettier
+
 ## 4.1.3
 
 ### Patch Changes
