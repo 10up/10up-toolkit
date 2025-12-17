@@ -1,0 +1,16 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@10up/babel-preset-default": "2.1.2",
+    "@10up/eslint-config": "4.1.4",
+    "@10up/stylelint-config": "3.0.1",
+    "10up-toolkit": "6.5.0",
+    "tenup-theme": "1.1.5-next.7",
+    "@10up/component-accordion": "2.1.5",
+    "@10up/library-ts-test": "2.1.5"
+  },
+  "changesets": [
+    "brave-actors-buy"
+  ]
+}
