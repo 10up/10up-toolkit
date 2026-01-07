@@ -1,0 +1,14 @@
+{
+	"name": "test-block-project",
+	"version": "1.0.0",
+	"10up-toolkit": {
+		"entry": {},
+		"paths": {
+			"blocksDir": "./includes/blocks/",
+			"srcDir": "./assets/",
+			"copyAssetsDir": "./assets/"
+		},
+		"wpDependencyExternals": true,
+		"useBlockAssets": true
+	}
+}

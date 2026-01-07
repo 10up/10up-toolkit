@@ -1,0 +1,18 @@
+{
+	"name": "test-basic-project",
+	"version": "1.0.0",
+	"10up-toolkit": {
+		"entry": {
+			"admin": "./assets/js/admin.js",
+			"frontend": "./assets/js/frontend.js",
+			"style": "./assets/css/style.scss"
+		},
+		"paths": {
+			"blocksDir": "./includes/blocks/",
+			"srcDir": "./assets/",
+			"copyAssetsDir": "./assets/"
+		},
+		"wpDependencyExternals": true,
+		"useBlockAssets": false
+	}
+}

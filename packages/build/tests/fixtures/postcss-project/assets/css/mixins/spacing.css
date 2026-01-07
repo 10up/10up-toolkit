@@ -1,0 +1,9 @@
+/**
+ * Spacing mixin
+ * Available via postcss-mixins
+ */
+@define-mixin container {
+	max-width: var(--global-max-width);
+	margin-inline: auto;
+	padding-inline: var(--global-spacing);
+}

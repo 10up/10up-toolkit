@@ -1,0 +1,11 @@
+{
+	"name": "postcss-project",
+	"version": "1.0.0",
+	"private": true,
+	"10up-toolkit": {
+		"paths": {
+			"globalStylesDir": "./assets/css/globals/",
+			"globalMixinsDir": "./assets/css/mixins/"
+		}
+	}
+}

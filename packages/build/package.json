@@ -1,0 +1,73 @@
+{
+	"name": "@10up/build",
+	"version": "1.0.0-alpha.1",
+	"description": "esbuild-powered WordPress build tool - fast builds for WordPress block development",
+	"keywords": [
+		"wordpress",
+		"esbuild",
+		"build",
+		"blocks",
+		"gutenberg"
+	],
+	"homepage": "https://github.com/10up/10up-toolkit#readme",
+	"bugs": {
+		"url": "https://github.com/10up/10up-toolkit/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/10up/10up-toolkit.git",
+		"directory": "packages/build"
+	},
+	"license": "MIT",
+	"author": "10up",
+	"type": "module",
+	"exports": {
+		".": "./dist/index.js",
+		"./config": "./dist/config.js"
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"bin": {
+		"10up-build": "./bin/10up-build.js"
+	},
+	"files": [
+		"bin",
+		"dist",
+		"config"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"prepublishOnly": "npm run build"
+	},
+	"dependencies": {
+		"@csstools/postcss-global-data": "^3.0.0",
+		"esbuild": "^0.24.0",
+		"fast-glob": "^3.3.2",
+		"lightningcss": "^1.28.0",
+		"picocolors": "^1.1.1",
+		"postcss": "^8.4.49",
+		"postcss-custom-media": "^11.0.6",
+		"postcss-import": "^16.1.0",
+		"postcss-mixins": "^11.0.3",
+		"react-refresh": "^0.14.2",
+		"sass": "^1.82.0",
+		"ws": "^8.18.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.2",
+		"@types/ws": "^8.5.13",
+		"@vitest/coverage-v8": "^2.1.8",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

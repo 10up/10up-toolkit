@@ -1,0 +1,17 @@
+/**
+ * Main stylesheet using global styles and mixins
+ */
+.header {
+	background-color: var(--global-primary);
+	padding: var(--global-spacing);
+}
+
+.main-container {
+	@mixin container;
+}
+
+@media (--viewport-medium) {
+	.header {
+		padding: calc(var(--global-spacing) * 2);
+	}
+}

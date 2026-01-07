@@ -1,0 +1,11 @@
+{
+	"apiVersion": 3,
+	"name": "test/test-block",
+	"title": "Test Block",
+	"category": "common",
+	"editorScript": "file:./index.tsx",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"viewScript": "file:./view.js",
+	"viewScriptModule": "file:./view-module.js"
+}

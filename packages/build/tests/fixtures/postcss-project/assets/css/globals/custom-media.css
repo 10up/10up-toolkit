@@ -1,0 +1,7 @@
+/**
+ * Custom media queries
+ * These are available in all stylesheets via postcss-custom-media
+ */
+@custom-media --viewport-small (min-width: 480px);
+@custom-media --viewport-medium (min-width: 768px);
+@custom-media --viewport-large (min-width: 1024px);

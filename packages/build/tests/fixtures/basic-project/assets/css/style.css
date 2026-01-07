@@ -1,0 +1,17 @@
+/**
+ * Test stylesheet with PostCSS features
+ */
+:root {
+	--primary-color: #0073aa;
+	--max-width: 1200px;
+}
+
+body {
+	font-family: sans-serif;
+	color: var(--primary-color);
+
+	& .container {
+		max-width: var(--max-width);
+		margin: 0 auto;
+	}
+}

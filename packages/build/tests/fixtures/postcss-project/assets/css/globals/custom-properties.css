@@ -1,0 +1,9 @@
+/**
+ * Global CSS custom properties
+ * These are available in all stylesheets via postcss-global-data
+ */
+:root {
+	--global-primary: #ff6600;
+	--global-spacing: 16px;
+	--global-max-width: 1200px;
+}
