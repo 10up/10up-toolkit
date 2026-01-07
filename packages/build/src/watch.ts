@@ -102,7 +102,7 @@ async function createWatchContext(
 	}
 
 	const plugins: esbuild.Plugin[] = [
-		wpDependencyExtractionPlugin(config),
+		wpDependencyExtractionPlugin(config, { isModule }),
 		sassPlugin(config, false),
 	];
 
@@ -123,7 +123,7 @@ async function createWatchContext(
 		splitting: isModule,
 		outdir: outputDir,
 		external,
-		outExtension: isModule ? { '.js': '.mjs' } : { '.js': '.js' },
+		outExtension: { '.js': '.js' },
 		entryNames: '[dir]/[name]',
 		chunkNames: 'js/chunks/[name]-[hash]',
 		plugins,

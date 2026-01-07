@@ -97,9 +97,9 @@ describe('Block JSON Transformation', () => {
 			expect(result.script).toBe('file:./script.js');
 			expect(result.editorScript).toBe('file:./editor.js');
 			expect(result.viewScript).toBe('file:./view.js');
-			// ES modules should output as .mjs
-			expect(result.scriptModule).toBe('file:./module.mjs');
-			expect(result.viewScriptModule).toBe('file:./view-module.mjs');
+			// ES modules also output as .js for better server compatibility
+			expect(result.scriptModule).toBe('file:./module.js');
+			expect(result.viewScriptModule).toBe('file:./view-module.js');
 		});
 
 		it('should handle all style asset fields', () => {

@@ -24,7 +24,7 @@ const JS_ASSET_KEYS: (keyof BlockMetadata)[] = [
 ];
 
 /**
- * Asset keys for ES module files (.mjs)
+ * Asset keys for ES module files
  */
 const MODULE_ASSET_KEYS: (keyof BlockMetadata)[] = ['scriptModule', 'viewScriptModule'];
 
@@ -48,15 +48,16 @@ function transformTSAsset(asset: string | string[]): string | string[] {
 }
 
 /**
- * Transform TypeScript/JS asset paths to ES modules (.mjs)
+ * Transform TypeScript/JS asset paths to JavaScript (.js)
+ * ES modules use .js extension (not .mjs) for better server compatibility
  */
 function transformModuleAsset(asset: string | string[]): string | string[] {
 	const transform = (filePath: string): string => {
 		if (!filePath.startsWith('file:')) {
 			return filePath;
 		}
-		// Convert .ts/.tsx/.js to .mjs
-		return filePath.replace(/\.(tsx?|js)$/, '.mjs');
+		// Convert .ts/.tsx to .js (ES modules use .js extension)
+		return filePath.replace(/\.tsx?$/, '.js');
 	};
 
 	return Array.isArray(asset) ? asset.map(transform) : transform(asset);
@@ -140,7 +141,7 @@ export function transformBlockJson(content: string, absoluteFilename: string): s
 			}
 		}
 
-		// Transform ES module asset paths (.mjs)
+		// Transform ES module asset paths
 		for (const key of MODULE_ASSET_KEYS) {
 			const asset = metadata[key];
 			if (asset) {

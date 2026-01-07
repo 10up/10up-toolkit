@@ -76,7 +76,7 @@ Configuration is read from `package.json` under the `10up-toolkit` field, mainta
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `entry` | `object` | `{}` | Entry points for scripts and styles |
-| `moduleEntry` | `object` | `{}` | Entry points for ES modules (.mjs output) |
+| `moduleEntry` | `object` | `{}` | Entry points for ES modules |
 | `paths.blocksDir` | `string` | `"./includes/blocks/"` | Directory containing block.json files |
 | `paths.srcDir` | `string` | `"./assets/"` | Source directory for assets |
 | `paths.copyAssetsDir` | `string` | `"./assets/"` | Directory for static assets to copy |
@@ -142,8 +142,8 @@ The tool will:
 | `script` | IIFE (.js) | Yes |
 | `editorScript` | IIFE (.js) | Yes |
 | `viewScript` | IIFE (.js) | Yes |
-| `scriptModule` | ESM (.mjs) | Yes (type: module) |
-| `viewScriptModule` | ESM (.mjs) | Yes (type: module) |
+| `scriptModule` | ESM (.js) | Yes (type: module) |
+| `viewScriptModule` | ESM (.js) | Yes (type: module) |
 | `style` | CSS (.css) | No |
 | `editorStyle` | CSS (.css) | No |
 | `viewStyle` | CSS (.css) | No |
@@ -157,13 +157,28 @@ Source files are automatically transformed:
 
 ## WordPress Dependency Extraction
 
-The build tool automatically externalizes WordPress packages and generates `.asset.php` files.
+The build tool intelligently handles WordPress packages - some are externalized (loaded from WordPress globals), while others are bundled directly.
 
 ### How It Works
 
 1. **Detection**: Imports from `@wordpress/*` packages are detected during bundling
-2. **Externalization**: These imports are marked as external (loaded from WordPress globals)
-3. **Asset Generation**: `.asset.php` files are created with dependency arrays
+2. **Decision**: Each package is checked for its `wpScript` flag to determine handling:
+   - `wpScript: true` → Externalized (loaded from WordPress globals)
+   - `wpScript: false` → Bundled into your output (e.g., `@wordpress/icons`, `@wordpress/dataviews`)
+3. **Virtual Modules**: For IIFE builds, externalized packages use virtual modules to avoid `require()` calls
+4. **Asset Generation**: `.asset.php` files are created with dependency arrays
+5. **Subpath Support**: Subpath exports like `@wordpress/dataviews/wp` inherit their parent package's behavior
+
+### Cache File
+
+For CI environments or when packages aren't installed locally, you can use a `.wp-scripts-cache.json` file:
+
+```bash
+# Generate the cache file
+10up-build cache-wp-scripts
+```
+
+This creates a cache mapping each `@wordpress/*` package to its `wpScript` value, allowing the build to work without optional dependencies installed.
 
 ### Output Format
 
@@ -518,7 +533,7 @@ dist/
 │       ├── style.css
 │       ├── view.js
 │       ├── view.asset.php
-│       ├── view-module.mjs
+│       ├── view-module.js
 │       └── view-module.asset.php
 └── images/
     └── (copied static assets)

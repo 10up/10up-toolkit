@@ -121,10 +121,10 @@ async function buildModules(
 		format: 'esm',
 		splitting: true,
 		plugins: [
-			wpDependencyExtractionPlugin(config),
+			wpDependencyExtractionPlugin(config, { isModule: true }),
 			sassPlugin(config, isProd),
 		],
-		outExtension: { '.js': '.mjs' },
+		outExtension: { '.js': '.js' },
 		entryNames: '[dir]/[name]',
 		chunkNames: 'js/chunks/[name]-[hash]',
 		assetNames: 'assets/[name]-[hash]',

@@ -200,9 +200,9 @@ describe('Build Output Snapshots', () => {
 			expect(normalizeAssetPhp(content)).toMatchSnapshot('view.asset.php');
 		});
 
-		it('should produce correct view-module.mjs (ES module) output', () => {
-			const content = readFileSync(join(distDir, 'blocks/test-block/view-module.mjs'), 'utf8');
-			expect(normalizeJsContent(content)).toMatchSnapshot('view-module.mjs');
+		it('should produce correct view-module.js (ES module) output', () => {
+			const content = readFileSync(join(distDir, 'blocks/test-block/view-module.js'), 'utf8');
+			expect(normalizeJsContent(content)).toMatchSnapshot('view-module.js');
 		});
 
 		it('should produce correct view-module.asset.php output', () => {

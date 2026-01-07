@@ -103,75 +103,42 @@ function normalizePath(p: string): string {
 }
 
 /**
+ * Plugin options
+ */
+interface PluginOptions {
+	/** Whether this build is for ES modules (affects asset.php format) */
+	isModule?: boolean;
+}
+
+/**
  * Create the WordPress Dependency Extraction plugin
  * Each plugin instance has its own dependency tracking state
  */
-export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
-	// Instance-specific state
-	const entryDependencies = new Map<string, Set<string>>();
-	const importerToEntry = new Map<string, string>();
+export function wpDependencyExtractionPlugin(config: BuildConfig, options: PluginOptions = {}): Plugin {
+	const { isModule = false } = options;
+
+	// Track dependencies per importer file (not per entry)
+	// This allows us to collect transitive dependencies from bundled packages
+	const fileDependencies = new Map<string, Set<string>>();
 
 	/**
-	 * Get the entry point for an importer
-	 */
-	function getEntryForImporter(importer: string): string | undefined {
-		const normalizedImporter = normalizePath(importer);
-
-		// If importer is itself an entry, return it
-		if (entryDependencies.has(normalizedImporter)) {
-			return normalizedImporter;
-		}
-
-		// Otherwise, look up the entry point
-		return importerToEntry.get(normalizedImporter);
-	}
-
-	/**
-	 * Track a dependency for an entry point
+	 * Track a dependency for a specific file
 	 */
 	function trackDependency(importer: string, handle: string): void {
-		const entry = getEntryForImporter(importer);
-		if (entry) {
-			const deps = entryDependencies.get(entry);
-			if (deps) {
-				deps.add(handle);
-			}
+		// Always resolve to absolute path for consistent matching with metafile
+		const normalizedImporter = normalizePath(resolve(importer));
+		let deps = fileDependencies.get(normalizedImporter);
+		if (!deps) {
+			deps = new Set();
+			fileDependencies.set(normalizedImporter, deps);
 		}
-	}
-
-	/**
-	 * Register an importer-to-entry mapping
-	 */
-	function registerImporter(importer: string, entry: string): void {
-		const normalizedImporter = normalizePath(importer);
-		const normalizedEntry = normalizePath(entry);
-		if (normalizedImporter !== normalizedEntry) {
-			importerToEntry.set(normalizedImporter, normalizedEntry);
-		}
+		deps.add(handle);
 	}
 
 	return {
 		name: 'wp-dependency-extraction',
 
 		setup(build) {
-			// Get entry points to initialize tracking
-			const entryPoints = build.initialOptions.entryPoints;
-
-			if (entryPoints) {
-				if (Array.isArray(entryPoints)) {
-					for (const entry of entryPoints) {
-						if (typeof entry === 'string') {
-							// Resolve to absolute path for consistent matching later
-							entryDependencies.set(normalizePath(resolve(entry)), new Set());
-						}
-					}
-				} else if (typeof entryPoints === 'object') {
-					for (const entry of Object.values(entryPoints)) {
-						// Resolve to absolute path for consistent matching later
-						entryDependencies.set(normalizePath(resolve(entry)), new Set());
-					}
-				}
-			}
 
 			// Handle @wordpress/* imports
 			build.onResolve(
@@ -187,25 +154,41 @@ export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
 							warnUninstalledPackage(args.path);
 						}
 
-						// Track the dependency
+						// Track the dependency for this importer file
 						if (args.importer) {
 							trackDependency(args.importer, external.handle);
+						}
 
-							// Map this importer to its entry
-							const entry = getEntryForImporter(args.importer);
-							if (entry) {
-								registerImporter(args.importer, entry);
-							}
+						// For ES modules, use native external (import statements work)
+						// For IIFE, use virtual module to access global (avoid require())
+						if (isModule) {
+							return {
+								path: args.path,
+								external: true,
+							};
 						}
 
 						return {
 							path: args.path,
-							external: true,
 							namespace: 'wp-external',
 						};
 					}
 
 					return undefined;
+				},
+			);
+
+			// For IIFE builds: provide virtual modules that access WordPress globals
+			// This avoids generating require() calls which don't work in browsers
+			build.onLoad(
+				{ filter: /.*/, namespace: 'wp-external' },
+				(args): { contents: string; loader: 'js' } => {
+					const external = resolveExternal(args.path, config);
+					const globalVar = external?.global || 'undefined';
+					return {
+						contents: `module.exports = ${globalVar};`,
+						loader: 'js',
+					};
 				},
 			);
 
@@ -227,14 +210,35 @@ export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
 							trackDependency(args.importer, external.handle);
 						}
 
+						// For ES modules, use native external
+						// For IIFE, use virtual module to access global
+						if (isModule) {
+							return {
+								path: args.path,
+								external: true,
+							};
+						}
+
 						return {
 							path: args.path,
-							external: true,
 							namespace: 'vendor-external',
 						};
 					}
 
 					return undefined;
+				},
+			);
+
+			// For IIFE builds: provide virtual modules for vendor externals
+			build.onLoad(
+				{ filter: /.*/, namespace: 'vendor-external' },
+				(args): { contents: string; loader: 'js' } => {
+					const external = vendorExternals[args.path];
+					const globalVar = external?.global || 'undefined';
+					return {
+						contents: `module.exports = ${globalVar};`,
+						loader: 'js',
+					};
 				},
 			);
 
@@ -256,32 +260,42 @@ export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
 								trackDependency(args.importer, handle);
 							}
 
+							// For ES modules, use native external
+							// For IIFE, use virtual module to access global
+							if (isModule) {
+								return {
+									path: args.path,
+									external: true,
+								};
+							}
+
 							return {
 								path: args.path,
-								external: true,
-								namespace: 'custom-external',
+								namespace: `custom-external-${namespace}`,
+							};
+						},
+					);
+
+					// For IIFE builds: provide virtual modules for custom namespace externals
+					build.onLoad(
+						{ filter: /.*/, namespace: `custom-external-${namespace}` },
+						(args): { contents: string; loader: 'js' } => {
+							const packageName = args.path.replace(`${namespace}/`, '');
+							// Convert to camelCase for global access
+							const camelName = packageName.replace(/-([a-z])/g, (_: string, letter: string) => letter.toUpperCase());
+							const globalVar = `${mapping.global}.${camelName}`;
+							return {
+								contents: `module.exports = ${globalVar};`,
+								loader: 'js',
 							};
 						},
 					);
 				}
 			}
 
-			// Track imports between modules to propagate entry point info
-			build.onResolve({ filter: /.*/ }, (args: OnResolveArgs): undefined => {
-				if (args.importer && args.kind !== 'entry-point') {
-					const entry = getEntryForImporter(args.importer);
-					if (entry) {
-						// Try to resolve the imported path
-						const resolvedPath = args.resolveDir
-							? resolve(args.resolveDir, args.path)
-							: args.path;
-						registerImporter(resolvedPath, entry);
-					}
-				}
-				return undefined;
-			});
-
 			// Generate .asset.php files at the end of build
+			// Uses metafile to collect ALL dependencies from ALL input files in each bundle
+			// This properly handles transitive dependencies from bundled packages
 			build.onEnd(async (result): Promise<OnEndResult | undefined> => {
 				if (result.errors.length > 0) {
 					return undefined;
@@ -293,38 +307,33 @@ export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
 					return undefined;
 				}
 
-				// Build a map from entry point paths to their output paths
-				const entryToOutput = new Map<string, { path: string; isModule: boolean }>();
-
+				// Process each output that has an entry point
 				for (const [outputPath, outputMeta] of Object.entries(metafile.outputs)) {
 					if (!outputMeta.entryPoint) {
 						continue;
 					}
-
-					// Normalize the entry point path for matching
-					const entryPath = normalizePath(resolve(outputMeta.entryPoint));
-
-					// Check if it's a module
-					const isModule = outputPath.endsWith('.mjs');
 
 					// Skip chunks
 					if (outputPath.includes('/chunks/')) {
 						continue;
 					}
 
-					entryToOutput.set(entryPath, { path: outputPath, isModule });
-				}
+					// Collect ALL dependencies from ALL input files in this bundle
+					// This catches transitive deps from bundled packages like @10up/block-components
+					const allDeps = new Set<string>();
 
-				// Generate .asset.php for each tracked entry
-				for (const [entryPath, deps] of entryDependencies) {
-					const outputInfo = entryToOutput.get(entryPath);
-					if (!outputInfo) {
-						continue;
+					for (const inputPath of Object.keys(outputMeta.inputs)) {
+						// Normalize input path to match our tracking
+						const normalizedInput = normalizePath(resolve(inputPath));
+						const deps = fileDependencies.get(normalizedInput);
+						if (deps) {
+							for (const dep of deps) {
+								allDeps.add(dep);
+							}
+						}
 					}
 
-					const { path: outputPath, isModule } = outputInfo;
-
-					// Read output file content for version hash
+					// Read output file content for version hash AND to scan for WP globals
 					let content = '';
 					try {
 						content = readFileSync(outputPath, 'utf8');
@@ -333,9 +342,53 @@ export function wpDependencyExtractionPlugin(config: BuildConfig): Plugin {
 					}
 					const version = getContentHash(content);
 
+					// Scan the output for WordPress dependencies from pre-bundled packages
+					// This catches deps from webpack-bundled packages like @10up/block-components
+					if (content) {
+						// 1. Match wp.packageName global accesses (e.g., wp.blocks, wp.blockEditor)
+						const wpGlobalPattern = /(?:=|,|\()\s*wp\.([a-zA-Z][a-zA-Z0-9]*)/g;
+						let match;
+						while ((match = wpGlobalPattern.exec(content)) !== null) {
+							const globalName = match[1];
+							// Convert camelCase to kebab-case for handle (e.g., blockEditor -> block-editor)
+							const handle = 'wp-' + globalName.replace(/([A-Z])/g, '-$1').toLowerCase();
+							allDeps.add(handle);
+						}
+
+						// 2. Match webpack require patterns: __webpack_require__("@wordpress/...")
+						// or __webpack_require__(/*! @wordpress/... */ "@wordpress/...")
+						// Use [^"]* to skip the comment and match the actual module ID
+						const webpackRequirePattern = /__webpack_require__\([^"]*"@wordpress\/([^"]+)"/g;
+						while ((match = webpackRequirePattern.exec(content)) !== null) {
+							const packageName = match[1];
+							const handle = 'wp-' + packageName;
+							allDeps.add(handle);
+						}
+
+						// 3. Also match __webpack_require__.n() wrappers that reference WP externals
+						// e.g., __webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__)
+						// We need to find the variable declarations that map to @wordpress packages
+						const wpModuleVarPattern = /var\s+(_wordpress_[a-zA-Z0-9_]+)__WEBPACK_IMPORTED_MODULE_\d+__\s*=\s*__webpack_require__\([^"]*"@wordpress\/([^"]+)"/g;
+						while ((match = wpModuleVarPattern.exec(content)) !== null) {
+							const packageName = match[2];
+							const handle = 'wp-' + packageName;
+							allDeps.add(handle);
+						}
+					}
+
+					// Also scan for vendor globals (React, ReactDOM, lodash, jQuery, moment)
+					if (content) {
+						if (/(?:=|,|\()\s*React[^a-zA-Z]/.test(content)) allDeps.add('react');
+						if (/(?:=|,|\()\s*ReactDOM[^a-zA-Z]/.test(content)) allDeps.add('react-dom');
+						if (/(?:=|,|\()\s*ReactJSXRuntime[^a-zA-Z]/.test(content)) allDeps.add('react-jsx-runtime');
+						if (/(?:=|,|\()\s*lodash[^a-zA-Z]/.test(content)) allDeps.add('lodash');
+						if (/(?:=|,|\()\s*jQuery[^a-zA-Z]/.test(content)) allDeps.add('jquery');
+						if (/(?:=|,|\()\s*moment[^a-zA-Z]/.test(content)) allDeps.add('moment');
+					}
+
 					// Generate .asset.php with appropriate format
 					const assetPhpPath = outputPath.replace(/\.(m?js)$/, '.asset.php');
-					const sortedDeps = Array.from(deps).sort();
+					const sortedDeps = Array.from(allDeps).sort();
 
 					let assetPhpContent: string;
 					if (isModule) {

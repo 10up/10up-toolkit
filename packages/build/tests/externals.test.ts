@@ -291,28 +291,32 @@ describe('WordPress Externals', () => {
 	});
 
 	describe('getExternalPatterns', () => {
-		it('should include all vendor externals', () => {
+		it('should return an empty array', () => {
+			// All externalization is now handled by the wp-dependency-extraction plugin
+			// to support per-package decisions and virtual modules for IIFE builds
 			const patterns = getExternalPatterns();
-			expect(patterns).toContain('react');
-			expect(patterns).toContain('react-dom');
-			expect(patterns).toContain('lodash');
-			expect(patterns).toContain('jquery');
+			expect(patterns).toEqual([]);
 		});
 
-		it('should include @wordpress/* pattern', () => {
-			const patterns = getExternalPatterns();
-			expect(patterns).toContain('@wordpress/*');
-		});
-
-		it('should include custom namespace patterns', () => {
+		it('should return empty array even with custom namespaces', () => {
+			// Custom namespaces are also handled by the plugin's onResolve hooks
 			const patterns = getExternalPatterns({
 				externalNamespaces: {
 					'@woocommerce': { global: 'wc', handlePrefix: 'wc' },
 					'@my-plugin': { global: 'myPlugin', handlePrefix: 'my-plugin' },
 				},
 			});
-			expect(patterns).toContain('@woocommerce/*');
-			expect(patterns).toContain('@my-plugin/*');
+			expect(patterns).toEqual([]);
+		});
+	});
+
+	describe('subpath exports', () => {
+		it('should convert @wordpress/dataviews/wp to wp-dataviews/wp handle', () => {
+			expect(wpPackageToHandle('@wordpress/dataviews/wp')).toBe('wp-dataviews/wp');
+		});
+
+		it('should convert @wordpress/dataviews/wp to wp.dataviews/wp global', () => {
+			expect(wpPackageToGlobal('@wordpress/dataviews/wp')).toBe('wp.dataviews/wp');
 		});
 	});
 });

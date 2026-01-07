@@ -6,7 +6,7 @@ exports[`Build Output Snapshots > basic-project > should produce correct admin.a
 `;
 
 exports[`Build Output Snapshots > basic-project > should produce correct admin.js output > admin.js 1`] = `
-""use strict";var __tenupBuild=(()=>{var a=Object.create;var e=Object.defineProperty;var g=Object.getOwnPropertyDescriptor;var u=Object.getOwnPropertyNames;var v=Object.getPrototypeOf,_=Object.prototype.hasOwnProperty;var d=(o=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(o,{get:(i,m)=>(typeof require<"u"?require:i)[m]}):o)(function(o){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+o+'" is not supported')});var k=(o,i)=>{for(var m in i)e(o,m,{get:i[m],enumerable:!0})},t=(o,i,m,n)=>{if(i&&typeof i=="object"||typeof i=="function")for(let r of u(i))!_.call(o,r)&&r!==m&&e(o,r,{get:()=>i[r],enumerable:!(n=g(i,r))||n.enumerable});return o};var s=(o,i,m)=>(m=o!=null?a(v(o)):{},t(i||!o||!o.__esModule?e(m,"default",{value:o,enumerable:!0}):m,o)),y=o=>t(e({},"__esModule",{value:!0}),o);var B={};k(B,{default:()=>c});var p=d("@wordpress/blocks"),f=d("@wordpress/i18n"),l=s(d("react")),A=d("react/jsx-runtime");console.log("Admin loaded",p.registerBlockType,f.__,l.default);function c(){return(0,A.jsx)("div",{children:"Admin Component"})}return y(B);})();
+""use strict";var __tenupBuild=(()=>{var _=Object.create;var i=Object.defineProperty;var b=Object.getOwnPropertyDescriptor;var y=Object.getOwnPropertyNames;var B=Object.getPrototypeOf,C=Object.prototype.hasOwnProperty;var m=(o,e)=>()=>(e||o((e={exports:{}}).exports,e),e.exports),J=(o,e)=>{for(var t in e)i(o,t,{get:e[t],enumerable:!0})},c=(o,e,t,d)=>{if(e&&typeof e=="object"||typeof e=="function")for(let r of y(e))!C.call(o,r)&&r!==t&&i(o,r,{get:()=>e[r],enumerable:!(d=b(e,r))||d.enumerable});return o};var p=(o,e,t)=>(t=o!=null?_(B(o)):{},c(e||!o||!o.__esModule?i(t,"default",{value:o,enumerable:!0}):t,o)),S=o=>c(i({},"__esModule",{value:!0}),o);var s=m((h,l)=>{l.exports=wp.blocks});var a=m((q,f)=>{f.exports=wp.i18n});var R=m((z,x)=>{x.exports=React});var n=m((D,u)=>{u.exports=ReactJSXRuntime});var T={};J(T,{default:()=>v});var A=p(s()),g=p(a()),k=p(R()),w=p(n());console.log("Admin loaded",A.registerBlockType,g.__,k.default);function v(){return(0,w.jsx)("div",{children:"Admin Component"})}return S(T);})();
 "
 `;
 
@@ -16,7 +16,7 @@ exports[`Build Output Snapshots > basic-project > should produce correct fronten
 `;
 
 exports[`Build Output Snapshots > basic-project > should produce correct frontend.js output > frontend.js 1`] = `
-""use strict";var __tenupBuild=(()=>{var a=Object.create;var n=Object.defineProperty;var t=Object.getOwnPropertyDescriptor;var c=Object.getOwnPropertyNames;var f=Object.getPrototypeOf,g=Object.prototype.hasOwnProperty;var i=(o=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(o,{get:(d,e)=>(typeof require<"u"?require:d)[e]}):o)(function(o){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+o+'" is not supported')});var p=(o,d,e,m)=>{if(d&&typeof d=="object"||typeof d=="function")for(let l of c(d))!g.call(o,l)&&l!==e&&n(o,l,{get:()=>d[l],enumerable:!(m=t(d,l))||m.enumerable});return o};var s=(o,d,e)=>(e=o!=null?a(f(o)):{},p(d||!o||!o.__esModule?n(e,"default",{value:o,enumerable:!0}):e,o));var r=s(i("@wordpress/dom-ready"));(0,r.default)(()=>{console.log("Frontend loaded")});})();
+""use strict";var __tenupBuild=(()=>{var t=Object.create;var a=Object.defineProperty;var s=Object.getOwnPropertyDescriptor;var y=Object.getOwnPropertyNames;var R=Object.getPrototypeOf,c=Object.prototype.hasOwnProperty;var f=(d,o)=>()=>(o||d((o={exports:{}}).exports,o),o.exports);var g=(d,o,e,r)=>{if(o&&typeof o=="object"||typeof o=="function")for(let m of y(o))!c.call(d,m)&&m!==e&&a(d,m,{get:()=>o[m],enumerable:!(r=s(o,m))||r.enumerable});return d};var i=(d,o,e)=>(e=d!=null?t(R(d)):{},g(o||!d||!d.__esModule?a(e,"default",{value:d,enumerable:!0}):e,d));var n=f((x,l)=>{l.exports=wp.domReady});var p=i(n());(0,p.default)(()=>{console.log("Frontend loaded")});})();
 "
 `;
 
@@ -46,7 +46,7 @@ exports[`Build Output Snapshots > block-project > should produce correct block.j
   "title": "Test Block",
   "version": "fb8b156d",
   "viewScript": "file:./view.js",
-  "viewScriptModule": "file:./view-module.mjs",
+  "viewScriptModule": "file:./view-module.js",
 }
 `;
 
@@ -61,7 +61,7 @@ exports[`Build Output Snapshots > block-project > should produce correct index.a
 `;
 
 exports[`Build Output Snapshots > block-project > should produce correct index.js (editor script) output > index.js 1`] = `
-""use strict";var __tenupBuild=(()=>{var t=(o=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(o,{get:(i,l)=>(typeof require<"u"?require:i)[l]}):o)(function(o){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+o+'" is not supported')});var r=t("@wordpress/blocks"),e=t("@wordpress/block-editor"),c=t("@wordpress/i18n"),s=t("react/jsx-runtime");(0,r.registerBlockType)("test/test-block",{title:(0,c.__)("Test Block","test"),edit:()=>{let o=(0,e.useBlockProps)();return(0,s.jsx)("div",{...o,children:"Test Block"})},save:()=>{let o=e.useBlockProps.save();return(0,s.jsx)("div",{...o,children:"Test Block"})}});})();
+""use strict";var __tenupBuild=(()=>{var x=Object.create;var d=Object.defineProperty;var P=Object.getOwnPropertyDescriptor;var a=Object.getOwnPropertyNames;var R=Object.getPrototypeOf,_=Object.prototype.hasOwnProperty;var p=(o,t)=>()=>(t||o((t={exports:{}}).exports,t),t.exports);var g=(o,t,e,k)=>{if(t&&typeof t=="object"||typeof t=="function")for(let s of a(t))!_.call(o,s)&&s!==e&&d(o,s,{get:()=>t[s],enumerable:!(k=P(t,s))||k.enumerable});return o};var r=(o,t,e)=>(e=o!=null?x(R(o)):{},g(t||!o||!o.__esModule?d(e,"default",{value:o,enumerable:!0}):e,o));var v=p((E,m)=>{m.exports=wp.blocks});var n=p((J,b)=>{b.exports=wp.blockEditor});var T=p((S,B)=>{B.exports=wp.i18n});var c=p((X,f)=>{f.exports=ReactJSXRuntime});var u=r(v()),i=r(n()),w=r(T()),l=r(c());(0,u.registerBlockType)("test/test-block",{title:(0,w.__)("Test Block","test"),edit:()=>{let o=(0,i.useBlockProps)();return(0,l.jsx)("div",{...o,children:"Test Block"})},save:()=>{let o=i.useBlockProps.save();return(0,l.jsx)("div",{...o,children:"Test Block"})}});})();
 "
 `;
 
@@ -76,7 +76,7 @@ exports[`Build Output Snapshots > block-project > should produce correct view.as
 `;
 
 exports[`Build Output Snapshots > block-project > should produce correct view.js output > view.js 1`] = `
-""use strict";var __tenupBuild=(()=>{var d=Object.create;var k=Object.defineProperty;var r=Object.getOwnPropertyDescriptor;var n=Object.getOwnPropertyNames;var b=Object.getPrototypeOf,i=Object.prototype.hasOwnProperty;var m=(o=>typeof require<"u"?require:typeof Proxy<"u"?new Proxy(o,{get:(c,e)=>(typeof require<"u"?require:c)[e]}):o)(function(o){if(typeof require<"u")return require.apply(this,arguments);throw Error('Dynamic require of "'+o+'" is not supported')});var a=(o,c,e,t)=>{if(c&&typeof c=="object"||typeof c=="function")for(let l of n(c))!i.call(o,l)&&l!==e&&k(o,l,{get:()=>c[l],enumerable:!(t=r(c,l))||t.enumerable});return o};var f=(o,c,e)=>(e=o!=null?d(b(o)):{},a(c||!o||!o.__esModule?k(e,"default",{value:o,enumerable:!0}):e,o));var s=f(m("@wordpress/dom-ready"));(0,s.default)(()=>{document.querySelectorAll(".wp-block-test-test-block").forEach(c=>{c.addEventListener("click",()=>{console.log("Block clicked")})})});})();
+""use strict";var __tenupBuild=(()=>{var m=Object.create;var d=Object.defineProperty;var n=Object.getOwnPropertyDescriptor;var a=Object.getOwnPropertyNames;var b=Object.getPrototypeOf,i=Object.prototype.hasOwnProperty;var p=(c,o)=>()=>(o||c((o={exports:{}}).exports,o),o.exports);var y=(c,o,e,t)=>{if(o&&typeof o=="object"||typeof o=="function")for(let l of a(o))!i.call(c,l)&&l!==e&&d(c,l,{get:()=>o[l],enumerable:!(t=n(o,l))||t.enumerable});return c};var f=(c,o,e)=>(e=c!=null?m(b(c)):{},y(o||!c||!c.__esModule?d(e,"default",{value:c,enumerable:!0}):e,c));var k=p((w,s)=>{s.exports=wp.domReady});var r=f(k());(0,r.default)(()=>{document.querySelectorAll(".wp-block-test-test-block").forEach(o=>{o.addEventListener("click",()=>{console.log("Block clicked")})})});})();
 "
 `;
 
@@ -85,7 +85,7 @@ exports[`Build Output Snapshots > block-project > should produce correct view-mo
 "
 `;
 
-exports[`Build Output Snapshots > block-project > should produce correct view-module.mjs (ES module) output > view-module.mjs 1`] = `
+exports[`Build Output Snapshots > block-project > should produce correct view-module.js (ES module) output > view-module.js 1`] = `
 "import{store as e,getContext as o}from"@wordpress/interactivity";e("test/test-block",{actions:{toggle(){let t=o();t.isOpen=!t.isOpen}}});
 "
 `;
@@ -98,7 +98,7 @@ exports[`Build Output Snapshots > block-project > should produce expected output
   "blocks/test-block/index.js",
   "blocks/test-block/style.css",
   "blocks/test-block/view-module.asset.php",
-  "blocks/test-block/view-module.mjs",
+  "blocks/test-block/view-module.js",
   "blocks/test-block/view.asset.php",
   "blocks/test-block/view.js",
 ]

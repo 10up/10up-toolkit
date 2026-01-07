@@ -5,7 +5,7 @@
 import pc from 'picocolors';
 import { build } from './build.js';
 import { watch } from './watch.js';
-import { syncWpDeps, updateWpDeps, listWpDeps } from './wp-deps.js';
+import { syncWpDeps, updateWpDeps, listWpDeps, cacheWpScripts } from './wp-deps.js';
 import type { Commands } from './types.js';
 
 /**
@@ -41,12 +41,13 @@ ${pc.bold('Usage:')}
   10up-build <command> [options]
 
 ${pc.bold('Commands:')}
-  build          Build for production (default)
-  start          Start development mode with watch and hot reload
-  watch          Watch for changes without hot reload
-  sync-wp-deps   Scan source files and install @wordpress/* as optional deps
-  update-wp-deps Update all @wordpress/* optional deps to a new version tag
-  list-wp-deps   List installed @wordpress/* dependencies
+  build            Build for production (default)
+  start            Start development mode with watch and hot reload
+  watch            Watch for changes without hot reload
+  sync-wp-deps     Scan source files and install @wordpress/* as optional deps
+  update-wp-deps   Update all @wordpress/* optional deps to a new version tag
+  list-wp-deps     List installed @wordpress/* dependencies
+  cache-wp-scripts Cache wpScript flags for CI (use with --omit=optional)
 
 ${pc.bold('Options:')}
   --help, -h         Show this help message
@@ -70,6 +71,7 @@ ${pc.bold('Examples:')}
   10up-build sync-wp-deps --workspace-scan  # Scan all workspaces, install at root
   10up-build update-wp-deps --tag=wp-6.9  # Update to new WP version
   10up-build list-wp-deps               # Show installed @wordpress deps
+  10up-build cache-wp-scripts           # Cache wpScript flags for CI
 `);
 }
 
@@ -77,7 +79,7 @@ ${pc.bold('Examples:')}
  * Show version
  */
 function showVersion(): void {
-	console.log('10up-build v1.0.0-alpha.5');
+	console.log('10up-build v1.0.0-alpha.7');
 }
 
 /**
@@ -132,6 +134,13 @@ const commands: Commands = {
 
 	'list-wp-deps': async () => {
 		await listWpDeps();
+	},
+
+	'cache-wp-scripts': async (args: string[]) => {
+		const { flags } = parseArgs(['cache-wp-scripts', ...args]);
+		await cacheWpScripts({
+			output: flags.output ? String(flags.output) : undefined,
+		});
 	},
 };
 

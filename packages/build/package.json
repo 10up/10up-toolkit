@@ -1,6 +1,6 @@
 {
 	"name": "@10up/build",
-	"version": "1.0.0-alpha.5",
+	"version": "1.0.0-alpha.20",
 	"description": "esbuild-powered WordPress build tool - fast builds for WordPress block development",
 	"keywords": [
 		"wordpress",
@@ -28,7 +28,7 @@
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"bin": {
-		"10up-build": "./bin/10up-build.js"
+		"10up-build": "bin/10up-build.js"
 	},
 	"files": [
 		"bin",

@@ -206,7 +206,7 @@ export interface BuildConfig {
 	entry: Record<string, string>;
 
 	/**
-	 * Entry points for ES modules (output as .mjs files).
+	 * Entry points for ES modules.
 	 * These are built with `format: 'esm'` and support code splitting.
 	 *
 	 * @example
@@ -350,7 +350,7 @@ export interface DetectedEntries {
 	scripts: Record<string, string>;
 
 	/**
-	 * ES Module entries (.mjs output).
+	 * ES Module entries.
 	 * Key is the output name, value is the source file path.
 	 */
 	modules: Record<string, string>;
@@ -510,6 +510,8 @@ export interface Commands {
 	'update-wp-deps': CommandHandler;
 	/** List installed @wordpress dependencies */
 	'list-wp-deps': CommandHandler;
+	/** Cache wpScript flags for CI environments */
+	'cache-wp-scripts': CommandHandler;
 }
 
 /**
@@ -564,7 +566,7 @@ export interface BlockMetadata {
 
 	/**
 	 * ES Module loaded on both editor and frontend.
-	 * Output as .mjs file.
+	 * Used for WordPress Script Modules API.
 	 */
 	scriptModule?: string | string[];
 
