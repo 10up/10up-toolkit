@@ -41,12 +41,12 @@ describe('Entry Detection', () => {
 			expect(Object.keys(entries.styles)).toHaveLength(1);
 			expect(Object.keys(entries.modules)).toHaveLength(0);
 
-			// Check script entries
-			expect(entries.scripts.admin).toContain('admin.js');
-			expect(entries.scripts.frontend).toContain('frontend.js');
+			// Check script entries (prefixed with js/)
+			expect(entries.scripts['js/admin']).toContain('admin.js');
+			expect(entries.scripts['js/frontend']).toContain('frontend.js');
 
-			// Check style entries
-			expect(entries.styles.style).toContain('style.css');
+			// Check style entries (prefixed with css/)
+			expect(entries.styles['css/style']).toContain('style.css');
 		});
 
 		it('should separate JS and CSS entries', async () => {
@@ -64,10 +64,10 @@ describe('Entry Detection', () => {
 
 			const entries = await detectEntries(config);
 
-			expect(entries.scripts.admin).toBeDefined();
-			expect(entries.scripts.style).toBeUndefined();
-			expect(entries.styles.style).toBeDefined();
-			expect(entries.styles.admin).toBeUndefined();
+			expect(entries.scripts['js/admin']).toBeDefined();
+			expect(entries.scripts['js/style']).toBeUndefined();
+			expect(entries.styles['css/style']).toBeDefined();
+			expect(entries.styles['css/admin']).toBeUndefined();
 		});
 
 		it('should skip non-existent files', async () => {
@@ -85,8 +85,8 @@ describe('Entry Detection', () => {
 
 			const entries = await detectEntries(config);
 
-			expect(entries.scripts.admin).toBeDefined();
-			expect(entries.scripts.nonexistent).toBeUndefined();
+			expect(entries.scripts['js/admin']).toBeDefined();
+			expect(entries.scripts['js/nonexistent']).toBeUndefined();
 		});
 	});
 
@@ -205,8 +205,9 @@ describe('Entry Detection', () => {
 
 			const entries = await detectEntries(config);
 
-			expect(entries.modules['custom-module']).toBeDefined();
-			expect(entries.modules['custom-module']).toContain('view-module.js');
+			// Module entries are prefixed with js/
+			expect(entries.modules['js/custom-module']).toBeDefined();
+			expect(entries.modules['js/custom-module']).toContain('view-module.js');
 		});
 	});
 

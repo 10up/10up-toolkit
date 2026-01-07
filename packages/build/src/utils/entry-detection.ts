@@ -85,7 +85,7 @@ async function loadBuildFileEntries(
 		entries = config.entry;
 	}
 
-	// Separate JS and CSS entries
+	// Separate JS and CSS entries, adding js/ and css/ prefixes for output organization
 	for (const [name, filePath] of Object.entries(entries)) {
 		const resolvedPath = fromProjectRoot(filePath);
 
@@ -96,9 +96,11 @@ async function loadBuildFileEntries(
 		const ext = extname(filePath).toLowerCase();
 
 		if (['.css', '.scss', '.sass'].includes(ext)) {
-			result.styles[name] = resolvedPath;
+			// CSS entries go to css/ subdirectory
+			result.styles[`css/${name}`] = resolvedPath;
 		} else {
-			result.scripts[name] = resolvedPath;
+			// JS entries go to js/ subdirectory
+			result.scripts[`js/${name}`] = resolvedPath;
 		}
 	}
 
@@ -106,7 +108,7 @@ async function loadBuildFileEntries(
 }
 
 /**
- * Filter entries to only include existing files
+ * Filter entries to only include existing files, adding js/ prefix for output organization
  */
 function filterExistingEntries(entries: Record<string, string>): Record<string, string> {
 	const result: Record<string, string> = {};
@@ -114,7 +116,8 @@ function filterExistingEntries(entries: Record<string, string>): Record<string, 
 	for (const [name, filePath] of Object.entries(entries)) {
 		const resolvedPath = fromProjectRoot(filePath);
 		if (existsSync(resolvedPath)) {
-			result[name] = resolvedPath;
+			// Add js/ prefix for module entries
+			result[`js/${name}`] = resolvedPath;
 		}
 	}
 

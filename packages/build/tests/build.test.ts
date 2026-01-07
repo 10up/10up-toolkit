@@ -62,9 +62,9 @@ describe('Build Process', () => {
 			expect(result.success).toBe(true);
 			expect(result.entries.scripts).toBe(2);
 
-			// Check output files exist
-			expect(existsSync(join(distDir, 'admin.js'))).toBe(true);
-			expect(existsSync(join(distDir, 'frontend.js'))).toBe(true);
+			// Check output files exist in js/ subdirectory
+			expect(existsSync(join(distDir, 'js/admin.js'))).toBe(true);
+			expect(existsSync(join(distDir, 'js/frontend.js'))).toBe(true);
 		});
 
 		it('should generate .asset.php files', async () => {
@@ -86,8 +86,8 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			// Check .asset.php exists
-			const assetPhpPath = join(distDir, 'admin.asset.php');
+			// Check .asset.php exists in js/ subdirectory
+			const assetPhpPath = join(distDir, 'js/admin.asset.php');
 			expect(existsSync(assetPhpPath)).toBe(true);
 
 			// Check .asset.php content
@@ -116,7 +116,7 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			const assetPhpContent = readFileSync(join(distDir, 'admin.asset.php'), 'utf8');
+			const assetPhpContent = readFileSync(join(distDir, 'js/admin.asset.php'), 'utf8');
 
 			// admin.js imports @wordpress/blocks and @wordpress/i18n
 			expect(assetPhpContent).toContain('wp-blocks');
@@ -142,7 +142,7 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			const assetPhpContent = readFileSync(join(distDir, 'admin.asset.php'), 'utf8');
+			const assetPhpContent = readFileSync(join(distDir, 'js/admin.asset.php'), 'utf8');
 
 			// admin.js imports React
 			expect(assetPhpContent).toContain('react');
@@ -168,11 +168,11 @@ describe('Build Process', () => {
 			expect(result.success).toBe(true);
 			expect(result.entries.styles).toBe(1);
 
-			// Check CSS output exists
-			expect(existsSync(join(distDir, 'style.css'))).toBe(true);
+			// Check CSS output exists in css/ subdirectory
+			expect(existsSync(join(distDir, 'css/style.css'))).toBe(true);
 
 			// Check CSS content is compiled
-			const cssContent = readFileSync(join(distDir, 'style.css'), 'utf8');
+			const cssContent = readFileSync(join(distDir, 'css/style.css'), 'utf8');
 			expect(cssContent).toContain('font-family');
 			// CSS custom property should be preserved
 			expect(cssContent).toContain('#0073aa');
@@ -198,7 +198,7 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			const cssContent = readFileSync(join(distDir, 'style.css'), 'utf8');
+			const cssContent = readFileSync(join(distDir, 'css/style.css'), 'utf8');
 			// Minified CSS should not have unnecessary whitespace
 			expect(cssContent).not.toMatch(/\n\s+\n/);
 		});
@@ -417,11 +417,11 @@ describe('Build Process', () => {
 			expect(result.success).toBe(true);
 			expect(result.entries.styles).toBe(1);
 
-			// Check CSS output exists
-			expect(existsSync(join(distDir, 'style.css'))).toBe(true);
+			// Check CSS output exists in css/ subdirectory
+			expect(existsSync(join(distDir, 'css/style.css'))).toBe(true);
 
 			// Check CSS uses global custom properties
-			const cssContent = readFileSync(join(distDir, 'style.css'), 'utf8');
+			const cssContent = readFileSync(join(distDir, 'css/style.css'), 'utf8');
 			expect(cssContent).toContain('--global-primary');
 			expect(cssContent).toContain('--global-spacing');
 		});
@@ -447,7 +447,7 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			const cssContent = readFileSync(join(distDir, 'style.css'), 'utf8');
+			const cssContent = readFileSync(join(distDir, 'css/style.css'), 'utf8');
 			// Mixin should be expanded - check for mixin content
 			expect(cssContent).toContain('max-width');
 			expect(cssContent).toContain('margin-inline');
@@ -474,7 +474,7 @@ describe('Build Process', () => {
 
 			expect(result.success).toBe(true);
 
-			const cssContent = readFileSync(join(distDir, 'style.css'), 'utf8');
+			const cssContent = readFileSync(join(distDir, 'css/style.css'), 'utf8');
 			// Custom media should be transformed to standard media query
 			expect(cssContent).toContain('@media');
 			expect(cssContent).toContain('768px');

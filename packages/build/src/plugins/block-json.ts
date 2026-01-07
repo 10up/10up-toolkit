@@ -15,15 +15,18 @@ import { normalizePath, getFileContentHash } from '../utils/paths.js';
 import type { BuildConfig, BlockMetadata } from '../types.js';
 
 /**
- * Asset keys for JavaScript files
+ * Asset keys for standard JavaScript files (IIFE format)
  */
 const JS_ASSET_KEYS: (keyof BlockMetadata)[] = [
 	'script',
 	'editorScript',
 	'viewScript',
-	'scriptModule',
-	'viewScriptModule',
 ];
+
+/**
+ * Asset keys for ES module files (.mjs)
+ */
+const MODULE_ASSET_KEYS: (keyof BlockMetadata)[] = ['scriptModule', 'viewScriptModule'];
 
 /**
  * Asset keys for CSS files
@@ -31,14 +34,29 @@ const JS_ASSET_KEYS: (keyof BlockMetadata)[] = [
 const CSS_ASSET_KEYS: (keyof BlockMetadata)[] = ['style', 'editorStyle', 'viewStyle'];
 
 /**
- * Transform TypeScript asset paths to JavaScript
+ * Transform TypeScript asset paths to JavaScript (.js)
  */
 function transformTSAsset(asset: string | string[]): string | string[] {
 	const transform = (filePath: string): string => {
 		if (!filePath.startsWith('file:')) {
 			return filePath;
 		}
-		return filePath.replace(/\.tsx?$/, '.js');
+		return filePath.replace(/\.tsx?$/, '.js').replace(/\.js$/, '.js');
+	};
+
+	return Array.isArray(asset) ? asset.map(transform) : transform(asset);
+}
+
+/**
+ * Transform TypeScript/JS asset paths to ES modules (.mjs)
+ */
+function transformModuleAsset(asset: string | string[]): string | string[] {
+	const transform = (filePath: string): string => {
+		if (!filePath.startsWith('file:')) {
+			return filePath;
+		}
+		// Convert .ts/.tsx/.js to .mjs
+		return filePath.replace(/\.(tsx?|js)$/, '.mjs');
 	};
 
 	return Array.isArray(asset) ? asset.map(transform) : transform(asset);
@@ -114,11 +132,19 @@ export function transformBlockJson(content: string, absoluteFilename: string): s
 			}
 		}
 
-		// Transform JS asset paths
+		// Transform standard JS asset paths
 		for (const key of JS_ASSET_KEYS) {
 			const asset = metadata[key];
 			if (asset) {
 				(newMetadata as Record<string, unknown>)[key] = transformTSAsset(asset);
+			}
+		}
+
+		// Transform ES module asset paths (.mjs)
+		for (const key of MODULE_ASSET_KEYS) {
+			const asset = metadata[key];
+			if (asset) {
+				(newMetadata as Record<string, unknown>)[key] = transformModuleAsset(asset);
 			}
 		}
 

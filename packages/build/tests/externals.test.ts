@@ -163,6 +163,130 @@ describe('WordPress Externals', () => {
 					handle: 'wp-blocks',
 				});
 			});
+
+			it('should resolve packages with multiple hyphens correctly', () => {
+				const result = resolveExternal(
+					'@woocommerce/product-editor-component',
+					configWithNamespaces,
+				);
+				expect(result).toEqual({
+					global: 'wc.productEditorComponent',
+					handle: 'wc-product-editor-component',
+				});
+			});
+
+			it('should resolve single-word package names', () => {
+				const result = resolveExternal('@woocommerce/data', configWithNamespaces);
+				expect(result).toEqual({
+					global: 'wc.data',
+					handle: 'wc-data',
+				});
+			});
+
+			it('should not resolve bare namespace without sub-package', () => {
+				const result = resolveExternal('@woocommerce', configWithNamespaces);
+				expect(result).toBeNull();
+			});
+
+			it('should not resolve packages from unregistered namespaces', () => {
+				const result = resolveExternal('@unregistered/package', configWithNamespaces);
+				expect(result).toBeNull();
+			});
+
+			it('should still resolve vendor externals with custom namespaces', () => {
+				expect(resolveExternal('react', configWithNamespaces)).toEqual({
+					global: 'React',
+					handle: 'react',
+				});
+				expect(resolveExternal('lodash', configWithNamespaces)).toEqual({
+					global: 'lodash',
+					handle: 'lodash',
+				});
+			});
+		});
+
+		describe('with agency namespace configuration', () => {
+			const agencyConfig: Partial<BuildConfig> = {
+				externalNamespaces: {
+					'@10up': {
+						global: 'tenUp',
+						handlePrefix: '10up',
+					},
+					'@developer': {
+						global: 'dev',
+						handlePrefix: 'developer',
+					},
+				},
+			};
+
+			it('should resolve @10up packages with numeric prefix', () => {
+				const result = resolveExternal('@10up/block-components', agencyConfig);
+				expect(result).toEqual({
+					global: 'tenUp.blockComponents',
+					handle: '10up-block-components',
+				});
+			});
+
+			it('should resolve multiple packages from same namespace', () => {
+				const utils = resolveExternal('@10up/utils', agencyConfig);
+				const hooks = resolveExternal('@10up/hooks', agencyConfig);
+				const components = resolveExternal('@10up/components', agencyConfig);
+
+				expect(utils).toEqual({ global: 'tenUp.utils', handle: '10up-utils' });
+				expect(hooks).toEqual({ global: 'tenUp.hooks', handle: '10up-hooks' });
+				expect(components).toEqual({ global: 'tenUp.components', handle: '10up-components' });
+			});
+
+			it('should handle different global naming conventions', () => {
+				const result = resolveExternal('@developer/api-client', agencyConfig);
+				expect(result).toEqual({
+					global: 'dev.apiClient',
+					handle: 'developer-api-client',
+				});
+			});
+		});
+
+		describe('edge cases for external namespaces', () => {
+			it('should handle empty externalNamespaces object', () => {
+				const result = resolveExternal('@custom/package', { externalNamespaces: {} });
+				expect(result).toBeNull();
+			});
+
+			it('should handle undefined externalNamespaces', () => {
+				const result = resolveExternal('@custom/package', {});
+				expect(result).toBeNull();
+			});
+
+			it('should prioritize @wordpress over custom namespaces', () => {
+				const configWithWordPressOverride: Partial<BuildConfig> = {
+					externalNamespaces: {
+						'@wordpress': {
+							global: 'customWp',
+							handlePrefix: 'custom-wp',
+						},
+					},
+				};
+				// @wordpress packages should still use the built-in resolution
+				const result = resolveExternal('@wordpress/blocks', configWithWordPressOverride);
+				expect(result).toMatchObject({
+					global: 'wp.blocks',
+					handle: 'wp-blocks',
+				});
+			});
+
+			it('should handle namespace with trailing slash in package name', () => {
+				const config: Partial<BuildConfig> = {
+					externalNamespaces: {
+						'@test': { global: 'test', handlePrefix: 'test' },
+					},
+				};
+				// This tests internal handling - the slash after namespace is expected
+				const result = resolveExternal('@test/my-component', config);
+				expect(result).toEqual({
+					global: 'test.myComponent',
+					handle: 'test-my-component',
+				});
+			});
 		});
 	});
 

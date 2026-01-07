@@ -17,6 +17,26 @@ import type { BuildConfig, BuildResult, DetectedEntries } from './types.js';
 import { getExternalPatterns } from './utils/externals.js';
 
 /**
+ * Profiling data for build phases
+ */
+interface BuildProfile {
+	configLoad: number;
+	entryDetection: number;
+	cleanOutput: number;
+	scripts: number;
+	modules: number;
+	styles: number;
+	blockJson: number;
+	assetCopy: number;
+	total: number;
+}
+
+/**
+ * Profile enabled via environment variable
+ */
+const PROFILE_ENABLED = process.env.BUILD_PROFILE === '1' || process.env.BUILD_PROFILE === 'true';
+
+/**
  * Get common esbuild options
  */
 function getCommonOptions(config: BuildConfig, outputDir: string, isProd: boolean): esbuild.BuildOptions {
@@ -156,9 +176,63 @@ function cleanOutputDir(outputDir: string): void {
  */
 function formatDuration(ms: number): string {
 	if (ms < 1000) {
-		return `${ms}ms`;
+		return `${ms.toFixed(0)}ms`;
 	}
 	return `${(ms / 1000).toFixed(2)}s`;
+}
+
+/**
+ * Format profile duration with padding for alignment
+ */
+function formatProfileDuration(ms: number, total: number): string {
+	const percentage = total > 0 ? ((ms / total) * 100).toFixed(1) : '0.0';
+	const duration = formatDuration(ms);
+	return `${duration.padStart(8)} ${pc.dim(`(${percentage.padStart(5)}%)`)}`;
+}
+
+/**
+ * Print build profile report
+ */
+function printProfile(profile: BuildProfile): void {
+	console.log(pc.cyan('\n┌─ Build Profile ─────────────────────────┐'));
+
+	const phases: Array<{ name: string; time: number; entries?: number }> = [
+		{ name: 'Config loading', time: profile.configLoad },
+		{ name: 'Entry detection', time: profile.entryDetection },
+		{ name: 'Clean output', time: profile.cleanOutput },
+		{ name: 'Scripts (IIFE)', time: profile.scripts },
+		{ name: 'Modules (ESM)', time: profile.modules },
+		{ name: 'Styles (CSS)', time: profile.styles },
+		{ name: 'Block JSON', time: profile.blockJson },
+		{ name: 'Asset copy', time: profile.assetCopy },
+	];
+
+	for (const phase of phases) {
+		if (phase.time > 0) {
+			const bar = getProgressBar(phase.time, profile.total, 15);
+			console.log(
+				pc.dim('│ ') +
+					phase.name.padEnd(16) +
+					formatProfileDuration(phase.time, profile.total) +
+					' ' +
+					bar,
+			);
+		}
+	}
+
+	console.log(pc.dim('├──────────────────────────────────────────┤'));
+	console.log(pc.dim('│ ') + pc.bold('Total'.padEnd(16)) + formatProfileDuration(profile.total, profile.total));
+	console.log(pc.cyan('└──────────────────────────────────────────┘\n'));
+}
+
+/**
+ * Generate a simple progress bar
+ */
+function getProgressBar(value: number, total: number, width: number): string {
+	const percentage = total > 0 ? value / total : 0;
+	const filled = Math.round(percentage * width);
+	const empty = width - filled;
+	return pc.cyan('█'.repeat(filled)) + pc.dim('░'.repeat(empty));
 }
 
 /**
@@ -166,18 +240,36 @@ function formatDuration(ms: number): string {
  */
 export async function build(customConfig?: Partial<BuildConfig>): Promise<BuildResult> {
 	const startTime = performance.now();
+	const profile: BuildProfile = {
+		configLoad: 0,
+		entryDetection: 0,
+		cleanOutput: 0,
+		scripts: 0,
+		modules: 0,
+		styles: 0,
+		blockJson: 0,
+		assetCopy: 0,
+		total: 0,
+	};
+
+	// Config loading
+	let phaseStart = performance.now();
 	const config = { ...loadConfig(), ...customConfig };
 	const outputDir = getOutputDir(config);
 	const isProd = isProduction();
+	profile.configLoad = performance.now() - phaseStart;
 
 	console.log(pc.cyan('\n10up-build') + pc.dim(` v1.0.0`));
 	console.log(pc.dim(`Mode: ${isProd ? 'production' : 'development'}\n`));
 
 	try {
 		// Clean output directory
+		phaseStart = performance.now();
 		cleanOutputDir(outputDir);
+		profile.cleanOutput = performance.now() - phaseStart;
 
 		// Detect all entry points
+		phaseStart = performance.now();
 		const entries: DetectedEntries = await detectEntries(config);
 
 		// Add block-specific styles if enabled
@@ -185,6 +277,7 @@ export async function build(customConfig?: Partial<BuildConfig>): Promise<BuildR
 			const blockStyles = getBlockSpecificStyles(config);
 			Object.assign(entries.styles, blockStyles);
 		}
+		profile.entryDetection = performance.now() - phaseStart;
 
 		const totalEntries =
 			Object.keys(entries.scripts).length +
@@ -202,20 +295,55 @@ export async function build(customConfig?: Partial<BuildConfig>): Promise<BuildR
 
 		console.log(pc.dim(`Building ${totalEntries} entries...\n`));
 
-		// Build in parallel
-		await Promise.all([
-			buildScripts(entries.scripts, config, outputDir, isProd),
-			buildModules(entries.modules, config, outputDir, isProd),
-			buildStyles(entries.styles, config, outputDir, isProd),
-		]);
+		// Build in parallel, tracking individual times
+		const buildPromises: Promise<void>[] = [];
+
+		// Scripts
+		if (Object.keys(entries.scripts).length > 0) {
+			buildPromises.push(
+				(async () => {
+					const start = performance.now();
+					await buildScripts(entries.scripts, config, outputDir, isProd);
+					profile.scripts = performance.now() - start;
+				})(),
+			);
+		}
+
+		// Modules
+		if (Object.keys(entries.modules).length > 0) {
+			buildPromises.push(
+				(async () => {
+					const start = performance.now();
+					await buildModules(entries.modules, config, outputDir, isProd);
+					profile.modules = performance.now() - start;
+				})(),
+			);
+		}
+
+		// Styles
+		if (Object.keys(entries.styles).length > 0) {
+			buildPromises.push(
+				(async () => {
+					const start = performance.now();
+					await buildStyles(entries.styles, config, outputDir, isProd);
+					profile.styles = performance.now() - start;
+				})(),
+			);
+		}
+
+		await Promise.all(buildPromises);
 
 		// Process block.json files
+		phaseStart = performance.now();
 		if (config.useBlockAssets) {
 			await processBlockJsonFiles(config, outputDir);
 		}
+		profile.blockJson = performance.now() - phaseStart;
 
 		// Copy static assets
+		phaseStart = performance.now();
 		const assetCount = await copyStaticAssets(config, outputDir);
+		profile.assetCopy = performance.now() - phaseStart;
 
 		// Report results
 		const scriptsCount = Object.keys(entries.scripts).length;
@@ -236,7 +364,14 @@ export async function build(customConfig?: Partial<BuildConfig>): Promise<BuildR
 		}
 
 		const duration = performance.now() - startTime;
+		profile.total = duration;
+
 		console.log(pc.green(`\n✓ Done in ${formatDuration(duration)}`));
+
+		// Print profile if enabled
+		if (PROFILE_ENABLED) {
+			printProfile(profile);
+		}
 
 		return {
 			success: true,

@@ -1,0 +1,9 @@
+# Build output
+dist/
+
+# Test output directories
+tests/fixtures/*/dist/
+tests/fixtures/*/dist-snapshots/
+
+# Node modules
+node_modules/

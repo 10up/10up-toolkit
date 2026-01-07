@@ -156,16 +156,29 @@ async function processWithPostCSS(
  * Process CSS with lightningcss for modern features and minification
  */
 function processWithLightningCSS(css: string, filePath: string, isProduction: boolean): string {
-	const { code } = transform({
-		filename: filePath,
-		code: Buffer.from(css),
-		minify: isProduction,
-		sourceMap: !isProduction,
-		targets: defaultTargets,
-		// Note: customMedia is handled by postcss-custom-media in the PostCSS phase
-	});
+	// Handle empty CSS (or CSS with only comments/whitespace)
+	const trimmed = css.replace(/\/\*[\s\S]*?\*\//g, '').trim();
+	if (!trimmed) {
+		return isProduction ? '' : '/* empty */';
+	}
 
-	return code.toString();
+	try {
+		const { code } = transform({
+			filename: filePath,
+			code: Buffer.from(css),
+			minify: isProduction,
+			sourceMap: !isProduction,
+			targets: defaultTargets,
+			// Note: customMedia is handled by postcss-custom-media in the PostCSS phase
+		});
+
+		return code.toString();
+	} catch (error) {
+		// If lightningcss fails, return the original CSS
+		// This can happen with certain edge cases
+		console.warn(`Warning: lightningcss failed for ${filePath}, using original CSS`);
+		return css;
+	}
 }
 
 /**
