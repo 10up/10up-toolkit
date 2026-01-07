@@ -1,6 +1,6 @@
 {
 	"name": "@10up/build",
-	"version": "1.0.0-alpha.2",
+	"version": "1.0.0-alpha.3",
 	"description": "esbuild-powered WordPress build tool - fast builds for WordPress block development",
 	"keywords": [
 		"wordpress",

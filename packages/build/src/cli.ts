@@ -5,6 +5,7 @@
 import pc from 'picocolors';
 import { build } from './build.js';
 import { watch } from './watch.js';
+import { syncWpDeps, updateWpDeps, listWpDeps } from './wp-deps.js';
 import type { Commands } from './types.js';
 
 /**
@@ -40,25 +41,33 @@ ${pc.bold('Usage:')}
   10up-build <command> [options]
 
 ${pc.bold('Commands:')}
-  build     Build for production (default)
-  start     Start development mode with watch and hot reload
-  watch     Watch for changes without hot reload
+  build          Build for production (default)
+  start          Start development mode with watch and hot reload
+  watch          Watch for changes without hot reload
+  sync-wp-deps   Scan source files and install @wordpress/* as optional deps
+  update-wp-deps Update all @wordpress/* optional deps to a new version tag
+  list-wp-deps   List installed @wordpress/* dependencies
 
 ${pc.bold('Options:')}
   --help, -h       Show this help message
   --version, -v    Show version number
   --hot            Enable hot reload (default in start mode)
   --port=<port>    HMR server port (default: 8887)
+  --tag=<tag>      WordPress version tag (auto-detects latest if not specified)
+  --dry-run        Show what would be done without making changes
 
 ${pc.bold('Configuration:')}
   Configure via package.json "10up-toolkit" field.
   See documentation for all options.
 
 ${pc.bold('Examples:')}
-  10up-build              # Production build
-  10up-build start        # Development with hot reload
-  10up-build watch        # Watch without hot reload
-  10up-build build --sourcemap
+  10up-build                            # Production build
+  10up-build start                      # Development with hot reload
+  10up-build watch                      # Watch without hot reload
+  10up-build sync-wp-deps               # Install @wordpress deps (auto-detects latest WP)
+  10up-build sync-wp-deps --tag=wp-6.8  # Use specific WP version tag
+  10up-build update-wp-deps --tag=wp-6.9  # Update to new WP version
+  10up-build list-wp-deps               # Show installed @wordpress deps
 `);
 }
 
@@ -66,7 +75,7 @@ ${pc.bold('Examples:')}
  * Show version
  */
 function showVersion(): void {
-	console.log('10up-build v1.0.0-alpha.1');
+	console.log('10up-build v1.0.0-alpha.3');
 }
 
 /**
@@ -95,6 +104,31 @@ const commands: Commands = {
 			hot: flags.hot === true,
 			port: flags.port ? parseInt(String(flags.port), 10) : undefined,
 		});
+	},
+
+	'sync-wp-deps': async (args: string[]) => {
+		const { flags } = parseArgs(['sync-wp-deps', ...args]);
+		await syncWpDeps({
+			tag: flags.tag ? String(flags.tag) : undefined,
+			dryRun: flags['dry-run'] === true,
+		});
+	},
+
+	'update-wp-deps': async (args: string[]) => {
+		const { flags } = parseArgs(['update-wp-deps', ...args]);
+		if (!flags.tag) {
+			console.error(pc.red('Error: --tag is required for update-wp-deps'));
+			console.log(pc.dim('Example: 10up-build update-wp-deps --tag=wp-6.9'));
+			process.exit(1);
+		}
+		await updateWpDeps({
+			tag: String(flags.tag),
+			dryRun: flags['dry-run'] === true,
+		});
+	},
+
+	'list-wp-deps': async () => {
+		await listWpDeps();
 	},
 };
 

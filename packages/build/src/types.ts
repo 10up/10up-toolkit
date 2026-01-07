@@ -504,6 +504,12 @@ export interface Commands {
 	start: CommandHandler;
 	/** Watch mode without HMR */
 	watch: CommandHandler;
+	/** Sync @wordpress dependencies from source imports */
+	'sync-wp-deps': CommandHandler;
+	/** Update @wordpress dependencies to a new version tag */
+	'update-wp-deps': CommandHandler;
+	/** List installed @wordpress dependencies */
+	'list-wp-deps': CommandHandler;
 }
 
 /**

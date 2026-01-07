@@ -330,6 +330,9 @@ Features:
 | `10up-build build` | Production build (default) |
 | `10up-build start` | Development mode with HMR |
 | `10up-build watch` | Watch mode without HMR |
+| `10up-build sync-wp-deps` | Scan source files and install @wordpress/* as optional dependencies |
+| `10up-build update-wp-deps` | Update all @wordpress/* optional dependencies to a new version tag |
+| `10up-build list-wp-deps` | List installed @wordpress/* dependencies |
 
 ### Options
 
@@ -339,6 +342,117 @@ Features:
 | `--version`, `-v` | Show version number |
 | `--hot` | Enable hot reload |
 | `--port=<port>` | HMR server port |
+| `--tag=<tag>` | WordPress version tag for dependency commands (auto-detects latest if not specified) |
+| `--dry-run` | Show what would be done without making changes |
+
+## WordPress Dependency Management
+
+The build tool includes commands to manage `@wordpress/*` packages as optional dependencies. This provides better TypeScript support and IDE autocompletion while keeping the packages external at runtime (loaded from WordPress globals).
+
+### Why Optional Dependencies?
+
+When `@wordpress/*` packages are installed as optional dependencies:
+- **TypeScript/IDE support**: Full type definitions and autocompletion
+- **No bundle bloat**: Packages are still externalized (loaded from WordPress)
+- **Version alignment**: Match your target WordPress version exactly
+- **Dependency tracking**: Clear visibility of which packages your code uses
+
+### Syncing Dependencies
+
+Scan your source files for `@wordpress/*` imports and install them:
+
+```bash
+# Auto-detect latest WordPress version from API
+10up-build sync-wp-deps
+
+# Use a specific WordPress version tag
+10up-build sync-wp-deps --tag=wp-6.8
+
+# Preview changes without installing
+10up-build sync-wp-deps --dry-run
+```
+
+**Example output:**
+```
+10up-build - Sync WordPress Dependencies
+
+Fetching latest WordPress version...
+Using tag: wp-6.9
+
+Scanning for @wordpress/* imports...
+Found 7 @wordpress packages:
+
+  • @wordpress/block-editor
+  • @wordpress/blocks
+  • @wordpress/components
+  • @wordpress/data
+  • @wordpress/i18n
+  • @wordpress/icons
+  • @wordpress/interactivity
+
+Packages to install with tag wp-6.9:
+  + @wordpress/icons@wp-6.9
+  + @wordpress/interactivity@wp-6.9
+
+Already installed (5 packages):
+  • @wordpress/block-editor@^15.6.8
+  ...
+```
+
+### Updating Dependencies
+
+Update all `@wordpress/*` optional dependencies to a new WordPress version:
+
+```bash
+# Update to WordPress 6.9
+10up-build update-wp-deps --tag=wp-6.9
+
+# Preview changes
+10up-build update-wp-deps --tag=wp-7.0 --dry-run
+```
+
+**Note:** WordPress npm tags follow the pattern `wp-X.Y` (major.minor only). Patch releases don't get new npm tags, so `wp-6.9` covers 6.9.0, 6.9.1, 6.9.2, etc.
+
+### Listing Dependencies
+
+View currently installed `@wordpress/*` packages and check for missing imports:
+
+```bash
+10up-build list-wp-deps
+```
+
+**Example output:**
+```
+10up-build - WordPress Dependencies
+
+Installed @wordpress packages (5):
+
+  • @wordpress/block-editor@^15.6.8
+  • @wordpress/blocks@^15.6.2
+  • @wordpress/components@^30.6.4
+  • @wordpress/data@^10.33.1
+  • @wordpress/i18n@^6.6.1
+
+Scanning source files for imports...
+
+Missing packages (2):
+  ! @wordpress/icons
+  ! @wordpress/interactivity
+
+Run 10up-build sync-wp-deps to install missing packages.
+```
+
+### Version Tags
+
+WordPress packages on npm are tagged by WordPress version:
+
+| WordPress Version | npm Tag |
+|-------------------|---------|
+| 6.9.x | `wp-6.9` |
+| 6.8.x | `wp-6.8` |
+| 6.7.x | `wp-6.7` |
+
+When no `--tag` is specified, `sync-wp-deps` automatically fetches the latest WordPress version from the WordPress.org API.
 
 ## Output Structure
 
