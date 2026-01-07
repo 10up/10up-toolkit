@@ -49,12 +49,13 @@ ${pc.bold('Commands:')}
   list-wp-deps   List installed @wordpress/* dependencies
 
 ${pc.bold('Options:')}
-  --help, -h       Show this help message
-  --version, -v    Show version number
-  --hot            Enable hot reload (default in start mode)
-  --port=<port>    HMR server port (default: 8887)
-  --tag=<tag>      WordPress version tag (auto-detects latest if not specified)
-  --dry-run        Show what would be done without making changes
+  --help, -h         Show this help message
+  --version, -v      Show version number
+  --hot              Enable hot reload (default in start mode)
+  --port=<port>      HMR server port (default: 8887)
+  --tag=<tag>        WordPress version tag (auto-detects latest if not specified)
+  --dry-run          Show what would be done without making changes
+  --workspace-scan   Scan all workspaces and install at monorepo root
 
 ${pc.bold('Configuration:')}
   Configure via package.json "10up-toolkit" field.
@@ -66,6 +67,7 @@ ${pc.bold('Examples:')}
   10up-build watch                      # Watch without hot reload
   10up-build sync-wp-deps               # Install @wordpress deps (auto-detects latest WP)
   10up-build sync-wp-deps --tag=wp-6.8  # Use specific WP version tag
+  10up-build sync-wp-deps --workspace-scan  # Scan all workspaces, install at root
   10up-build update-wp-deps --tag=wp-6.9  # Update to new WP version
   10up-build list-wp-deps               # Show installed @wordpress deps
 `);
@@ -75,7 +77,7 @@ ${pc.bold('Examples:')}
  * Show version
  */
 function showVersion(): void {
-	console.log('10up-build v1.0.0-alpha.3');
+	console.log('10up-build v1.0.0-alpha.5');
 }
 
 /**
@@ -111,6 +113,7 @@ const commands: Commands = {
 		await syncWpDeps({
 			tag: flags.tag ? String(flags.tag) : undefined,
 			dryRun: flags['dry-run'] === true,
+			workspaceScan: flags['workspace-scan'] === true,
 		});
 	},
 

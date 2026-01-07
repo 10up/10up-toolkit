@@ -399,6 +399,49 @@ Already installed (5 packages):
   ...
 ```
 
+### Monorepo Support
+
+For monorepos, use `--workspace-scan` to scan all workspaces and install dependencies at the root level. This is much faster than installing in each workspace individually:
+
+```bash
+# From anywhere in the monorepo
+10up-build sync-wp-deps --workspace-scan
+
+# With a specific tag
+10up-build sync-wp-deps --workspace-scan --tag=wp-6.8
+
+# Preview what would be installed
+10up-build sync-wp-deps --workspace-scan --dry-run
+```
+
+**Example output:**
+```
+10up-build - Sync WordPress Dependencies
+
+Fetching latest WordPress version...
+Using tag: wp-6.9
+
+Monorepo root: /path/to/monorepo
+
+Scanning 15 workspaces for @wordpress/* imports...
+
+  • plugins/my-plugin: 7 packages
+  • plugins/another-plugin: 5 packages
+  • themes/my-theme: 3 packages
+
+Found 12 unique @wordpress packages:
+
+  • @wordpress/block-editor
+  • @wordpress/blocks
+  • @wordpress/components
+  ...
+
+Installing at monorepo root: /path/to/monorepo
+
+Installing 12 packages...
+✓ WordPress dependencies synced successfully!
+```
+
 ### Updating Dependencies
 
 Update all `@wordpress/*` optional dependencies to a new WordPress version:

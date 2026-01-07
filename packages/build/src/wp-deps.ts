@@ -5,8 +5,8 @@
  */
 
 import { execSync } from 'child_process';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
 import pc from 'picocolors';
 import fg from 'fast-glob';
 
@@ -190,14 +190,100 @@ function getExistingWpDeps(packageJson: Record<string, unknown>): Map<string, st
 }
 
 /**
+ * Find the monorepo root by looking for package.json with workspaces field
+ */
+function findMonorepoRoot(startDir: string): string | null {
+	let dir = startDir;
+	while (dir !== dirname(dir)) {
+		const packageJsonPath = join(dir, 'package.json');
+		if (existsSync(packageJsonPath)) {
+			try {
+				const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+				if (packageJson.workspaces) {
+					return dir;
+				}
+			} catch {
+				// Continue searching
+			}
+		}
+		dir = dirname(dir);
+	}
+	return null;
+}
+
+/**
+ * Get workspace directories from monorepo root
+ */
+async function getWorkspaceDirectories(rootDir: string): Promise<string[]> {
+	const packageJson = readPackageJson(rootDir);
+	const workspaces = packageJson.workspaces as string[] | { packages: string[] } | undefined;
+
+	if (!workspaces) {
+		return [];
+	}
+
+	// Handle both array format and object format { packages: [...] }
+	const patterns = Array.isArray(workspaces) ? workspaces : workspaces.packages || [];
+
+	// Expand glob patterns to find actual workspace directories
+	const directories: string[] = [];
+
+	for (const pattern of patterns) {
+		// Find directories matching the pattern that contain package.json
+		const matches = await fg([`${pattern}/package.json`], {
+			cwd: rootDir,
+			absolute: true,
+			onlyFiles: true,
+		});
+
+		for (const match of matches) {
+			directories.push(dirname(match));
+		}
+	}
+
+	return directories;
+}
+
+/**
+ * Scan all workspaces for @wordpress/* imports
+ */
+async function scanWorkspacesForWordPressImports(
+	rootDir: string,
+	workspaceDirs: string[],
+): Promise<Set<string>> {
+	const allImports = new Set<string>();
+
+	console.log(`Scanning ${pc.bold(String(workspaceDirs.length))} workspaces for @wordpress/* imports...\n`);
+
+	for (const dir of workspaceDirs) {
+		const imports = await scanForWordPressImports(dir);
+		if (imports.size > 0) {
+			const relativePath = dir.replace(rootDir + '/', '');
+			console.log(`  ${pc.dim('•')} ${relativePath}: ${imports.size} packages`);
+			for (const pkg of imports) {
+				allImports.add(pkg);
+			}
+		}
+	}
+
+	return allImports;
+}
+
+/**
  * Sync @wordpress dependencies
  *
  * Scans source files for @wordpress/* imports and installs them
  * as optional dependencies using the specified WordPress version tag.
+ *
+ * With --workspace-scan, scans all workspaces in a monorepo and installs
+ * dependencies at the root level for better performance.
  */
-export async function syncWpDeps(options: { tag?: string; dryRun?: boolean } = {}): Promise<void> {
+export async function syncWpDeps(
+	options: { tag?: string; dryRun?: boolean; workspaceScan?: boolean } = {},
+): Promise<void> {
 	const cwd = process.cwd();
 	const dryRun = options.dryRun || false;
+	const workspaceScan = options.workspaceScan || false;
 
 	console.log(pc.cyan('\n10up-build') + ' - Sync WordPress Dependencies\n');
 
@@ -209,17 +295,42 @@ export async function syncWpDeps(options: { tag?: string; dryRun?: boolean } = {
 		console.log(`Using tag: ${pc.cyan(tag)}\n`);
 	}
 
-	console.log(`Scanning for @wordpress/* imports...`);
+	let foundImports: Set<string>;
+	let installDir: string;
 
-	// Scan for imports
-	const foundImports = await scanForWordPressImports(cwd);
+	if (workspaceScan) {
+		// Find monorepo root
+		const monorepoRoot = findMonorepoRoot(cwd);
+		if (!monorepoRoot) {
+			console.error(pc.red('Error: Could not find monorepo root (no package.json with workspaces field).'));
+			console.log(pc.dim('Run from within a monorepo or use without --workspace-scan.'));
+			process.exit(1);
+		}
+
+		console.log(`Monorepo root: ${pc.dim(monorepoRoot)}\n`);
+		installDir = monorepoRoot;
+
+		// Get all workspace directories
+		const workspaceDirs = await getWorkspaceDirectories(monorepoRoot);
+		if (workspaceDirs.length === 0) {
+			console.error(pc.red('Error: No workspaces found in monorepo.'));
+			process.exit(1);
+		}
+
+		// Scan all workspaces
+		foundImports = await scanWorkspacesForWordPressImports(monorepoRoot, workspaceDirs);
+	} else {
+		console.log(`Scanning for @wordpress/* imports...`);
+		foundImports = await scanForWordPressImports(cwd);
+		installDir = cwd;
+	}
 
 	if (foundImports.size === 0) {
 		console.log(pc.yellow('\nNo @wordpress/* imports found in source files.'));
 		return;
 	}
 
-	console.log(`Found ${pc.bold(String(foundImports.size))} @wordpress packages:\n`);
+	console.log(`\nFound ${pc.bold(String(foundImports.size))} unique @wordpress packages:\n`);
 
 	// Sort for consistent output
 	const sortedImports = Array.from(foundImports).sort();
@@ -227,8 +338,8 @@ export async function syncWpDeps(options: { tag?: string; dryRun?: boolean } = {
 		console.log(`  ${pc.dim('•')} ${pkg}`);
 	}
 
-	// Read current package.json
-	const packageJson = readPackageJson(cwd);
+	// Read package.json from install directory
+	const packageJson = readPackageJson(installDir);
 	const existingDeps = getExistingWpDeps(packageJson);
 
 	// Determine what needs to be installed
@@ -260,6 +371,10 @@ export async function syncWpDeps(options: { tag?: string; dryRun?: boolean } = {
 		}
 	}
 
+	if (workspaceScan) {
+		console.log(`\n${pc.dim('Installing at monorepo root:')} ${installDir}`);
+	}
+
 	if (dryRun) {
 		console.log(pc.yellow('\nDry run - no changes made.'));
 		console.log(`Run without --dry-run to install packages.`);
@@ -272,7 +387,7 @@ export async function syncWpDeps(options: { tag?: string; dryRun?: boolean } = {
 	const installCmd = `npm install --save-optional ${toInstall.map(p => `${p}@${tag}`).join(' ')}`;
 
 	try {
-		execSync(installCmd, { cwd, stdio: 'inherit' });
+		execSync(installCmd, { cwd: installDir, stdio: 'inherit' });
 		console.log(pc.green('\n✓ WordPress dependencies synced successfully!'));
 	} catch (error) {
 		throw new Error('Failed to install packages. Check npm output above.');
