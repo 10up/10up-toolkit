@@ -1,5 +1,7 @@
 # @10up/build
 
+> **WARNING: This is pre-release alpha software. APIs may change without notice. Use at your own risk in production environments.**
+
 > Fast esbuild-powered build tool for WordPress block development
 
 ## Overview
