@@ -83,7 +83,12 @@ module.exports = {
 			},
 		],
 		'selector-attribute-quotes': 'always',
-		'selector-class-pattern': null,
+		'selector-class-pattern': [
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+			{
+				message: 'Expected class selector to be kebab-case (selector-class-pattern)',
+			},
+		],
 		'selector-id-pattern': [
 			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 			{
