@@ -36,6 +36,7 @@ module.exports = {
 				ignore: ['consecutive-duplicates'],
 			},
 		],
+		'declaration-no-important': true,
 		'declaration-property-unit-allowed-list': {
 			'line-height': ['px'],
 		},
