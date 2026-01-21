@@ -104,6 +104,12 @@ module.exports = {
 			},
 		],
 		'selector-nested-pattern': '^&|\\s&$',
+		'selector-no-qualifying-type': [
+			true,
+			{
+				ignore: ['attribute'],
+			},
+		],
 		'selector-pseudo-element-colon-notation': 'double',
 		'selector-type-case': 'lower',
 		'stylistic/at-rule-name-case': 'lower',
