@@ -97,6 +97,12 @@ module.exports = {
 			},
 		],
 		'selector-max-id': 0,
+		'selector-max-specificity': [
+			'0,2,1',
+			{
+				message: 'Selector specificity must be 0,2,1 or lower per 10up guidelines',
+			},
+		],
 		'selector-nested-pattern': '^&|\\s&$',
 		'selector-pseudo-element-colon-notation': 'double',
 		'selector-type-case': 'lower',
