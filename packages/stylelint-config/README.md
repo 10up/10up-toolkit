@@ -105,11 +105,75 @@ plugins: [
 
 Read more about these options at [stylelint-webpack-plugin](https://github.com/webpack-contrib/stylelint-webpack-plugin), [the main stylelint documentation](https://stylelint.io/) and [postcss-loader](https://github.com/postcss/postcss-loader). That should be all you need, but if there are any errors in this documentation, [please file an issue and let us know](https://github.com/10up/stylelint-config/issues/new)!
 
+## 10up CSS Best Practices Alignment
+
+This configuration enforces the [10up Engineering Best Practices for CSS](https://10up.github.io/Engineering-Best-Practices/css/). Below are the key principles and how they are enforced through linting rules.
+
+### Low Specificity
+
+Keeping specificity low makes CSS more maintainable and easier to override when needed.
+
+**Enforced Rules:**
+- `selector-max-specificity: "0,2,1"` - Limits selector specificity to a maximum of 0 IDs, 2 classes/attributes, and 1 element
+- `selector-max-id: 0` - Disallows ID selectors for styling (IDs should be reserved for JavaScript hooks and anchors)
+- `max-nesting-depth: 2` - Limits nesting to 2 levels maximum (pseudo-classes are excluded from this count)
+- `no-descending-specificity: true` - Prevents specificity issues where a less specific selector comes after a more specific one
+
+### Avoid !important
+
+The `!important` declaration should be avoided as it makes CSS harder to maintain and override.
+
+**Enforced Rules:**
+- `declaration-no-important: true` - Disallows the use of `!important`
+
+### Naming Conventions
+
+Consistent naming makes CSS more readable and maintainable. All names should use kebab-case and be semantic rather than presentational.
+
+**Enforced Rules:**
+- `selector-class-pattern` - Enforces kebab-case for class names (e.g., `.button-primary`, `.card-header`)
+- `keyframes-name-pattern` - Enforces kebab-case for animation names (e.g., `@keyframes fade-in`)
+- `selector-id-pattern` - Enforces kebab-case for IDs when they are used
+- `custom-property-pattern` - Enforces kebab-case for CSS custom properties, with special support for WordPress preset patterns
+
+### Selector Quality
+
+Writing efficient, maintainable selectors improves performance and reduces specificity issues.
+
+**Enforced Rules:**
+- `selector-no-qualifying-type: true` - Prevents qualifying class selectors with type selectors (e.g., `a.button` should be `.button`)
+- `shorthand-property-no-redundant-values: true` - Ensures shorthand properties don't contain redundant values (e.g., `margin: 10px 10px` should be `margin: 10px`)
+
+### Additional Best Practices
+
+The configuration also enforces:
+- Consistent code formatting through stylistic rules
+- Alphabetical ordering of properties for easier scanning
+- Strict color value usage (colors should use custom properties)
+- Proper quotes around URLs, attribute selectors, and font families
+
+## Overriding Rules
+
+While these rules align with 10up best practices, there may be cases where you need to override specific rules for your project. You can do this in your project's `.stylelintrc`:
+
+```js
+{
+  "extends": ["@10up/stylelint-config"],
+  "rules": {
+    // Override specific rules as needed
+    "selector-max-specificity": "0,3,2",
+    "declaration-no-important": null
+  }
+}
+```
+
+When overriding rules, document the reasoning in your project's CSS architecture documentation to maintain clarity for future maintainers.
+
 ## Autofixing
 
-Certain rules / violations can be fixed automatically using the `--fix` flag via the command line.
+Certain rules and violations can be fixed automatically using the `--fix` flag via the command line.
 To ensure that Stylelint fixes what it can, you can run:
 
 ```bash
-stylelint path/to/css/file.css --fix`
+stylelint path/to/css/file.css --fix
 ```
