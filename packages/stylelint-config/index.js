@@ -112,6 +112,7 @@ module.exports = {
 		],
 		'selector-pseudo-element-colon-notation': 'double',
 		'selector-type-case': 'lower',
+		'shorthand-property-no-redundant-values': true,
 		'stylistic/at-rule-name-case': 'lower',
 		'stylistic/at-rule-name-space-after': 'always-single-line',
 		'stylistic/at-rule-semicolon-newline-after': 'always',
