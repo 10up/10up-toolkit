@@ -67,7 +67,7 @@ module.exports = {
 				ignore: ['pseudo-classes'],
 			},
 		],
-		'no-descending-specificity': null,
+		'no-descending-specificity': true,
 		'number-max-precision': 4,
 		'order/properties-alphabetical-order': true,
 		'rule-empty-line-before': [
