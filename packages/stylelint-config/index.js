@@ -61,6 +61,12 @@ module.exports = {
 			},
 		],
 		'length-zero-no-unit': true,
+		'max-nesting-depth': [
+			2,
+			{
+				ignore: ['pseudo-classes'],
+			},
+		],
 		'no-descending-specificity': null,
 		'number-max-precision': 4,
 		'order/properties-alphabetical-order': true,
