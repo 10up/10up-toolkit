@@ -54,6 +54,12 @@ module.exports = {
 			},
 		],
 		'function-url-quotes': 'always',
+		'keyframes-name-pattern': [
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+			{
+				message: 'Expected keyframe name to be kebab-case (keyframes-name-pattern)',
+			},
+		],
 		'length-zero-no-unit': true,
 		'no-descending-specificity': null,
 		'number-max-precision': 4,
