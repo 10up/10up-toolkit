@@ -33,12 +33,18 @@ Or via CLI flag:
 
 **WordPress Integration:**
 
-Register the collection in your theme or plugin:
+Register the collection and automatically register all blocks:
 ```php
-wp_register_block_metadata_collection(
-    get_template_directory() . '/dist/blocks',
-    get_template_directory() . '/dist/blocks-manifest.php'
-);
+$blocks_dir = get_template_directory() . '/dist/blocks';
+$manifest_path = get_template_directory() . '/dist/blocks-manifest.php';
+
+wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+// Automatically register all blocks from the manifest
+$manifest = require $manifest_path;
+foreach ( array_keys( $manifest ) as $block_dir ) {
+    register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+}
 ```
 
 **Benefits:**

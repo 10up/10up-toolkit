@@ -264,23 +264,54 @@ Or use the CLI flag for one-time generation:
 
 #### WordPress Integration
 
-Once the manifest is generated, register it in your theme's `functions.php` or plugin entry point:
+Once the manifest is generated, register the collection and your block types. Add this to your theme's `functions.php` or plugin entry point.
+
+**Recommended approach (automatic registration):**
+
+```php
+// Register the block metadata collection
+$blocks_dir = get_template_directory() . '/dist/blocks';
+$manifest_path = get_template_directory() . '/dist/blocks-manifest.php';
+
+wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+// Automatically register all blocks from the manifest
+$manifest = require $manifest_path;
+foreach ( array_keys( $manifest ) as $block_dir ) {
+    register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+}
+```
+
+**For plugins:**
+
+```php
+// Register the block metadata collection
+$blocks_dir = plugin_dir_path( __FILE__ ) . 'dist/blocks';
+$manifest_path = plugin_dir_path( __FILE__ ) . 'dist/blocks-manifest.php';
+
+wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+// Automatically register all blocks from the manifest
+$manifest = require $manifest_path;
+foreach ( array_keys( $manifest ) as $block_dir ) {
+    register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+}
+```
+
+**Manual registration (if you need more control):**
 
 ```php
 wp_register_block_metadata_collection(
     get_template_directory() . '/dist/blocks',
     get_template_directory() . '/dist/blocks-manifest.php'
 );
+
+// Register specific blocks only
+register_block_type_from_metadata( get_template_directory() . '/dist/blocks/example-block' );
+register_block_type_from_metadata( get_template_directory() . '/dist/blocks/another-block' );
 ```
 
-For plugins:
-
-```php
-wp_register_block_metadata_collection(
-    plugin_dir_path( __FILE__ ) . 'dist/blocks',
-    plugin_dir_path( __FILE__ ) . 'dist/blocks-manifest.php'
-);
-```
+The `wp_register_block_metadata_collection()` function tells WordPress about the manifest file. WordPress will then use the manifest data when you register individual block types with `register_block_type_from_metadata()`, avoiding the need to read each `block.json` file separately. The automatic registration approach loops through all blocks in the manifest, making it easier to maintain as you add or remove blocks.
 
 #### How It Works
 
