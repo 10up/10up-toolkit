@@ -14,6 +14,7 @@ const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
+const BuildBlocksManifestPlugin = require('./plugins/build-blocks-manifest');
 
 const {
 	hasStylelintConfig,
@@ -47,6 +48,7 @@ module.exports = ({
 		analyze,
 		hot,
 		useBlockAssets,
+		useBlockManifest,
 	},
 	packageConfig: { style },
 	buildFiles,
@@ -218,6 +220,11 @@ module.exports = ({
 		new CleanExtractedDeps(),
 		new RemoveEmptyScriptsPlugin(),
 		new TenUpToolkitTscPlugin(),
+		useBlockAssets &&
+			useBlockManifest &&
+			new BuildBlocksManifestPlugin({
+				outputPath: resolve(process.cwd(), 'dist'),
+			}),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
 			new ReactRefreshWebpackPlugin({
