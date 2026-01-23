@@ -67,6 +67,12 @@ To include a changeset follow these steps:
 
 A github bot will check if you PR include a changeset file. If it doesn't you will be warned in the PR.
 
+### Publishing to npm
+
+This repository uses [npm trusted publishing with OIDC](https://docs.npmjs.com/trusted-publishers/) for secure, automated releases. The release workflow authenticates directly with npm using short-lived tokens, eliminating the need for long-lived npm tokens.
+
+All releases are handled by the unified `release.yml` workflow, which automatically publishes packages with cryptographic provenance attestations.
+
 ### @next releases
 
 Whenever a PR is merged to the `develop` branch, if it contains a changeset a new PR will be opened automatically against `develop` to bump versions and push to `npm` under the `next` tag. Merging this PR opened by `changeset` will trigger the release flow.
@@ -78,7 +84,7 @@ Here's a summary of the process
 2. Wait for `changeset` to open a new PR called `Release (next)`.
 3. Optionally merge more PRs into `develop` if you want to include other changes in the same release. Doing so will update the `Release (next)` PR automatically.
 4. Merge the PR opened by `changeset` into `develop`.
-5. A new release under the `next` tag will be pushed to npm.
+5. A new release under the `next` tag will be pushed to npm via OIDC authentication.
 6. A new GitHub Release with the changelog will be created automatically.
 
 ### Stable releases
@@ -94,6 +100,6 @@ Here's a summary of the process
 2. Merge `develop` into `trunk`.
 2. Wait for `changeset` to open a new PR called `Release`.
 4. Merge the PR opened by `changeset` into `trunk`.
-5. A new release under the `latest` tag will be pushed to npm.
+5. A new release under the `latest` tag will be pushed to npm via OIDC authentication.
 6. Merge `trunk` back into `develop`.
 7. A new GitHub Release with the changelog will be created automatically.
