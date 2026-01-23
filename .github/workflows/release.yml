@@ -50,3 +50,26 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  merge-to-develop:
+    name: Merge trunk to develop
+    runs-on: ubuntu-latest
+    needs: release
+    if: github.ref_name == 'trunk'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: Configure Git
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Merge trunk into develop
+        run: |
+          git fetch origin trunk
+          git merge origin/trunk --no-edit -m "chore: merge trunk into develop"
+          git push origin develop
