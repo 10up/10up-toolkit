@@ -317,12 +317,12 @@ The `wp_register_block_metadata_collection()` function tells WordPress about the
 
 The manifest generation integrates seamlessly with the existing build pipeline:
 
-1. Webpack builds and transforms all blocks (TS→JS, SCSS→CSS)
-2. CopyWebpackPlugin copies transformed `block.json` files to `dist/blocks/`
-3. BuildBlocksManifestPlugin scans `dist/blocks/` for all `block.json` files
-4. Generates `dist/blocks-manifest.php` with all block metadata
+1. Webpack builds and compiles all blocks (TypeScript, SCSS, etc.)
+2. CopyWebpackPlugin copies `block.json` files to `dist/blocks/` and transforms asset paths (`.ts` → `.js`, `.scss` → `.css`) via the existing `transformBlockJson` utility
+3. BuildBlocksManifestPlugin scans `dist/blocks/` for all transformed `block.json` files
+4. Generates `dist/blocks-manifest.php` containing all block metadata with the already-transformed asset paths
 
-In watch mode, the manifest automatically regenerates whenever block files change.
+In watch mode, the manifest automatically regenerates whenever block files change, preserving any path transformations from the build process.
 
 #### Performance Benefits
 

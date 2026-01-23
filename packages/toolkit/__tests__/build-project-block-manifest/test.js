@@ -64,11 +64,11 @@ describe('build project with block manifest generation', () => {
 		expect(manifestContent).toContain('file:./editor.css');
 	});
 
-	it('transforms TypeScript paths to JavaScript', () => {
+	it('manifest includes transformed JavaScript paths from TypeScript sources', () => {
 		const manifestPath = path.join(__dirname, 'dist', 'blocks-manifest.php');
 		const manifestContent = fs.readFileSync(manifestPath, 'utf8');
 
-		// Should not contain .ts extension
+		// Should not contain .ts extension (transformed by CopyWebpackPlugin)
 		expect(manifestContent).not.toContain('file:./index.ts');
 
 		// Should contain transformed .js extension for example-three
@@ -77,16 +77,16 @@ describe('build project with block manifest generation', () => {
 			/'example-three'\s*=>\s*array\(([\s\S]*?)\),\s*'example-(one|two)'/,
 		);
 
-		// Verify transformation happened
+		// Verify manifest includes the already-transformed path
 		expect(exampleThreeMatch).not.toBeNull();
 		expect(exampleThreeMatch[1]).toContain('file:./index.js');
 	});
 
-	it('transforms SCSS paths to CSS', () => {
+	it('manifest includes transformed CSS paths from SCSS sources', () => {
 		const manifestPath = path.join(__dirname, 'dist', 'blocks-manifest.php');
 		const manifestContent = fs.readFileSync(manifestPath, 'utf8');
 
-		// Should not contain .scss extension
+		// Should not contain .scss extension (transformed by CopyWebpackPlugin)
 		expect(manifestContent).not.toContain('file:./style.scss');
 
 		// Should contain transformed .css extension
@@ -94,7 +94,7 @@ describe('build project with block manifest generation', () => {
 			/'example-three'\s*=>\s*array\(([\s\S]*?)\),\s*('example-|$)/,
 		);
 
-		// Verify transformation happened
+		// Verify manifest includes the already-transformed path
 		expect(exampleThreeMatch).not.toBeNull();
 		expect(exampleThreeMatch[1]).toContain('file:./style.css');
 	});

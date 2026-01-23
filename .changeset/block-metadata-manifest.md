@@ -51,6 +51,6 @@ foreach ( array_keys( $manifest ) as $block_dir ) {
 - Improved performance for projects with many blocks (50+)
 - Reduced filesystem I/O operations
 - Better opcode caching for block metadata
-- Automatic asset path transformation (TS→JS, SCSS→CSS)
+- Preserves transformed asset paths from the build process (TS→JS, SCSS→CSS)
 
 The manifest is generated in `dist/blocks-manifest.php` and works seamlessly with the existing `useBlockAssets` workflow.
