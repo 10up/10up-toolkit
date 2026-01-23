@@ -183,6 +183,8 @@ const getTenUpScriptsConfig = () => {
 		include,
 		publicPath,
 		sourcemap: Boolean(config.sourcemap),
+		// CLI flags should always override package.json config
+		useBlockManifest: hasArgInCLI('--block-manifest') || config.useBlockManifest || false,
 		// these properties must be merged
 		filenames: {
 			...defaultConfig.filenames,
