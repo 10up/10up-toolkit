@@ -1,11 +1,16 @@
-name: Release @latest
+name: Release
 
 on:
   push:
     branches:
       - trunk
+      - develop
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  id-token: write    # Required for OIDC token generation
+  contents: write    # Required for changesets to push commits/tags
 
 jobs:
   release:
@@ -15,24 +20,32 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 18.x
+      - name: Setup Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install Dependencies
         run: npm ci
+
       - name: Promote from @next
+        if: github.ref_name == 'trunk'
         run: |
           [[ -f .changeset/pre.json ]] && { git config user.email "github-actions[bot]@users.noreply.github.com"; git config user.name "github-actions[bot]"; npx changeset pre exit; npx changeset version; git add -u; git commit -m "chore: promote from @next" --no-verify; git push --follow-tags; } || echo 'not in pre mode, no need to exit'
+
+      - name: Enter pre next
+        if: github.ref_name == 'develop'
+        run: |
+          [[ ! -f .changeset/pre.json ]] && npx changeset pre enter next || echo 'already in pre mode'
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npx changeset publish
-          commit: "chore: version packages"
+          commit: |
+            ${{ github.ref_name == 'develop' && 'chore: version packages (next)' || 'chore: version packages' }}
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
