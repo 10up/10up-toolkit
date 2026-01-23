@@ -1,0 +1,10 @@
+{
+	"name": "test-build-project-block-manifest",
+	"10up-toolkit": {
+		"useBlockAssets": true,
+		"useBlockManifest": true,
+		"paths": {
+			"blocksDir": "./__fixtures__/includes/blocks"
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"title": "Example Block One",
+	"description": "First example block",
+	"textdomain": "test-blocks",
+	"name": "test/example-one",
+	"icon": "feedback",
+	"category": "test-blocks",
+	"attributes": {
+		"content": {
+			"type": "string"
+		}
+	},
+	"supports": {
+		"align": false,
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}
