@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - trunk
+      - develop
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  id-token: write         # Required for OIDC token generation
+  contents: write         # Required for changesets to push commits/tags
+  pull-requests: write    # Required for changesets to create release PRs
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Promote from @next
+        if: github.ref_name == 'trunk'
+        run: |
+          [[ -f .changeset/pre.json ]] && { git config user.email "github-actions[bot]@users.noreply.github.com"; git config user.name "github-actions[bot]"; npx changeset pre exit; npx changeset version; git add -u; git commit -m "chore: promote from @next" --no-verify; git push --follow-tags; } || echo 'not in pre mode, no need to exit'
+
+      - name: Enter pre next
+        if: github.ref_name == 'develop'
+        run: |
+          [[ ! -f .changeset/pre.json ]] && npx changeset pre enter next || echo 'already in pre mode'
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npx changeset publish
+          commit: |
+            ${{ github.ref_name == 'develop' && 'chore: version packages (next)' || 'chore: version packages' }}
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  merge-to-develop:
+    name: Merge trunk to develop
+    runs-on: ubuntu-latest
+    needs: release
+    if: github.ref_name == 'trunk'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: Configure Git
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Merge trunk into develop
+        run: |
+          git fetch origin trunk
+          git merge origin/trunk --no-edit -m "chore: merge trunk into develop"
+          git push origin develop
