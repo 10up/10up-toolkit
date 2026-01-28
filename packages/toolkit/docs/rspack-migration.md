@@ -89,6 +89,7 @@ Tested on macOS with webpack 5.95.0 vs RSPack 1.7.4:
    | `terser-webpack-plugin` | `SwcJsMinimizerRspackPlugin` (built-in) |
    | `eslint-webpack-plugin` | `eslint-rspack-plugin` |
    | `@pmmmwh/react-refresh-webpack-plugin` | `@rspack/plugin-react-refresh` |
+   | `image-minimizer-webpack-plugin` | *(skipped - not compatible)* |
 
 4. **Forked Dependency Extraction Plugin**
    - Custom RSPack-compatible version of `@wordpress/dependency-extraction-webpack-plugin`
@@ -125,15 +126,19 @@ The faster SWC loader is used only for:
 - Linaria CSS-in-JS
 - Bundle analysis (`--analyze`)
 - Source maps
-- Image optimization
 
 ### Known Considerations
 
-1. **Custom webpack plugins**: Most webpack plugins work with RSPack, but some that rely on internal webpack APIs may need the webpack fallback.
+1. **Image optimization disabled**: The `image-minimizer-webpack-plugin` is not compatible with RSPack. When using RSPack, images (JPEG, PNG, WebP, AVIF, SVG) pass through without optimization. If you need automatic image optimization during builds, use the webpack fallback:
+   ```bash
+   BUNDLER=webpack npx 10up-toolkit build
+   ```
 
-2. **Custom webpack configuration**: If you have a custom `webpack.config.js`, it should work with RSPack. If not, use the webpack fallback.
+2. **Custom webpack plugins**: Most webpack plugins work with RSPack, but some that rely on internal webpack APIs may need the webpack fallback.
 
-3. **Snapshot tests**: If you have snapshot tests that capture webpack config output, they may need updating as plugin names differ slightly.
+3. **Custom webpack configuration**: If you have a custom `webpack.config.js`, it should work with RSPack. If not, use the webpack fallback.
+
+4. **Snapshot tests**: If you have snapshot tests that capture webpack config output, they may need updating as plugin names differ slightly.
 
 ## Troubleshooting
 
