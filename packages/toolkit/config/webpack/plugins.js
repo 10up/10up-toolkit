@@ -1,19 +1,30 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const WebpackBar = require('webpackbar');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { resolve } = require('path');
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin');
+
+const {
+	getCopyPlugin,
+	getCssExtractPlugin,
+	getEslintPlugin,
+	getReactRefreshPlugin,
+	getWebpackBar,
+	isRspack,
+} = require('../bundler');
+
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
+
+// Use our forked dependency extraction plugin for RSPack compatibility
+// The original @wordpress/dependency-extraction-webpack-plugin uses webpack internals
+// that are not fully compatible with RSPack
+const DependencyExtractionPlugin = isRspack()
+	? require('./plugins/dependency-extraction')
+	: require('@wordpress/dependency-extraction-webpack-plugin');
 
 const {
 	hasStylelintConfig,
@@ -88,6 +99,13 @@ module.exports = ({
 
 	const blocksSourceDirectory = resolve(process.cwd(), paths.blocksDir);
 
+	// Get the appropriate plugins based on bundler type
+	const CopyPlugin = getCopyPlugin();
+	const CssExtractPlugin = getCssExtractPlugin();
+	const ESLintPlugin = getEslintPlugin();
+	const ReactRefreshPlugin = getReactRefreshPlugin();
+	const WebpackBar = getWebpackBar();
+
 	return [
 		devServer &&
 			new HtmlWebpackPlugin({
@@ -99,49 +117,58 @@ module.exports = ({
 			lintDirtyModulesOnly: true,
 		}),
 		shouldCompileVanillaExtract && new VanillaExtractPlugin(),
-		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
-		new MiniCSSExtractPlugin({
+		// CssExtractPlugin to extract the CSS that gets imported into JavaScript.
+		new CssExtractPlugin({
 			filename: (options) => {
 				if (isPackage) {
 					return removeDistFolder(style);
 				}
 
-				let entryModules = [];
-				try {
-					// with the react fast refresh plugin
-					// we cannot always assume there's a single entry module
-					// so we need to check if any of the entry modules are relative to blocksSourceDirectory
-					entryModules = options.chunk.getModules().filter((module) => {
-						return module.isEntryModule();
-					});
-				} catch (e) {
+				const chunkName = options.chunk.name;
+				let isBlockAsset = false;
+
+				// First try to check using entry modules (webpack-specific, may not work with RSPack)
+				if (!isRspack()) {
+					let entryModules = [];
 					try {
-						// if it failed it's bc there's only one entryModule
-						entryModules.push(options.chunk.entryModule);
+						// with the react fast refresh plugin
+						// we cannot always assume there's a single entry module
+						// so we need to check if any of the entry modules are relative to blocksSourceDirectory
+						entryModules = options.chunk.getModules().filter((module) => {
+							return module.isEntryModule && module.isEntryModule();
+						});
 					} catch (e) {
-						entryModules = [];
+						try {
+							// if it failed it's bc there's only one entryModule
+							if (options.chunk.entryModule) {
+								entryModules.push(options.chunk.entryModule);
+							}
+						} catch (e) {
+							entryModules = [];
+						}
 					}
+
+					isBlockAsset = entryModules.some((module) => {
+						const fullPath = module.resource;
+
+						return fullPath
+							? !path
+									.relative(blocksSourceDirectory, fullPath)
+									// startWith('../') but in a cross-env way
+									.startsWith(path.join('..', '/'))
+							: false;
+					});
 				}
 
-				let isBlockAsset = entryModules.some((module) => {
-					const fullPath = module.resource;
-
-					return fullPath
-						? !path
-								.relative(blocksSourceDirectory, fullPath)
-								// startWith('../') but in a cross-env way
-								.startsWith(path.join('..', '/'))
-						: false;
-				});
-
+				// Fallback: check by chunk name or build file path
 				if (!isBlockAsset) {
-					if (useBlockAssets) {
+					if (useBlockAssets && buildFiles[chunkName]) {
 						isBlockAsset =
 							// match windows and posix paths
-							buildFiles[options.chunk.name].match(/\/blocks?\//) ||
-							buildFiles[options.chunk.name].match(/\\blocks?\\/);
-					} else {
-						isBlockAsset = options.chunk.name.match(/-block$/);
+							buildFiles[chunkName].match(/\/blocks?\//) ||
+							buildFiles[chunkName].match(/\\blocks?\\/);
+					} else if (!useBlockAssets) {
+						isBlockAsset = chunkName && chunkName.match(/-block$/);
 					}
 				}
 
@@ -152,7 +179,7 @@ module.exports = ({
 
 		!isPackage &&
 			// Copy static assets to the `dist` folder.
-			new CopyWebpackPlugin({
+			new CopyPlugin({
 				patterns: [
 					{
 						from: '**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}',
@@ -201,7 +228,7 @@ module.exports = ({
 		// generated, and the default externals set.
 		wpDependencyExternals &&
 			!isPackage &&
-			new DependencyExtractionWebpackPlugin({
+			new DependencyExtractionPlugin({
 				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
@@ -220,9 +247,24 @@ module.exports = ({
 		new TenUpToolkitTscPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
-			new ReactRefreshWebpackPlugin({
-				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
-				exclude: [/node_module/, /outputCssLoader\.js/],
-			}),
+			new ReactRefreshPlugin(
+				isRspack()
+					? {
+							// RSPack plugin uses different options
+							overlay: {
+								sockHost: '127.0.0.1',
+								sockProtocol: 'ws',
+								sockPort: devServerPort,
+							},
+						}
+					: {
+							overlay: {
+								sockHost: '127.0.0.1',
+								sockProtocol: 'ws',
+								sockPort: devServerPort,
+							},
+							exclude: [/node_module/, /outputCssLoader\.js/],
+						},
+			),
 	].filter(Boolean);
 };
