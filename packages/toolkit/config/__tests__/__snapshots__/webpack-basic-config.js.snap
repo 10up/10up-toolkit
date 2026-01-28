@@ -150,7 +150,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -168,7 +168,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -195,7 +195,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -227,7 +227,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -258,7 +258,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -274,7 +274,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -292,7 +292,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "CleanExtractedDeps: {}",
@@ -472,7 +472,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -490,7 +490,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -517,7 +517,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -549,7 +549,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -580,7 +580,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -592,7 +592,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -620,11 +620,11 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "CopyPlugin: {}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
+    "CopyRspackPlugin: {}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+    "DependencyExtractionPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
     "CleanExtractedDeps: {}",
     "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
     "TenUpToolkitTscPlugin: {}",
@@ -803,7 +803,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -821,7 +821,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -848,7 +848,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -880,7 +880,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -911,7 +911,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -927,7 +927,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -945,7 +945,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "CleanExtractedDeps: {}",
@@ -1126,7 +1126,7 @@ exports[`webpack.config.js returns proper configs for package config with common
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -1144,7 +1144,7 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1171,7 +1171,7 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1203,7 +1203,7 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1234,7 +1234,7 @@ exports[`webpack.config.js returns proper configs for package config with common
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -1250,7 +1250,7 @@ exports[`webpack.config.js returns proper configs for package config with common
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -1268,7 +1268,7 @@ exports[`webpack.config.js returns proper configs for package config with common
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "CleanExtractedDeps: {}",
@@ -1450,7 +1450,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -1468,7 +1468,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1495,7 +1495,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1527,7 +1527,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1558,7 +1558,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -1574,7 +1574,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -1592,7 +1592,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
     "CleanExtractedDeps: {}",
@@ -1772,7 +1772,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
       {
         "test": /\\\\\\.vanilla\\\\\\.css\\$/i,
         "use": [
-          "/node_modules/mini-css-extract-plugin/dist/loader.js",
+          "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
             "options": {
@@ -1790,7 +1790,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
         "test": /\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1817,7 +1817,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
         "test": /\\\\\\.\\(sc\\|sa\\)ss\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1849,7 +1849,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
         "test": /\\\\\\.module\\\\\\.css\\$/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "/node_modules/css-loader/dist/cjs.js",
@@ -1880,7 +1880,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
         "test": /\\\\\\.linaria\\\\\\.module\\\\\\.css/,
         "use": [
           {
-            "loader": "/node_modules/mini-css-extract-plugin/dist/loader.js",
+            "loader": "/node_modules/@rspack/core/dist/cssExtractLoader.js",
           },
           {
             "loader": "css-loader",
@@ -1892,7 +1892,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
   "optimization": {
     "concatenateModules": false,
     "minimizer": [
-      "TerserPlugin: {"test":{},"extractComments":true,"parallel":true,"minimizer":{"options":{"parse":{"ecma":8},"compress":{"ecma":5,"warnings":false,"comparisons":false,"inline":2}}}}",
+      "SwcJsMinimizerRspackPlugin: {}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
@@ -1920,12 +1920,12 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
   "plugins": [
     "ESLintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/eslint-webpack-plugin/.eslintcache","extensions":"js","emitError":true,"emitWarning":true,"failOnError":false,"resourceQueryExclude":[],"fix":false,"lintDirtyModulesOnly":true}",
     "VanillaExtractPlugin: {}",
-    "MiniCssExtractPlugin: {"ignoreOrder":false,"runtime":true,"chunkFilename":"[id].css"}",
-    "CopyPlugin: {}",
+    "CssExtractRspackPlugin: {"chunkFilename":"[id].css"}",
+    "CopyRspackPlugin: {}",
     "NoBrowserSyncPlugin: {}",
     "StylelintWebpackPlugin: {"cache":true,"cacheLocation":"node_modules/.cache/stylelint-webpack-plugin/.stylelintcache","extensions":["css","scss","sass"],"emitError":true,"emitWarning":true,"failOnError":false,"context":"/assets2","files":"**/*.(s(c|a)ss|css)","allowEmptyInput":true,"lintDirtyModulesOnly":true,"configFile":"/config/stylelint.config.js"}",
     "WebpackBarPlugin: {"name":"webpack","color":"green","reporters":["basic"],"reporter":null}",
-    "DependencyExtractionWebpackPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
+    "DependencyExtractionPlugin: {"combineAssets":false,"combinedOutputFile":null,"externalizedReport":false,"injectPolyfill":false,"outputFormat":"php","outputFilename":null,"useDefaults":true}",
     "CleanExtractedDeps: {}",
     "WebpackRemoveEmptyScriptsPlugin: {"enabled":true,"verbose":false,"extensions":{},"ignore":[],"remove":{}}",
     "TenUpToolkitTscPlugin: {}",
