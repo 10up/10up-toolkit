@@ -3,21 +3,23 @@
 A collection of bundled scripts for 10up development.
 
 1. [Introduction](#introduction)
-2. [Authoring Projects](#projects)
-3. [HMR and Fast Refresh](#fast-refresh)
-4. [Linting](#linting)
-5. [Authoring Libraries](#libraries)
-6. [Customizations](#customizations)
-7. [CLI Options](#cli)
-8. [10up Projects](PROJECTS.md)
-9. [TypeScript Support](#typescript)
-10. [React & WordPress](#react)
-11. [Linaria (CSS-in-JS)](#linaria)
+2. [RSPack & Bundler Configuration](#bundler)
+3. [Authoring Projects](#projects)
+4. [HMR and Fast Refresh](#fast-refresh)
+5. [Linting](#linting)
+6. [Authoring Libraries](#libraries)
+7. [Customizations](#customizations)
+8. [CLI Options](#cli)
+9. [10up Projects](PROJECTS.md)
+10. [TypeScript Support](#typescript)
+11. [React & WordPress](#react)
+12. [Linaria (CSS-in-JS)](#linaria)
 
 ## <a id="introduction"></a>Introduction
 
-10up-toolkit is 10up's official asset bundling tool based on Webpack 5. It comes with support for many things commonly
-used across 10up's projects such as:
+10up-toolkit is 10up's official asset bundling tool. As of version 7.0, it uses [RSPack](https://rspack.dev/) as its default bundler, providing significantly faster builds while maintaining full compatibility with existing projects. Webpack remains available as a fallback option.
+
+It comes with support for many things commonly used across 10up's projects such as:
 
 - JavaScript transpilation through babel
 - core-js@3 automatic polyfill injection (project mode)
@@ -29,6 +31,46 @@ With 10up-toolkit, engineers can quickly and easily bundle assets for both produ
 to worry about config files. 10up-toolkit is also easy to extend to project's specifics needs.
 
 `10up-toolkit` is inspired in tools like `react-scripts`, `kcd-scripts` and `wp-scripts`.
+
+## <a id="bundler"></a>RSPack & Bundler Configuration
+
+As of version 7.0, 10up-toolkit uses [RSPack](https://rspack.dev/) as its default bundler. RSPack is a high-performance JavaScript bundler written in Rust that provides a webpack-compatible API, delivering ~20% faster builds for WordPress projects.
+
+### Performance
+
+| Project Type | webpack | RSPack | Improvement |
+|--------------|---------|--------|-------------|
+| WordPress Block Project | 584ms | 485ms | ~17% faster |
+| Vanilla Extract CSS-in-JS | 382ms | 315ms | ~18% faster |
+| Linaria CSS-in-JS | 391ms | 317ms | ~19% faster |
+| NPM Package Build | 880ms | 677ms | ~23% faster |
+
+### Using Webpack (Fallback)
+
+If you need to use webpack (for compatibility or debugging), you have two options:
+
+**Option 1: Environment Variable**
+```bash
+BUNDLER=webpack npx 10up-toolkit build
+BUNDLER=webpack npx 10up-toolkit start
+```
+
+**Option 2: Package.json Configuration**
+```json
+{
+  "10up-toolkit": {
+    "bundler": "webpack"
+  }
+}
+```
+
+### Full Documentation
+
+See the [RSPack Migration Guide](./docs/rspack-migration.md) for complete details including:
+- Technical implementation details
+- Compatibility notes
+- Troubleshooting guide
+- Migration checklist
 
 ### Installation
 
