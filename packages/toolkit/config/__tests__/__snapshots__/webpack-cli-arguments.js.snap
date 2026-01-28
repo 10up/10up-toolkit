@@ -277,8 +277,6 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
@@ -596,8 +594,6 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
@@ -928,8 +924,6 @@ exports[`webpack.config.js builds modules 1`] = `
       "concatenateModules": true,
       "minimizer": [
         "SwcJsMinimizerRspackPlugin: {}",
-        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       ],
       "runtimeChunk": false,
     },
@@ -1255,8 +1249,6 @@ exports[`webpack.config.js builds modules 1`] = `
       "concatenateModules": true,
       "minimizer": [
         "SwcJsMinimizerRspackPlugin: {}",
-        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-        "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
       ],
       "runtimeChunk": false,
     },
@@ -1584,8 +1576,6 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
@@ -1915,8 +1905,6 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
@@ -2250,8 +2238,6 @@ exports[`webpack.config.js returns proper configs for package config with common
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
@@ -2573,8 +2559,6 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
     "concatenateModules": false,
     "minimizer": [
       "SwcJsMinimizerRspackPlugin: {}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
-      "ImageMinimizerPlugin: {"minimizer":{},"loader":true,"test":{},"deleteOriginalAssets":true}",
     ],
     "runtimeChunk": false,
   },
