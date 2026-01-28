@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-
-const webpack = require('webpack');
+const { getBundler, getBundlerType } = require('../config/bundler');
 
 /**
  * Internal dependencies
@@ -27,7 +26,15 @@ if (hasArgInCLI('--watch')) {
 	}
 
 	const config = require(configPath);
-	const compiler = webpack(config);
+	const bundler = getBundler();
+	const compiler = bundler(config);
+
+	// Log which bundler is being used
+	const bundlerType = getBundlerType();
+	if (bundlerType === 'rspack') {
+		// eslint-disable-next-line no-console
+		console.log('10up-toolkit: Using RSPack for faster builds');
+	}
 
 	compiler.run((err, stats) => {
 		displayWebpackStats(err, stats);

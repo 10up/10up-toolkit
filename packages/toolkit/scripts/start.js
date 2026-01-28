@@ -1,9 +1,8 @@
 /**
  * External dependencies
  */
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
 const fs = require('fs');
+const { getBundler, getDevServer, getBundlerType } = require('../config/bundler');
 
 /**
  * Internal dependencies
@@ -29,15 +28,25 @@ if (hasWebpackConfig()) {
 let server;
 let compiler;
 
-const runWebpack = () => {
+const runBundler = () => {
 	const config = require(configPath);
-	compiler = webpack(config);
+	const bundler = getBundler();
+	const DevServer = getDevServer();
+
+	compiler = bundler(config);
+
+	// Log which bundler is being used
+	const bundlerType = getBundlerType();
+	if (bundlerType === 'rspack') {
+		// eslint-disable-next-line no-console
+		console.log('10up-toolkit: Using RSPack for faster builds');
+	}
 
 	const { devServer } = config;
 
 	if (devServer) {
 		const devServerOptions = { ...devServer, host: '127.0.0.1', open: false };
-		server = new WebpackDevServer(devServerOptions, compiler);
+		server = new DevServer(devServerOptions, compiler);
 
 		server.start();
 	} else {
@@ -56,23 +65,25 @@ const hot = hasArgInCLI('--hot');
 
 if (hot) {
 	// compile the fast refresh bundle
+	const bundler = getBundler();
 	const config = require(fromConfigRoot('webpack-fast-refresh.config.js'));
-	const compiler = webpack(config);
-	compiler.run((err, stats) => {
+	const fastRefreshCompiler = bundler(config);
+
+	fastRefreshCompiler.run((err, stats) => {
 		displayWebpackStats(err, stats);
 
-		compiler.close((closedErr) => {
+		fastRefreshCompiler.close((closedErr) => {
 			if (closedErr) {
 				// eslint-disable-next-line no-console
 				console.error(closedErr);
 			} else {
-				// we can only call runWebpack after the compiler has closed
-				runWebpack();
+				// we can only call runBundler after the compiler has closed
+				runBundler();
 			}
 		});
 	});
 } else {
-	runWebpack();
+	runBundler();
 }
 
 process.on('SIGINT', () => {
