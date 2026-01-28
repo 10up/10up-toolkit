@@ -2,7 +2,7 @@
  * Removes wp-polyfill from CSS assets extracted via @wordpress/dependency-extraction-webpack-plugin
  */
 
-const { RawSource } = require('webpack-sources');
+const { getSources } = require('../../bundler');
 
 class CleanExtractedDeps {
 	constructor(options) {
@@ -11,6 +11,8 @@ class CleanExtractedDeps {
 
 	apply(compiler) {
 		compiler.hooks.emit.tap('CleanExtractedDeps', (compilation) => {
+			const { RawSource } = getSources();
+
 			for (const [entrypointName, entrypoint] of compilation.entrypoints.entries()) {
 				let compilationAssetMatch = false;
 				let entryPointPath = false;
