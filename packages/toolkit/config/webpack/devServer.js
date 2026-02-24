@@ -1,3 +1,6 @@
+// Check for WebPack Dev Server version with fallback
+const { version: webpackDevServerVersion = '0' } = require('webpack-dev-server');
+
 module.exports = ({
 	isPackage,
 	isModule,
@@ -23,6 +26,19 @@ module.exports = ({
 			// do nothing
 		}
 
+		// If WebPack Dev Service version is v5.x.x, use the new proxy configuration
+		// Supports Toolkit upgrades where WDS was not updated to v5.x.x
+		const distProxyConfiguration = {
+			'/dist': {
+				pathRewrite: {
+					'^/dist': '',
+				},
+			},
+		};
+		const proxy = webpackDevServerVersion.startsWith('5.')
+			? [distProxyConfiguration]
+			: distProxyConfiguration;
+
 		return {
 			devMiddleware: {
 				writeToDisk: true,
@@ -37,13 +53,7 @@ module.exports = ({
 				},
 			},
 			port: Number(devServerPort),
-			proxy: {
-				'/dist': {
-					pathRewrite: {
-						'^/dist': '',
-					},
-				},
-			},
+			proxy,
 		};
 	}
 
