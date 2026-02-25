@@ -39,6 +39,25 @@ const getPackageVersion = async () => {
 };
 
 /**
+ * Returns the version of an installed npm package by name.
+ * Resolves the package's package.json so it works without importing the package.
+ * Uses read-pkg to read and parse the package.json.
+ *
+ * @param {string} packageName - The name of the npm package (e.g. 'webpack-dev-server').
+ * @param {string} [fallback='0'] - Value to return if the package is not installed or version is unreadable.
+ * @returns {string} The package version string or the fallback.
+ */
+const getInstalledPackageVersion = (packageName, fallback = '0') => {
+	try {
+		const pkgPath = require.resolve(`${packageName}/package.json`);
+		const pkg = readPkg.sync({ cwd: path.dirname(pkgPath) });
+		return typeof pkg.version === 'string' ? pkg.version : fallback;
+	} catch {
+		return fallback;
+	}
+};
+
+/**
  * Checks whether the passed package name is installed in the project.
  *
  * @param {string} packageName The name of npm package.
@@ -82,10 +101,11 @@ const isMinimumPackageVersion = (actual, min) => {
 };
 
 module.exports = {
+	getInstalledPackageVersion,
+	getPackage,
+	getPackagePath,
+	getPackageVersion,
+	hasPackageProp,
 	isMinimumPackageVersion,
 	isPackageInstalled,
-	getPackagePath,
-	hasPackageProp,
-	getPackage,
-	getPackageVersion,
 };

@@ -29,10 +29,11 @@ const {
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
 const {
-	hasPackageProp,
-	getPackagePath,
+	getInstalledPackageVersion,
 	getPackage,
+	getPackagePath,
 	getPackageVersion,
+	hasPackageProp,
 	isMinimumPackageVersion,
 } = require('./package');
 
@@ -69,6 +70,7 @@ module.exports = {
 	getJestOverrideConfigFile,
 	hasJestConfig,
 	getEnvironmentFromBranch,
+	getInstalledPackageVersion,
 	hasPackageProp,
 	hasPrettierConfig,
 	hasEslintConfig,

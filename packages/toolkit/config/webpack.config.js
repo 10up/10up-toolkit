@@ -1,9 +1,9 @@
 /**
  * Internal dependencies
  */
-const { version: webpackDevServerVersion = '0' } = require('webpack-dev-server');
 const {
 	getBuildFiles,
+	getInstalledPackageVersion,
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
 	isMinimumPackageVersion,
@@ -45,11 +45,12 @@ const defaultTargets = [
 ];
 
 const MIN_WDS_VERSION = '5.2.2';
-const useLegacyProxy = !isMinimumPackageVersion(webpackDevServerVersion, MIN_WDS_VERSION);
+const isHotReloadEnabled = projectConfig.devServer || projectConfig.hot;
 const isTestEnv = typeof process.env.JEST_WORKER_ID !== 'undefined';
+const webpackDevServerVersion = getInstalledPackageVersion('webpack-dev-server', '0');
+const useLegacyProxy = !isMinimumPackageVersion(webpackDevServerVersion, MIN_WDS_VERSION);
 
-// Skip warning in tests so snapshot/output isn't noisy; version check and useLegacyProxy still run.
-if (useLegacyProxy && !isTestEnv) {
+if (isHotReloadEnabled && useLegacyProxy && !isTestEnv) {
 	// eslint-disable-next-line no-console -- runtime warning for incompatible peer
 	console.warn(
 		`[10up-toolkit] webpack-dev-server ${webpackDevServerVersion} was resolved; ${MIN_WDS_VERSION} or newer is recommended.\n` +
