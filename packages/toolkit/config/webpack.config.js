@@ -54,7 +54,7 @@ if (useLegacyProxy && !isTestEnv) {
 	console.warn(
 		`[10up-toolkit] webpack-dev-server ${webpackDevServerVersion} was resolved; ${MIN_WDS_VERSION} or newer is recommended.\n` +
 			'  If you used --legacy-peer-deps or have an older version in your tree, install a matching version:\n' +
-			'  npm install --save-dev webpack-dev-server@^5.2.2',
+			`  npm install --save-dev webpack-dev-server@${MIN_WDS_VERSION}`,
 	);
 }
 
