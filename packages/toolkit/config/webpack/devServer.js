@@ -24,14 +24,22 @@ module.exports = ({
 			// do nothing
 		}
 
-		const distProxyConfiguration = {
+		const distProxyConfiguration = [
+			{
+				context: '/dist',
+				pathRewrite: {
+					'^/dist': '',
+				},
+			},
+		];
+		const legacyProxyConfiguration = {
 			'/dist': {
 				pathRewrite: {
 					'^/dist': '',
 				},
 			},
 		};
-		const proxy = useLegacyProxy ? distProxyConfiguration : [distProxyConfiguration];
+		const proxy = useLegacyProxy ? legacyProxyConfiguration : distProxyConfiguration;
 
 		return {
 			devMiddleware: {
