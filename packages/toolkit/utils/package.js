@@ -55,7 +55,34 @@ const isPackageInstalled = (packageName) => {
 	return false;
 };
 
+/**
+ * Compares two semver-like version strings (e.g. "5.2.2", "1.0.0-beta.1").
+ * Only the numeric segments are compared; non-numeric segments are treated as 0.
+ *
+ * @param {string} actual - The resolved version (e.g. from a package).
+ * @param {string} min   - The minimum required version.
+ * @returns {boolean} True if actual >= min, false otherwise.
+ */
+const isMinimumPackageVersion = (actual, min) => {
+	const actualVersions = actual.split('.').map(Number);
+	const minimumVersions = min.split('.').map(Number);
+
+	for (let i = 0; i < Math.max(actualVersions.length, minimumVersions.length); i++) {
+		const actualVersionLevel = actualVersions[i] || 0;
+		const minimumVersionLevel = minimumVersions[i] || 0;
+		if (actualVersionLevel > minimumVersionLevel) {
+			return true;
+		}
+		if (actualVersionLevel < minimumVersionLevel) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
 module.exports = {
+	isMinimumPackageVersion,
 	isPackageInstalled,
 	getPackagePath,
 	hasPackageProp,

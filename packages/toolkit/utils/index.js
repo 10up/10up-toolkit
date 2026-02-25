@@ -28,7 +28,13 @@ const {
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
-const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
+const {
+	hasPackageProp,
+	getPackagePath,
+	getPackage,
+	getPackageVersion,
+	isMinimumPackageVersion,
+} = require('./package');
 
 const { displayWebpackStats } = require('./webpack');
 
@@ -79,6 +85,7 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	isMinimumPackageVersion,
 	transformBlockJson,
 	getGitBranch,
 };

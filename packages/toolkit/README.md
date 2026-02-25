@@ -62,6 +62,8 @@ rm -rf node_modules package-lock.json && npm install
 
 The toolkit declares `webpack-dev-server` as a peer dependency so that your project’s dependency tree controls the version and upgrades are predictable when you run `npm install` after bumping the toolkit (npm 7+ installs peer dependencies automatically).
 
+**Scenarios where an older version can still be used:** Installing with `npm install --legacy-peer-deps` skips peer dependency installation and conflict checks, so an older or transitive copy of `webpack-dev-server` may be used. Pinning an old version in your own `package.json` or having another dependency that depends on an older `webpack-dev-server` can also leave an incompatible version in the tree. In those cases the toolkit will print a warning at runtime; install a matching version (e.g. `webpack-dev-server@^5.2.2`) in your project to clear it.
+
 ### Setting it up
 
 In order to get `10up-toolkit` up and running simply define the `source` and `main` properties in your `package.json` file.

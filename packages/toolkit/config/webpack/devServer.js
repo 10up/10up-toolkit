@@ -1,5 +1,16 @@
 // Check for WebPack Dev Server version with fallback
 const { version: webpackDevServerVersion = '0' } = require('webpack-dev-server');
+const { isMinimumPackageVersion } = require('../../utils');
+
+const MIN_WDS_VERSION = '5.2.2';
+if (!isMinimumPackageVersion(webpackDevServerVersion, MIN_WDS_VERSION)) {
+	// eslint-disable-next-line no-console -- runtime warning for incompatible peer
+	console.warn(
+		`[10up-toolkit] webpack-dev-server ${webpackDevServerVersion} was resolved; ${MIN_WDS_VERSION} or newer is recommended.\n` +
+			'  If you used --legacy-peer-deps or have an older version in your tree, install a matching version:\n' +
+			'  npm install --save-dev webpack-dev-server@^5.2.2',
+	);
+}
 
 module.exports = ({
 	isPackage,
