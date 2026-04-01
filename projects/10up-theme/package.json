@@ -17,16 +17,16 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "@linaria/babel-preset": "^5.0.3",
-    "@linaria/webpack-loader": "^5.0.3",
+    "@linaria/babel-preset": "^4.5.4",
+    "@linaria/webpack-loader": "^4.5.4",
     "@wordpress/env": "^10.10.0",
     "10up-toolkit": "^6.5.1"
   },
   "dependencies": {
     "@10up/block-components": "^1.18.0",
     "@10up/component-accordion": "^2.1.5",
-    "@linaria/core": "^5.0.2",
-    "@linaria/react": "^5.0.3",
+    "@linaria/core": "^4.5.4",
+    "@linaria/react": "^4.5.4",
     "@vanilla-extract/css": "^1.15.5",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
