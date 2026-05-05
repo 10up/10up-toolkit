@@ -74,10 +74,11 @@ module.exports = ({
 						);
 
 						// get the entrypoint name from the filepath by removing the blocks source directory and the file extension
-						const entryName = filepath
+						// normalize both sides to forward-slash, strip drive letters, so the replace works on Windows
+						const toPosix = (p) => p.replace(/\\/g, '/').replace(/^[a-zA-Z]:/, '');
+						const entryName = toPosix(filepath)
 							.replace(extname(filepath), '')
-							.replace(blocksSourceDirectory, '')
-							.replace(/\\/g, '/')
+							.replace(toPosix(blocksSourceDirectory), '')
 							.replace(/^\//, '');
 
 						// Detects the proper file extension used in the defined source directory.
