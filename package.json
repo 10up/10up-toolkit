@@ -21,12 +21,31 @@
     "projects/*"
   ],
   "bundleDependencies": false,
+  "overrides": {
+    "braces": "^3.0.3",
+    "cross-spawn": "^7.0.6",
+    "flatted": "3.4.2",
+    "form-data": "4.0.4",
+    "immutable": "4.3.8",
+    "micromatch": "^4.0.8",
+    "minimatch": "^9.0.7",
+    "node-forge": "1.4.0",
+    "path-to-regexp": "0.1.13",
+    "picomatch": "2.3.2",
+    "rollup": "^4.59.0",
+    "simple-git": "^3.33.0",
+    "svgo": "3.3.3",
+    "tar-fs": "3.1.2",
+    "ws": "^8.17.1",
+    "serialize-javascript": "7.0.5",
+    "webpack": "~5.95.0"
+  },
   "devDependencies": {
-	"@changesets/cli": "^2.26.1",
-	"husky": "^8.0.3",
-	"lint-staged": "^15.2.0",
-	"prettier": "^3.1.1"
-},
+    "@changesets/cli": "^2.26.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1"
+  },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
     "node": ">=20",
