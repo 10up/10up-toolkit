@@ -84,11 +84,11 @@
 		"@10up/eslint-config": ">=4.1.3-next.0",
 		"@10up/stylelint-config": ">=3.0.0",
 		"@linaria/babel-preset": ">=4.3.3",
-		"@linaria/webpack-loader": ">=4.1.11",
+		"@linaria/webpack5-loader": ">=4.1.11",
 		"typescript": ">=5.0.0"
 	},
 	"peerDependenciesMeta": {
-		"@linaria/webpack-loader": {
+		"@linaria/webpack5-loader": {
 			"optional": true
 		},
 		"@linaria/babel-preset": {

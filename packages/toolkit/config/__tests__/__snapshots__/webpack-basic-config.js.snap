@@ -80,7 +80,7 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
@@ -402,7 +402,7 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
@@ -733,7 +733,7 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
@@ -1056,7 +1056,7 @@ exports[`webpack.config.js returns proper configs for package config with common
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
@@ -1380,7 +1380,7 @@ exports[`webpack.config.js returns proper configs for package config with peer d
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
@@ -1702,7 +1702,7 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
             },
           },
           {
-            "loader": "@linaria/webpack-loader",
+            "loader": "@linaria/webpack5-loader",
             "options": {
               "babelOptions": {
                 "babelrc": false,
