@@ -23,10 +23,7 @@
   "bundleDependencies": false,
   "overrides": {
     "@types/node": "^20.19.0",
-    "braces": "^3.0.3",
-    "micromatch": "^4.0.8",
     "minimatch": "^9.0.7",
-    "serialize-javascript": "^7.0.5",
     "stylelint-declaration-strict-value": "~1.10.11"
   },
   "devDependencies": {

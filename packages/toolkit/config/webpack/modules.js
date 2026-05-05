@@ -125,8 +125,8 @@ module.exports = ({
 							...babelConfig,
 						},
 					},
-					isPackageInstalled('@linaria/webpack-loader') && {
-						loader: '@linaria/webpack-loader',
+					isPackageInstalled('@linaria/webpack5-loader') && {
+						loader: '@linaria/webpack5-loader',
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
 							extension: LINARIA_EXTENSION,
