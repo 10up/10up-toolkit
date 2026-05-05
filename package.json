@@ -22,6 +22,7 @@
   ],
   "bundleDependencies": false,
   "overrides": {
+    "@types/node": "^20.19.0",
     "braces": "^3.0.3",
     "cross-spawn": "^7.0.6",
     "flatted": "3.4.2",
