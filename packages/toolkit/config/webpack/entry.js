@@ -1,10 +1,15 @@
 const { readFileSync } = require('fs');
-const { dirname, extname, join, resolve } = require('path');
+const { extname, posix, resolve } = require('path');
 const { sync: glob } = require('fast-glob');
 
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
+
+// Normalize paths to forward-slash POSIX form and strip Windows drive letters.
+// Lets the prefix-stripping logic work uniformly across operating systems and
+// across mocked test inputs that may use either separator regardless of host OS.
+const toPosix = (filepath) => filepath.replace(/\\/g, '/').replace(/^[a-zA-Z]:/, '');
 
 module.exports = ({
 	buildType = 'script',
@@ -67,16 +72,16 @@ module.exports = ({
 					.flat()
 					.filter((rawFilepath) => rawFilepath && rawFilepath.startsWith('file:')) // assets can be files or handles. we only want files
 					.forEach((rawFilepath) => {
-						// Removes the `file:` prefix.
-						const filepath = join(
-							dirname(blockMetadataFile),
+						// Removes the `file:` prefix. Built from POSIX-normalized
+						// pieces so backslash glob results (real Windows or
+						// mocked) and POSIX inputs both resolve consistently.
+						const filepath = posix.join(
+							posix.dirname(toPosix(blockMetadataFile)),
 							rawFilepath.replace('file:', ''),
 						);
 
 						// get the entrypoint name from the filepath by removing the blocks source directory and the file extension
-						// normalize both sides to forward-slash, strip drive letters, so the replace works on Windows
-						const toPosix = (p) => p.replace(/\\/g, '/').replace(/^[a-zA-Z]:/, '');
-						const entryName = toPosix(filepath)
+						const entryName = filepath
 							.replace(extname(filepath), '')
 							.replace(toPosix(blocksSourceDirectory), '')
 							.replace(/^\//, '');
@@ -113,10 +118,7 @@ module.exports = ({
 	// Logic for loading CSS files per block.
 	if (loadBlockSpecificStyles) {
 		// get all stylesheets located in the assets/css/blocks directory and subdirectories
-		const blockStylesheetDirectory = resolve(process.cwd(), paths.blocksStyles).replace(
-			/\\/g,
-			'/',
-		);
+		const blockStylesheetDirectory = toPosix(resolve(process.cwd(), paths.blocksStyles));
 
 		// get all stylesheets in the blocks directory
 		const stylesheets = glob(`${blockStylesheetDirectory}/**/*.{css,scss,sass}`, {
@@ -124,7 +126,7 @@ module.exports = ({
 		});
 
 		stylesheets.forEach((filePath) => {
-			const blockName = filePath
+			const blockName = toPosix(filePath)
 				.replace(`${blockStylesheetDirectory}/`, '')
 				.replace(extname(filePath), '');
 

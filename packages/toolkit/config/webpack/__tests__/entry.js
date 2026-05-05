@@ -96,7 +96,7 @@ describe('entry module function', () => {
 			});
 
 			expect(result).toEqual({
-				editor: 'C:\\mock\\project\\root\\includes\\blocks\\example\\editor.js',
+				'example/editor': 'C:\\mock\\project\\root\\includes\\blocks\\example\\editor.js',
 			});
 		});
 

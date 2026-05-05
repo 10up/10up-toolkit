@@ -17,6 +17,7 @@ const listFixtures = (file, kind) => {
 	const dir = resolve(__dirname, file, kind);
 	return readdirSync(dir)
 		.filter((name) => name.endsWith('.js'))
+		.sort()
 		.map((name) => join(dir, name));
 };
 
