@@ -130,7 +130,11 @@ module.exports = ({
 				.replace(`${blockStylesheetDirectory}/`, '')
 				.replace(extname(filePath), '');
 
-			blockStyleEntryPoints[`autoenqueue/${blockName}`] = resolve(filePath);
+			// glob is invoked with `absolute: true`, so filePath is already
+			// absolute. Re-resolving via `path.resolve` would prepend a
+			// Windows drive letter and convert separators on Windows, which
+			// changes the path string the rest of webpack receives.
+			blockStyleEntryPoints[`autoenqueue/${blockName}`] = filePath;
 		});
 	}
 
