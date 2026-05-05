@@ -8,16 +8,15 @@ const { getConfigFile, countResults } = require('./helpers');
 const files = ['index', 'react', 'wordpress', 'node'];
 const verbose = process.argv.indexOf('--verbose') > -1;
 
-// ESLint's lintFiles requires forward-slash glob patterns. path.resolve
-// returns backslash-separated paths on Windows, which newer ESLint
-// versions reject as "no files matched". Normalize before passing in.
-const toGlob = (...parts) => resolve(...parts).split('\\').join('/');
-
 async function testLintConfig(file) {
 	const overrideConfigFile = resolve(__dirname, `../config/${file}.js`);
-	const failDirectory = toGlob(__dirname, `./${file}/fail/*.js`);
-	const successDirectory = toGlob(__dirname, `./${file}/pass/*.js`);
-	const cli = new ESLint({ useEslintrc: false, overrideConfigFile });
+	// Use cwd-relative glob patterns. Newer ESLint's lintFiles rejects
+	// Windows-style absolute paths (drive letter + backslashes) as
+	// "no files matched", so we hand it the fixture dir as cwd and pass
+	// in a relative forward-slash glob.
+	const failDirectory = `${file}/fail/*.js`;
+	const successDirectory = `${file}/pass/*.js`;
+	const cli = new ESLint({ useEslintrc: false, overrideConfigFile, cwd: __dirname });
 
 	console.log('Running ESLint on fixtures directories. Use --verbose for a detailed report.');
 	console.log(`\nLinting ${failDirectory}...`);
