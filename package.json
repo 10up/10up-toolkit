@@ -35,6 +35,7 @@
     "picomatch": "2.3.2",
     "rollup": "^4.59.0",
     "simple-git": "^3.33.0",
+    "stylelint-declaration-strict-value": "~1.10.11",
     "svgo": "3.3.3",
     "tar-fs": "3.1.2",
     "ws": "^8.17.1",
@@ -49,7 +50,7 @@
   },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=14",
-    "npm": ">=7"
+    "node": ">=20.9.0",
+    "npm": ">=10"
   }
 }

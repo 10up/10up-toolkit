@@ -19,17 +19,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      # Test node 16/18/20 on Ubuntu
-      # Test node 18 on macOS/Windows
+      # Test node 20/22 on Ubuntu
+      # Test node 20 on macOS/Windows
       # Enable linting only for node 20 & Ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [16, 18, 20, 22]
+        node: [20, 22]
         include:
           - os: macos-latest
-            node: 18
+            node: 20
           - os: windows-latest
-            node: 18
+            node: 20
           - node: 20
             is_base_node_version: true
           - os: ubuntu-latest

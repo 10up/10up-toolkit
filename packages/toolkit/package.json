@@ -97,8 +97,8 @@
 	},
 	"description": "Collection of reusable scripts for 10up development.",
 	"engines": {
-		"node": ">=16",
-		"npm": ">=6.9"
+		"node": ">=20.9.0",
+		"npm": ">=10"
 	},
 	"scripts": {
 		"test": "jest",
