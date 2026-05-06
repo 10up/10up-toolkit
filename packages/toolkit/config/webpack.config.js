@@ -3,8 +3,10 @@
  */
 const {
 	getBuildFiles,
+	getInstalledPackageVersion,
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
+	isMinimumPackageVersion,
 } = require('../utils');
 const { getModuleBuildFiles } = require('../utils/config');
 
@@ -42,6 +44,21 @@ const defaultTargets = [
 	'not ie_mob <=11',
 ];
 
+const MIN_WDS_VERSION = '5.2.2';
+const isHotReloadEnabled = projectConfig.devServer || projectConfig.hot;
+const isTestEnv = typeof process.env.JEST_WORKER_ID !== 'undefined';
+const webpackDevServerVersion = getInstalledPackageVersion('webpack-dev-server', '0');
+const useLegacyProxy = !isMinimumPackageVersion(webpackDevServerVersion, MIN_WDS_VERSION);
+
+if (isHotReloadEnabled && useLegacyProxy && !isTestEnv) {
+	// eslint-disable-next-line no-console -- runtime warning for incompatible peer
+	console.warn(
+		`[10up-toolkit] webpack-dev-server ${webpackDevServerVersion} was resolved; ${MIN_WDS_VERSION} or newer is recommended.\n` +
+			'  If you used --legacy-peer-deps or have an older version in your tree, install a matching version:\n' +
+			`  npm install --save-dev webpack-dev-server@${MIN_WDS_VERSION}`,
+	);
+}
+
 const config = {
 	projectConfig,
 	packageConfig,
@@ -51,6 +68,7 @@ const config = {
 	mode,
 	isProduction,
 	defaultTargets,
+	useLegacyProxy,
 };
 
 const baseConfig = {

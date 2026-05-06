@@ -69,7 +69,6 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.89.0",
 		"webpack-bundle-analyzer": "^4.10.1",
-		"webpack-dev-server": "^5.2.2",
 		"webpack-sources": "^3.2.3",
 		"webpackbar": "^6.0.0",
 		"yaml": "^2.4.1"
@@ -85,7 +84,8 @@
 		"@10up/stylelint-config": ">=3.0.0",
 		"@linaria/babel-preset": ">=4.3.3",
 		"@linaria/webpack-loader": ">=4.1.11",
-		"typescript": ">=5.0.0"
+		"typescript": ">=5.0.0",
+		"webpack-dev-server": "^5.2.2"
 	},
 	"peerDependenciesMeta": {
 		"@linaria/webpack-loader": {

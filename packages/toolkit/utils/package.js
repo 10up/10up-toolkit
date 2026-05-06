@@ -39,6 +39,25 @@ const getPackageVersion = async () => {
 };
 
 /**
+ * Returns the version of an installed npm package by name.
+ * Resolves the package's package.json so it works without importing the package.
+ * Uses read-pkg to read and parse the package.json.
+ *
+ * @param {string} packageName - The name of the npm package (e.g. 'webpack-dev-server').
+ * @param {string} [fallback='0'] - Value to return if the package is not installed or version is unreadable.
+ * @returns {string} The package version string or the fallback.
+ */
+const getInstalledPackageVersion = (packageName, fallback = '0') => {
+	try {
+		const pkgPath = require.resolve(`${packageName}/package.json`);
+		const pkg = readPkg.sync({ cwd: path.dirname(pkgPath) });
+		return typeof pkg.version === 'string' ? pkg.version : fallback;
+	} catch {
+		return fallback;
+	}
+};
+
+/**
  * Checks whether the passed package name is installed in the project.
  *
  * @param {string} packageName The name of npm package.
@@ -55,10 +74,38 @@ const isPackageInstalled = (packageName) => {
 	return false;
 };
 
+/**
+ * Compares two semver-like version strings (e.g. "5.2.2", "1.0.0-beta.1").
+ * Only the numeric segments are compared; non-numeric segments are treated as 0.
+ *
+ * @param {string} actual - The resolved version (e.g. from a package).
+ * @param {string} min   - The minimum required version.
+ * @returns {boolean} True if actual >= min, false otherwise.
+ */
+const isMinimumPackageVersion = (actual, min) => {
+	const actualVersions = actual.split('.').map(Number);
+	const minimumVersions = min.split('.').map(Number);
+
+	for (let i = 0; i < Math.max(actualVersions.length, minimumVersions.length); i++) {
+		const actualVersionLevel = actualVersions[i] || 0;
+		const minimumVersionLevel = minimumVersions[i] || 0;
+		if (actualVersionLevel > minimumVersionLevel) {
+			return true;
+		}
+		if (actualVersionLevel < minimumVersionLevel) {
+			return false;
+		}
+	}
+
+	return true;
+};
+
 module.exports = {
-	isPackageInstalled,
-	getPackagePath,
-	hasPackageProp,
+	getInstalledPackageVersion,
 	getPackage,
+	getPackagePath,
 	getPackageVersion,
+	hasPackageProp,
+	isMinimumPackageVersion,
+	isPackageInstalled,
 };

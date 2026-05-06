@@ -28,7 +28,14 @@ const {
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
-const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
+const {
+	getInstalledPackageVersion,
+	getPackage,
+	getPackagePath,
+	getPackageVersion,
+	hasPackageProp,
+	isMinimumPackageVersion,
+} = require('./package');
 
 const { displayWebpackStats } = require('./webpack');
 
@@ -63,6 +70,7 @@ module.exports = {
 	getJestOverrideConfigFile,
 	hasJestConfig,
 	getEnvironmentFromBranch,
+	getInstalledPackageVersion,
 	hasPackageProp,
 	hasPrettierConfig,
 	hasEslintConfig,
@@ -79,6 +87,7 @@ module.exports = {
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
 	displayWebpackStats,
+	isMinimumPackageVersion,
 	transformBlockJson,
 	getGitBranch,
 };

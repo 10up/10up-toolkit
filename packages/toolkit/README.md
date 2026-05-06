@@ -43,8 +43,26 @@ npm install --save-dev 10up-toolkit
 If you're using a version of NPM lower than 7 and `10up-toolkit` from version `4.0.0` you'll also need to install the following dependencies manually:
 
 ```bash{showPrompt}
-npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default
+npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default webpack-dev-server
 ```
+
+#### Upgrading the toolkit
+
+When you upgrade `10up-toolkit`, the lock file (`package-lock.json` or `yarn.lock`) may keep an older version of transitive dependencies such as `webpack-dev-server`. If you use the dev server or hot reload and see issues after upgrading, ensure a matching version is installed:
+
+```bash{showPrompt}
+npm update webpack-dev-server
+```
+
+Or reinstall from a clean state:
+
+```bash{showPrompt}
+rm -rf node_modules package-lock.json && npm install
+```
+
+The toolkit declares `webpack-dev-server` as a peer dependency so that your project’s dependency tree controls the version and upgrades are predictable when you run `npm install` after bumping the toolkit (npm 7+ installs peer dependencies automatically).
+
+**Scenarios where an older version can still be used:** Installing with `npm install --legacy-peer-deps` skips peer dependency installation and conflict checks, so an older or transitive copy of `webpack-dev-server` may be used. Pinning an old version in your own `package.json` or having another dependency that depends on an older `webpack-dev-server` can also leave an incompatible version in the tree. In those cases the toolkit will print a warning at runtime; install a matching version (e.g. `webpack-dev-server@^5.2.2`) in your project to clear it.
 
 ### Setting it up
 

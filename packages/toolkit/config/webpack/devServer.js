@@ -2,6 +2,7 @@ module.exports = ({
 	isPackage,
 	isModule,
 	projectConfig: { devServer, devURL, hot, devServerPort },
+	useLegacyProxy = false,
 }) => {
 	if (!devServer && !hot) {
 		return undefined;
@@ -23,6 +24,23 @@ module.exports = ({
 			// do nothing
 		}
 
+		const distProxyConfiguration = [
+			{
+				context: '/dist',
+				pathRewrite: {
+					'^/dist': '',
+				},
+			},
+		];
+		const legacyProxyConfiguration = {
+			'/dist': {
+				pathRewrite: {
+					'^/dist': '',
+				},
+			},
+		};
+		const proxy = useLegacyProxy ? legacyProxyConfiguration : distProxyConfiguration;
+
 		return {
 			devMiddleware: {
 				writeToDisk: true,
@@ -37,13 +55,7 @@ module.exports = ({
 				},
 			},
 			port: Number(devServerPort),
-			proxy: {
-				'/dist': {
-					pathRewrite: {
-						'^/dist': '',
-					},
-				},
-			},
+			proxy,
 		};
 	}
 
