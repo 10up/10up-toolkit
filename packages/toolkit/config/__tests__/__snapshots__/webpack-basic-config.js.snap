@@ -131,10 +131,6 @@ exports[`webpack.config.js properly detects user config files in package mode 1`
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -453,10 +449,6 @@ exports[`webpack.config.js properly detects user config files in project mode 1`
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -784,10 +776,6 @@ exports[`webpack.config.js returns proper configs for package config 1`] = `
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -1107,10 +1095,6 @@ exports[`webpack.config.js returns proper configs for package config with common
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -1431,10 +1415,6 @@ exports[`webpack.config.js returns proper configs for package config with peer d
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -1753,10 +1733,6 @@ exports[`webpack.config.js returns proper configs for project configs 1`] = `
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
