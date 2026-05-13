@@ -117,6 +117,44 @@ free, when wp-scripts adopts it under the hood.
 [wp-blog]: https://developer.wordpress.org/news/2026/04/wordpress-build-the-next-generation-of-wordpress-plugin-build-tooling/
 [gh-72032]: https://github.com/WordPress/gutenberg/issues/72032
 
+### 1.2 Is `@wordpress/scripts` being deprecated? No.
+
+> [!IMPORTANT]
+> **`@wordpress/scripts` is not being deprecated.** It is the WP team's
+> long-term supported tool. This is a recent clarification and easy to miss
+> if you saw early `@wordpress/build` discussions and assumed succession.
+
+The plan in the WP team's own words:
+
+1. **`@wordpress/scripts` keeps its name, package, and consumer-facing role.**
+   Existing users don't migrate to a different package.
+2. **`@wordpress/build` becomes its internal engine** at some point in the
+   future — webpack/Babel get swapped out under the hood for the esbuild-based
+   wp-build. From the blog post:
+   > "`@wordpress/build` is designed to become the engine underneath
+   > `@wordpress/scripts`, not to replace it externally, but to power it from
+   > within."
+3. **The API may evolve** (see [gutenberg#72032][gh-72032], "WordPress
+   Scripts: A vision for a v2 version"). The proposal is to shift wp-scripts
+   toward convention-over-configuration — auto-discovered `packages/`,
+   `pages/`, `fields/`, blocks, patterns. But the package itself stays.
+
+**Caveats** worth keeping in mind:
+
+- **Timeline is uncommitted.** The blog post says "when the transition
+  happens" — no version targeted, no roadmap. Could be a year, could be three.
+- **"Not deprecated" ≠ "unchanged."** If #72032's vision lands, wp-scripts v2
+  will look meaningfully different. Projects with heavy custom webpack config
+  may need to adapt.
+- **The engine swap is non-trivial.** Replacing webpack with wp-build inside
+  wp-scripts is a substantial undertaking, and wp-build itself is "not ready
+  for every use case yet." Expect slippage.
+
+**Implication:** adopting `@wordpress/scripts` today is not a bet on a tool
+that might disappear — it's a bet on the tool the WP team is actively
+evolving. The wp-build engine gains arrive whenever they arrive, with no
+action required from us.
+
 ---
 
 ## 2. Why the two tools are structurally mismatched
@@ -442,7 +480,123 @@ mode), `@wordpress/scripts` covers an estimated ~85–90% of toolkit out of the
 box. The remaining ~10% is project-level config (postcss plugins, lint configs)
 or thin standalone scripts (image opt).
 
-### Option B — Adopt `@wordpress/build` for Gutenberg-style plugin work only
+#### Gaps in `@wordpress/scripts` relative to toolkit (concrete list)
+
+Things toolkit does today that `@wordpress/scripts` does not. Each would need
+either a project-level workaround, a small standalone tool, or to be carried
+forward inside a thin 10up wrapper.
+
+1. **Image minification.** Toolkit ships `image-minimizer-webpack-plugin` +
+   `sharp` for JPEG/PNG/WebP/AVIF, plus SVGO with `svgo.config.js`
+   auto-discovery. wp-scripts ships no image optimization step. → Move to a
+   standalone `sharp-cli` / `imagemin` npm script.
+2. **Default PostCSS plugin chain.** Toolkit ships `postcss-import` +
+   `@csstools/postcss-global-data` (auto-loads `globalStylesDir/**/*.css`) +
+   `postcss-mixins` (auto-loads `globalMixinsDir/**/*.css`) +
+   `postcss-preset-env` stage 0 + conditional `postcss-editor-styles-wrapper`
+   for `editor-style.css`. wp-scripts respects a project-level
+   `postcss.config.js` but **ships none of these plugins**. → Either install
+   them per-project, or maintain a shared `@10up/postcss-config` package.
+3. **Per-block style auto-enqueue** (`loadBlockSpecificStyles`). Toolkit
+   globs `assets/css/blocks/**/*.{css,scss,sass}` and emits
+   `autoenqueue/<block>` entry points automatically. → Custom postbuild
+   script.
+4. **`postcss-editor-styles-wrapper` auto-application** to `editor-style.css`.
+   Toolkit conditionally wires this in based on filename. → Manual setup in
+   the project's `postcss.config.js`.
+5. **Multi-entry default conventions** (admin / frontend / shared /
+   styleguide buckets). Toolkit ships these pre-wired. wp-scripts defaults to
+   single-entry with multi-entry available through different config
+   conventions. → Reconfigure each project once.
+6. **10up's opinionated lint configs.** `@10up/eslint-config` and
+   `@10up/stylelint-config` carry 10up-specific rules. wp-scripts ships
+   `@wordpress/eslint-plugin`, which is a different opinion. → Keep
+   maintaining the `@10up/*` configs as standalone packages.
+7. **`@10up/babel-preset-default`.** 10up-specific Babel preset. → Keep
+   maintaining it standalone, or align on the WP preset.
+8. **Built-in BrowserSync auto-detection.** Toolkit auto-detects
+   `browser-sync-webpack-plugin` when installed. wp-scripts doesn't integrate
+   it. → Drop or wire up manually.
+9. **HMR allowed-hosts conventions.** Toolkit's dev server defaults to
+   allowing `.test` and `.local` subdomains plus the `devURL` host (matches
+   typical Local/Lando setups). wp-scripts requires explicit allowed-hosts
+   config. → One-time project config.
+10. **TypeScript type-checking via parallel `tsc`** (`TenUpToolkitTscPlugin`).
+    Toolkit runs `tsc` alongside the build for type errors. wp-scripts
+    transpiles TS via Babel but doesn't run type-checking automatically. →
+    Add `tsc --noEmit` as a separate npm script.
+11. **`buildfiles.config.js` / `paths.config.js`** overrides. Toolkit's
+    flexible per-project entry/path overrides. wp-scripts uses different
+    convention model (`--webpack-src-dir`, etc.). → Reconfigure each project.
+
+> Some additional wp-scripts behavior (bundle analyzer surface, exact static
+> asset copy semantics, `block.json` PHP file copy) was not verified in depth
+> for this audit. A wp-scripts source audit should be the next step before
+> committing to Option A.
+
+### Option B — Trim toolkit (keep webpack)
+
+Drop the out-of-scope features from toolkit itself:
+
+- Remove Linaria support and the `@linaria/*` peer deps.
+- Remove vanilla-extract support and the webpack plugin.
+- Remove package mode (`source`/`main`/`umd` library bundling).
+- Remove the `--block-modules` dual-config path if module/non-module split
+  isn't needed.
+
+This shrinks the dependency surface (drop ~5 peer deps, ~3 webpack plugins,
+both CSS-in-JS pipelines, and the package-mode config branch) and leaves a
+focused monolithic-WordPress build tool that's cheaper to maintain. The
+project shape stays the same — it just stops trying to be three tools at
+once. Zero external migration cost for consumers.
+
+**Scoring against goals:** ergonomics ✅, easy migration ✅, lower
+maintenance 🟡 (reduced but still ours), faster builds 🟡 (no change unless
+paired with Option C's engine swaps).
+
+This is a defensible middle option if Option A's gaps are unacceptable and
+the team wants minimum disruption. It's a stepping stone — not the
+end state — because it doesn't address goal #1 (faster builds) and doesn't
+materially reduce the maintenance burden of webpack/Babel/PostCSS
+ecosystem upgrades.
+
+### Option C — Trim toolkit + modernize engines (rspack + Biome)
+
+A variant of Option B where we trim **and** swap the slow parts of the
+engine. Covered by existing tracking issues:
+
+- **#451 — Replace webpack with rspack.** rspack is largely
+  webpack-API-compatible, so most of toolkit's webpack config carries over.
+  Build speeds approach esbuild/wp-build territory without changing what
+  toolkit produces or how consumers configure it.
+- **#478 — Replace ESLint + Prettier + Stylelint with Biome (or OXC).**
+  Single Rust-based tool for lint + format. Significant speedup and a
+  large reduction in the linter peer-dependency matrix we currently maintain.
+- Bundle these with the Option B trim work so it's a single major version.
+
+**Scoring against goals:** ergonomics ✅ (nothing user-visible regresses;
+all toolkit conventions intact), easy migration ✅ (rspack is API-compatible;
+Biome migration is one-time work inside `@10up/eslint-config` /
+`@10up/stylelint-config`), faster builds ✅, lower maintenance 🟡 (still ours,
+but the Babel toolchain and ESLint-plugin ecosystem largely disappear).
+
+**Trade-offs / risks:**
+
+- **Biome lint coverage is still narrower than ESLint's plugin ecosystem.**
+  Some rules in `@10up/eslint-config` may not have Biome equivalents yet —
+  needs a rule-by-rule audit before committing.
+- **rspack version churn is real.** Stable trajectory, responsive team, but
+  pinning will be a recurring task.
+- **Diverges further from WP core direction** (which is heading toward
+  esbuild via wp-build). We'd be on a parallel track, which is fine for
+  speed today but means we don't inherit wp-build engine improvements when
+  they eventually land in wp-scripts.
+
+This is the option that wins on goal #1 (faster builds) without paying the
+migration cost of Option A. It's the strongest answer if "we want toolkit
+to feel faster, soon, without uprooting projects."
+
+### Option D — Adopt `@wordpress/build` for Gutenberg-style plugin work only
 
 `@wordpress/build` could be a fit *for a specific kind of new 10up plugin*:
 one that is structured like Gutenberg (monorepo of `@10up/*` packages exposed
@@ -460,24 +614,6 @@ plugin work. The blog post's own guidance is:
 
 > "For most developers, waiting for that convergence [with @wordpress/scripts]
 > is the lower-friction path." — *WP Developer Blog, Apr 2026*
-
-### Option C — Keep toolkit, trim it
-
-Drop the out-of-scope features from toolkit itself:
-
-- Remove Linaria support and the `@linaria/*` peer deps.
-- Remove vanilla-extract support and the webpack plugin.
-- Remove package mode (`source`/`main`/`umd` library bundling).
-- Remove the `--block-modules` dual-config path if module/non-module split
-  isn't needed.
-
-This shrinks the dependency surface (drop ~5 peer deps, ~3 webpack plugins,
-both CSS-in-JS pipelines, and the package-mode config branch) and leaves a
-focused monolithic-WordPress build tool that's cheaper to maintain. The
-project shape stays the same — it just stops trying to be three tools at once.
-
-This is a defensible middle option if Option A's loss of image optimization
-and per-block style auto-enqueue is unacceptable.
 
 ---
 
@@ -523,21 +659,31 @@ For a brand-new Gutenberg-style plugin (rare but possible), starting on
    does not close the gap — the blockers (no `block.json`, no multi-entry,
    CSS inlined into JS, no HMR, monorepo-only project model, **no pluggable
    PostCSS chain**) are independent of CSS-in-JS or package-mode features.
-2. **If we want to deprecate toolkit, the realistic target is `@wordpress/scripts`,
-   not `@wordpress/build`.** It has the same project model, covers ~85–90% of
-   what a trimmed-to-monolithic toolkit does, and is maintained by the core WP
-   team. The remaining 10–15% (image optimization, per-block style
-   auto-enqueue, bundle analyzer, the 10up PostCSS preset chain) is either
-   replaced with standalone tools or moved into project-level
-   `postcss.config.js` and `eslint`/`stylelint`/`prettier` configs.
-3. **Otherwise, trim toolkit (Option C).** Removing Linaria, vanilla-extract,
-   package mode, and the `--block-modules` dual-config path significantly
-   reduces toolkit's surface area and maintenance burden while keeping the
-   parts that make it valuable for 10up's actual project work. This is the
-   pragmatic middle path if `@wordpress/scripts`'s feature gaps are
-   unacceptable.
-4. **`@wordpress/build` is worth watching, not adopting today.** This is
-   what the WordPress team themselves recommend in the
+2. **`@wordpress/scripts` is not being deprecated** (see §1.2). It is the
+   WP team's supported long-term tool, with `@wordpress/build` slated to
+   become its internal engine — not its replacement. Adopting wp-scripts
+   today positions us on the supported path and inherits the future speed
+   gains "for free" when the engine swap lands.
+3. **If we want to deprecate toolkit, the realistic target is `@wordpress/scripts`
+   (Option A).** It has the same project model, covers ~85–90% of what a
+   trimmed-to-monolithic toolkit does, and is maintained by the core WP team.
+   The remaining 10–15% (image optimization, per-block style auto-enqueue,
+   the 10up PostCSS preset chain, lint configs) is either replaced with
+   standalone tools, moved into project-level `postcss.config.js`, or
+   carried forward as the existing `@10up/eslint-config` /
+   `@10up/stylelint-config` standalone packages. See the concrete gaps list
+   under Option A.
+4. **If speed matters more than external migration, modernize toolkit
+   (Option C).** Pair the Option B trim work with #451 (rspack) and #478
+   (Biome). This hits goal #1 (faster builds) without paying the migration
+   cost of Option A and without giving up any toolkit ergonomics. The
+   trade-off is that we diverge further from the WP core direction.
+5. **Option B (trim only) is a stepping stone, not an end state.** It
+   reduces surface area but doesn't address goal #1 (faster builds) or
+   materially reduce the maintenance burden of webpack/Babel/PostCSS
+   ecosystem upgrades. Use it as a transitional state on the way to A or C.
+6. **`@wordpress/build` (Option D) is worth watching, not adopting today.**
+   This is what the WordPress team themselves recommend in the
    [announcement blog post][wp-blog]: *"For most developers, waiting for that
    convergence is the lower-friction path."* If 10up starts building
    Gutenberg-style plugins (monorepo of packages exposed on a global
@@ -546,7 +692,7 @@ For a brand-new Gutenberg-style plugin (rare but possible), starting on
    still has gaps requiring manual workarounds per the same announcement. It
    is not a fit for the monolithic theme/plugin work that drives toolkit
    usage.
-5. **Useful capabilities to selectively pull from `@wordpress/build`** even
+7. **Useful capabilities to selectively pull from `@wordpress/build`** even
    while keeping toolkit:
    - Automatic LTR/RTL stylesheet generation (`rtlcss`).
    - Multi-namespace externalization (`externalNamespaces`) — relevant if 10up
@@ -555,6 +701,13 @@ For a brand-new Gutenberg-style plugin (rare but possible), starting on
    - The PHP registration generation pattern (constants.php / scripts.php /
      styles.php) — could simplify a lot of theme enqueue boilerplate, but
      this is an idea to steal, not a dependency to take.
+
+### Decision shape
+
+The real choice is between **A** (external migration, lower long-term
+maintenance, defers speed) and **C** (no migration, immediate speed gains,
+divergence from WP core). **B** is a useful first step toward either. **D**
+is not on the table for our typical workload.
 
 ---
 
