@@ -18,13 +18,16 @@ exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot op
     },
     "hot": true,
     "port": 8000,
-    "proxy": {
-      "/dist": {
+    "proxy": [
+      {
+        "context": [
+          "/dist",
+        ],
         "pathRewrite": {
           "^/dist": "",
         },
       },
-    },
+    ],
   },
   "devtool": "source-map",
   "entry": "() => getEntryPoints({
@@ -113,14 +116,7 @@ exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot op
               "babelOptions": {
                 "babelrc": false,
                 "configFile": false,
-                "plugins": [
-                  [
-                    "/node_modules/react-refresh/babel.js",
-                    {
-                      "skipEnvCheck": true,
-                    },
-                  ],
-                ],
+                "plugins": [],
                 "presets": [
                   [
                     "/packages/babel-preset-default/index.js",
@@ -166,10 +162,6 @@ exports[`webpack.config.js includes react-webpack-fast-refresh with the --hot op
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },

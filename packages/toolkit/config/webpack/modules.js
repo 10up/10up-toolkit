@@ -130,11 +130,21 @@ module.exports = ({
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
 							extension: LINARIA_EXTENSION,
-							// Fix $RefreshReg$ is not defined errors with linaria and react-fast-refresh
-							// another option is to disable react fast refresh in babel preset via api.caller
-							// @see https://github.com/callstack/linaria/issues/1308#issuecomment-1732385974
-							overrideContext: (context) => ({ ...context, $RefreshReg$: () => {} }),
-							babelOptions: babelConfig,
+							// Linaria 4.x evaluates modules at build time in a sandbox where
+							// $RefreshReg$ isn't defined, so strip react-refresh/babel from
+							// the babel config Linaria runs. (Linaria 5.x exposes overrideContext
+							// for this; 4.x silently ignores it.)
+							// @see https://github.com/callstack/linaria/issues/1308
+							babelOptions: {
+								...babelConfig,
+								plugins: (babelConfig.plugins || []).filter((p) => {
+									const id = Array.isArray(p) ? p[0] : p;
+									return (
+										typeof id !== 'string' ||
+										!id.includes('react-refresh/babel')
+									);
+								}),
+							},
 						},
 					},
 				].filter(Boolean),

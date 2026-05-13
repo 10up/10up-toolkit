@@ -133,10 +133,6 @@ exports[`webpack.config.js adds devServer config when passing the --dev-server f
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -456,10 +452,6 @@ exports[`webpack.config.js allows changing browsersync port 1`] = `
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -788,10 +780,6 @@ exports[`webpack.config.js builds modules 1`] = `
                   "sourceType": "unambiguous",
                 },
                 "extension": ".linaria.module.css",
-                "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
                 "sourceMap": false,
               },
             },
@@ -1115,10 +1103,6 @@ exports[`webpack.config.js builds modules 1`] = `
                   "sourceType": "unambiguous",
                 },
                 "extension": ".linaria.module.css",
-                "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
                 "sourceMap": false,
               },
             },
@@ -1444,10 +1428,6 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": false,
             },
           },
@@ -1775,10 +1755,6 @@ exports[`webpack.config.js includes webpack-bundle-analyzer when using --analyze
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -2106,10 +2082,6 @@ exports[`webpack.config.js returns proper configs for package config with common
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
@@ -2429,10 +2401,6 @@ exports[`webpack.config.js takes the --target option into account 1`] = `
                 "sourceType": "unambiguous",
               },
               "extension": ".linaria.module.css",
-              "overrideContext": "context => ({
-            ...context,
-            $RefreshReg$: () => {}
-          })",
               "sourceMap": true,
             },
           },
