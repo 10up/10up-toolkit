@@ -1,7 +1,7 @@
 const rspack = require('@rspack/core');
 const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ReactRefreshPlugin = require('@rspack/plugin-react-refresh');
+const { ReactRefreshRspackPlugin } = require('@rspack/plugin-react-refresh');
 const { resolve } = require('path');
 const RspackDependencyExtractionPlugin = require('./plugins/dependency-extraction');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
@@ -135,7 +135,7 @@ module.exports = ({
 		new TenUpToolkitTscPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
-			new ReactRefreshPlugin({
+			new ReactRefreshRspackPlugin({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),

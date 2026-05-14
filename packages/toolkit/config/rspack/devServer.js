@@ -39,7 +39,7 @@ module.exports = ({
 			port: Number(devServerPort),
 			proxy: [
 				{
-					context: ['/dist'],
+					pathFilter: '/dist',
 					pathRewrite: { '^/dist': '' },
 				},
 			],

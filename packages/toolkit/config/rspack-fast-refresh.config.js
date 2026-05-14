@@ -15,7 +15,7 @@ module.exports = [
 		name: 'react-refresh-entry',
 		entry: {
 			'react-refresh-entry':
-				require.resolve('@rspack/plugin-react-refresh/client/reactRefreshEntry.js'),
+				require.resolve('@rspack/plugin-react-refresh/react-refresh-entry'),
 		},
 		plugins: [new RspackDependencyExtractionPlugin()],
 	},

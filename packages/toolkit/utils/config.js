@@ -141,6 +141,7 @@ const getDefaultConfig = () => {
 		hot,
 		// true by default (if TENUP_NO_EXTERNALS is not set)
 		// if TENUP_NO_EXTERNALS is truthy then dependencyExternals is false
+		// may also be disabled post-merge if running standalone dev server (no devURL)
 		wpDependencyExternals:
 			typeof process.env.TENUP_NO_EXTERNALS === 'undefined' ||
 			!process.env.TENUP_NO_EXTERNALS,
@@ -180,7 +181,7 @@ const getTenUpScriptsConfig = () => {
 	const include = defaultConfig.include.length === 0 ? configInclude : defaultConfig.include;
 	const publicPath = process.env.ASSET_PATH || config.publicPath || defaultConfig.publicPath;
 
-	return {
+	const merged = {
 		// override default configs with user-defined config
 		...defaultConfig,
 		...config,
@@ -197,6 +198,8 @@ const getTenUpScriptsConfig = () => {
 			...config.paths,
 		},
 	};
+
+	return merged;
 };
 
 const removeScope = (name) => name.replace(/^@.*\//, '');

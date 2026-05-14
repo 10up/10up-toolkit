@@ -84,10 +84,12 @@ if (hot) {
 
 process.on('SIGINT', () => {
 	if (server) {
-		server.close(() => {});
+		server.stop().catch(() => {});
 	}
 
-	compiler.close();
+	if (compiler) {
+		compiler.close(() => {});
+	}
 
 	if (hot) {
 		// when gracefully leaving hot mode, clean up dist folder.

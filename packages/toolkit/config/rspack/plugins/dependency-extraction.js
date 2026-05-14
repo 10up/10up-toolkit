@@ -253,7 +253,12 @@ class RspackDependencyExtractionPlugin {
 				() => {
 					const combinedAssets = {};
 
+					const processedFiles = new Set();
+
 					for (const [entrypointName, entrypoint] of compilation.entrypoints.entries()) {
+						// Skip the runtime chunk — it's shared infrastructure, not a WP-enqueued script
+						if (entrypointName === 'runtime') continue;
+
 						const chunkDeps = new Set();
 
 						// Find JS file for this entrypoint
@@ -271,6 +276,11 @@ class RspackDependencyExtractionPlugin {
 						}
 
 						if (!chunkJSFile) continue;
+
+						// Skip if we've already emitted an asset for this JS file
+						// (can happen when multiple entrypoints share a runtime chunk)
+						if (processedFiles.has(chunkJSFile)) continue;
+						processedFiles.add(chunkJSFile);
 
 						// Collect externalized dependencies for this entrypoint
 						for (const chunk of entrypoint.chunks) {
