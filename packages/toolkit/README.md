@@ -41,7 +41,7 @@ npm install --save-dev 10up-toolkit
 If you're using a version of NPM lower than 7 and `10up-toolkit` from version `4.0.0` you'll also need to install the following dependencies manually:
 
 ```bash{showPrompt}
-npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default
+npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config
 ```
 
 ### Setting it up
@@ -102,7 +102,7 @@ Here's how a `package.json` would look like for using 10up-toolkit this way:
 		"format-js": "10up-toolkit format-js",
 		"lint-js": "10up-toolkit lint-js",
 		"lint-style": "10up-toolkit lint-style",
-		"test": "10up-toolkit test-unit-jest"
+		"test": "rstest"
 	},
 	"devDependencies": {
 		"10up-toolkit": "^1.0.0"
@@ -147,7 +147,7 @@ See the [Customizing build paths](#customize-build-paths) section for changing t
 
 ### BrowserSync [DEPRECATED]
 
-> BrowserSync has been deprecated in 10up-toolkit in favor of the `--hot` option. If you still wish to use it you must install the following packages manually: `npm install --save-dev browser-sync browser-sync-webpack-plugin`
+> BrowserSync has been deprecated in 10up-toolkit in favor of the `--hot` option. If you still wish to use it you must install the following packages manually: `npm install --save-dev browser-sync browser-sync-webpack-plugin` (the plugin name contains "webpack" but it works with rspack's compatibility layer).
 
 > It's strongly recommended to use the `--hot` option instead
 
@@ -218,7 +218,7 @@ Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN)
 
 _NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
 
-If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` and `viewScriptModule` the `useScriptModules` mode needs to be enabled.
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points for the bundler to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys. In order to handle `scriptModule` and `viewScriptModule` the `useScriptModules` mode needs to be enabled.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
@@ -250,7 +250,7 @@ With the introduction of block-specific stylesheets, we've started to break out 
 
 One downside to this approach however was that any postcss globals such as custom media queries, custom selectors, variables, and mixins defined in the main css file are not available to all the other block-specific stylesheets.
 
-To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by Webpack. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
+To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by the bundler. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
 
 > [!WARNING]
 > Please note that [PostCSS Global Data](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-global-data) does not add anything to the output of your CSS. It only injects data into PostCSS so that other plugins can actually use it.
@@ -315,12 +315,12 @@ Make sure to reload the page after running 10up-toolkit as the `dist/fast-refres
 
 ### HTTPS and Certificates
 
-In some setups (such as Laravel Valet), Websocket SSL connections will fail unless you explicitly tell webpack what cert files to use (see issue [290](https://github.com/10up/10up-toolkit/issues/290)).
+In some setups (such as Laravel Valet), Websocket SSL connections will fail unless you explicitly tell rspack what cert files to use (see issue [290](https://github.com/10up/10up-toolkit/issues/290)).
 
-If you aren't already customizing webpack in your project, create a new `webpack.config.js` file in the root of your project/theme. You need to specify the cert, key, and ca properties for the config.devServer.https object.
+If you aren't already customizing rspack in your project, create a new `rspack.config.js` file in the root of your project/theme. You need to specify the cert, key, and ca properties for the config.devServer.https object.
 
 ```js
-const config = require("10up-toolkit/config/webpack.config.js");
+const config = require("10up-toolkit/config/rspack.config.js");
 const fs = require("fs");
 
 // Customize this to the appropriate path to your certificate folder
@@ -346,25 +346,11 @@ If HMR/Fast Refresh is not working for you these steps can help you debug the pr
 - Check if `tenup-toolkit-react-refresh-runtime` and `tenup-toolkit-hmr-runtime` are being enqueued on the block editor screen. If they aren't, ensure you're properly including `dist/fast-refresh.php` and setting up the constants properly.
 - Some code changes might cause a full-page refresh (e.g: changing arguments of `registerBlockType`). This is a known limitation.
 - If your CSS is not hot reloading, ensure you're including your block css file (`import './style.css`) from your block's entry point.
-- If you're extending the webpack config, does it work with the original webpack config? If so your changes might be breaking fast refresh.
+- If you're extending the rspack config, does it work with the original rspack config? If so your changes might be breaking fast refresh.
 - Are you using a `.test` domain? if not make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
 - If your front-end css is not hot reloading, make sure the CSS is not an entry point on its own (i.e. isn't listed in the entry section in package.json) but instead is imported by a JS file. Both the JS file and the CSS file should be enqueued on the front-end.
-  - Additionally, check if both `tenup-toolkit-hmr-runtime` and `tenup-toolkit-react-refresh-runtime` are enqueued the front-end.
-- If you're overriding `babel.config.js` you will need to make sure it is including `react-refresh/babel` plugin.
-
-```js
-module.exports = (api) => {
-	// This caches the Babel config
-	api.cache.using(() => process.env.NODE_ENV);
-	return {
-		presets: ["@10up/babel-preset-default"],
-		// Applies the react-refresh Babel plugin on non-production modes only
-		...(!api.env("production") && { plugins: ["react-refresh/babel"] }),
-	};
-};
-```
-
-- If you're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
+  - Additionally, check if both `tenup-toolkit-hmr-runtime` and `tenup-toolkit-react-refresh-runtime` are enqueued on the front-end.
+- If you're getting SSL errors for the Websocket connection, you may need to explicitly tell rspack what certificate files to use. See the above section "HTTPS and Certificates"
 
 ## <a id="linting"></a> Linting
 
@@ -621,13 +607,13 @@ module.exports = config;
 
 To customize eslint, create a supported eslint config file at the root of your project. Make sure to extend the `@10up/eslint-config` package.
 
-If you're writing tests with Jest for example, you will need to include the rules for jest.
+If you're writing tests, you will need to include the lint rules for test files.
 
 ```javascript
 // .eslintrc.js
 
 module.exports = {
-	extends: ["@10up/eslint-config/wordpress", "@10up/eslint-config/jest"],
+	extends: ["@10up/eslint-config/wordpress", "@10up/eslint-config/jest"], // jest config works with Rstest
 	rules: {
 		/* add or modify rules here */
 	},
@@ -758,7 +744,7 @@ Alternatively, you can set this up in `package.json`.
 		"format-js": "10up-toolkit format-js",
 		"lint-js": "10up-toolkit lint-js",
 		"lint-style": "10up-toolkit lint-style",
-		"test": "10up-toolkit test-unit-jest"
+		"test": "rstest"
 	},
 	"devDependencies": {
 		"10up-toolkit": "^6.0.0"
@@ -774,7 +760,7 @@ Alternatively, you can set this up in `package.json`.
 
 ### Bundle Analyzer
 
-10up-toolkit ships with `webpack-bundle-analyzer` out of the box, and you can enable it by simply passing the `--analyze` option.
+10up-toolkit ships with bundle analysis out of the box, and you can enable it by simply passing the `--analyze` option.
 
 `10up-toolkit build --analyze`
 
@@ -808,7 +794,7 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 
 > Released in 3.1.0
 
-The `--target` option can be used to override the default webpack target option.
+The `--target` option can be used to override the default rspack target option.
 
 For instance:
 
@@ -816,7 +802,7 @@ For instance:
 10up-toolkit build --target=node
 ```
 
-will target node.js instead of browsers. See [Webpack Target](https://webpack.js.org/configuration/target/) for possible values.
+will target node.js instead of browsers. See [rspack Target](https://rspack.dev/config/target) for possible values.
 
 ### Dev Server
 
@@ -840,7 +826,7 @@ If you need to override the default html template, create a `index.html` file un
 </html>
 ```
 
-**Note**: You don't need to manually include the css and js in the html template, webpack will handle that for you.
+**Note**: You don't need to manually include the css and js in the html template, rspack will handle that for you.
 
 ### WP Mode
 
@@ -849,7 +835,7 @@ you can pass `--wp=false`.
 
 ### Format
 
-The format option controls how webpack will generate your bundle. The supported options are:
+The format option controls how rspack will generate your bundle. The supported options are:
 
 - all (default)
 - commonjs
@@ -869,11 +855,11 @@ To override, use the `-f` or `--format` option
 There also is a special mode for outputting both CommonJS and ESM assets at the same time. It can be enabled via the `useScriptModules` flag in the toolkit settings and enables you to define any module entrypoints via the `moduleEntry` key in the settings. At the same time enabling this flag also means that the `scriptModule` & `viewScriptModule` keys in `block.json` files automatically get built as modules.
 
 > [!NOTE]
-> Enabling has the side-effect that toolkit now needs to run two separate webpack instances. So the webpack config changes from an object to an array of objects. This is important to watch out for if you have a custom `webpack.config.js` file in your project and are customizing webpack yourself.
+> Enabling has the side-effect that toolkit now needs to run two separate rspack instances. So the config changes from an object to an array of objects. This is important to watch out for if you have a custom `rspack.config.js` file in your project and are customizing rspack yourself.
 
 ### Externals
 
-This option is only useful in package mode and is used to override the webpack externals definitions. In package mode, the
+This option is only useful in package mode and is used to override the rspack externals definitions. In package mode, the
 default externals will be set based on your dependencies and peer dependencies.
 
 ```bash
