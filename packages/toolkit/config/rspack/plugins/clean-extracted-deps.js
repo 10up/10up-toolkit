@@ -1,8 +1,8 @@
 /**
- * Removes wp-polyfill from CSS assets extracted via @wordpress/dependency-extraction-webpack-plugin
+ * Removes wp-polyfill from CSS assets extracted via the dependency extraction plugin.
+ *
+ * Uses rspack's built-in RawSource via compiler.webpack.sources.
  */
-
-const { RawSource } = require('webpack-sources');
 
 class CleanExtractedDeps {
 	constructor(options) {
@@ -11,6 +11,8 @@ class CleanExtractedDeps {
 
 	apply(compiler) {
 		compiler.hooks.emit.tap('CleanExtractedDeps', (compilation) => {
+			const { RawSource } = compiler.webpack.sources;
+
 			for (const [entrypointName, entrypoint] of compilation.entrypoints.entries()) {
 				let compilationAssetMatch = false;
 				let entryPointPath = false;

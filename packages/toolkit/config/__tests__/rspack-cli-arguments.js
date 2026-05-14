@@ -26,7 +26,7 @@ jest.mock('../../utils/file', () => {
 	return module;
 });
 
-describe('webpack.config.js', () => {
+describe('rspack.config.js', () => {
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();
@@ -49,13 +49,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('adds devServer config when passing the --dev-server flag', () => {
@@ -77,13 +77,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('allows changing browsersync port', () => {
@@ -98,13 +98,13 @@ describe('webpack.config.js', () => {
 				devURL: 'http://wptest.test',
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('includes webpack-bundle-analyzer when using --analyze', () => {
@@ -119,23 +119,23 @@ describe('webpack.config.js', () => {
 				entry: entryBuildFiles,
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 
 		// test it doesn't enable when not in productio mode
 		process.env.NODE_ENV = '';
 
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('takes the --target option into account', () => {
@@ -157,13 +157,13 @@ describe('webpack.config.js', () => {
 		});
 
 		process.argv.push('--target=node');
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 		process.argv.pop();
 	});
 
@@ -182,12 +182,12 @@ describe('webpack.config.js', () => {
 		});
 
 		process.argv.push('--sourcemap');
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
-		expect(webpackConfig.devtool).toBe('source-map');
+		expect(rspackConfig.devtool).toBe('source-map');
 		process.argv.pop();
 		process.env.NODE_ENV = originalNodeEnv;
 	});
@@ -213,13 +213,13 @@ describe('webpack.config.js', () => {
 				},
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 		process.argv.pop();
 		process.env.NODE_ENV = originalNodeEnv;
 	});

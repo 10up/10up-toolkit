@@ -20,7 +20,7 @@ const {
 	getTarget,
 	getPerformance,
 	getDevServer,
-} = require('./webpack');
+} = require('./rspack');
 
 const projectConfig = getTenUpScriptsConfig();
 const packageConfig = getTenUpScriptsPackageBuildConfig();

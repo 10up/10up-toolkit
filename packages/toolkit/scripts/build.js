@@ -2,7 +2,7 @@
  * External dependencies
  */
 
-const webpack = require('webpack');
+const rspack = require('@rspack/core');
 
 /**
  * Internal dependencies
@@ -11,8 +11,8 @@ const {
 	hasArgInCLI,
 	fromConfigRoot,
 	fromProjectRoot,
-	hasWebpackConfig,
-	displayWebpackStats,
+	hasProjectFile,
+	displayWebpackStats: displayBuildStats,
 } = require('../utils');
 
 if (hasArgInCLI('--watch')) {
@@ -20,17 +20,26 @@ if (hasArgInCLI('--watch')) {
 } else {
 	process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
-	let configPath = fromConfigRoot('webpack.config.js');
+	// Resolve config: project-level rspack/webpack config takes precedence,
+	// otherwise fall back to the toolkit's built-in rspack config.
+	let configPath = fromConfigRoot('rspack.config.js');
 
-	if (hasWebpackConfig()) {
+	if (hasProjectFile('rspack.config.js')) {
+		configPath = fromProjectRoot('rspack.config.js');
+	} else if (hasProjectFile('webpack.config.js')) {
+		// Legacy support: warn and use webpack.config.js if present
+		console.warn(
+			'\n⚠️  10up-toolkit v7 uses rspack. Rename your webpack.config.js to rspack.config.js.\n' +
+				'   See the migration guide: https://github.com/10up/10up-toolkit/blob/trunk/MIGRATION.md\n',
+		);
 		configPath = fromProjectRoot('webpack.config.js');
 	}
 
 	const config = require(configPath);
-	const compiler = webpack(config);
+	const compiler = rspack(config);
 
 	compiler.run((err, stats) => {
-		displayWebpackStats(err, stats);
+		displayBuildStats(err, stats);
 
 		compiler.close((closedErr) => {
 			if (closedErr) {

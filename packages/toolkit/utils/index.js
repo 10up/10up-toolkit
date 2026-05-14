@@ -24,13 +24,14 @@ const {
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
+	hasCustomBundlerConfig,
 	hasTsConfig,
 } = require('./config');
 const { fromProjectRoot, fromConfigRoot, hasProjectFile } = require('./file');
 
 const { hasPackageProp, getPackagePath, getPackage, getPackageVersion } = require('./package');
 
-const { displayWebpackStats } = require('./webpack');
+const { displayWebpackStats, displayBuildStats } = require('./webpack');
 
 const { transformBlockJson } = require('./blocks');
 
@@ -78,7 +79,10 @@ module.exports = {
 	getTenUpScriptsConfig,
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
+	hasCustomBundlerConfig,
+	hasProjectFile,
 	displayWebpackStats,
+	displayBuildStats,
 	transformBlockJson,
 	getGitBranch,
 };

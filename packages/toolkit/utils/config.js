@@ -28,10 +28,16 @@ const hasPrettierConfig = () =>
 	hasProjectFile('.prettierrc') ||
 	hasPackageProp('prettier');
 
-const hasWebpackConfig = () =>
+// Check for a custom bundler config file (rspack.config.js or legacy webpack.config.js)
+const hasCustomBundlerConfig = () =>
 	hasArgInCLI('--config') ||
+	hasProjectFile('rspack.config.js') ||
+	hasProjectFile('rspack.config.mjs') ||
 	hasProjectFile('webpack.config.js') ||
 	hasProjectFile('webpack.config.babel.js');
+
+// Backward-compat alias
+const hasWebpackConfig = hasCustomBundlerConfig;
 
 // See https://github.com/michael-ciniawsky/postcss-load-config#usage (used by postcss-loader).
 const hasPostCSSConfig = () =>
@@ -328,5 +334,6 @@ module.exports = {
 	getDefaultConfig,
 	getTenUpScriptsPackageBuildConfig,
 	hasWebpackConfig,
+	hasCustomBundlerConfig,
 	hasTsConfig,
 };

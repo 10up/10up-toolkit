@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const TerserPlugin = require('terser-webpack-plugin');
+const rspack = require('@rspack/core');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { optimize, loadConfig } = require('svgo');
 const sharp = require('sharp');
@@ -10,31 +9,19 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 		concatenateModules: isProduction && !analyze,
 		runtimeChunk: hot ? 'single' : false,
 		minimizer: [
-			new TerserPlugin({
-				parallel: true,
-				terserOptions: {
-					parse: {
-						// We want terser to parse ecma 8 code. However, we don't want it
-						// to apply any minification steps that turns valid ecma 5 code
-						// into invalid ecma 5 code. This is why the 'compress' and 'output'
-						// sections only apply transformations that are ecma 5 safe
-						// https://github.com/facebook/create-react-app/pull/4234
-						ecma: 8,
-					},
+			// SwcJsMinimizerRspackPlugin replaces TerserPlugin — significantly faster
+			new rspack.SwcJsMinimizerRspackPlugin({
+				minimizerOptions: {
 					compress: {
 						ecma: 5,
-						warnings: false,
 						// Disabled because of an issue with Uglify breaking seemingly valid code:
 						// https://github.com/facebook/create-react-app/issues/2376
-						// Pending further investigation:
-						// https://github.com/mishoo/UglifyJS2/issues/2011
 						comparisons: false,
 						// Disabled because of an issue with Terser breaking valid code:
 						// https://github.com/facebook/create-react-app/issues/5250
-						// Pending further investigation:
-						// https://github.com/terser-js/terser/issues/120
 						inline: 2,
 					},
+					mangle: true,
 				},
 			}),
 			new ImageMinimizerPlugin({

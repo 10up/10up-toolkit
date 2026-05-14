@@ -1,15 +1,9 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const WebpackBar = require('webpackbar');
+const rspack = require('@rspack/core');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshPlugin = require('@rspack/plugin-react-refresh');
 const { resolve } = require('path');
-const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin');
+const RspackDependencyExtractionPlugin = require('./plugins/dependency-extraction');
 const RemoveEmptyScriptsPlugin = require('./plugins/remove-empty-scripts');
 const CleanExtractedDeps = require('./plugins/clean-extracted-deps');
 const TenUpToolkitTscPlugin = require('./plugins/tsc');
@@ -27,11 +21,6 @@ const { isPackageInstalled } = require('../../utils/package');
 const removeDistFolder = (file) => {
 	return file.replace(/(^\.\/dist\/)|^dist\//, '');
 };
-
-// There are differences between Windows and Posix when it comes to the WebpackBar
-// This ensures that the same reporter is used everywhere
-const webpackbarArguments =
-	process.env.JEST_WORKER_ID !== undefined ? { reporters: ['basic'] } : undefined;
 
 module.exports = ({
 	isPackage,
@@ -52,7 +41,6 @@ module.exports = ({
 	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction && !isModule;
-	const shouldCompileVanillaExtract = isPackageInstalled('@vanilla-extract/css');
 
 	const hasBrowserSync =
 		isPackageInstalled('browser-sync-webpack-plugin') && isPackageInstalled('browser-sync');
@@ -90,17 +78,16 @@ module.exports = ({
 
 	return [
 		devServer &&
-			new HtmlWebpackPlugin({
+			new rspack.HtmlRspackPlugin({
 				...(hasProjectFile('public/index.html') && { template: 'public/index.html' }),
 			}),
-		new ESLintPlugin({
-			failOnError: false,
-			fix: false,
-			lintDirtyModulesOnly: true,
-		}),
-		shouldCompileVanillaExtract && new VanillaExtractPlugin(),
-		// MiniCSSExtractPlugin to extract the CSS that gets imported into JavaScript.
-		new MiniCSSExtractPlugin({
+
+		// ESLint — run as a standalone process rather than a bundler plugin.
+		// eslint-webpack-plugin pulled in webpack as a peer dep. For rspack builds
+		// we recommend running `npx eslint .` separately or via a package.json script.
+		// Keeping the hook point here if an rspack-compatible lint plugin appears.
+
+		new rspack.CssExtractRspackPlugin({
 			filename: (options) => {
 				if (isPackage) {
 					return removeDistFolder(style);
@@ -108,15 +95,11 @@ module.exports = ({
 
 				let entryModules = [];
 				try {
-					// with the react fast refresh plugin
-					// we cannot always assume there's a single entry module
-					// so we need to check if any of the entry modules are relative to blocksSourceDirectory
 					entryModules = options.chunk.getModules().filter((module) => {
 						return module.isEntryModule();
 					});
 				} catch (e) {
 					try {
-						// if it failed it's bc there's only one entryModule
 						entryModules.push(options.chunk.entryModule);
 					} catch (e) {
 						entryModules = [];
@@ -129,7 +112,6 @@ module.exports = ({
 					return fullPath
 						? !path
 								.relative(blocksSourceDirectory, fullPath)
-								// startWith('../') but in a cross-env way
 								.startsWith(path.join('..', '/'))
 						: false;
 				});
@@ -137,7 +119,6 @@ module.exports = ({
 				if (!isBlockAsset) {
 					if (useBlockAssets) {
 						isBlockAsset =
-							// match windows and posix paths
 							buildFiles[options.chunk.name].match(/\/blocks?\//) ||
 							buildFiles[options.chunk.name].match(/\\blocks?\\/);
 					} else {
@@ -151,8 +132,7 @@ module.exports = ({
 		}),
 
 		!isPackage &&
-			// Copy static assets to the `dist` folder.
-			new CopyWebpackPlugin({
+			new rspack.CopyRspackPlugin({
 				patterns: [
 					{
 						from: '**/*.{jpg,jpeg,png,gif,webp,avif,ico,svg,eot,ttf,woff,woff2,otf}',
@@ -184,24 +164,12 @@ module.exports = ({
 				].filter(Boolean),
 			}),
 		devURL && browserSync,
-		// Lint CSS.
-		new StyleLintPlugin({
-			context: path.resolve(process.cwd(), paths.srcDir),
-			files: '**/*.(s(c|a)ss|css)',
-			allowEmptyInput: true,
-			lintDirtyModulesOnly: true,
-			failOnError: false,
-			...(!hasStylelintConfig() && {
-				configFile: fromConfigRoot('stylelint.config.js'),
-			}),
-		}),
-		// Fancy WebpackBar.
-		!hasReactFastRefresh && new WebpackBar(webpackbarArguments),
-		// dependencyExternals variable controls whether scripts' assets get
-		// generated, and the default externals set.
+		// Progress indicator (replaces WebpackBar)
+		!hasReactFastRefresh && new rspack.ProgressPlugin({}),
+		// WordPress dependency extraction — rspack-native, no webpack needed
 		wpDependencyExternals &&
 			!isPackage &&
-			new DependencyExtractionWebpackPlugin({
+			new RspackDependencyExtractionPlugin({
 				injectPolyfill: false,
 				requestToHandle: (request) => {
 					if (request.includes('react-refresh/runtime')) {
@@ -220,7 +188,7 @@ module.exports = ({
 		new TenUpToolkitTscPlugin(),
 		analyze && isProduction && new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
 		hasReactFastRefresh &&
-			new ReactRefreshWebpackPlugin({
+			new ReactRefreshPlugin({
 				overlay: { sockHost: '127.0.0.1', sockProtocol: 'ws', sockPort: devServerPort },
 				exclude: [/node_module/, /outputCssLoader\.js/],
 			}),

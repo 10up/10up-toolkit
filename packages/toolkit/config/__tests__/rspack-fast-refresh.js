@@ -26,21 +26,21 @@ jest.mock('../../utils/file', () => {
 	return module;
 });
 
-describe('webpack.config.js', () => {
+describe('rspack.config.js', () => {
 	it('returns proper webpack fast refresh configs for project configs', () => {
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack-fast-refresh.config');
+			rspackConfig = require('../rspack-fast-refresh.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('includes react-webpack-fast-refresh with the --hot option', () => {
 		process.argv.push('--hot');
 		process.env.NODE_ENV = 'development';
-		hasProjectFileMock.mockImplementation((file) => file === 'webpack.config.js');
+		hasProjectFileMock.mockImplementation((file) => file === 'rspack.config.js');
 		const entryBuildFiles = {
 			entry1: 'entry1.js',
 		};
@@ -50,12 +50,12 @@ describe('webpack.config.js', () => {
 				entry: entryBuildFiles,
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 });

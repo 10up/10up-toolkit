@@ -1,5 +1,5 @@
 const { resolve, join } = require('path');
-const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const RspackDependencyExtractionPlugin = require('./rspack/plugins/dependency-extraction');
 
 const sharedConfig = {
 	mode: 'development',
@@ -15,9 +15,9 @@ module.exports = [
 		name: 'react-refresh-entry',
 		entry: {
 			'react-refresh-entry':
-				require.resolve('@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js'),
+				require.resolve('@rspack/plugin-react-refresh/client/reactRefreshEntry.js'),
 		},
-		plugins: [new DependencyExtractionWebpackPlugin()],
+		plugins: [new RspackDependencyExtractionPlugin()],
 	},
 	{
 		...sharedConfig,
@@ -32,7 +32,7 @@ module.exports = [
 			},
 		},
 		plugins: [
-			new DependencyExtractionWebpackPlugin({
+			new RspackDependencyExtractionPlugin({
 				useDefaults: false,
 			}),
 		],

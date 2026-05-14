@@ -26,7 +26,7 @@ jest.mock('../../utils/file', () => {
 	return module;
 });
 
-describe('webpack.config.js', () => {
+describe('rspack.config.js', () => {
 	beforeEach(() => {
 		getPackageMock.mockReset();
 		getBuildFilesMock.mockReset();
@@ -52,13 +52,13 @@ describe('webpack.config.js', () => {
 				devURL: 'http://project.test',
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('returns proper configs for package config', () => {
@@ -75,13 +75,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('returns proper configs for package config with commonjs2 format', () => {
@@ -99,13 +99,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 		process.argv.pop();
 	});
 
@@ -126,13 +126,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('properly detects user config files in package mode', () => {
@@ -152,13 +152,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('properly detects user config files in project mode', () => {
@@ -179,13 +179,13 @@ describe('webpack.config.js', () => {
 				},
 			},
 		});
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig).toMatchSnapshot();
+		expect(rspackConfig).toMatchSnapshot();
 	});
 
 	it('takes the sourcemap config into account', () => {
@@ -205,13 +205,13 @@ describe('webpack.config.js', () => {
 			},
 		});
 
-		let webpackConfig;
+		let rspackConfig;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig.devtool).toBe('source-map');
+		expect(rspackConfig.devtool).toBe('source-map');
 
 		getPackageMock.mockReturnValue({
 			name: '@10up/component-library',
@@ -227,10 +227,10 @@ describe('webpack.config.js', () => {
 
 		jest.isolateModules(() => {
 			// eslint-disable-next-line global-require
-			webpackConfig = require('../webpack.config');
+			rspackConfig = require('../rspack.config');
 		});
 
-		expect(webpackConfig.devtool).toBe(false);
+		expect(rspackConfig.devtool).toBe(false);
 
 		process.env.NODE_ENV = originalNodeEnv;
 	});
