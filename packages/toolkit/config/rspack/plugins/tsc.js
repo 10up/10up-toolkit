@@ -13,6 +13,8 @@ class TenUpToolkitTscPlugin {
 					[
 						'--project',
 						fromProjectRoot('tsconfig.json'),
+						'--rootDir',
+						fromProjectRoot('src'),
 						'--outDir',
 						fromProjectRoot('dist'),
 					],

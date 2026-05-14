@@ -144,6 +144,7 @@ module.exports = ({
 					{
 						loader: require.resolve('sass-loader'),
 						options: {
+							api: 'modern-compiler',
 							sourceMap: !isProduction,
 						},
 					},
@@ -164,6 +165,7 @@ module.exports = ({
 					{
 						loader: require.resolve('sass-loader'),
 						options: {
+							api: 'modern-compiler',
 							sourceMap: !isProduction,
 						},
 					},

@@ -35,7 +35,6 @@
 		"cross-spawn": "^7.0.3",
 		"cssnano": "^6.0.3",
 		"fast-glob": "^3.3.2",
-		"image-minimizer-webpack-plugin": "^5.0.0",
 		"inquirer": "^8.2.6",
 		"minimist": "^1.2.8",
 		"node-fetch": "^2.7.0",
@@ -51,7 +50,7 @@
 		"resolve-bin": "^1.0.1",
 		"sass": "^1.69.7",
 		"sass-loader": "^13.3.3",
-		"sharp": "0.32.6",
+		"sharp": "^0.34.5",
 		"stylelint-config-standard-scss": "^11.0.0",
 		"svgo": "^3.2.0",
 		"webpack-bundle-analyzer": "^4.10.1",
@@ -68,7 +67,7 @@
 	},
 	"description": "Collection of reusable scripts for 10up development.",
 	"engines": {
-		"node": ">=20.9.0",
+		"node": ">=24.0.0",
 		"npm": ">=10"
 	},
 	"scripts": {

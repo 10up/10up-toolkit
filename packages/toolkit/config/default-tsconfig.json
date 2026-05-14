@@ -5,5 +5,8 @@
         "emitDeclarationOnly": true,
         "isolatedModules": true,
         "skipLibCheck": true
-    }
+    },
+    "files": [
+        "./asset-types.d.ts"
+    ]
 }

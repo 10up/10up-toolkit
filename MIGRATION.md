@@ -4,11 +4,14 @@
 
 This is a **breaking change**. Follow the steps below to upgrade your project.
 
+**Node.js 24+ is now required.** Update your local Node version and CI environments before upgrading.
+
 ---
 
 ## Quick checklist
 
-1. Update `10up-toolkit` to v7 in your `package.json`
+1. Ensure you're running Node.js 24 or later
+2. Update `10up-toolkit` to v7 in your `package.json`
 2. Rename `webpack.config.js` → `rspack.config.js` (if you have a custom config)
 3. Update any webpack-specific plugin imports to rspack equivalents
 4. Replace `jest.*` calls with `rstest.*` in test files
@@ -210,6 +213,7 @@ Remove these from your project's `dependencies` or `devDependencies` if present:
 - `css-loader`, `url-loader`
 - `@pmmmwh/react-refresh-webpack-plugin`
 - `@wordpress/dependency-extraction-webpack-plugin`
+- `image-minimizer-webpack-plugin`
 - `eslint-webpack-plugin`, `stylelint-webpack-plugin`
 
 **Transpilation:**

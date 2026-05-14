@@ -62,7 +62,16 @@ const baseConfig = {
 	resolve: getResolve(config),
 	externals: getExternals(config),
 	performance: getPerformance(config),
-	module: getModules(config),
+	module: {
+		...getModules(config),
+		parser: {
+			// Allow `import styles from './file.module.css'` (default export)
+			// instead of requiring named imports for each class
+			'css/module': {
+				namedExports: false,
+			},
+		},
+	},
 	plugins: getPlugins(config),
 	stats: getStats(config),
 	optimization: getOptimization(config),

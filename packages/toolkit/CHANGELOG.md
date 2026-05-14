@@ -1,5 +1,37 @@
 # Changelog
 
+## 7.0.0
+
+### Breaking Changes
+
+- Replaced webpack with [rspack](https://rspack.dev/) as the bundler. Rspack is a Rust-based, webpack-compatible bundler that delivers 5-10x faster builds.
+- Replaced `babel-loader` and `@10up/babel-preset-default` with rspack's built-in SWC loader (`builtin:swc-loader`). SWC is 20-70x faster than Babel for transpilation.
+- Replaced `css-loader` and `mini-css-extract-plugin` with rspack's native CSS handling (`type: 'css'` / `type: 'css/module'`). CSS extraction happens automatically.
+- Replaced `url-loader` with rspack's native `asset/inline` module type.
+- Replaced `copy-webpack-plugin` with `rspack.CopyRspackPlugin` (built-in).
+- Replaced `html-webpack-plugin` with `rspack.HtmlRspackPlugin` (built-in).
+- Replaced `terser-webpack-plugin` with `rspack.SwcJsMinimizerRspackPlugin` (built-in SWC minifier).
+- Replaced `webpackbar` with `rspack.ProgressPlugin` (built-in).
+- Replaced `@pmmmwh/react-refresh-webpack-plugin` with `@rspack/plugin-react-refresh`.
+- Replaced `@wordpress/dependency-extraction-webpack-plugin` with a custom rspack-native `RspackDependencyExtractionPlugin` that ships with the toolkit.
+- Replaced `image-minimizer-webpack-plugin` with a custom rspack-native `RspackImageMinimizerPlugin` using sharp and svgo directly.
+- Replaced Jest with [Rstest](https://rstest.rs/) for testing. Rstest is Jest-compatible but uses SWC natively, eliminating the need for `babel-jest`.
+- Removed Linaria and Vanilla Extract support. These CSS-in-JS solutions were too prescriptive. CSS Modules remain fully supported.
+- Removed `eslint-webpack-plugin` and `stylelint-webpack-plugin`. Linting is now decoupled from the build — run `eslint` and `stylelint` as separate scripts.
+- Node.js 24+ is now required.
+
+### Removed Dependencies
+
+`webpack`, `webpack-cli`, `webpack-dev-server`, `webpack-sources`, `mini-css-extract-plugin`, `copy-webpack-plugin`, `html-webpack-plugin`, `terser-webpack-plugin`, `webpackbar`, `css-loader`, `url-loader`, `babel-loader`, `babel-jest`, `@10up/babel-preset-default`, `@pmmmwh/react-refresh-webpack-plugin`, `@wordpress/dependency-extraction-webpack-plugin`, `@vanilla-extract/webpack-plugin`, `@linaria/webpack5-loader`, `@linaria/babel-preset`, `eslint-webpack-plugin`, `stylelint-webpack-plugin`, `image-minimizer-webpack-plugin`, `ignore-emit-webpack-plugin`, `error-stack-parser`, `core-js-pure`, `jest`.
+
+### Added Dependencies
+
+`@rspack/core`, `@rspack/dev-server`, `@rspack/plugin-react-refresh`, `@rstest/core`.
+
+### Migration
+
+See [MIGRATION.md](./../../MIGRATION.md) for the full upgrade guide.
+
 ## 6.5.1
 
 ### Patch Changes

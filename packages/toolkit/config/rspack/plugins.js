@@ -112,7 +112,7 @@ module.exports = ({
 			}),
 		devURL && browserSync,
 		// Progress indicator
-		!hasReactFastRefresh && new rspack.ProgressPlugin({}),
+		!hasReactFastRefresh && new rspack.ProgressPlugin(),
 		// WordPress dependency extraction — rspack-native
 		wpDependencyExternals &&
 			!isPackage &&

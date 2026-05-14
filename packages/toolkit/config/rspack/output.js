@@ -14,8 +14,14 @@ module.exports = ({
 			path: path.resolve(process.cwd(), outputFolder),
 		};
 
-		if (typeof packageType === 'undefined' || packageType !== 'none') {
-			config.libraryTarget = packageType === 'all' ? 'commonjs2' : packageType;
+		// ESM output
+		if (packageType === 'module') {
+			config.module = true;
+			config.chunkFormat = 'module';
+			config.library = { type: 'module' };
+		} else if (typeof packageType !== 'undefined' && packageType !== 'none') {
+			const libraryType = packageType === 'all' ? 'commonjs2' : packageType;
+			config.library = { type: libraryType };
 		}
 
 		return config;
