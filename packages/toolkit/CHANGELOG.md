@@ -46,8 +46,6 @@
 
 ### Minor Changes
 
-- 402c108: Introducing Vanilla-extract support
-
 ### Patch Changes
 
 - 6573d42: Fix: transform file extension for .sass and .scss assets inside block.json files
@@ -55,8 +53,6 @@
 ## 6.3.1-next.1
 
 ### Minor Changes
-
-- 402c108: Introducing Vanilla-extract support
 
 ### Patch Changes
 
@@ -197,7 +193,7 @@
 
 - 091bb26: Update postcss-preset-env to ^9.0.0 from ^7.0.0
   Swap postcss-editor-styles with postcss-editor-styles-wrapper which is compatible with PostCSS 8
-- e6c5140: Update linaria to next major and fix an issue with react-refresh plugin. Also drops support for node 14.
+
 
 ### Minor Changes
 
@@ -229,7 +225,7 @@
 
 - 091bb26: Update postcss-preset-env to ^9.0.0 from ^7.0.0
   Swap postcss-editor-styles with postcss-editor-styles-wrapper which is compatible with PostCSS 8
-- e6c5140: Update linaria to next major and fix an issue with react-refresh plugin. Also drops support for node 14.
+
 
 ### Minor Changes
 
@@ -297,7 +293,7 @@
 
 ### Minor Changes
 
-- 799afd5: Introduce support for Linaria (css-in-js) in toolkit.
+
 - b682822: maybe insert style version hash to dist block.json files
 
 ### Patch Changes
@@ -312,7 +308,7 @@
 
 ### Minor Changes
 
-- 799afd5: Introduce support for Linaria (css-in-js) in toolkit.
+
 - b682822: maybe insert style version hash to dist block.json files
 
 ### Patch Changes

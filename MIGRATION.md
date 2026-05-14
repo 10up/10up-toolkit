@@ -55,9 +55,21 @@ These webpack plugins have been replaced by rspack's built-in equivalents. If yo
 
 ### Loaders
 
-Most loaders work unchanged with rspack. The following are still used as-is: `babel-loader`, `css-loader`, `sass-loader`, `postcss-loader`, `@svgr/webpack`, `url-loader`.
+### JavaScript transpilation
 
-`@linaria/webpack5-loader` is still supported as an optional peer dependency. It works with rspack's webpack-compatibility layer.
+`babel-loader` and `@10up/babel-preset-default` have been replaced with rspack's built-in SWC loader (`builtin:swc-loader`). SWC is a Rust-based transpiler that is 20-70x faster than Babel.
+
+The SWC configuration replicates everything `@10up/babel-preset-default` did: TypeScript/TSX support, automatic JSX runtime (or classic WordPress pragma mode), core-js polyfill injection, and browser targeting.
+
+If your project has a custom `.babelrc` or `babel.config.js`, those files are no longer used by the bundler. You may still need them for Jest (which still uses `babel-jest`).
+
+### CSS loaders
+
+The following are still used as-is: `css-loader`, `sass-loader`, `postcss-loader`, `@svgr/webpack`, `url-loader`.
+
+### Linaria and Vanilla Extract removed
+
+Support for Linaria and Vanilla Extract CSS-in-JS solutions has been removed. CSS Modules remain fully supported.
 
 ---
 
@@ -155,17 +167,20 @@ Remove these from your project's `dependencies` or `devDependencies` if present 
 - `@pmmmwh/react-refresh-webpack-plugin`
 - `@wordpress/dependency-extraction-webpack-plugin`
 - `@vanilla-extract/webpack-plugin`
+- `@linaria/webpack5-loader`
+- `@linaria/babel-preset`
+- `@linaria/core`
+- `@linaria/react`
+- `babel-loader`
+- `@10up/babel-preset-default`
 - `eslint-webpack-plugin`
 - `stylelint-webpack-plugin`
 
 ---
 
-## Vanilla Extract users
+## Linaria and Vanilla Extract removed
 
-`@vanilla-extract/webpack-plugin` does not support rspack. If your project uses Vanilla Extract for CSS-in-JS, you have two options:
-
-1. Wait for upstream rspack support (tracked at the Vanilla Extract repo)
-2. Switch to an alternative like CSS Modules (supported out of the box) or Linaria (still supported as a peer dep)
+Support for Linaria and Vanilla Extract has been removed in v7. These CSS-in-JS solutions were too prescriptive for a general-purpose toolkit. If your project uses either, you'll need to configure them independently outside of 10up-toolkit. CSS Modules remain fully supported out of the box.
 
 ---
 

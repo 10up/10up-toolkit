@@ -12,14 +12,12 @@ A collection of bundled scripts for 10up development.
 8. [10up Projects](PROJECTS.md)
 9. [TypeScript Support](#typescript)
 10. [React & WordPress](#react)
-11. [Linaria (CSS-in-JS)](#linaria)
-
 ## <a id="introduction"></a>Introduction
 
-10up-toolkit is 10up's official asset bundling tool based on Webpack 5. It comes with support for many things commonly
+10up-toolkit is 10up's official asset bundling tool based on rspack. It comes with support for many things commonly
 used across 10up's projects such as:
 
-- JavaScript transpilation through babel
+- JavaScript transpilation through SWC
 - core-js@3 automatic polyfill injection (project mode)
 - PostCSS, SASS and CSS Modules
 - ESLint, Prettier, and Stylelint
@@ -1029,32 +1027,6 @@ function remove_deps( $scripts ) {
 ```
 
 By disabling "WordPress" mode, you will need to install both react and react-dom yourself and include in your final bundle.
-
-## <a id="linaria"></a> Linaria (CSS-in-JS)
-
-> Support for Linaria was added in 10up-toolkit 5.1.0.
-
-10up-toolkit supports [Linaria](https://linaria.dev/) without any additional configuration. The main usecase for supporting linaria is to easily compile React components authored using Linaria. This can be useful if you're building a headless site and want to share React components between your front-end and Gutenberg.
-
-If you want 10up-toolkit to compile Linaria first install the following packages:
-
-```bash
-npm install --save-dev @linaria/babel-preset @linaria/webpack-loader
-npm install --save @linaria/core @linaria/react
-```
-
-Once those packages are installed, 10up-toolkit will now look for any Linaria usage in JavaScript files and compile the CSS. The compiled CSS will have the name of the JS entry point (but with a .css extension).
-
-For instance, if you have a block with the following `block.json`
-
-```json
-"editorScript": "file:./index.js",
-"editorStyle": "file:./index.css"
-```
-
-10up-toolkit will compile any Linaria code from the `index.js` entry point to `index.css`. Note that CSS imported by JS entry points always gets generated with the name of the entry point e.g: `index.js => index.css`. So make sure `editorStyle` points to the right CSS file which should be based on `editorScript`.
-
-**IMPORTANT**: We do not currently recommend using Linaria for standard WordPress builds. In a headless build the block rendering and front-end styles are handled outside of WordPress, hence why the `block.json` above only cares about the editor script and style.
 
 ## Support Level
 

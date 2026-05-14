@@ -29,7 +29,6 @@
 		"@wordpress/eslint-plugin": "^17.5.0",
 		"@wordpress/jest-console": "^7.19.0",
 		"babel-jest": "^29.7.0",
-		"babel-loader": "^9.1.3",
 		"camelcase": "^6.3.0",
 		"chalk": "^4.0.0",
 		"core-js": "^3.35.0",
@@ -65,25 +64,13 @@
 		"yaml": "^2.4.1"
 	},
 	"devDependencies": {
-		"@10up/babel-preset-default": ">=2.1.2",
 		"@10up/eslint-config": ">=4.1.3",
 		"@10up/stylelint-config": ">=3.0.1"
 	},
 	"peerDependencies": {
-		"@10up/babel-preset-default": ">=2.1.1",
 		"@10up/eslint-config": ">=4.1.3-next.0",
 		"@10up/stylelint-config": ">=3.0.0",
-		"@linaria/babel-preset": ">=4.3.3",
-		"@linaria/webpack5-loader": ">=4.1.11",
 		"typescript": ">=5.0.0"
-	},
-	"peerDependenciesMeta": {
-		"@linaria/webpack5-loader": {
-			"optional": true
-		},
-		"@linaria/babel-preset": {
-			"optional": true
-		}
 	},
 	"description": "Collection of reusable scripts for 10up development.",
 	"engines": {

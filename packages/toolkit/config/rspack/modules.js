@@ -1,7 +1,6 @@
 const rspack = require('@rspack/core');
 
-const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
-const { isPackageInstalled } = require('../../utils/package');
+const { hasPostCSSConfig, fromConfigRoot } = require('../../utils');
 
 const getCSSLoaders = ({ options, postcss, sass }) => {
 	// Note that the order of loaders is important. The loaders are applied from right to left.
@@ -53,8 +52,73 @@ function shouldExclude(input, include) {
 	return /node_modules/.test(input);
 }
 
-const LINARIA_EXTENSION = '.linaria.module.css';
-const LINARIA_EXTENSION_REGEXP = /\.linaria\.module\.css/;
+/**
+ * Build the SWC configuration that replaces @10up/babel-preset-default.
+ *
+ * Replicates:
+ *   - @babel/preset-env        → SWC env targets
+ *   - @babel/preset-react      → SWC JSX transform (automatic or classic/WordPress)
+ *   - @babel/preset-typescript → SWC TypeScript support (tsx: true)
+ *   - core-js polyfill injection (mode: 'usage')
+ *   - WordPress pragma mode    → classic JSX with @wordpress/element imports
+ *   - react-refresh/babel      → SWC react refresh transform
+ */
+function getSwcConfig({ isPackage, isProduction, wordpress, hot, isModule, defaultTargets }) {
+	const hasReactFastRefresh = hot && !isProduction && !isModule;
+
+	// Determine JSX runtime mode
+	// WordPress mode uses classic runtime with @wordpress/element pragma
+	// Non-WordPress uses the automatic runtime (React 17+)
+	const useWordPressPragma = wordpress;
+
+	const jsc = {
+		parser: {
+			syntax: 'typescript',
+			tsx: true,
+			decorators: false,
+			dynamicImport: true,
+		},
+		transform: {
+			react: useWordPressPragma
+				? {
+						runtime: 'classic',
+						pragma: 'createElement',
+						pragmaFrag: 'Fragment',
+						development: !isProduction,
+					}
+				: {
+						runtime: 'automatic',
+						development: !isProduction,
+					},
+		},
+		// Production: remove prop-types (mirrors babel-plugin-transform-react-remove-prop-types)
+		...(isProduction && {
+			minify: {
+				compress: false,
+				mangle: false,
+			},
+		}),
+		externalHelpers: false,
+	};
+
+	const env = {
+		targets: defaultTargets.join(', '),
+		// core-js polyfill injection — mirrors useBuiltIns: 'usage' from babel preset
+		...(isPackage
+			? {}
+			: {
+					mode: 'usage',
+					coreJs: '3',
+				}),
+	};
+
+	return {
+		jsc,
+		env,
+		isModule: 'unknown',
+		sourceMaps: !isProduction,
+	};
+}
 
 module.exports = ({
 	isProduction,
@@ -65,45 +129,14 @@ module.exports = ({
 }) => {
 	const hasReactFastRefresh = hot && !isProduction && !isModule;
 
-	// Provide a default configuration if there's not
-	// one explicitly available in the project.
-	const babelConfig = !hasBabelConfig()
-		? {
-				babelrc: false,
-				configFile: false,
-				sourceType: 'unambiguous',
-				plugins: [
-					hasReactFastRefresh && [
-						require.resolve('react-refresh/babel'),
-						{ skipEnvCheck: true },
-					],
-				].filter(Boolean),
-				presets: [
-					[
-						require.resolve('@10up/babel-preset-default'),
-						{
-							wordpress,
-							useBuiltIns: isPackage ? false : 'usage',
-							targets: defaultTargets,
-						},
-					],
-				],
-			}
-		: {};
-
-	if (isPackageInstalled('@linaria/babel-preset') && !hasBabelConfig()) {
-		babelConfig.presets.push([
-			'@linaria',
-			{
-				babelOptions: {
-					babelrc: false,
-					configFile: false,
-					sourceType: 'unambiguous',
-					presets: [...babelConfig.presets],
-				},
-			},
-		]);
-	}
+	const swcConfig = getSwcConfig({
+		isPackage,
+		isProduction,
+		wordpress,
+		hot,
+		isModule,
+		defaultTargets,
+	});
 
 	return {
 		rules: [
@@ -116,33 +149,11 @@ module.exports = ({
 						loader: require.resolve('./plugins/noop-loader'),
 					},
 					{
-						// Keep babel-loader for now to maintain full compatibility
-						// with @10up/babel-preset-default and all Babel plugins.
-						// TODO: Migrate to builtin:swc-loader for additional speed gains
-						// once SWC equivalents for all Babel presets/plugins are configured.
-						loader: require.resolve('babel-loader'),
+						loader: 'builtin:swc-loader',
 						options: {
-							// Babel uses a directory within local node_modules
-							// by default. Use the environment variable option
-							// to enable more persistent caching.
-							cacheDirectory: process.env.BABEL_CACHE_DIRECTORY || true,
-							...babelConfig,
-						},
-					},
-					isPackageInstalled('@linaria/webpack5-loader') && {
-						loader: '@linaria/webpack5-loader',
-						options: {
-							sourceMap: process.env.NODE_ENV !== 'production',
-							extension: LINARIA_EXTENSION,
-							babelOptions: {
-								...babelConfig,
-								plugins: (babelConfig.plugins || []).filter((p) => {
-									const id = Array.isArray(p) ? p[0] : p;
-									return (
-										typeof id !== 'string' ||
-										!id.includes('react-refresh/babel')
-									);
-								}),
+							...swcConfig,
+							rspackExperiments: {
+								import: [],
 							},
 						},
 					},
@@ -162,7 +173,7 @@ module.exports = ({
 					postcss: true,
 					sass: false,
 				}),
-				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP, /\.vanilla\.css$/i],
+				exclude: [/\.module\.css$/],
 			},
 			{
 				test: /\.(sc|sa)ss$/,
@@ -176,7 +187,7 @@ module.exports = ({
 						sass: true,
 					}),
 				],
-				exclude: [/\.module\.css$/, LINARIA_EXTENSION_REGEXP],
+				exclude: [/\.module\.css$/],
 			},
 			{
 				test: /\.module\.css$/,
@@ -191,16 +202,6 @@ module.exports = ({
 						postcss: true,
 						sass: true,
 					}),
-				],
-				exclude: [/\.linaria\.module\.css$/],
-			},
-			{
-				test: LINARIA_EXTENSION_REGEXP,
-				use: [
-					{ loader: rspack.CssExtractRspackPlugin.loader },
-					{
-						loader: 'css-loader',
-					},
 				],
 			},
 			// when in package module only include referenced resources
