@@ -10,7 +10,6 @@ const TenUpToolkitTscPlugin = require('./plugins/tsc');
 const NoBrowserSyncPlugin = require('./plugins/no-browser-sync');
 
 const {
-	hasStylelintConfig,
 	fromConfigRoot,
 	hasProjectFile,
 	getArgFromCLI,
@@ -18,17 +17,12 @@ const {
 } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
-const removeDistFolder = (file) => {
-	return file.replace(/(^\.\/dist\/)|^dist\//, '');
-};
-
 module.exports = ({
 	isPackage,
 	isModule = false,
 	isProduction,
 	projectConfig: {
 		devServer,
-		filenames,
 		devURL,
 		devServerPort,
 		paths,
@@ -37,7 +31,6 @@ module.exports = ({
 		hot,
 		useBlockAssets,
 	},
-	packageConfig: { style },
 	buildFiles,
 }) => {
 	const hasReactFastRefresh = hot && !isProduction && !isModule;
@@ -82,54 +75,8 @@ module.exports = ({
 				...(hasProjectFile('public/index.html') && { template: 'public/index.html' }),
 			}),
 
-		// ESLint — run as a standalone process rather than a bundler plugin.
-		// eslint-webpack-plugin pulled in webpack as a peer dep. For rspack builds
-		// we recommend running `npx eslint .` separately or via a package.json script.
-		// Keeping the hook point here if an rspack-compatible lint plugin appears.
-
-		new rspack.CssExtractRspackPlugin({
-			filename: (options) => {
-				if (isPackage) {
-					return removeDistFolder(style);
-				}
-
-				let entryModules = [];
-				try {
-					entryModules = options.chunk.getModules().filter((module) => {
-						return module.isEntryModule();
-					});
-				} catch (e) {
-					try {
-						entryModules.push(options.chunk.entryModule);
-					} catch (e) {
-						entryModules = [];
-					}
-				}
-
-				let isBlockAsset = entryModules.some((module) => {
-					const fullPath = module.resource;
-
-					return fullPath
-						? !path
-								.relative(blocksSourceDirectory, fullPath)
-								.startsWith(path.join('..', '/'))
-						: false;
-				});
-
-				if (!isBlockAsset) {
-					if (useBlockAssets) {
-						isBlockAsset =
-							buildFiles[options.chunk.name].match(/\/blocks?\//) ||
-							buildFiles[options.chunk.name].match(/\\blocks?\\/);
-					} else {
-						isBlockAsset = options.chunk.name.match(/-block$/);
-					}
-				}
-
-				return isBlockAsset ? filenames.blockCSS : filenames.css;
-			},
-			chunkFilename: '[id].css',
-		}),
+		// CSS extraction is handled natively by rspack via type: 'css' in module rules.
+		// No CssExtractRspackPlugin needed — CSS filenames are controlled via output.cssFilename.
 
 		!isPackage &&
 			new rspack.CopyRspackPlugin({
@@ -164,9 +111,9 @@ module.exports = ({
 				].filter(Boolean),
 			}),
 		devURL && browserSync,
-		// Progress indicator (replaces WebpackBar)
+		// Progress indicator
 		!hasReactFastRefresh && new rspack.ProgressPlugin({}),
-		// WordPress dependency extraction — rspack-native, no webpack needed
+		// WordPress dependency extraction — rspack-native
 		wpDependencyExternals &&
 			!isPackage &&
 			new RspackDependencyExtractionPlugin({

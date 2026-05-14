@@ -1,38 +1,4 @@
-const rspack = require('@rspack/core');
-
 const { hasPostCSSConfig, fromConfigRoot } = require('../../utils');
-
-const getCSSLoaders = ({ options, postcss, sass }) => {
-	// Note that the order of loaders is important. The loaders are applied from right to left.
-	// This goes as Sass -> PostCSS -> CSS -> CssExtractRspackPlugin
-	return [
-		{
-			loader: rspack.CssExtractRspackPlugin.loader,
-		},
-		{
-			loader: require.resolve('css-loader'),
-			options,
-		},
-		postcss && {
-			loader: require.resolve('postcss-loader'),
-			options: {
-				postcssOptions: {
-					// Provide a fallback configuration if there's not
-					// one explicitly available in the project.
-					...(!hasPostCSSConfig() && {
-						config: fromConfigRoot('postcss.config.js'),
-					}),
-				},
-			},
-		},
-		sass && {
-			loader: require.resolve('sass-loader'),
-			options: {
-				sourceMap: options ? options.sourceMap : false,
-			},
-		},
-	].filter(Boolean);
-};
 
 function shouldExclude(input, include) {
 	let shouldInclude = false;
@@ -61,12 +27,8 @@ function shouldExclude(input, include) {
  *   - @babel/preset-typescript → SWC TypeScript support (tsx: true)
  *   - core-js polyfill injection (mode: 'usage')
  *   - WordPress pragma mode    → classic JSX with @wordpress/element imports
- *   - react-refresh/babel      → SWC react refresh transform
  */
-function getSwcConfig({ isPackage, isProduction, wordpress, hot, isModule, defaultTargets }) {
-	const hasReactFastRefresh = hot && !isProduction && !isModule;
-
-	// Determine JSX runtime mode
+function getSwcConfig({ isPackage, isProduction, wordpress, defaultTargets }) {
 	// WordPress mode uses classic runtime with @wordpress/element pragma
 	// Non-WordPress uses the automatic runtime (React 17+)
 	const useWordPressPragma = wordpress;
@@ -91,19 +53,12 @@ function getSwcConfig({ isPackage, isProduction, wordpress, hot, isModule, defau
 						development: !isProduction,
 					},
 		},
-		// Production: remove prop-types (mirrors babel-plugin-transform-react-remove-prop-types)
-		...(isProduction && {
-			minify: {
-				compress: false,
-				mangle: false,
-			},
-		}),
 		externalHelpers: false,
 	};
 
 	const env = {
 		targets: defaultTargets.join(', '),
-		// core-js polyfill injection — mirrors useBuiltIns: 'usage' from babel preset
+		// core-js polyfill injection — mirrors useBuiltIns: 'usage' from the old babel preset
 		...(isPackage
 			? {}
 			: {
@@ -120,6 +75,22 @@ function getSwcConfig({ isPackage, isProduction, wordpress, hot, isModule, defau
 	};
 }
 
+/**
+ * Returns PostCSS loader config, or false if postcss should be skipped.
+ */
+function getPostCSSLoader() {
+	return {
+		loader: require.resolve('postcss-loader'),
+		options: {
+			postcssOptions: {
+				...(!hasPostCSSConfig() && {
+					config: fromConfigRoot('postcss.config.js'),
+				}),
+			},
+		},
+	};
+}
+
 module.exports = ({
 	isProduction,
 	isPackage,
@@ -127,8 +98,6 @@ module.exports = ({
 	defaultTargets,
 	projectConfig: { wordpress, hot, include },
 }) => {
-	const hasReactFastRefresh = hot && !isProduction && !isModule;
-
 	const swcConfig = getSwcConfig({
 		isPackage,
 		isProduction,
@@ -152,59 +121,56 @@ module.exports = ({
 						loader: 'builtin:swc-loader',
 						options: {
 							...swcConfig,
-							rspackExperiments: {
-								import: [],
-							},
 						},
 					},
 				].filter(Boolean),
 			},
 			{
 				test: /\.svg$/,
-				use: ['@svgr/webpack', 'url-loader'],
+				use: ['@svgr/webpack'],
+				type: 'asset/inline',
 			},
+			// Native CSS — rspack handles parsing, url resolution, and extraction
 			{
 				test: /\.css$/,
-				use: getCSSLoaders({
-					options: {
-						sourceMap: !isProduction,
-						url: isPackage,
-					},
-					postcss: true,
-					sass: false,
-				}),
+				use: [getPostCSSLoader()],
+				type: 'css',
 				exclude: [/\.module\.css$/],
 			},
 			{
 				test: /\.(sc|sa)ss$/,
 				use: [
-					...getCSSLoaders({
+					getPostCSSLoader(),
+					{
+						loader: require.resolve('sass-loader'),
 						options: {
 							sourceMap: !isProduction,
-							url: isPackage,
 						},
-						postcss: true,
-						sass: true,
-					}),
+					},
 				],
-				exclude: [/\.module\.css$/],
+				type: 'css',
+				exclude: [/\.module\.(sc|sa)ss$/],
 			},
+			// CSS Modules — native rspack support
 			{
 				test: /\.module\.css$/,
+				use: [getPostCSSLoader()],
+				type: 'css/module',
+			},
+			{
+				test: /\.module\.(sc|sa)ss$/,
 				use: [
-					...getCSSLoaders({
+					getPostCSSLoader(),
+					{
+						loader: require.resolve('sass-loader'),
 						options: {
 							sourceMap: !isProduction,
-							url: isPackage,
-							import: false,
-							modules: true,
 						},
-						postcss: true,
-						sass: true,
-					}),
+					},
 				],
+				type: 'css/module',
 			},
-			// when in package module only include referenced resources
+			// when in package mode only include referenced resources
 			isPackage && {
 				test: /\.(woff(2)?|ttf|eot|svg|jpg|jpeg|png|giff|webp)(\?v=\d+\.\d+\.\d+)?$/,
 				type: 'asset/resource',

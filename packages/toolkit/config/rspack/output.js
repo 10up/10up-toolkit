@@ -2,12 +2,12 @@ const path = require('path');
 
 module.exports = ({
 	isPackage,
-	packageConfig: { packageType, main },
+	packageConfig: { packageType, main, style },
 	projectConfig: { filenames, useScriptModules, hot, publicPath },
 	buildFiles,
 }) => {
 	if (isPackage) {
-		// if main (output) is not a file then use as the bas epath
+		// if main (output) is not a file then use as the base path
 		const outputFolder = main.split('.').length > 1 ? 'dist' : main;
 
 		const config = {
@@ -37,5 +37,14 @@ module.exports = ({
 				buildFiles[pathData.chunk.name].match(/\\blocks?\\/);
 			return isBlockAsset ? filenames.block : filenames.js;
 		},
+		// Native CSS output — mirrors the JS filename block detection logic
+		cssFilename: (pathData) => {
+			const isBlockAsset =
+				buildFiles[pathData.chunk.name] &&
+				(buildFiles[pathData.chunk.name].match(/\/blocks?\//) ||
+					buildFiles[pathData.chunk.name].match(/\\blocks?\\/));
+			return isBlockAsset ? filenames.blockCSS : filenames.css;
+		},
+		cssChunkFilename: '[id].css',
 	};
 };
