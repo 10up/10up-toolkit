@@ -1,5 +1,4 @@
 // Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = 'test';
 process.env.NODE_ENV = 'test';
 
 // Makes the script crash on unhandled rejections instead of silently
@@ -12,15 +11,20 @@ process.on('unhandledRejection', (err) => {
 /**
  * External dependencies
  */
-const jest = require('jest');
+const { execSync } = require('child_process');
 
 /**
  * Internal dependencies
  */
-const { getJestOverrideConfigFile, getArgsFromCLI } = require('../utils');
+const { getArgsFromCLI } = require('../utils');
 
-const configFile = getJestOverrideConfigFile('unit');
+const args = getArgsFromCLI();
 
-const config = configFile ? ['--config', JSON.stringify(require(configFile))] : [];
-
-jest.run([...config, ...getArgsFromCLI()]);
+try {
+	execSync(`npx rstest ${args.join(' ')}`, {
+		stdio: 'inherit',
+		env: { ...process.env },
+	});
+} catch (e) {
+	process.exit(e.status || 1);
+}

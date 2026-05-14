@@ -23,12 +23,12 @@
 		"@rspack/core": "^2.0.0",
 		"@rspack/dev-server": "^2.0.0",
 		"@rspack/plugin-react-refresh": "^2.0.0",
+		"@rstest/core": "^0.9.0",
 		"@svgr/webpack": "^8.1.0",
 		"@typescript-eslint/eslint-plugin": "^6.17.0",
 		"@typescript-eslint/parser": "^6.17.0",
 		"@wordpress/eslint-plugin": "^17.5.0",
 		"@wordpress/jest-console": "^7.19.0",
-		"babel-jest": "^29.7.0",
 		"camelcase": "^6.3.0",
 		"chalk": "^4.0.0",
 		"core-js": "^3.35.0",
@@ -37,11 +37,9 @@
 		"css-loader": "^6.8.1",
 		"cssnano": "^6.0.3",
 		"error-stack-parser": "^2.1.4",
-		"eslint-plugin-jest": "^28.14.0",
 		"fast-glob": "^3.3.2",
 		"image-minimizer-webpack-plugin": "^5.0.0",
 		"inquirer": "^8.2.6",
-		"jest": "^29.7.0",
 		"minimist": "^1.2.8",
 		"node-fetch": "^2.7.0",
 		"postcss": "^8.4.31",
@@ -78,13 +76,14 @@
 		"npm": ">=10"
 	},
 	"scripts": {
-		"test": "jest",
-		"test:watch": "jest --watch",
+		"test": "rstest",
+		"test:watch": "rstest --watch",
 		"lint": "eslint ."
 	},
 	"keywords": [
 		"wordpress",
 		"rspack",
+		"rstest",
 		"scripts"
 	],
 	"license": "GPL-2.0-or-later"

@@ -16,7 +16,7 @@ const {
 	displayWebpackStats: displayBuildStats,
 } = require('../utils');
 
-if (hasArgInCLI('--webpack-no-externals')) {
+if (hasArgInCLI('--no-externals') || hasArgInCLI('--webpack-no-externals')) {
 	process.env.TENUP_NO_EXTERNALS = true;
 }
 

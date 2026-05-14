@@ -5,10 +5,10 @@ import {
 } from '../config';
 import { getPackage as getPackageMock } from '../package';
 
-jest.mock('../package', () => {
-	const module = jest.requireActual('../package');
+rstest.mock('../package', () => {
+	const module = rstest.requireActual('../package');
 
-	jest.spyOn(module, 'getPackage');
+	rstest.spyOn(module, 'getPackage');
 
 	return module;
 });

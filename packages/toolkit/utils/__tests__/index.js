@@ -18,35 +18,35 @@ import {
 	fromConfigRoot as fromConfigRootMock,
 } from '../file';
 
-jest.mock('../package', () => {
-	const module = jest.requireActual('../package');
+rstest.mock('../package', () => {
+	const module = rstest.requireActual('../package');
 
-	jest.spyOn(module, 'getPackagePath');
-	jest.spyOn(module, 'hasPackageProp');
-	jest.spyOn(module, 'getPackage');
-
-	return module;
-});
-jest.mock('../process', () => {
-	const module = jest.requireActual('../process');
-
-	jest.spyOn(module, 'exit');
-	jest.spyOn(module, 'getArgsFromCLI');
+	rstest.spyOn(module, 'getPackagePath');
+	rstest.spyOn(module, 'hasPackageProp');
+	rstest.spyOn(module, 'getPackage');
 
 	return module;
 });
-jest.mock('../file', () => {
-	const module = jest.requireActual('../file');
+rstest.mock('../process', () => {
+	const module = rstest.requireActual('../process');
 
-	jest.spyOn(module, 'hasProjectFile');
-	jest.spyOn(module, 'fromProjectRoot');
-	jest.spyOn(module, 'fromConfigRoot');
+	rstest.spyOn(module, 'exit');
+	rstest.spyOn(module, 'getArgsFromCLI');
+
+	return module;
+});
+rstest.mock('../file', () => {
+	const module = rstest.requireActual('../file');
+
+	rstest.spyOn(module, 'hasProjectFile');
+	rstest.spyOn(module, 'fromProjectRoot');
+	rstest.spyOn(module, 'fromConfigRoot');
 
 	return module;
 });
 
 describe('utils', () => {
-	const crossSpawnMock = jest.spyOn(crossSpawn, 'sync');
+	const crossSpawnMock = rstest.spyOn(crossSpawn, 'sync');
 
 	describe('hasArgInCLI', () => {
 		beforeAll(() => {

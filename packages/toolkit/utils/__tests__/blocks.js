@@ -2,10 +2,10 @@ import path from 'path';
 import { transformBlockJson } from '../blocks';
 import { getFileContentHash as getFileContentHashMock } from '../file';
 
-jest.mock('../file', () => {
-	const module = jest.requireActual('../file');
+rstest.mock('../file', () => {
+	const module = rstest.requireActual('../file');
 
-	jest.spyOn(module, 'getFileContentHash');
+	rstest.spyOn(module, 'getFileContentHash');
 
 	return module;
 });

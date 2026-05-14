@@ -184,6 +184,68 @@ Support for Linaria and Vanilla Extract has been removed in v7. These CSS-in-JS 
 
 ---
 
+## Testing: Jest → Rstest
+
+Jest has been replaced with [Rstest](https://rstest.rs/), a test runner from the rspack team that uses SWC for transpilation. This eliminates the need for `babel-jest`, `@10up/babel-preset-default`, and any Babel configuration for tests.
+
+### What changed
+
+| Before (v6) | After (v7) |
+|---|---|
+| `jest` | `@rstest/core` (CLI: `rstest`) |
+| `babel-jest` | Not needed — Rstest uses SWC natively |
+| `@10up/babel-preset-default` | Not needed for tests |
+| `jest.config.js` | `rstest.config.mjs` |
+| `jest-unit.config.js` | `rstest-unit.config.mjs` |
+
+### Updating test files
+
+Rstest is Jest-compatible. The main change is replacing `jest.*` calls with `rstest.*`:
+
+```js
+// Before
+jest.mock('./module');
+jest.fn();
+jest.spyOn(obj, 'method');
+jest.requireActual('./module');
+
+// After
+rstest.mock('./module');
+rstest.fn();
+rstest.spyOn(obj, 'method');
+rstest.requireActual('./module');
+```
+
+`describe`, `it`, `test`, `expect`, `beforeEach`, `afterEach` etc. all work the same — they're available globally with `globals: true` in the rstest config.
+
+### Updating package.json scripts
+
+```json
+{
+  "scripts": {
+-   "test": "jest",
+-   "test:watch": "jest --watch"
++   "test": "rstest",
++   "test:watch": "rstest --watch"
+  }
+}
+```
+
+### Snapshot format change
+
+Rstest uses `>` as the key separator in snapshots instead of Jest's `:`. On first run, use `rstest -u` to regenerate snapshots.
+
+### Packages to remove
+
+- `jest`
+- `babel-jest`
+- `@10up/babel-preset-default` (unless needed elsewhere)
+- Any `jest.config.js` or `babel.config.js` files used solely for Jest
+
+See the [Rstest Jest migration guide](https://rstest.rs/guide/migration/jest) for the full reference.
+
+---
+
 ## Troubleshooting
 
 ### Build fails with "Cannot find module 'webpack'"

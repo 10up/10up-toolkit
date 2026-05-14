@@ -37,7 +37,7 @@ module.exports = ({
 			},
 		);
 
-		// add any additional entrypoints we find in block.json filed to the webpack config
+		// add any additional entrypoints we find in block.json files to the rspack config
 		additionalEntrypoints = blockMetadataFiles.reduce((accumulator, blockMetadataFile) => {
 			// wrapping in try/catch in case the file is malformed
 			// this happens especially when new block.json files are added
@@ -133,7 +133,7 @@ module.exports = ({
 			// glob is invoked with `absolute: true`, so filePath is already
 			// absolute. Re-resolving via `path.resolve` would prepend a
 			// Windows drive letter and convert separators on Windows, which
-			// changes the path string the rest of webpack receives.
+			// changes the path string the rest of rspack receives.
 			blockStyleEntryPoints[`autoenqueue/${blockName}`] = filePath;
 		});
 	}

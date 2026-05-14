@@ -2,26 +2,26 @@ import { getBuildFiles as getBuildFilesMock } from '../../utils/config';
 import { hasProjectFile as hasProjectFileMock } from '../../utils/file';
 import { getPackage as getPackageMock } from '../../utils/package';
 
-jest.mock('../../utils/package', () => {
-	const module = jest.requireActual('../../utils/package');
+rstest.mock('../../utils/package', () => {
+	const module = rstest.requireActual('../../utils/package');
 
-	jest.spyOn(module, 'getPackage');
-
-	return module;
-});
-
-jest.mock('../../utils/config', () => {
-	const module = jest.requireActual('../../utils/config');
-
-	jest.spyOn(module, 'getBuildFiles');
+	rstest.spyOn(module, 'getPackage');
 
 	return module;
 });
 
-jest.mock('../../utils/file', () => {
-	const module = jest.requireActual('../../utils/file');
+rstest.mock('../../utils/config', () => {
+	const module = rstest.requireActual('../../utils/config');
 
-	jest.spyOn(module, 'hasProjectFile');
+	rstest.spyOn(module, 'getBuildFiles');
+
+	return module;
+});
+
+rstest.mock('../../utils/file', () => {
+	const module = rstest.requireActual('../../utils/file');
+
+	rstest.spyOn(module, 'hasProjectFile');
 
 	return module;
 });
@@ -29,7 +29,7 @@ jest.mock('../../utils/file', () => {
 describe('rspack.config.js', () => {
 	it('returns proper webpack fast refresh configs for project configs', () => {
 		let rspackConfig;
-		jest.isolateModules(() => {
+		rstest.isolateModules(() => {
 			// eslint-disable-next-line global-require
 			rspackConfig = require('../rspack-fast-refresh.config');
 		});
@@ -51,7 +51,7 @@ describe('rspack.config.js', () => {
 			},
 		});
 		let rspackConfig;
-		jest.isolateModules(() => {
+		rstest.isolateModules(() => {
 			// eslint-disable-next-line global-require
 			rspackConfig = require('../rspack.config');
 		});
