@@ -21,7 +21,7 @@ used across 10up's projects such as:
 - core-js@3 automatic polyfill injection (project mode)
 - PostCSS, SASS and CSS Modules
 - ESLint, Prettier, and Stylelint
-- Jest
+- Rstest (Jest-compatible test runner)
 
 With 10up-toolkit, engineers can quickly and easily bundle assets for both production and development without having
 to worry about config files. 10up-toolkit is also easy to extend to project's specifics needs.
@@ -147,7 +147,7 @@ See the [Customizing build paths](#customize-build-paths) section for changing t
 
 ### BrowserSync [DEPRECATED]
 
-> Starting with 10up-toolkit@2.2.0 browser-sync has been deprecated. If you wish to continue using it you must install the following packages manually: npm install --save-dev browser-sync browser-sync-webpack-plugin
+> BrowserSync has been deprecated in 10up-toolkit in favor of the `--hot` option. If you still wish to use it you must install the following packages manually: `npm install --save-dev browser-sync browser-sync-webpack-plugin`
 
 > It's strongly recommended to use the `--hot` option instead
 
@@ -564,17 +564,17 @@ This behavior is inspired in [how microbundle](https://github.com/developit/micr
 
 10up-toolkit is very extensible and pretty much all config files can be overridden by simply creating a config file at the root of your project.
 
-### Customizing the Webpack config
+### Customizing the rspack config
 
-In general, we don't recommend customizing the webpack config, the default webpack config and the 10up-toolkits options should provide all that's needed
-for most projects. However, in case you need to modify the webpack config you can to so by creating a `webpack.config.js` file at the root of your project.
+In general, we don't recommend customizing the rspack config — the default config and 10up-toolkit's options should provide all that's needed
+for most projects. However, if you need to modify the config you can do so by creating an `rspack.config.js` file at the root of your project.
 
-The example below will update the webpack config so that 10up-toolkit processes and transpiles `@vendor/your-custom-package`. This would be required you publishing an untranspiled package.
+The example below will update the rspack config so that 10up-toolkit processes and transpiles `@vendor/your-custom-package`. This would be required if you're publishing an untranspiled package.
 
 ```javascript
-// webpack.config.js
+// rspack.config.js
 
-const config = require("10up-toolkit/config/webpack.config.js");
+const config = require("10up-toolkit/config/rspack.config.js");
 
 config.module.rules[0].exclude =
 	/node_modules\/(?!(@10up\/block-components)|(@vendor\/your-custom-package)\/).*/;
@@ -582,11 +582,11 @@ config.module.rules[0].exclude =
 module.exports = config;
 ```
 
-The example below will extend the base webpack plugin config to include a custom project specific plugin.
+The example below will extend the base rspack plugin config to include a custom project specific plugin.
 
 ```javascript
-// webpack.config.js
-const config = require("10up-toolkit/config/webpack.config.js");
+// rspack.config.js
+const config = require("10up-toolkit/config/rspack.config.js");
 const ProjectSpecificPlugin = require("project-specific-plugin");
 
 config.plugins.push(
@@ -598,21 +598,19 @@ module.exports = config;
 ```
 
 > [!NOTE]
-> When `useScriptModules` mode is enabled the config returned from webpack here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
+> When `useScriptModules` mode is enabled the config returned here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
 > ```js
-> // webpack.config.js
-> const config = require("10up-toolkit/config/webpack.config.js");
+> // rspack.config.js
+> const config = require("10up-toolkit/config/rspack.config.js");
 > const ProjectSpecificPlugin = require("project-specific-plugin");
 >
 > // We can now either add it to the first standard config
 > config[0].plugins.push(
-> // Append project specific plugin config.
 > 	new ProjectSpecificPlugin()
 > );
 > 
 > // or to the second module specific config
 > config[1].plugins.push(
-> // Append project specific plugin config.
 >  new ProjectSpecificPlugin()
 > );
 >
