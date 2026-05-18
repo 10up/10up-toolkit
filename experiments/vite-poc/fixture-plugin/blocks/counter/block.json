@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "fixture/counter",
+	"title": "Counter",
+	"category": "design",
+	"icon": "calculator",
+	"supports": {
+		"interactivity": true
+	},
+	"editorScript": "file:./index.tsx",
+	"viewScriptModule": "file:./view.ts",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}

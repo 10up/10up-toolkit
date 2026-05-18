@@ -1,0 +1,35 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Vite POC fixture plugin",
+		"description": "Boots WordPress with the fixture plugin mounted, activated, and a sample page exercising both blocks.",
+		"author": "10up"
+	},
+	"preferredVersions": {
+		"php": "8.2",
+		"wp": "latest"
+	},
+	"phpExtensionBundles": ["kitchen-sink"],
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"landingPage": "/?pagename=vite-poc-blocks",
+	"steps": [
+		{
+			"step": "activatePlugin",
+			"pluginPath": "/wordpress/wp-content/plugins/vite-poc-fixture/fixture-plugin.php"
+		},
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Vite POC fixture",
+				"blogdescription": "Block-aware build via Vite + POC plugins"
+			}
+		},
+		{
+			"step": "wp-cli",
+			"command": "wp post create --post_type=page --post_title='Vite POC blocks' --post_status=publish --post_content='<!-- wp:fixture/hello /-->\\n\\n<!-- wp:fixture/counter /-->'"
+		}
+	]
+}

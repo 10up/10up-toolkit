@@ -1,6 +1,7 @@
 node_modules
 examples
 dist
+dist-vite
 .vscode
 package-lock.json
 lerna-debug.log

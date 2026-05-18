@@ -1,0 +1,16 @@
+/**
+ * Globals: design-token custom properties.
+ * postcss-global-data inlines this so individual files can use the vars
+ * without per-file `@import`.
+ */
+:root {
+	--fixture-color-bg: #fef9c3;
+	--fixture-color-border: #d4a017;
+	--fixture-color-accent: #2563eb;
+	--fixture-color-accent-deep: #1e3a8a;
+	--fixture-color-counter-bg: #dbeafe;
+	--fixture-color-legacy: #f97316;
+	--fixture-radius-sm: 0.25rem;
+	--fixture-space-sm: 0.75rem;
+	--fixture-space-md: 1rem;
+}

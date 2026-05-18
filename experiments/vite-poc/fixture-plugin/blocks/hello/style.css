@@ -1,0 +1,16 @@
+.wp-block-fixture-hello {
+	background: var(--fixture-color-bg);
+	padding: var(--fixture-space-md);
+	border-radius: var(--fixture-radius-sm);
+
+	/* Native CSS nesting (PostCSS preset-env stage 0) */
+	& p {
+		font-weight: 600;
+		margin: 0 0 0.5rem;
+	}
+
+	/* Mixin from the global mixin layer */
+	& .screen-reader-text {
+		@mixin visually-hidden;
+	}
+}

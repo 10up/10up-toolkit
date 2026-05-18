@@ -1,0 +1,16 @@
+/**
+ * Mixin: visually-hidden. Used to hide elements from view while keeping them
+ * accessible to screen readers. Demonstrates that toolkit's mixin layer
+ * still works under the PostCSS pipeline.
+ */
+@define-mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

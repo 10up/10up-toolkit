@@ -1,0 +1,3 @@
+.wp-block-fixture-hello {
+	outline: 1px dashed var(--fixture-color-border);
+}

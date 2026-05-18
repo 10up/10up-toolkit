@@ -1,0 +1,35 @@
+.wp-block-fixture-counter {
+	background: var(--fixture-color-counter-bg);
+	padding: var(--fixture-space-md);
+	border-radius: var(--fixture-radius-sm);
+	font-variant-numeric: tabular-nums;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--fixture-space-md);
+
+	& button {
+		appearance: none;
+		border: 1px solid var(--fixture-color-accent);
+		background: white;
+		color: var(--fixture-color-accent-deep);
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		font: inherit;
+		font-size: 1.25rem;
+		line-height: 1;
+		cursor: pointer;
+
+		&:hover {
+			background: var(--fixture-color-accent);
+			color: white;
+		}
+	}
+
+	& .count {
+		min-width: 2ch;
+		text-align: center;
+		font-weight: 600;
+		font-size: 1.25rem;
+	}
+}

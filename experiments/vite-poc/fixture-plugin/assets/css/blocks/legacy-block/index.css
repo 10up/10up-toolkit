@@ -1,0 +1,9 @@
+/*
+ * Per-block CSS auto-enqueue — file path drives the block-style mapping.
+ * This file becomes `dist/autoenqueue/legacy-block/index.css` and the
+ * fixture PHP attaches it to `core/legacy-block` via wp_enqueue_block_style.
+ */
+.wp-block-legacy-block {
+	border: 2px solid var(--fixture-color-legacy);
+	padding: var(--fixture-space-sm);
+}

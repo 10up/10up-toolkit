@@ -1,0 +1,14 @@
+node_modules
+**/dist
+**/dist-vite
+# experiments/ is exploratory POC code with its own runtime conventions —
+# don't subject it to the monorepo's Node-only root ESLint config.
+experiments/**
+# benchmarks/ is a one-off measurement harness with patterns the strict
+# root config rejects (await-in-loop for sequential bench runs, etc.).
+benchmarks/**
+# Vite configs + build orchestrators use plugin-author / sequential-async
+# patterns (continue, await-in-loop) that the runtime-code lint rules
+# reject — these files aren't shipped to users.
+**/vite.config.ts
+**/build.mjs

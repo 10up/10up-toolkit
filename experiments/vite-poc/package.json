@@ -1,0 +1,40 @@
+{
+  "name": "vite-poc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Proof of concept: Vite+ as toolkit's foundation for WordPress projects.",
+  "scripts": {
+    "dev": "vite",
+    "dev:vp": "vp dev",
+    "build": "node ./build.mjs",
+    "build:scripts": "node ./build.mjs --mode=production",
+    "build:modules": "node ./build.mjs --mode=modules",
+    "build:vp": "vp build && vp build --mode modules",
+    "build:vp:scripts": "vp build",
+    "build:vp:modules": "vp build --mode modules",
+    "preview": "vite preview",
+    "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=./fixture-plugin:/wordpress/wp-content/plugins/vite-poc-fixture --blueprint=./fixture-plugin/blueprint.json --login"
+  },
+  "dependencies": {
+    "@wordpress/element": "^6.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@csstools/postcss-global-data": "^3.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "cssnano": "^7.0.0",
+    "es-module-lexer": "^1.5.4",
+    "fast-glob": "^3.3.2",
+    "magic-string": "^0.30.14",
+    "postcss-import": "^16.1.0",
+    "postcss-mixins": "^11.0.0",
+    "postcss-preset-env": "^10.1.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.1"
+  }
+}
