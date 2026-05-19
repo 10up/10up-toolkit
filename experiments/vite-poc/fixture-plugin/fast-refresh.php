@@ -57,9 +57,23 @@ add_action(
 	function () use ( $dev_server ) {
 		wp_register_script( 'vite-hmr-client', $dev_server . '/@vite/client', array(), null, false );
 
+		// Alias the DEV runtime's `jsxDEV`/`jsxsDEV` to the PROD `jsx`/`jsxs`.
+		//
+		// Two cases this covers:
+		//
+		// 1. WP serves `react-jsx-runtime.min.js` (prod, no jsxDEV) and our
+		//    SWC-transformed code calls jsxDEV → would be undefined → crash.
+		// 2. WP serves `react-jsx-runtime.development.js` (dev, has jsxDEV)
+		//    but its per-child key validation fires noisy warnings on
+		//    static JSX that SWC compiled with `_jsxDEV` instead of `_jsxsDEV`.
+		//
+		// Aliasing to prod skips both problems. We're not relying on React's
+		// dev-mode validation — Vite's HMR runtime handles change tracking,
+		// and SWC's static-vs-dynamic detection isn't strict enough for
+		// React dev validation to be useful here.
 		wp_add_inline_script(
 			'react-jsx-runtime',
-			'(function(){var r=window.ReactJSXRuntime;if(r&&!r.jsxDEV)r.jsxDEV=r.jsx;})();',
+			'(function(){var r=window.ReactJSXRuntime;if(r){r.jsxDEV=r.jsx;r.jsxsDEV=r.jsxs;}})();',
 			'after'
 		);
 	},
