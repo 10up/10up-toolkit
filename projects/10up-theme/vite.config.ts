@@ -18,7 +18,7 @@ import {
 	wpBlockStyles,
 	wpCopyAssets,
 	wpExternals,
-} from '../../experiments/vite-poc/vite-plugins';
+} from '../../experiments/vite-poc/vite-plugins/index.ts';
 
 /**
  * 10up-theme has JSX inside `.js` files (toolkit allows this via Babel).
@@ -49,7 +49,8 @@ function jsxInJs(): Plugin {
 	};
 }
 
-const themeRoot = __dirname;
+// `import.meta.dirname` so vp's oxlint loader can parse this as pure ESM.
+const themeRoot = import.meta.dirname;
 
 function removeCssOnlyJsChunks(): Plugin {
 	return {

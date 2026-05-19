@@ -14,7 +14,11 @@
     "build:vp:scripts": "vp build",
     "build:vp:modules": "vp build --mode modules",
     "preview": "vite preview",
-    "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=./fixture-plugin:/wordpress/wp-content/plugins/vite-poc-fixture --blueprint=./fixture-plugin/blueprint.json --login"
+    "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=./fixture-plugin:/wordpress/wp-content/plugins/vite-poc-fixture --blueprint=./fixture-plugin/blueprint.json --login",
+    "lint:vp": "vp lint $(find vite-plugins fixture-plugin -type f \\( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.jsx' -o -name '*.mjs' \\) -not -path '*/node_modules/*' -not -path '*/dist/*')",
+    "fmt:vp": "vp fmt --check vite-plugins fixture-plugin",
+    "test:vp": "vp test run --config vitest.config.ts",
+    "check:vp": "npm run lint:vp && npm run fmt:vp && npm run test:vp"
   },
   "dependencies": {
     "@wordpress/element": "^6.0.0",

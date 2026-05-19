@@ -133,6 +133,24 @@ export const targets = [
 				command: 'npm run dev:vp',
 				readyPattern: VITE_READY_PATTERN,
 			},
+			// vp lint (Oxlint, Rust) vs toolkit lint-js (ESLint, JS)
+			{
+				id: 'lint-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run lint:vp',
+				allowNonZeroExit: true,
+			},
+			// vp fmt --check (Oxfmt, Rust) — no toolkit equivalent in baseline.
+			// Closest comparison is toolkit's prettier via lint-js, but that's
+			// bundled. Standalone measurement.
+			{
+				id: 'fmt-check-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run fmt:vp',
+				allowNonZeroExit: true,
+			},
 		],
 	},
 	{
@@ -228,6 +246,28 @@ export const targets = [
 				setup: ['rm -rf fixture-plugin/dist', 'rm -rf node_modules/.vite'],
 				command: 'npm run dev',
 				readyPattern: VITE_READY_PATTERN,
+			},
+			// Vite+ unified toolchain: lint (Oxlint), fmt (Oxfmt), test (Vitest)
+			{
+				id: 'lint-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run lint:vp',
+				allowNonZeroExit: true,
+			},
+			{
+				id: 'fmt-check-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run fmt:vp',
+				allowNonZeroExit: true,
+			},
+			{
+				id: 'test-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run test:vp',
+				allowNonZeroExit: true,
 			},
 		],
 	},

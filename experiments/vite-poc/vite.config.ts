@@ -1,9 +1,11 @@
 import { resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import { wpBlocks, wpBlockStyles, wpCopyAssets, wpExternals } from './vite-plugins';
+import { wpBlocks, wpBlockStyles, wpCopyAssets, wpExternals } from './vite-plugins/index.ts';
 
-const fixtureRoot = resolve(__dirname, 'fixture-plugin');
+// `import.meta.dirname` (Node 20.11+) instead of `__dirname` — vp's oxlint
+// loads this file as pure ESM where `__dirname` isn't defined.
+const fixtureRoot = resolve(import.meta.dirname, 'fixture-plugin');
 
 /**
  * After a CSS-only entry (e.g. `blocks/hello/style.css`) is processed,

@@ -14,6 +14,8 @@
     "build:vp:modules": "vp build --mode modules",
     "dev:vite": "vite",
     "dev:vp": "vp dev",
+    "lint:vp": "vp lint $(find assets includes -type f \\( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.jsx' -o -name '*.mjs' \\) -not -path '*/node_modules/*' -not -path '*/dist/*')",
+    "fmt:vp": "vp fmt --check assets includes",
     "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=.:/wordpress/wp-content/themes/tenup-theme --blueprint=./blueprint.json --login",
     "playground:vite": "rm -rf dist && vite build --outDir dist && vite build --mode modules --outDir dist && npx --yes @wp-playground/cli@latest server --mount=.:/wordpress/wp-content/themes/tenup-theme --blueprint=./blueprint.json --login",
     "format-js": "10up-toolkit format-js",
