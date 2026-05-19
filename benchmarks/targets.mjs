@@ -151,6 +151,16 @@ export const targets = [
 				command: 'npm run fmt:vp',
 				allowNonZeroExit: true,
 			},
+			// Stylelint v17 standalone (the "Vite+ world" CSS-lint path — vp
+			// doesn't bundle CSS lint, so Stylelint runs separately). Compared
+			// against toolkit's `lint-style` (bundled Stylelint v15).
+			{
+				id: 'lint-style-v17',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run lint:style:v17',
+				allowNonZeroExit: true,
+			},
 		],
 	},
 	{
@@ -267,6 +277,14 @@ export const targets = [
 				kind: 'timed',
 				runs: 3,
 				command: 'npm run test:vp',
+				allowNonZeroExit: true,
+			},
+			// Stylelint v17 standalone (CSS lint — vp doesn't include).
+			{
+				id: 'lint-style',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run lint:style',
 				allowNonZeroExit: true,
 			},
 		],

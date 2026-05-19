@@ -15,6 +15,7 @@
     "dev:vite": "vite",
     "dev:vp": "vp dev",
     "lint:vp": "vp lint $(find assets includes -type f \\( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.jsx' -o -name '*.mjs' \\) -not -path '*/node_modules/*' -not -path '*/dist/*')",
+    "lint:style:v17": "stylelint --config ./.stylelintrc-v17.json 'assets/**/*.css' 'includes/**/*.css'",
     "fmt:vp": "vp fmt --check assets includes",
     "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=.:/wordpress/wp-content/themes/tenup-theme --blueprint=./blueprint.json --login",
     "playground:vite": "rm -rf dist && vite build --outDir dist && vite build --mode modules --outDir dist && npx --yes @wp-playground/cli@latest server --mount=.:/wordpress/wp-content/themes/tenup-theme --blueprint=./blueprint.json --login",
@@ -41,6 +42,10 @@
     "postcss-import": "^16.1.0",
     "postcss-mixins": "^11.0.0",
     "postcss-preset-env": "^10.1.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-recommended": "^18.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
+    "stylelint-order": "^8.1.1",
     "vite": "^6.0.1",
     "10up-toolkit": "^6.5.1"
   },

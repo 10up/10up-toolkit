@@ -16,9 +16,10 @@
     "preview": "vite preview",
     "playground": "npm run build && npx --yes @wp-playground/cli@latest server --mount=./fixture-plugin:/wordpress/wp-content/plugins/vite-poc-fixture --blueprint=./fixture-plugin/blueprint.json --login",
     "lint:vp": "vp lint $(find vite-plugins fixture-plugin -type f \\( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.jsx' -o -name '*.mjs' \\) -not -path '*/node_modules/*' -not -path '*/dist/*')",
+    "lint:style": "stylelint 'fixture-plugin/**/*.css'",
     "fmt:vp": "vp fmt --check vite-plugins fixture-plugin",
     "test:vp": "vp test run --config vitest.config.ts",
-    "check:vp": "npm run lint:vp && npm run fmt:vp && npm run test:vp"
+    "check:vp": "npm run lint:vp && npm run lint:style && npm run fmt:vp && npm run test:vp"
   },
   "dependencies": {
     "@wordpress/element": "^6.0.0",
@@ -38,6 +39,10 @@
     "postcss-import": "^16.1.0",
     "postcss-mixins": "^11.0.0",
     "postcss-preset-env": "^10.1.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-recommended": "^18.0.0",
+    "stylelint-declaration-strict-value": "^1.11.1",
+    "stylelint-order": "^8.1.1",
     "typescript": "^5.6.3",
     "vite": "^6.0.1"
   }

@@ -6,12 +6,13 @@ All numbers on the same machine (M1 Max), same source tree (`projects/10up-theme
 
 ## Headline numbers
 
-**10up-theme — lint comparison:**
+**10up-theme — full lint comparison** (vp + standalone Stylelint vs toolkit's wrappers):
 
-| Scenario | Toolkit (current) | Vite+ (`vp`) | Δ |
+| Scenario | Toolkit (current) | Vite+ world | Δ |
 |---|---:|---:|---:|
 | JS lint | 2.07s (ESLint via `lint-js`) | **729ms** (`vp lint` / Oxlint) | **-65%** |
-| CSS lint | 985ms (Stylelint via `lint-style`) | — (not covered) | gap |
+| CSS lint | 1.04s (Stylelint v15 via `lint-style`) | **781ms** (Stylelint v17 standalone) | **-25%** |
+| **Combined lint (JS + CSS)** | **3.11s** | **1.51s** | **-51%** |
 | JS format check | — | 935ms (`vp fmt --check` / Oxfmt) | new capability |
 
 **POC fixture — full toolchain:**
@@ -29,20 +30,22 @@ linting is sub-200ms.
 
 ## What `vp` covers vs what toolkit ships today
 
-| Tool | Toolkit today | Vite+ replacement | Notes |
+| Tool | Toolkit today | Vite+ world | Notes |
 |---|---|---|---|
 | JS/TS lint | ESLint (`@10up/eslint-config`) | ✅ Oxlint via `vp lint` | Oxc-based, Rust |
-| CSS lint | Stylelint (`@10up/stylelint-config`) | ❌ none in `vp` | Stylelint would need to run alongside |
+| CSS lint | Stylelint v15 (`@10up/stylelint-config`) | ✅ Stylelint v17 standalone | `vp` doesn't bundle it; runs alongside |
 | Format | Prettier (via ESLint integration) | ✅ Oxfmt via `vp fmt` | Rust; opinionated |
 | Unit tests | Jest (`test-unit-jest` — broken per #480) | ✅ Vitest via `vp test` | Vite-native, ESM-first |
 | Type check | parallel `tsc` (`TenUpToolkitTscPlugin`) | ✅ `vp check` (combines fmt+lint+typecheck) | |
 
-**The gap is CSS lint.** Oxlint is JS/TS-only. If we adopted Vite+ for the toolchain story, we'd either:
-1. Run Stylelint separately (works fine, just not unified under `vp`),
-2. Drop CSS lint entirely and rely on PostCSS preset-env to surface issues at build time, or
-3. Wait for a CSS-linting story in the Oxc ecosystem (none today).
-
-Per-project answer probably varies. For most 10up themes/plugins, Stylelint catches things PostCSS doesn't (BEM patterns, our `selector-nested-pattern`, etc.), so I'd lean (1).
+**Stylelint v17 caveat.** The current `@10up/stylelint-config` (v3.0.1) pins
+`stylelint@^15` and uses `stylelint-stylistic` (whose latest 0.4.5 still
+peers stylelint 15). Bumping the toolkit's stylelint to v17 means either
+(a) dropping `stylelint-stylistic` (loses a couple of formatting rules
+that Oxfmt now covers anyway) or (b) waiting for that plugin to be
+updated. The POC's config drops it and extends `stylelint-config-recommended@18`
+directly. Rules used in the bench match the 10up baseline minus the
+stylistic ones.
 
 ## Setting it up
 
@@ -67,10 +70,12 @@ One inconsistency worth flagging: **`vp lint` doesn't recursively discover files
 The earlier comment had `vp lint` / `vp test` listed as "out of scope, layer on top." This pass moved them in-scope and measured:
 
 - **JS lint goes from 2.07s to 0.73s (-65%).** That's the same gap-direction as the bundler numbers.
+- **CSS lint stays on Stylelint, bumped from v15 to v17, runs separately: 1.04s → 0.78s (-25%).**
+- **Combined lint (JS + CSS) goes from 3.11s to 1.51s (-51%).**
 - **Vitest replaces a broken Jest setup.** Per [#480](https://github.com/10up/10up-toolkit/issues/480), `test-unit-jest` doesn't work out of the box anyway — so the move costs us nothing on the test side, and arguably fixes #480 by replacing the toolchain entirely.
 - **Format checking is a new capability.** Toolkit relies on Prettier via ESLint integration today; running it standalone is awkward. `vp fmt --check` is a clean separate pass.
-- **CSS lint is genuinely missing** from the unified toolchain. Solvable by running Stylelint separately; just acknowledge it as not-unified.
-- **One-time porting cost is small** — `import.meta.dirname` + explicit `.ts` extensions + a `vitest.config.ts`. Same shape as the bundler-side gotchas: a handful of small fixes, all documented in the POC.
+- **CSS lint is not unified under `vp` but isn't a regression** — it's `npm run lint:style` instead of `vp lint --css` (which doesn't exist). The slowdown vs the JS gain is small.
+- **One-time porting cost is small** — `import.meta.dirname` + explicit `.ts` extensions + a `vitest.config.ts` + a `.stylelintrc.json`. Same shape as the bundler-side gotchas: a handful of small fixes, all documented in the POC.
 
 ## Updated decision-matrix row
 

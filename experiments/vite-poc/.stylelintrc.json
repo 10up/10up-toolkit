@@ -1,0 +1,18 @@
+{
+	"extends": ["stylelint-config-recommended"],
+	"plugins": ["stylelint-declaration-strict-value", "stylelint-order"],
+	"rules": {
+		"color-hex-length": "short",
+		"color-named": "never",
+		"length-zero-no-unit": true,
+		"number-max-precision": 4,
+		"custom-property-pattern": [
+			"^([a-z][a-z0-9]*)(-[a-z0-9]+)*$|^wp[-]{1,2}([a-z][a-z0-9]*)([-]{1,2}[a-z0-9]+)*$",
+			{
+				"message": "Expected custom property name to be kebab-case or wp--kebab--case"
+			}
+		],
+		"order/properties-alphabetical-order": true,
+		"at-rule-no-unknown": [true, { "ignoreAtRules": ["mixin", "define-mixin"] }]
+	}
+}
