@@ -41,11 +41,27 @@ $plugin_url = plugins_url( 'dist/', __FILE__ );
  * Register Vite's HMR client. WP enqueues this on every page that loads
  * a Vite-served script; the client opens a WebSocket back to the dev
  * server and applies HMR updates as they arrive.
+ *
+ * Also enqueues a one-line runtime shim: in serve mode, plugin-react-swc
+ * emits `jsxDEV(...)` calls from React's dev runtime, but WP only
+ * registers `wp-react-jsx-runtime` which exposes the PROD `jsx`/`jsxs`
+ * (no `jsxDEV`). Aliasing `jsxDEV = jsx` at runtime works because `jsx`
+ * ignores the extra debug args jsxDEV passes. Without this, every block
+ * with JSX crashes in the editor with "jsxDEV is not a function".
+ *
+ * The shim attaches as inline code on the `react-jsx-runtime` handle so
+ * it executes immediately after that script loads, before our blocks.
  */
 add_action(
 	'init',
 	function () use ( $dev_server ) {
 		wp_register_script( 'vite-hmr-client', $dev_server . '/@vite/client', array(), null, false );
+
+		wp_add_inline_script(
+			'react-jsx-runtime',
+			'(function(){var r=window.ReactJSXRuntime;if(r&&!r.jsxDEV)r.jsxDEV=r.jsx;})();',
+			'after'
+		);
 	},
 	1
 );
