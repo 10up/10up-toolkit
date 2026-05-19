@@ -1,0 +1,14 @@
+{
+	"phpVersion": "8.2",
+	"plugins": ["./fixture-plugin"],
+	"config": {
+		"WP_ENVIRONMENT_TYPE": "local",
+		"WP_DEBUG": true,
+		"WP_DEBUG_LOG": true,
+		"WP_DEBUG_DISPLAY": false,
+		"SCRIPT_DEBUG": true,
+		"VITE_DEV_SERVER": "http://localhost:5173"
+	},
+	"port": 8881,
+	"testsPort": 8882
+}
