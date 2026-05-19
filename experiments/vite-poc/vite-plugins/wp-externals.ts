@@ -162,6 +162,27 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 	// In 'module' mode, we store raw specifiers (`@wordpress/interactivity`);
 	// in 'script' mode, we store handle names (`wp-interactivity`).
 	const depsByModule = new Map<string, Set<string>>();
+	// Per-module DYNAMIC dep tracking — `import('@wordpress/a11y')` and
+	// similar lazy imports. Module-mode asset.php emits these as
+	// `array('id' => 'X', 'import' => 'dynamic')` (matches DEWP and the
+	// Ignite plugins). Empty in our current fixture; the tracking is
+	// here for the day someone adds a `await import(...)` in a view.ts.
+	const dynamicDepsByModule = new Map<string, Set<string>>();
+
+	/**
+	 * @wordpress/* packages that are externalizable in MODULE mode.
+	 * DEWP (defaultRequestToExternalModule) restricts module externals
+	 * to these — the rest only exist as classic scripts in WP and would
+	 * throw at build time. Mirroring that whitelist so users get the
+	 * same guardrail.
+	 *
+	 * Format: { specifier → 'static' | 'dynamic' (default import style) }
+	 */
+	const MODULE_MODE_WP_PACKAGES: Record<string, 'static' | 'dynamic'> = {
+		'@wordpress/interactivity': 'static', // must be hoisted; no dynamic support
+		'@wordpress/interactivity-router': 'dynamic',
+		'@wordpress/a11y': 'dynamic',
+	};
 
 	function lookup(
 		source: string,
@@ -247,6 +268,7 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 			if (imports.length === 0) return null;
 
 			const moduleDeps = new Set<string>();
+			const dynamicDeps = new Set<string>();
 			const ms = new MagicString(code);
 			let changed = false;
 			const fileMode = modeFor(id);
@@ -256,7 +278,18 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 				const ext = lookup(imp.n);
 				if (!ext) continue;
 
+				// `imp.d > -1` means dynamic import (Rollup/es-module-lexer
+				// flags `import('...')` calls with the call-site offset).
+				// `imp.d === -1` is a static `import ... from '...'`.
+				const isDynamic = imp.d > -1;
+
 				if (fileMode === 'script') {
+					if (isDynamic) {
+						// Dynamic imports in script mode aren't a thing toolkit
+						// supports. Leave them alone; they'll be served from
+						// whatever URL Rollup/Vite resolves to.
+						continue;
+					}
 					// Rewrite `import {x} from '@wordpress/y'` → `const {x} = window.wp.y;`
 					const stmt = code.slice(imp.ss, imp.se);
 					const globalAccess = `(window.${ext.global})`;
@@ -268,12 +301,33 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 				} else {
 					// Module mode: leave the import alone. resolveId already
 					// flagged it external. Track raw specifier for asset.php.
-					moduleDeps.add(ext.specifier);
+
+					// Guardrail: most @wordpress/* packages are NOT
+					// externalizable as modules — they only exist as classic
+					// scripts. DEWP throws on this. We warn rather than throw
+					// to keep the POC iterating; switch to `this.error()` for
+					// strict parity.
+					const isWp = imp.n.startsWith('@wordpress/');
+					if (isWp && !(imp.n in MODULE_MODE_WP_PACKAGES)) {
+						this.warn(
+							`${imp.n} cannot be externalized as a Script Module — it only exists as a WP classic script. ` +
+								`Move this import to script-mode entry (editorScript / script) or remove it from the module file.`,
+						);
+					}
+
+					if (isDynamic) {
+						dynamicDeps.add(ext.specifier);
+					} else {
+						moduleDeps.add(ext.specifier);
+					}
 				}
 			}
 
 			if (moduleDeps.size > 0) {
 				depsByModule.set(id, moduleDeps);
+			}
+			if (dynamicDeps.size > 0) {
+				dynamicDepsByModule.set(id, dynamicDeps);
 			}
 			if (!changed) return null;
 
@@ -288,15 +342,18 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 				if (item.type !== 'chunk' || !item.isEntry) continue;
 				if (!fileName.endsWith('.js') && !fileName.endsWith('.mjs')) continue;
 
-				const deps = new Set<string>();
+				const staticDeps = new Set<string>();
+				const dynamicDeps = new Set<string>();
 				// Module-mode iff at least one source module in this chunk was
 				// module-mode. In practice, module entries don't share chunks
 				// with script entries (different Vite passes), so this is
 				// effectively "is this entry built in module mode".
 				let entryMode: 'script' | 'module' = buildType;
 				for (const moduleId of Object.keys(item.modules)) {
-					const moduleDeps = depsByModule.get(moduleId);
-					if (moduleDeps) for (const d of moduleDeps) deps.add(d);
+					const s = depsByModule.get(moduleId);
+					if (s) for (const d of s) staticDeps.add(d);
+					const d = dynamicDepsByModule.get(moduleId);
+					if (d) for (const dep of d) dynamicDeps.add(dep);
 					if (modeFor(moduleId) === 'module') entryMode = 'module';
 				}
 
@@ -306,13 +363,17 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 					.digest('hex')
 					.slice(0, 20);
 
-				const depsArray =
-					deps.size === 0
-						? ''
-						: ` ${[...deps]
-								.sort()
-								.map((d) => `'${d}'`)
-								.join(', ')} `;
+				// Static deps render as `'@wordpress/interactivity'`;
+				// dynamic deps render as
+				// `array('id' => '@wordpress/a11y', 'import' => 'dynamic')`.
+				// Matches DEWP + the Ignite plugins' view-module.asset.php
+				// format exactly.
+				const allParts: string[] = [];
+				for (const d of [...staticDeps].sort()) allParts.push(`'${d}'`);
+				for (const d of [...dynamicDeps].sort()) {
+					allParts.push(`array( 'id' => '${d}', 'import' => 'dynamic' )`);
+				}
+				const depsArray = allParts.length === 0 ? '' : ` ${allParts.join(', ')} `;
 
 				// Module-mode .asset.php gets `'type' => 'module'` — matches
 				// the format @wordpress/dependency-extraction-webpack-plugin
