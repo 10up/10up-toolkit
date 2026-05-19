@@ -136,9 +136,9 @@ export default defineConfig(({ mode }) => {
 			buildType,
 		}),
 		wpExternals({
-			externalNamespaces: {
-				wordpress: { global: 'wp', handlePrefix: 'wp' },
-			},
+			// Metadata-driven path reads each @wordpress/* package's
+			// package.json from this root to decide externalize vs bundle.
+			projectRoot: themeRoot,
 			buildType,
 			moduleEntryMatchers: ['/view.ts', '/view.js', '/view-module.ts', '/view-module.js'],
 		}),

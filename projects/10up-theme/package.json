@@ -35,7 +35,14 @@
     "@linaria/babel-preset": "^5.0.3",
     "@linaria/webpack-loader": "^5.0.3",
     "@vitejs/plugin-react-swc": "^3.7.2",
+    "@wordpress/block-editor": "^15.19.0",
+    "@wordpress/blocks": "^15.19.0",
+    "@wordpress/dom-ready": "^4.46.0",
+    "@wordpress/element": "^6.46.0",
     "@wordpress/env": "^10.10.0",
+    "@wordpress/i18n": "^6.19.0",
+    "@wordpress/interactivity": "^6.46.0",
+    "10up-toolkit": "^6.5.1",
     "cssnano": "^7.0.0",
     "es-module-lexer": "^1.5.4",
     "fast-glob": "^3.3.2",
@@ -48,8 +55,7 @@
     "stylelint-config-recommended": "^18.0.0",
     "stylelint-declaration-strict-value": "^1.11.1",
     "stylelint-order": "^8.1.1",
-    "vite": "^6.0.1",
-    "10up-toolkit": "^6.5.1"
+    "vite": "^6.0.1"
   },
   "dependencies": {
     "@10up/block-components": "^1.18.0",
