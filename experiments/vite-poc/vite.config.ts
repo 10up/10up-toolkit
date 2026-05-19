@@ -105,6 +105,12 @@ export default defineConfig(({ mode }) => {
 				wordpress: { global: 'wp', handlePrefix: 'wp' },
 			},
 			buildType,
+			// `view.ts` / `view-module.ts` files are Script Module entries
+			// regardless of the plugin's overall buildType. Keeps their ESM
+			// imports intact in dev mode (single-Vite-process serves) so the
+			// browser resolves them via WP's import map, where window.wp.*
+			// globals don't exist on the frontend.
+			moduleEntryMatchers: ['/view.ts', '/view.js', '/view-module.ts', '/view-module.js'],
 		}),
 		react({}),
 		removeCssOnlyJsChunks(),

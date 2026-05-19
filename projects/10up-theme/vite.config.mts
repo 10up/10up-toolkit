@@ -140,6 +140,7 @@ export default defineConfig(({ mode }) => {
 				wordpress: { global: 'wp', handlePrefix: 'wp' },
 			},
 			buildType,
+			moduleEntryMatchers: ['/view.ts', '/view.js', '/view-module.ts', '/view-module.js'],
 		}),
 		react({}),
 		removeCssOnlyJsChunks(),

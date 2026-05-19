@@ -118,58 +118,26 @@ add_filter(
 );
 
 /**
- * Script Modules workaround.
+ * NOTE: Script Modules (`viewScriptModule` entries) intentionally keep
+ * loading from `dist/` in dev mode. An earlier iteration of this file
+ * rewrote their URLs to the Vite dev server via reflection on
+ * `WP_Script_Modules::$registered`, but Vite's dev server rewrites bare
+ * external imports to `/@id/<specifier>` so the browser can fetch them
+ * — which doesn't match WP's import map (which maps the bare specifier
+ * directly to a WP-served URL). The result was a broken import chain
+ * on the frontend even though the rewrite "succeeded."
  *
- * `wp_register_script_module()` URLs aren't filterable through
- * `script_loader_src` — that filter only fires for classic scripts. So
- * `viewScriptModule` entries (registered via WP_Script_Modules) keep
- * loading from `dist/` even when we've rewired classic scripts to the
- * dev server.
+ * Trade-off: no HMR on view-module source changes (rebuild + reload to
+ * see them). The editor side (editorScript classic scripts) still gets
+ * full Fast Refresh via `script_loader_src` above. View modules are
+ * mostly triggered by user interaction, so the HMR loss is bearable.
  *
- * WP 6.7+ has no public API for re-pointing a registered module. We
- * reach into the private `$registered` array via reflection, rewrite
- * the `src` on each module whose URL is under our plugin, and put it
- * back. Runs after `init` priority 10 (where blocks register their
- * modules) but before the import map is printed.
- *
- * This is fragile: it depends on WP_Script_Modules' internal shape and
- * could break on a major version bump. The "correct" fix is a
- * `script_module_loader_src` filter upstream (proposed below in the
- * follow-up section).
+ * Path to fix this properly without import-map conflict:
+ *   - Vite plugin that intercepts `vite:import-analysis` for our
+ *     module-mode externals and keeps the bare specifier intact,
+ *   - or run a second Vite dev process in module mode on a different
+ *     port and route view URLs to that one.
  */
-add_action(
-	'init',
-	function () use ( $dev_server, $plugin_url ) {
-		if ( ! function_exists( 'wp_script_modules' ) ) {
-			return; // WP < 6.5; no script modules support at all.
-		}
-		$modules = wp_script_modules();
-		try {
-			$ref  = new \ReflectionClass( $modules );
-			$prop = $ref->getProperty( 'registered' );
-			$prop->setAccessible( true );
-			$registered = $prop->getValue( $modules );
-		} catch ( \ReflectionException $e ) {
-			return;
-		}
-
-		$changed = false;
-		foreach ( $registered as $id => $data ) {
-			if ( empty( $data['src'] ) || strpos( $data['src'], $plugin_url ) !== 0 ) {
-				continue;
-			}
-			$rel                       = substr( $data['src'], strlen( $plugin_url ) );
-			$rel                       = preg_replace( '/\?.*$/', '', $rel );
-			$registered[ $id ]['src']  = $dev_server . '/' . $rel;
-			$changed                   = true;
-		}
-
-		if ( $changed ) {
-			$prop->setValue( $modules, $registered );
-		}
-	},
-	999
-);
 
 /**
  * Make sure the HMR client lands ahead of plugin scripts on both

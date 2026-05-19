@@ -55,6 +55,17 @@ export interface WpExternalsOptions {
 	 * lists raw specifiers like `@wordpress/interactivity`.
 	 */
 	buildType?: 'script' | 'module';
+	/**
+	 * Substring matchers for file paths that should *always* be treated as
+	 * `module`-mode regardless of the plugin-level `buildType`. Lets a
+	 * single Vite dev server (which can only run one global mode at a time)
+	 * still serve Script Module entries with their ESM imports intact —
+	 * needed because globals like `window.wp.interactivity` don't exist on
+	 * the frontend, only their Script Module equivalents do.
+	 *
+	 * Example: `['/view.ts', '/view-module.ts', '/view-module.js']`
+	 */
+	moduleEntryMatchers?: string[];
 }
 
 const DEFAULT_NAMESPACES: Record<string, ExternalNamespace> = {
@@ -133,6 +144,16 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 	const namespaces = options.externalNamespaces ?? DEFAULT_NAMESPACES;
 	const additional = options.additionalExternals ?? DEFAULT_ADDITIONAL;
 	const buildType = options.buildType ?? 'script';
+	const moduleEntryMatchers = options.moduleEntryMatchers ?? [];
+
+	/** Per-file mode: `module` mode for files matching `moduleEntryMatchers`, else `buildType`. */
+	function modeFor(id: string): 'script' | 'module' {
+		const idPath = id.split('?')[0];
+		for (const pattern of moduleEntryMatchers) {
+			if (idPath.includes(pattern)) return 'module';
+		}
+		return buildType;
+	}
 
 	const nsKeys = Object.keys(namespaces);
 	const namespaceRe = new RegExp(`^@(${nsKeys.map(escapeRe).join('|')})\\/([\\w-]+)$`);
@@ -192,7 +213,7 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 			if (!m) return null;
 			const ext = lookup(m[1]);
 			if (!ext) return null;
-			if (buildType === 'module') {
+			if (modeFor(id) === 'module') {
 				return `export default {};`;
 			}
 			return `const __g = (typeof window !== "undefined" ? window.${ext.global} : {}); export default __g;`;
@@ -228,13 +249,14 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 			const moduleDeps = new Set<string>();
 			const ms = new MagicString(code);
 			let changed = false;
+			const fileMode = modeFor(id);
 
 			for (const imp of imports) {
 				if (imp.n === undefined) continue;
 				const ext = lookup(imp.n);
 				if (!ext) continue;
 
-				if (buildType === 'script') {
+				if (fileMode === 'script') {
 					// Rewrite `import {x} from '@wordpress/y'` → `const {x} = window.wp.y;`
 					const stmt = code.slice(imp.ss, imp.se);
 					const globalAccess = `(window.${ext.global})`;
@@ -267,9 +289,15 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 				if (!fileName.endsWith('.js') && !fileName.endsWith('.mjs')) continue;
 
 				const deps = new Set<string>();
+				// Module-mode iff at least one source module in this chunk was
+				// module-mode. In practice, module entries don't share chunks
+				// with script entries (different Vite passes), so this is
+				// effectively "is this entry built in module mode".
+				let entryMode: 'script' | 'module' = buildType;
 				for (const moduleId of Object.keys(item.modules)) {
 					const moduleDeps = depsByModule.get(moduleId);
 					if (moduleDeps) for (const d of moduleDeps) deps.add(d);
+					if (modeFor(moduleId) === 'module') entryMode = 'module';
 				}
 
 				const version = crypto
@@ -286,7 +314,13 @@ export function wpExternals(options: WpExternalsOptions = {}): Plugin[] {
 								.map((d) => `'${d}'`)
 								.join(', ')} `;
 
-				const php = `<?php return array( 'dependencies' => array(${depsArray}), 'version' => '${version}' );\n`;
+				// Module-mode .asset.php gets `'type' => 'module'` — matches
+				// the format @wordpress/dependency-extraction-webpack-plugin
+				// emits for Script Modules. WP's WP_Block_Type processor
+				// reads this to register via wp_register_script_module
+				// instead of wp_register_script.
+				const typeField = entryMode === 'module' ? `, 'type' => 'module'` : '';
+				const php = `<?php return array( 'dependencies' => array(${depsArray}), 'version' => '${version}'${typeField} );\n`;
 
 				this.emitFile({
 					type: 'asset',
