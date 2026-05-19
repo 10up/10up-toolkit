@@ -156,6 +156,12 @@ export default defineConfig(({ mode }) => {
 		server: {
 			port: 5173,
 			strictPort: false,
+			// The fast-refresh.php bridge wires WP to load scripts from the
+			// dev server. CORS has to be permissive so the editor iframe
+			// (different origin) can fetch them. `host: true` exposes the
+			// server on the network for Docker/wp-env WP installs.
+			cors: true,
+			host: true,
 		},
 	};
 });

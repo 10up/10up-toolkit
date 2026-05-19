@@ -8,6 +8,10 @@
  * Version: 0.0.0
  */
 
+// Dev-server bridge for Vite HMR (Fast Refresh in the editor). No-op
+// unless SCRIPT_DEBUG + VITE_DEV_SERVER are both defined. See file header.
+require_once __DIR__ . '/fast-refresh.php';
+
 /**
  * Block registration via the WP 6.7+ manifest API (see #475).
  * Falls back to per-directory registration on older WP.
