@@ -117,6 +117,11 @@ export default defineConfig(({ mode }) => {
 	return {
 		root: fixtureRoot,
 		plugins: plugins.filter(Boolean) as Plugin[],
+		// Vite+'s docs describe a `lint.options.typeCheck` block here, but
+		// vp 0.1.21's function-form-config loader doesn't pick it up — we
+		// pass `--type-aware --type-check` on the CLI instead (see the
+		// `typecheck:vp` npm script). Leaving this note so future bumps
+		// can switch back to the in-config form.
 		// Force the production JSX transform. Without this, esbuild emits
 		// `jsxDEV(...)` calls in `vite build` output — and WP's registered
 		// `wp-react-jsx-runtime` only exposes `jsx`/`jsxs` (no `jsxDEV`), so

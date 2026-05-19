@@ -19,7 +19,9 @@
     "lint:style": "stylelint 'fixture-plugin/**/*.css'",
     "fmt:vp": "vp fmt --check vite-plugins fixture-plugin",
     "test:vp": "vp test run --config vitest.config.ts",
-    "check:vp": "npm run lint:vp && npm run lint:style && npm run fmt:vp && npm run test:vp"
+    "typecheck": "tsc --noEmit",
+    "typecheck:vp": "vp lint --type-aware --type-check --tsconfig ./tsconfig.json $(find vite-plugins fixture-plugin -type f \\( -name '*.ts' -o -name '*.tsx' \\) -not -path '*/node_modules/*' -not -path '*/dist/*')",
+    "check:vp": "npm run lint:vp && npm run lint:style && npm run fmt:vp && npm run typecheck:vp && npm run test:vp"
   },
   "dependencies": {
     "@wordpress/element": "^6.0.0",

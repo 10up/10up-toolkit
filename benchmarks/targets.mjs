@@ -287,6 +287,25 @@ export const targets = [
 				command: 'npm run lint:style',
 				allowNonZeroExit: true,
 			},
+			// Type-check via tsc vs vp's tsgolint (TypeScript Go) path.
+			// tsgolint is invoked via `vp lint --type-aware --type-check` —
+			// the in-config `lint.options.typeCheck` block isn't picked up
+			// by vp 0.1.21's function-form-config loader, so the CLI flag is
+			// the working path today.
+			{
+				id: 'typecheck',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run typecheck',
+				allowNonZeroExit: true,
+			},
+			{
+				id: 'typecheck-vp',
+				kind: 'timed',
+				runs: 3,
+				command: 'npm run typecheck:vp',
+				allowNonZeroExit: true,
+			},
 		],
 	},
 	{

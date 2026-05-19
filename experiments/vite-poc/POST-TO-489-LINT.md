@@ -20,9 +20,11 @@ All numbers on the same machine (M1 Max), same source tree (`projects/10up-theme
 | Scenario | Time | What it ran |
 |---|---:|---|
 | `vp lint` | 734ms | Oxlint, 11 TS/TSX files, 95 rules |
-| `vp lint --type-aware` | ~390ms wall-clock | 11 files, 110 rules (adds type-checked rules) |
+| `vp lint --type-aware` | ~390ms wall-clock | 11 files, 110 rules (type-aware lint rules) |
 | `vp fmt --check` | 874ms | Oxfmt, 20 files |
 | `vp test run` | 992ms | Vitest, 2 tests |
+| `tsc --noEmit` | 1.08s | TypeScript 5.6 compiler |
+| `vp lint --type-aware --type-check` | **853ms** | tsgolint / TypeScript Go (-21% vs tsc) |
 
 Internal Oxlint time on 10up-theme: **162ms for 26 files**. Most of the
 729ms wall-clock is `npm` + `vp` bootstrap + Node startup. The actual
@@ -36,7 +38,7 @@ linting is sub-200ms.
 | CSS lint | Stylelint v15 (`@10up/stylelint-config`) | ✅ Stylelint v17 standalone | `vp` doesn't bundle it; runs alongside |
 | Format | Prettier (via ESLint integration) | ✅ Oxfmt via `vp fmt` | Rust; opinionated |
 | Unit tests | Jest (`test-unit-jest` — broken per #480) | ✅ Vitest via `vp test` | Vite-native, ESM-first |
-| Type check | parallel `tsc` (`TenUpToolkitTscPlugin`) | ✅ `vp check` (combines fmt+lint+typecheck) | |
+| Type check | parallel `tsc` (`TenUpToolkitTscPlugin`) | ✅ `vp lint --type-aware --type-check` | tsgolint on TypeScript Go; -21% vs tsc on POC, scales better at size |
 
 **Stylelint v17 caveat.** The current `@10up/stylelint-config` (v3.0.1) pins
 `stylelint@^15` and uses `stylelint-stylistic` (whose latest 0.4.5 still
@@ -65,6 +67,8 @@ Three small things had to land for `vp lint` / `vp test` to work on the POC's ex
 
 One inconsistency worth flagging: **`vp lint` doesn't recursively discover files from a directory argument** — `vp lint vite-plugins/` finds 0 files. You have to pass file paths explicitly (`vp lint $(find … )`). `vp fmt vite-plugins/` works the way you'd expect. Documented this in the POC's npm script.
 
+Second inconsistency: **the `lint.options.typeCheck` config block doesn't get picked up from a function-form `vite.config.ts`** in vp 0.1.21. The docs show `import { defineConfig } from 'vite-plus'` and a config object with `lint: { options: { typeCheck: true } }`; runtime parsing skips the block. The CLI flag (`vp lint --type-aware --type-check --tsconfig`) works today and is what the `typecheck:vp` script uses.
+
 ## What this means for the option E decision
 
 The earlier comment had `vp lint` / `vp test` listed as "out of scope, layer on top." This pass moved them in-scope and measured:
@@ -75,6 +79,7 @@ The earlier comment had `vp lint` / `vp test` listed as "out of scope, layer on 
 - **Vitest replaces a broken Jest setup.** Per [#480](https://github.com/10up/10up-toolkit/issues/480), `test-unit-jest` doesn't work out of the box anyway — so the move costs us nothing on the test side, and arguably fixes #480 by replacing the toolchain entirely.
 - **Format checking is a new capability.** Toolkit relies on Prettier via ESLint integration today; running it standalone is awkward. `vp fmt --check` is a clean separate pass.
 - **CSS lint is not unified under `vp` but isn't a regression** — it's `npm run lint:style` instead of `vp lint --css` (which doesn't exist). The slowdown vs the JS gain is small.
+- **TypeScript type-checking is faster via tsgolint** (vp's path) — 853ms vs 1.08s tsc on the POC fixture (-21%). The win should be bigger at scale (tsgolint runs on the TypeScript Go toolchain, which is built to scale to large codebases — but our POC is too small to see it).
 - **One-time porting cost is small** — `import.meta.dirname` + explicit `.ts` extensions + a `vitest.config.ts` + a `.stylelintrc.json`. Same shape as the bundler-side gotchas: a handful of small fixes, all documented in the POC.
 
 ## Updated decision-matrix row
