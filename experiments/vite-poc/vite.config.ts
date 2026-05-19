@@ -101,9 +101,9 @@ export default defineConfig(({ mode }) => {
 			buildType,
 		}),
 		wpExternals({
-			externalNamespaces: {
-				wordpress: { global: 'wp', handlePrefix: 'wp' },
-			},
+			// Metadata-driven path reads each @wordpress/* package's
+			// package.json from this root to decide externalize vs bundle.
+			projectRoot: import.meta.dirname,
 			buildType,
 			// `view.ts` / `view-module.ts` files are Script Module entries
 			// regardless of the plugin's overall buildType. Keeps their ESM
