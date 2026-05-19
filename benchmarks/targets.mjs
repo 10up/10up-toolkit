@@ -337,6 +337,33 @@ export const targets = [
 				command: 'pnpm run watch',
 				readyPattern: READY_PATTERN,
 			},
+			// Vite + POC plugins port — sits alongside toolkit's webpack
+			// build. Source unchanged; vite.config.mts + build.mjs added
+			// to the plugin folder via the port (documented in
+			// experiments/ignite-port-notes.md).
+			{
+				id: 'cold-build-vite',
+				kind: 'timed',
+				runs: 3,
+				setup: ['rm -rf dist-vite', 'rm -rf node_modules/.vite'],
+				command: 'node ./build.mjs',
+				distPath: 'dist-vite',
+			},
+			{
+				id: 'cold-build-vite-scripts',
+				kind: 'timed',
+				runs: 3,
+				setup: ['rm -rf dist-vite', 'rm -rf node_modules/.vite'],
+				command: 'node ./build.mjs --mode=production',
+				distPath: 'dist-vite',
+			},
+			{
+				id: 'warm-build-vite',
+				kind: 'timed',
+				runs: 3,
+				priming: 'node ./build.mjs',
+				command: 'node ./build.mjs',
+			},
 		],
 	},
 	{
