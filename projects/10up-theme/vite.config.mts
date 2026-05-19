@@ -13,6 +13,7 @@ import { resolve } from 'node:path';
 import { transform } from 'esbuild';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { visualizer } from 'rollup-plugin-visualizer';
 import {
 	wpBlocks,
 	wpBlockStyles,
@@ -143,6 +144,16 @@ export default defineConfig(({ mode }) => {
 		react({}),
 		removeCssOnlyJsChunks(),
 		!isModuleBuild && iifeWrapScripts(),
+		// `--analyze` (via ANALYZE env) → dist-vite/stats.html treemap.
+		!isModuleBuild &&
+			process.env.ANALYZE &&
+			(visualizer({
+				filename: resolve(themeRoot, 'dist-vite/stats.html'),
+				template: 'treemap',
+				gzipSize: true,
+				brotliSize: true,
+				open: !process.env.CI,
+			}) as unknown as Plugin),
 	];
 
 	// Explicit non-block entries — these come from toolkit's

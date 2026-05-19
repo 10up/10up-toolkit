@@ -11,4 +11,5 @@ benchmarks/**
 # patterns (continue, await-in-loop) that the runtime-code lint rules
 # reject — these files aren't shipped to users.
 **/vite.config.ts
+**/vite.config.mts
 **/build.mjs

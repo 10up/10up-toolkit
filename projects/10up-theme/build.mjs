@@ -19,6 +19,9 @@ const args = process.argv.slice(2);
 const onlyMode = args.find((a) => a.startsWith('--mode='))?.slice('--mode='.length);
 const strictTypecheck = args.includes('--strict-typecheck');
 const skipTypecheck = args.includes('--no-typecheck');
+const analyze = args.includes('--analyze');
+
+if (analyze) process.env.ANALYZE = '1';
 
 const passes = onlyMode ? [onlyMode] : ['production', 'modules'];
 

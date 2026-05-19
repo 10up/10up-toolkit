@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { wpBlocks, wpBlockStyles, wpCopyAssets, wpExternals } from './vite-plugins/index.ts';
 
 // `import.meta.dirname` (Node 20.11+) instead of `__dirname` — vp's oxlint
@@ -108,6 +109,19 @@ export default defineConfig(({ mode }) => {
 		react({}),
 		removeCssOnlyJsChunks(),
 		!isModuleBuild && iifeWrapScripts(),
+		// Bundle-size visualizer — emits dist/stats.html (treemap by
+		// default) when ANALYZE=1 is set. Matches the role of toolkit's
+		// `--analyze` (webpack-bundle-analyzer). Script pass only so the
+		// two passes don't overwrite each other's reports.
+		!isModuleBuild &&
+			process.env.ANALYZE &&
+			(visualizer({
+				filename: resolve(fixtureRoot, 'dist/stats.html'),
+				template: 'treemap',
+				gzipSize: true,
+				brotliSize: true,
+				open: !process.env.CI,
+			}) as unknown as Plugin),
 	];
 
 	const seedInputs: Record<string, string> = isModuleBuild
