@@ -77,7 +77,8 @@ module.exports = ({
 						const entryName = filepath
 							.replace(extname(filepath), '')
 							.replace(blocksSourceDirectory, '')
-							.replace(/\\/g, '/');
+							.replace(/\\/g, '/')
+							.replace(/^\//, '');
 
 						// Detects the proper file extension used in the defined source directory.
 						const [entryFilepath] = glob(
