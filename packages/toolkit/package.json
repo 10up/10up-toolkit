@@ -62,7 +62,7 @@
 		"resolve-bin": "^1.0.1",
 		"sass": "^1.69.7",
 		"sass-loader": "^13.3.3",
-		"sharp": "^0.35.3",
+		"sharp": "0.32.6",
 		"stylelint-config-standard-scss": "^11.0.0",
 		"stylelint-webpack-plugin": "^4.1.1",
 		"svgo": "^4.0.2",

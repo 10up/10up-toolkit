@@ -245,9 +245,7 @@ describe('entry module function', () => {
 			expect(result).toEqual({
 				existing: 'existing.js',
 				'autoenqueue/example/style': p('assets/css/blocks/example/style.css'),
-				'autoenqueue/nested/block/style': p(
-					'assets/css/blocks/nested/block/style.scss',
-				),
+				'autoenqueue/nested/block/style': p('assets/css/blocks/nested/block/style.scss'),
 			});
 		});
 
