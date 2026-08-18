@@ -5,6 +5,9 @@ on:
     branches:
       - trunk
       - develop
+  # Allows kicking a release run manually, e.g. after switching pre mode
+  # via the "Changeset Mode" workflow (whose bot push doesn't trigger this one).
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
