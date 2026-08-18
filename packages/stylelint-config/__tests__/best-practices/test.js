@@ -1,0 +1,311 @@
+const stylelint = require('stylelint');
+const config = require('../../index');
+
+describe('10up CSS Best Practices', () => {
+	// Helper to trim and add newline to code samples
+	const formatCode = (code) => `${code.trim()}\n`;
+	describe('Specificity Rules', () => {
+		test('allows low specificity selectors (0,2,1)', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button {
+	background-color: var(--color-primary);
+}
+
+.card .title {
+	background-color: var(--color-secondary);
+}
+
+.nav > li {
+	background-color: var(--color-tertiary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('rejects high specificity selectors', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.nav .list .item .link {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-max-specificity');
+		});
+
+		test('rejects ID selectors', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+#header {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-max-id');
+		});
+
+		test('enforces max-nesting-depth rule exists', () => {
+			// The max-nesting-depth rule is configured to limit nesting to 2 levels
+			// This test verifies the rule is present in the configuration
+			expect(config.rules['max-nesting-depth']).toEqual([
+				2,
+				{
+					ignore: ['pseudo-classes'],
+				},
+			]);
+		});
+	});
+
+	describe('Importance Rules', () => {
+		test('rejects !important declarations', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button {
+	background-color: var(--color-primary) !important;
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('declaration-no-important');
+		});
+
+		test('detects descending specificity issues', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.card .title {
+	background-color: var(--color-primary);
+}
+
+.title {
+	background-color: var(--color-secondary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('no-descending-specificity');
+		});
+	});
+
+	describe('Naming Conventions', () => {
+		test('allows kebab-case class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button-primary {
+	background-color: var(--color-primary);
+}
+
+.card-header-title {
+	background-color: var(--color-secondary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('rejects camelCase class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.buttonPrimary {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
+		test('rejects snake_case class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button_primary {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
+		test('allows BEM element and modifier class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.card__header {
+	background-color: var(--color-primary);
+}
+
+.card--featured {
+	background-color: var(--color-secondary);
+}
+
+.card__header--compact {
+	background-color: var(--color-tertiary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('allows WordPress core block class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.wp-block-group__inner-container {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('rejects a leading hyphen instead of a BEM modifier', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.-secondary {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
+		test('rejects more than two underscores as an element separator', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.card___header {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
+		test('allows kebab-case keyframe names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+@keyframes fade-in {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slide-up {
+
+	from {
+		transform: translateY(100%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('rejects camelCase keyframe names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+@keyframes fadeIn {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('keyframes-name-pattern');
+		});
+	});
+
+	describe('Selector Quality Rules', () => {
+		test('rejects type selectors qualifying class selectors', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+a.button {
+	background-color: var(--color-primary);
+}
+
+div.card {
+	background-color: var(--color-secondary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-no-qualifying-type');
+		});
+
+		test('allows type selectors with attribute selectors', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+input[type="text"] {
+	border: 1px solid var(--color-border);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('detects redundant shorthand values', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button {
+	margin: 10px 10px 10px 10px;
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe(
+				'shorthand-property-no-redundant-values',
+			);
+		});
+
+		test('allows non-redundant shorthand values', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.button {
+	margin: 10px 20px;
+}
+
+.card {
+	padding: 10px 20px 30px;
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+	});
+});

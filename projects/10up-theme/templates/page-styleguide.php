@@ -29,9 +29,9 @@ get_header();
 		if ( ! empty( $colors ) ) :
 			?>
 		<section class="uikit__section" id="colors">
-			<h2 class="heading">Primary Palette</h2>
+			<h2 class="uikit__section-heading">Primary Palette</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<ul class="uikit__colors">
 
 				<?php foreach ( $colors as $color ) : ?>
@@ -43,28 +43,28 @@ get_header();
 				<?php endforeach; ?>
 
 				</ul>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 
 		</section><!--/.uikit__section-->
 		<?php endif; ?>
 
 		<section class="uikit__section" id="headings">
-			<h2 class="heading">Headings</h2>
+			<h2 class="uikit__section-heading">Headings</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<h1>H1, Heading 1 {64px}</h1>
 				<h2>H2, Heading 2 {48px}</h2>
 				<h3>H3, Heading 3 {38px}</h3>
 				<h4>H4, Heading 4 {30px}</h4>
 				<h5>H5, Heading 5 {26px}</h5>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 
 		</section><!--/.uikit__section-->
 
 		<section class="uikit__section" id="body">
-			<h2 class="heading">Body</h2>
+			<h2 class="uikit__section-heading">Body</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<p>
 					22pt, Acta Book, line 36 ( 1.5rem ). Lorem ipsum dolor sit amet,
 					consectetur adipiscing elit. Multa sunt dicta ab antiquis de contemnendis
@@ -79,25 +79,25 @@ get_header();
 				<p>
 					This is an <a href="#!">inline link text</a> example and hover link example.
 				</p>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 
 		</section><!--/.uikit__section-->
 
 		<section class="uikit__section" id="buttons">
-			<h2 class="heading">Buttons</h2>
+			<h2 class="uikit__section-heading">Buttons</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<button type="button" class="button-primary">Button</button>
 				<button type="button" class="button-secondary">Button</button>
 				<button type="button" class="button-tertiary">Button</button>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 
 		</section><!--/.uikit__section-->
 
 		<section class="uikit__section" id="inputs">
-			<h2 class="heading">Inputs</h2>
+			<h2 class="uikit__section-heading">Inputs</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 
 				<div class="uikit-mb-1">
 					<label for="w1">Text Input</label>
@@ -182,14 +182,14 @@ get_header();
 					</fieldset>
 				</div>
 
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 
 		</section><!--/.uikit__section-->
 
 		<section class="uikit__section" id="lists">
-			<h2 class="heading">Lists</h2>
+			<h2 class="uikit__section-heading">Lists</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<ul>
 					<li>Morbi natoque habitasse</li>
 					<li>Magnis ullamcorper risus taciti
@@ -211,13 +211,13 @@ get_header();
 					</li>
 					<li>Nibh id natoque elementum</li>
 				</ol>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 		</section><!--/.uikit__section-->
 
 		<section class="uikit__section" id="tables">
-			<h2 class="heading">Tables</h2>
+			<h2 class="uikit__section-heading">Tables</h2>
 
-			<div class="content">
+			<div class="uikit__section-content">
 				<table>
 					<caption>Egestas duis tincidunt cum</caption>
 					<thead>
@@ -255,7 +255,7 @@ get_header();
 						</tr>
 					</tbody>
 				</table>
-			</div><!--/.content-->
+			</div><!--/.uikit__section-content-->
 		</section><!--/.uikit__section-->
 
 	</div><!--/.uikit__content-->
