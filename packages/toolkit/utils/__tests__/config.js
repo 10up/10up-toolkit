@@ -56,6 +56,60 @@ describe('getTenUpScriptsConfig', () => {
 			},
 		});
 	});
+
+	it('sets useBlockManifest to false by default', () => {
+		getPackageMock.mockReturnValueOnce({});
+		const config = getTenUpScriptsConfig();
+		expect(config.useBlockManifest).toBe(false);
+	});
+
+	it('respects useBlockManifest from package.json config', () => {
+		getPackageMock.mockReturnValueOnce({
+			'10up-toolkit': {
+				useBlockManifest: true,
+			},
+		});
+
+		const config = getTenUpScriptsConfig();
+		expect(config.useBlockManifest).toBe(true);
+	});
+
+	it('respects --block-manifest CLI flag', () => {
+		// Save original argv
+		const originalArgv = process.argv;
+
+		try {
+			// Add the CLI flag
+			process.argv = [...originalArgv, '--block-manifest'];
+
+			getPackageMock.mockReturnValueOnce({});
+
+			const config = getTenUpScriptsConfig();
+			expect(config.useBlockManifest).toBe(true);
+		} finally {
+			// Restore original argv
+			process.argv = originalArgv;
+		}
+	});
+
+	it('CLI flag overrides package.json config for useBlockManifest', () => {
+		const originalArgv = process.argv;
+
+		try {
+			process.argv = [...originalArgv, '--block-manifest'];
+
+			getPackageMock.mockReturnValueOnce({
+				'10up-toolkit': {
+					useBlockManifest: false,
+				},
+			});
+
+			const config = getTenUpScriptsConfig();
+			expect(config.useBlockManifest).toBe(true);
+		} finally {
+			process.argv = originalArgv;
+		}
+	});
 });
 
 describe('getTenUpScriptsPackageBuildConfig', () => {

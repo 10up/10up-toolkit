@@ -1,0 +1,20 @@
+{
+	"title": "Example Block Two",
+	"description": "Second example block",
+	"textdomain": "test-blocks",
+	"name": "test/example-two",
+	"icon": "star-filled",
+	"category": "test-blocks",
+	"attributes": {
+		"message": {
+			"type": "string",
+			"default": "Hello"
+		}
+	},
+	"supports": {
+		"align": true,
+		"html": false
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js"
+}

@@ -235,6 +235,106 @@ Since 10up-toolkit@6 this mode is on by default. To opt out of this mode you nee
 
 By default, the source directory for blocks is `./includes/blocks/`. This can be customized via the `blocksDir` key in the paths' config.
 
+### WordPress Block Metadata Collections
+
+WordPress 6.7 introduced the [Block Metadata Collections API](https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/), which significantly improves block registration performance by reading metadata from a single PHP manifest file instead of multiple `block.json` files.
+
+10up-toolkit can automatically generate this manifest file during the build process. When enabled, it scans all built blocks in `dist/blocks/` and creates a `blocks-manifest.php` file containing all block metadata.
+
+#### Enabling Block Manifest Generation
+
+Enable via package.json configuration (always generates manifest):
+
+```json
+{
+  "10up-toolkit": {
+    "useBlockAssets": true,
+    "useBlockManifest": true
+  }
+}
+```
+
+Or use the CLI flag for one-time generation:
+
+```bash
+10up-toolkit build --block-manifest
+10up-toolkit start --block-manifest
+10up-toolkit watch --block-manifest
+```
+
+#### WordPress Integration
+
+Once the manifest is generated, register the collection and your block types. Add this to your theme's `functions.php` or plugin entry point.
+
+**Recommended approach (automatic registration):**
+
+```php
+// Register the block metadata collection
+$blocks_dir = get_template_directory() . '/dist/blocks';
+$manifest_path = get_template_directory() . '/dist/blocks-manifest.php';
+
+wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+// Automatically register all blocks from the manifest
+$manifest = require $manifest_path;
+foreach ( array_keys( $manifest ) as $block_dir ) {
+    register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+}
+```
+
+**For plugins:**
+
+```php
+// Register the block metadata collection
+$blocks_dir = plugin_dir_path( __FILE__ ) . 'dist/blocks';
+$manifest_path = plugin_dir_path( __FILE__ ) . 'dist/blocks-manifest.php';
+
+wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+// Automatically register all blocks from the manifest
+$manifest = require $manifest_path;
+foreach ( array_keys( $manifest ) as $block_dir ) {
+    register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+}
+```
+
+**Manual registration (if you need more control):**
+
+```php
+wp_register_block_metadata_collection(
+    get_template_directory() . '/dist/blocks',
+    get_template_directory() . '/dist/blocks-manifest.php'
+);
+
+// Register specific blocks only
+register_block_type_from_metadata( get_template_directory() . '/dist/blocks/example-block' );
+register_block_type_from_metadata( get_template_directory() . '/dist/blocks/another-block' );
+```
+
+The `wp_register_block_metadata_collection()` function tells WordPress about the manifest file. WordPress will then use the manifest data when you register individual block types with `register_block_type_from_metadata()`, avoiding the need to read each `block.json` file separately. The automatic registration approach loops through all blocks in the manifest, making it easier to maintain as you add or remove blocks.
+
+#### How It Works
+
+The manifest generation integrates seamlessly with the existing build pipeline:
+
+1. Webpack builds and compiles all blocks (TypeScript, SCSS, etc.)
+2. CopyWebpackPlugin copies `block.json` files to `dist/blocks/` and transforms asset paths (`.ts` → `.js`, `.scss` → `.css`) via the existing `transformBlockJson` utility
+3. BuildBlocksManifestPlugin scans `dist/blocks/` for all transformed `block.json` files
+4. Generates `dist/blocks-manifest.php` containing all block metadata with the already-transformed asset paths
+
+In watch mode, the manifest automatically regenerates whenever block files change, preserving any path transformations from the build process.
+
+#### Performance Benefits
+
+The Block Metadata Collections API provides significant performance improvements:
+
+- Reduced filesystem I/O operations
+- Better opcode caching for block metadata
+- Single file read instead of multiple `block.json` files
+- Particularly beneficial for projects with 50+ blocks
+
+The manifest file structure matches WordPress's expectations, with block identifiers (directory names) as keys and complete block metadata as values.
+
 ### WordPress Script Module Handling
 
 Since WordPress 6.5 ESM scripts are now officially supported. In fact, they are required in order to use some new features such as the Interactivity API. In WordPress these script modules need to coexist with commonJs scripts though. So it's not as easy as just switching the entire toolkit mode to output ESM instead of commonJS.
@@ -783,6 +883,33 @@ Alternatively, you can set this up in `package.json`.
 `10up-toolkit build --analyze`
 
 It only works with the build command, after finishing the build a new window will be automatically opened with the report.
+
+### Block Manifest
+
+> This option was added in 10up-toolkit v6.6.
+
+The `--block-manifest` flag enables generation of a PHP manifest file for WordPress's Block Metadata Collections API (WordPress 6.7+). This improves block registration performance by consolidating all block metadata into a single file.
+
+```bash
+10up-toolkit build --block-manifest
+10up-toolkit start --block-manifest
+10up-toolkit watch --block-manifest
+```
+
+When enabled, toolkit generates `dist/blocks-manifest.php` containing all block metadata. In watch mode, the manifest regenerates automatically when block files change.
+
+Alternatively, enable permanently in `package.json`:
+
+```json
+{
+  "10up-toolkit": {
+    "useBlockAssets": true,
+    "useBlockManifest": true
+  }
+}
+```
+
+See the [WordPress Block Metadata Collections](#wordpress-block-metadata-collections) section for usage details.
 
 ### Source and Output
 

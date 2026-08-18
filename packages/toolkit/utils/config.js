@@ -110,6 +110,7 @@ const getDefaultConfig = () => {
 	const include = hasArgInCLI('--include') ? getArgFromCLI('--include').split(',') : [];
 	const sourcemap = hasArgInCLI('--sourcemap');
 	const useScriptModules = hasArgInCLI('--block-modules') || false;
+	const useBlockManifest = hasArgInCLI('--block-manifest') || false;
 
 	const buildFilesPath = hasProjectFile('buildfiles.config.js')
 		? fromProjectRoot('buildfiles.config.js')
@@ -142,6 +143,7 @@ const getDefaultConfig = () => {
 		loadBlockSpecificStyles: false,
 		useBlockAssets: true,
 		useScriptModules,
+		useBlockManifest,
 		include,
 	};
 };
@@ -181,6 +183,8 @@ const getTenUpScriptsConfig = () => {
 		include,
 		publicPath,
 		sourcemap: Boolean(config.sourcemap),
+		// CLI flags should always override package.json config
+		useBlockManifest: hasArgInCLI('--block-manifest') || config.useBlockManifest || false,
 		// these properties must be merged
 		filenames: {
 			...defaultConfig.filenames,

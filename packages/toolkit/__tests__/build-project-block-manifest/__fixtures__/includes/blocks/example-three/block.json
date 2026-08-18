@@ -1,0 +1,10 @@
+{
+	"title": "Example Block Three",
+	"description": "Third example block with TypeScript",
+	"textdomain": "test-blocks",
+	"name": "test/example-three",
+	"icon": "admin-tools",
+	"category": "test-blocks",
+	"editorScript": "file:./index.ts",
+	"style": "file:./style.scss"
+}
