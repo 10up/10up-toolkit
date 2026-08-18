@@ -51,10 +51,9 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 								avif: { quality: 40, effort: 5 },
 							};
 							config.jpg = config.jpeg;
-							// NOTE: when sharp is next bumped to >=0.35, this needs to become
-							// `{ ...config.avif, compression: 'av1' }` — sharp reports `.avif`
-							// input as format `heif`, and 0.35 requires an explicit compression.
-							config.heif = config.avif;
+							// sharp reports `.avif` input as format `heif`, and since 0.35 the
+							// heif encoder requires an explicit compression to be set.
+							config.heif = { ...config.avif, compression: 'av1' };
 							const data = await image[format](config[format]).toBuffer();
 
 							return {
