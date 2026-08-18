@@ -95,7 +95,7 @@
 	position: absolute;
 }
 
-.uikit__section > .heading {
+.uikit__section-heading {
 	box-sizing: border-box;
 	color: var(--c-uikit-accent);
 	display: inline-block;
@@ -107,7 +107,7 @@
 	width: 100%;
 }
 
-.uikit__section > .heading > .toggle {
+.uikit__toggle {
 	background-color: transparent;
 	border: 0;
 	color: inherit;
@@ -128,20 +128,29 @@
 	transform: translate(0, -50%);
 }
 
-.uikit__chevron-up {
-	display: none;
-}
-
-.uikit__section > .heading > .toggle[aria-expanded="true"] .uikit__chevron-up,
+/* Collapsed is the default state: only the down chevron shows. */
 .uikit__chevron-down {
 	display: block;
 }
 
-.uikit__section > .heading > .toggle[aria-expanded="true"] .uikit__chevron-down {
+.uikit__chevron-up {
 	display: none;
 }
 
-.uikit__section > .content {
+/*
+ * Keyed off `aria-expanded` on the toggle so the accessible state stays the
+ * single source of truth. The attribute alone scopes these well enough to keep
+ * specificity within the 0,2,1 budget.
+ */
+[aria-expanded="true"] .uikit__chevron-up {
+	display: block;
+}
+
+[aria-expanded="true"] .uikit__chevron-down {
+	display: none;
+}
+
+.uikit__section-content {
 	box-sizing: border-box;
 	display: inline-block;
 	margin-bottom: 100px;
@@ -149,7 +158,8 @@
 	width: 100%;
 }
 
-.uikit__section > .content[hidden] {
+/* Re-assert the UA `[hidden]` behaviour that `display: inline-block` undoes. */
+.uikit__section-content[hidden] {
 	display: none;
 }
 
@@ -159,19 +169,19 @@
 
 @media (--bp-uikit-small) {
 
-	.uikit__section > .heading {
+	.uikit__section-heading {
 		width: 145px;
 	}
 
-	.uikit__section.-secondary > .heading {
+	.uikit__section--secondary > .uikit__section-heading {
 		width: 100%;
 	}
 
-	.uikit__section > .content {
+	.uikit__section-content {
 		width: calc(100% - 150px);
 	}
 
-	.uikit__section.-secondary > .content {
+	.uikit__section--secondary > .uikit__section-content {
 		width: 100%;
 	}
 }

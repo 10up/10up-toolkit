@@ -36,6 +36,7 @@ module.exports = {
 				ignore: ['consecutive-duplicates'],
 			},
 		],
+		'declaration-no-important': true,
 		'declaration-property-unit-allowed-list': {
 			'line-height': ['px'],
 		},
@@ -53,8 +54,20 @@ module.exports = {
 			},
 		],
 		'function-url-quotes': 'always',
+		'keyframes-name-pattern': [
+			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+			{
+				message: 'Expected keyframe name to be kebab-case (keyframes-name-pattern)',
+			},
+		],
 		'length-zero-no-unit': true,
-		'no-descending-specificity': null,
+		'max-nesting-depth': [
+			2,
+			{
+				ignore: ['pseudo-classes'],
+			},
+		],
+		'no-descending-specificity': true,
 		'number-max-precision': 4,
 		'order/properties-alphabetical-order': true,
 		'rule-empty-line-before': [
@@ -70,7 +83,18 @@ module.exports = {
 			},
 		],
 		'selector-attribute-quotes': 'always',
-		'selector-class-pattern': null,
+		// kebab-case, optionally with a BEM `__element` and/or `--modifier`.
+		// BEM is permitted because 10up best practices list it as a valid
+		// methodology, and WordPress core block classes use it
+		// (e.g. `wp-block-group__inner-container`). camelCase and snake_case
+		// are still rejected.
+		'selector-class-pattern': [
+			'^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$',
+			{
+				message:
+					'Expected class selector to be kebab-case or BEM block__element--modifier (selector-class-pattern)',
+			},
+		],
 		'selector-id-pattern': [
 			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 			{
@@ -78,9 +102,23 @@ module.exports = {
 					'Selector should use lowercase and separate words with hyphens (selector-id-pattern)',
 			},
 		],
+		'selector-max-id': 0,
+		'selector-max-specificity': [
+			'0,2,1',
+			{
+				message: 'Selector specificity must be 0,2,1 or lower per 10up guidelines',
+			},
+		],
 		'selector-nested-pattern': '^&|\\s&$',
+		'selector-no-qualifying-type': [
+			true,
+			{
+				ignore: ['attribute'],
+			},
+		],
 		'selector-pseudo-element-colon-notation': 'double',
 		'selector-type-case': 'lower',
+		'shorthand-property-no-redundant-values': true,
 		'stylistic/at-rule-name-case': 'lower',
 		'stylistic/at-rule-name-space-after': 'always-single-line',
 		'stylistic/at-rule-semicolon-newline-after': 'always',
