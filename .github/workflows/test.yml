@@ -19,26 +19,26 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      # Test node 16/18/20 on Ubuntu
-      # Test node 18 on macOS/Windows
-      # Enable linting only for node 20 & Ubuntu
+      # Test node 20/22/24 on Ubuntu
+      # Test node 24 on macOS/Windows
+      # Enable linting only for node 24 & Ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [16, 18, 20, 22]
+        node: [20, 22, 24]
         include:
           - os: macos-latest
-            node: 18
+            node: 24
           - os: windows-latest
-            node: 18
-          - node: 20
+            node: 24
+          - node: 24
             is_base_node_version: true
           - os: ubuntu-latest
             is_base_os_version: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 30
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
@@ -50,7 +50,7 @@ jobs:
           echo "COMMIT_SHA=$(git --no-pager log -1 --no-merges --pretty=format:'%H')" >> $GITHUB_ENV
 
       - name: previous build artifacts cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .cached-commit
