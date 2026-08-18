@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10up/10up-scripts.git"
+    "url": "git+https://github.com/10up/10up-toolkit.git"
   },
   "scripts": {
     "build": "npm run build --workspaces --if-present",
