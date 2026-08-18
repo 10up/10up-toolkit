@@ -83,10 +83,16 @@ module.exports = {
 			},
 		],
 		'selector-attribute-quotes': 'always',
+		// kebab-case, optionally with a BEM `__element` and/or `--modifier`.
+		// BEM is permitted because 10up best practices list it as a valid
+		// methodology, and WordPress core block classes use it
+		// (e.g. `wp-block-group__inner-container`). camelCase and snake_case
+		// are still rejected.
 		'selector-class-pattern': [
-			'^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+			'^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$',
 			{
-				message: 'Expected class selector to be kebab-case (selector-class-pattern)',
+				message:
+					'Expected class selector to be kebab-case or BEM block__element--modifier (selector-class-pattern)',
 			},
 		],
 		'selector-id-pattern': [

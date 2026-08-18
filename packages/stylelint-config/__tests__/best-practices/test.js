@@ -138,6 +138,64 @@ describe('10up CSS Best Practices', () => {
 			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
 		});
 
+		test('allows BEM element and modifier class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.card__header {
+	background-color: var(--color-primary);
+}
+
+.card--featured {
+	background-color: var(--color-secondary);
+}
+
+.card__header--compact {
+	background-color: var(--color-tertiary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('allows WordPress core block class names', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.wp-block-group__inner-container {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(false);
+		});
+
+		test('rejects a leading hyphen instead of a BEM modifier', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.-secondary {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
+		test('rejects more than two underscores as an element separator', async () => {
+			const result = await stylelint.lint({
+				config,
+				code: formatCode(`
+.card___header {
+	background-color: var(--color-primary);
+}
+`),
+			});
+			expect(result.errored).toBe(true);
+			expect(result.results[0].warnings[0].rule).toBe('selector-class-pattern');
+		});
+
 		test('allows kebab-case keyframe names', async () => {
 			const result = await stylelint.lint({
 				config,

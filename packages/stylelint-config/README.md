@@ -126,12 +126,34 @@ The `!important` declaration should be avoided as it makes CSS harder to maintai
 **Enforced Rules:**
 - `declaration-no-important: true` - Disallows the use of `!important`
 
+Best practices reserve `!important` for truly exceptional cases, so the rule is enforced as an error by default rather than left advisory. When you hit a genuine exception -- an accessibility override such as `prefers-reduced-motion`, or fighting a third-party stylesheet you do not control -- disable it narrowly at the call site and say why:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+
+	/*
+	 * `!important` is load-bearing: this override has to win over author
+	 * animation declarations everywhere, so it cannot rely on the cascade.
+	 */
+	*,
+	*::before,
+	*::after {
+		/* stylelint-disable declaration-no-important */
+		animation-duration: 0.001s !important;
+		transition-duration: 0.001s !important;
+		/* stylelint-enable declaration-no-important */
+	}
+}
+```
+
+Prefer a scoped disable over turning the rule off project-wide, so each exception stays visible and justified in review.
+
 ### Naming Conventions
 
 Consistent naming makes CSS more readable and maintainable. All names should use kebab-case and be semantic rather than presentational.
 
 **Enforced Rules:**
-- `selector-class-pattern` - Enforces kebab-case for class names (e.g., `.button-primary`, `.card-header`)
+- `selector-class-pattern` - Enforces kebab-case for class names (e.g., `.button-primary`, `.card-header`), optionally with a BEM `__element` and/or `--modifier` suffix (e.g., `.card__header`, `.card--featured`, `.card__header--compact`). BEM is permitted because 10up best practices list it as a valid methodology to adopt, and because WordPress core block classes rely on it (e.g., `.wp-block-group__inner-container`). camelCase (`.buttonPrimary`) and snake_case (`.button_primary`) are still rejected.
 - `keyframes-name-pattern` - Enforces kebab-case for animation names (e.g., `@keyframes fade-in`)
 - `selector-id-pattern` - Enforces kebab-case for IDs when they are used
 - `custom-property-pattern` - Enforces kebab-case for CSS custom properties, with special support for WordPress preset patterns
