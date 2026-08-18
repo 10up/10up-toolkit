@@ -185,16 +185,19 @@ exports[`postcss transforms accordion.css properly 1`] = `
 ":root {
 	--primary-font: "Mr George", arial, helvetica, sans-serif;
 }
+
 @font-face {
 	font-family: "Mr George";
 	font-weight: 900;
 	src: url("./assets/fonts/MrGeorgeHeavy.ttf") format("truetype");
 }
+
 @font-face {
 	font-family: "Mr George";
 	font-weight: 400;
 	src: url("./assets/fonts/MrGeorge.ttf") format("truetype");
 }
+
 .accordion-header {
 	border-bottom: 1px solid #303030;
 	cursor: pointer;
@@ -204,19 +207,23 @@ exports[`postcss transforms accordion.css properly 1`] = `
 	text-align: left;
 	width: 100%;
 }
+
 .accordion-header::before {
 		content: "+";
 		left: 5px;
 		position: absolute;
 		top: 8px;
 	}
+
 .accordion-header.is-active::before {
 		content: "-";
 	}
+
 .js .accordion-content {
 		display: none;
 		visibility: hidden;
 	}
+
 .js .accordion-content.is-active {
 			border-bottom: 1px solid #303030;
 			display: block;
