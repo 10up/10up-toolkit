@@ -49,7 +49,7 @@
 		"node": ">=20.9.0"
 	},
 	"peerDependencies": {
-		"@babel/core": "^7.23.7",
+		"@babel/core": "^7.29.6",
 		"@babel/eslint-parser": "^7.23.3",
 		"@wordpress/eslint-plugin": "^17.5.0",
 		"eslint": ">=8.0.0",
