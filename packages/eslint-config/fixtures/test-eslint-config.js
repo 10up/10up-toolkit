@@ -2,24 +2,37 @@ process.on('unhandledRejection', (err) => {
 	throw err;
 });
 
-const { resolve } = require('path');
+const { resolve, join } = require('path');
+const { readdirSync } = require('fs');
 const { ESLint } = require('eslint');
 const { getConfigFile, countResults } = require('./helpers');
 const files = ['index', 'react', 'wordpress', 'node'];
 const verbose = process.argv.indexOf('--verbose') > -1;
 
+// Resolve fixture .js files explicitly. Globbing through ESLint's
+// lintFiles is unreliable on Windows (absolute paths with drive
+// letters fail to match, cwd-relative globs also empty out under
+// newer eslint+globby), so list the files directly.
+const listFixtures = (file, kind) => {
+	const dir = resolve(__dirname, file, kind);
+	return readdirSync(dir)
+		.filter((name) => name.endsWith('.js'))
+		.sort()
+		.map((name) => join(dir, name));
+};
+
 async function testLintConfig(file) {
 	const overrideConfigFile = resolve(__dirname, `../config/${file}.js`);
-	const failDirectory = resolve(__dirname, `./${file}/fail/*.js`);
-	const successDirectory = resolve(__dirname, `./${file}/pass/*.js`);
+	const failFiles = listFixtures(file, 'fail');
+	const successFiles = listFixtures(file, 'pass');
 	const cli = new ESLint({ useEslintrc: false, overrideConfigFile });
 
 	console.log('Running ESLint on fixtures directories. Use --verbose for a detailed report.');
-	console.log(`\nLinting ${failDirectory}...`);
+	console.log(`\nLinting ${file}/fail (${failFiles.length} files)...`);
 
 	const formatter = await cli.loadFormatter();
 
-	cli.lintFiles([failDirectory]).then((results) => {
+	cli.lintFiles(failFiles).then((results) => {
 		const antipatternCounts = countResults(results);
 		const allFail = results.every((result) => result.errorCount > 0 || result.warningCount > 0);
 
@@ -49,9 +62,9 @@ async function testLintConfig(file) {
 	});
 
 	// Run for pass tests
-	console.log(`\nLinting ${successDirectory}...`);
+	console.log(`\nLinting ${file}/pass (${successFiles.length} files)...`);
 
-	cli.lintFiles([successDirectory]).then((results) => {
+	cli.lintFiles(successFiles).then((results) => {
 		const exampleCounts = countResults(results);
 
 		// Log full report when --verbose, or whenever errors are unexpectedly reported.

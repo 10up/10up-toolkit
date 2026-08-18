@@ -17,7 +17,7 @@ const hasConfig =
 	hasArgInCLI('--npm') ||
 	hasArgInCLI('--yarn');
 // Keep these defaults in sync with the `engines` field in package.json.
-const config = !hasConfig ? ['--node', '>=20.0.0', '--npm', '>=10.0.0'] : [];
+const config = !hasConfig ? ['--node', '>=20.9.0', '--npm', '>=10.0.0'] : [];
 
 const result = spawn(resolveBin('check-node-version'), [...config, ...args], {
 	stdio: 'inherit',

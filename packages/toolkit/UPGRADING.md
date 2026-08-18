@@ -4,7 +4,9 @@
 
 ### Node version
 
-Minimum Node version is now 20 and the toolkit is developed and released against Node 24, the current [Active LTS](https://nodejs.org/en/about/previous-releases). Node 16 and 18 are past end-of-life and are no longer supported or tested.
+Minimum Node version is now 20.9 and the toolkit is developed and released against Node 24, the current [Active LTS](https://nodejs.org/en/about/previous-releases). Node 16 and 18 are past end-of-life and are no longer supported or tested.
+
+The floor is 20.9 rather than 20.0 because the security dependency bumps in this release (`copy-webpack-plugin@^14`, `image-minimizer-webpack-plugin@^5`) require Node >=20.9.
 
 Supported and tested versions are Node 20, 22 and 24. If your project is still on Node 16 or 18, upgrade Node before upgrading the toolkit — installs will warn (or fail, if you use `engine-strict`) on unsupported versions.
 
