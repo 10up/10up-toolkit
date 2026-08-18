@@ -1,0 +1,66 @@
+name: Changeset Mode
+
+# Manually switch the changeset pre-release mode on any branch without a local checkout.
+# Pick the target branch in the "Run workflow" dropdown, then choose the mode.
+#
+# Note: the commit is pushed with the default GITHUB_TOKEN, which does NOT trigger
+# other workflows. After switching modes, manually dispatch the "Release" workflow
+# on the same branch (or wait for the next regular push) to version/publish.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Mode to switch to'
+        required: true
+        type: choice
+        options:
+          - exit-pre (promote to actual release)
+          - enter-pre (next)
+
+permissions:
+  contents: write
+
+jobs:
+  switch-mode:
+    name: Switch changeset mode
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Exit pre mode
+        if: startsWith(inputs.mode, 'exit-pre')
+        run: |
+          if [[ -f .changeset/pre.json ]]; then
+            npx changeset pre exit
+            git add .changeset/pre.json
+            git commit -m "chore: exit changeset pre mode" --no-verify
+            git push
+          else
+            echo 'Not in pre mode on ${{ github.ref_name }}, nothing to do.'
+          fi
+
+      - name: Enter pre mode (next)
+        if: startsWith(inputs.mode, 'enter-pre')
+        run: |
+          if [[ ! -f .changeset/pre.json ]]; then
+            npx changeset pre enter next
+            git add .changeset/pre.json
+            git commit -m "chore: enter changeset pre mode (next)" --no-verify
+            git push
+          else
+            echo 'Already in pre mode on ${{ github.ref_name }}, nothing to do.'
+          fi
