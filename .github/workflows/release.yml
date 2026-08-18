@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - trunk
+      - develop
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+# Publishing uses npm trusted publishing (OIDC) — there is no NPM_TOKEN.
+# npm exchanges the GitHub OIDC token for a short-lived registry token and, because
+# this repo and all four packages are public, automatically signs and publishes a
+# provenance attestation. See https://docs.npmjs.com/trusted-publishers
+#
+# Each package needs a trusted publisher registered under Settings -> Trusted publishing
+# on npmjs.com, pointing at:
+#   Organization or user: 10up
+#   Repository:           10up-toolkit
+#   Workflow filename:    release.yml
+#   Environment name:     (leave empty)
+#   Allowed actions:      npm publish
+# Renaming or moving this file invalidates that config and publishes will start failing.
+permissions:
+  id-token: write         # Required for the npm OIDC token exchange + provenance signing
+  contents: write         # Required for changesets to push commits/tags
+  pull-requests: write    # Required for changesets to create release PRs
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          registry-url: 'https://registry.npmjs.org'
+
+      # Trusted publishing needs npm >= 11.5.1, which first shipped with Node 24.5.0.
+      # Node 22 still bundles npm 10, which has no OIDC support at all and would fall
+      # back to publishing unsigned - fail loudly here rather than discover that on npm.
+      - name: Check npm supports trusted publishing
+        run: |
+          npm_version="$(npm --version)"
+          if [ "$(printf '11.5.1\n%s\n' "$npm_version" | sort -V | head -n1)" != "11.5.1" ]; then
+            echo "::error::npm $npm_version is too old for npm trusted publishing (need >= 11.5.1). Raise the Node version in this workflow."
+            exit 1
+          fi
+          echo "npm $npm_version supports trusted publishing"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Promote from @next
+        if: github.ref_name == 'trunk'
+        run: |
+          [[ -f .changeset/pre.json ]] && { git config user.email "github-actions[bot]@users.noreply.github.com"; git config user.name "github-actions[bot]"; npx changeset pre exit; npx changeset version; git add -u; git commit -m "chore: promote from @next" --no-verify; git push --follow-tags; } || echo 'not in pre mode, no need to exit'
+
+      - name: Enter pre next
+        if: github.ref_name == 'develop'
+        run: |
+          [[ ! -f .changeset/pre.json ]] && npx changeset pre enter next || echo 'already in pre mode'
+
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npx changeset publish
+          commit: |
+            ${{ github.ref_name == 'develop' && 'chore: version packages (next)' || 'chore: version packages' }}
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # npm enables provenance silently, so a broken trusted-publisher config would
+      # otherwise publish unsigned packages without anyone noticing. Warn rather than
+      # fail: the registry can serve a stale packument for a few minutes after publish.
+      - name: Report provenance
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          echo "### Provenance" >> "$GITHUB_STEP_SUMMARY"
+          node -e 'JSON.parse(process.env.PUBLISHED_PACKAGES).forEach((p) => console.log(`${p.name}@${p.version}`))' \
+          | while read -r spec; do
+              if [[ -n "$(npm view "$spec" dist.attestations.url 2>/dev/null)" ]]; then
+                echo "- \`$spec\` — signed ✅" >> "$GITHUB_STEP_SUMMARY"
+              else
+                echo "::warning::$spec has no provenance attestation — check the trusted publisher config for this package on npmjs.com"
+                echo "- \`$spec\` — **no attestation** ⚠️" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            done
+
+  merge-to-develop:
+    name: Merge trunk to develop
+    runs-on: ubuntu-latest
+    needs: release
+    if: github.ref_name == 'trunk'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: develop
+
+      - name: Configure Git
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+      - name: Merge trunk into develop
+        run: |
+          git fetch origin trunk
+          git merge origin/trunk --no-edit -m "chore: merge trunk into develop"
+          git push origin develop

@@ -3,6 +3,11 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const { hasBabelConfig, hasPostCSSConfig, fromConfigRoot } = require('../../utils');
 const { isPackageInstalled } = require('../../utils/package');
 
+// Resolved once so it can be compared by identity below — the resolved path uses
+// platform-native separators, so substring matching on 'react-refresh/babel' would
+// silently miss on Windows.
+const REACT_REFRESH_BABEL_PLUGIN = require.resolve('react-refresh/babel');
+
 const getCSSLoaders = ({ options, postcss, sass }) => {
 	// Note that the order of loaders is important. The loaders are applied from right to left.
 	// This goes as Sass -> PostCSS -> CSS -> MiniCSSExtractPlugin
@@ -73,10 +78,7 @@ module.exports = ({
 				configFile: false,
 				sourceType: 'unambiguous',
 				plugins: [
-					hasReactFastRefresh && [
-						require.resolve('react-refresh/babel'),
-						{ skipEnvCheck: true },
-					],
+					hasReactFastRefresh && [REACT_REFRESH_BABEL_PLUGIN, { skipEnvCheck: true }],
 				].filter(Boolean),
 				presets: [
 					[
@@ -125,16 +127,24 @@ module.exports = ({
 							...babelConfig,
 						},
 					},
-					isPackageInstalled('@linaria/webpack-loader') && {
-						loader: '@linaria/webpack-loader',
+					isPackageInstalled('@linaria/webpack5-loader') && {
+						loader: '@linaria/webpack5-loader',
 						options: {
 							sourceMap: process.env.NODE_ENV !== 'production',
 							extension: LINARIA_EXTENSION,
-							// Fix $RefreshReg$ is not defined errors with linaria and react-fast-refresh
-							// another option is to disable react fast refresh in babel preset via api.caller
-							// @see https://github.com/callstack/linaria/issues/1308#issuecomment-1732385974
-							overrideContext: (context) => ({ ...context, $RefreshReg$: () => {} }),
-							babelOptions: babelConfig,
+							// Linaria 4.x evaluates modules at build time in a sandbox where
+							// $RefreshReg$ isn't defined, so strip react-refresh/babel from
+							// the babel config Linaria runs. (Linaria 5.x exposes overrideContext
+							// for this; 4.x silently ignores it.)
+							// @see https://github.com/callstack/linaria/issues/1308
+							babelOptions: {
+								...babelConfig,
+								plugins: (babelConfig.plugins || []).filter(
+									(p) =>
+										(Array.isArray(p) ? p[0] : p) !==
+										REACT_REFRESH_BABEL_PLUGIN,
+								),
+							},
 						},
 					},
 				].filter(Boolean),

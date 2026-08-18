@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/10up/10up-scripts.git"
+    "url": "git+https://github.com/10up/10up-toolkit.git"
   },
   "scripts": {
     "build": "npm run build --workspaces --if-present",
@@ -21,15 +21,20 @@
     "projects/*"
   ],
   "bundleDependencies": false,
+  "overrides": {
+    "@types/node": "^20.19.0",
+    "minimatch": "^9.0.7",
+    "stylelint-declaration-strict-value": "~1.10.11"
+  },
   "devDependencies": {
-	"@changesets/cli": "^2.26.1",
-	"husky": "^8.0.3",
-	"lint-staged": "^15.2.0",
-	"prettier": "^3.1.1"
-},
+    "@changesets/cli": "^2.26.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1"
+  },
   "description": "Collection of reusable scripts for 10up development.",
   "engines": {
-    "node": ">=14",
-    "npm": ">=7"
+    "node": ">=20.9.0",
+    "npm": ">=10"
   }
 }

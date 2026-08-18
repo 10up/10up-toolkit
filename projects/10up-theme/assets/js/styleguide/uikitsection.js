@@ -55,7 +55,7 @@ export default class UIKitSection {
 		// Build the button, add the SVG chevron icons
 		// eslint-disable-next-line no-param-reassign
 		sectionHeading.innerHTML = `
-			<button class="toggle" aria-expanded="${!expanded}" id="toggle-${sectionID}">
+			<button class="uikit__toggle" aria-expanded="${!expanded}" id="toggle-${sectionID}">
 				<span>${sectionHeading.textContent}</span>
 				<svg aria-hidden="true" focusable="false" class="uikit__chevron-up" width="12" height="7" xmlns="http://www.w3.org/2000/svg" viewBox="3.3 4.5 11.4 7" role="img"><polygon points="9,4.5 3.3,10.1 4.8,11.5 9,7.3 13.2,11.5 14.7,10.1 "></polygon></svg>
 				<svg aria-hidden="true" focusable="false" class="uikit__chevron-down" width="12" height="7" xmlns="http://www.w3.org/2000/svg" viewBox="3.3 6.5 11.4 7" role="img"><polygon points="9,13.5 14.7,7.9 13.2,6.5 9,10.7 4.8,6.5 3.3,7.9 "></polygon></svg>
@@ -63,7 +63,7 @@ export default class UIKitSection {
 		`;
 
 		// Get the section content and hide it
-		const wrapper = sectionHeading.parentNode.querySelector('.content');
+		const wrapper = sectionHeading.parentNode.querySelector('.uikit__section-content');
 		wrapper.hidden = expanded;
 		wrapper.setAttribute('aria-hidden', expanded);
 		wrapper.setAttribute('aria-labelledby', `toggle-${sectionID}`);

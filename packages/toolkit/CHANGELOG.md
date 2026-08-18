@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.5.1
+
+### Patch Changes
+
+- 6a4b3d2: Update webpack-dev-server to 5.2.2 and react-refresh-webpack-plugin to 0.5.17
+
 ## 6.5.0
 
 ### Minor Changes

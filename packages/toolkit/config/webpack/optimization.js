@@ -51,6 +51,9 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 								avif: { quality: 40, effort: 5 },
 							};
 							config.jpg = config.jpeg;
+							// NOTE: when sharp is next bumped to >=0.35, this needs to become
+							// `{ ...config.avif, compression: 'av1' }` — sharp reports `.avif`
+							// input as format `heif`, and 0.35 requires an explicit compression.
 							config.heif = config.avif;
 							const data = await image[format](config[format]).toBuffer();
 
@@ -85,17 +88,12 @@ module.exports = ({ isProduction, projectConfig: { hot, analyze } }) => {
 						let result;
 
 						try {
+							// svgo 4 dropped `removeViewBox` from `preset-default`, so viewBox is
+							// preserved by default and the old `overrides` entry is no longer
+							// valid (svgo warns about it). Keeping plain `preset-default`
+							// preserves the previous behaviour of not stripping viewBox.
 							const defaultConfig = {
-								plugins: [
-									{
-										name: 'preset-default',
-										params: {
-											overrides: {
-												removeViewBox: false,
-											},
-										},
-									},
-								],
+								plugins: ['preset-default'],
 							};
 
 							let config = { ...defaultConfig };
