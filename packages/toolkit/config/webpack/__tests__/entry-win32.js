@@ -81,8 +81,8 @@ describe('entry module function on Windows', () => {
 		});
 	});
 
-	// Style entrypoints are passed through `path.resolve`, so the emitted value uses native
-	// separators, while the entry name itself stays forward-slashed.
+	// Style entrypoints are emitted as the absolute path fast-glob already returned, so the
+	// value keeps forward slashes on Windows rather than being re-resolved to backslashes.
 	it('handles block-specific styles', () => {
 		glob.mockReturnValueOnce([
 			'C:/mock/project/root/assets/css/blocks/example/style.css',
@@ -97,10 +97,9 @@ describe('entry module function on Windows', () => {
 				},
 			}),
 		).toEqual({
-			'autoenqueue/example/style':
-				'C:\\mock\\project\\root\\assets\\css\\blocks\\example\\style.css',
+			'autoenqueue/example/style': 'C:/mock/project/root/assets/css/blocks/example/style.css',
 			'autoenqueue/nested/block/style':
-				'C:\\mock\\project\\root\\assets\\css\\blocks\\nested\\block\\style.scss',
+				'C:/mock/project/root/assets/css/blocks/nested/block/style.scss',
 		});
 	});
 });

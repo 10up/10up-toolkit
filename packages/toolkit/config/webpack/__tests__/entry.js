@@ -15,17 +15,13 @@ const entry = require('../entry');
 // The module under test derives the blocks directory with `path.resolve`, which is
 // platform-native: on Windows it produces a drive-qualified, backslash-separated path.
 // Anchoring the fixtures to the same `resolve` call keeps the mocked filesystem
-// self-consistent on every platform, instead of describing a POSIX-only one that
-// Windows can never match. See `entry-win32.js` for the Windows-specific behaviour.
+// self-consistent on every platform, rather than describing a POSIX-only one that
+// Windows can never match. See `entry-win32.js` for Windows-specific behaviour.
 const ROOT = resolve('/mock/project/root');
 
 // Builds an absolute path below ROOT in the shape fast-glob returns: fast-glob always
 // emits forward slashes, even on Windows.
 const p = (relativePath) => join(ROOT, relativePath).replace(/\\/g, '/');
-
-// Same path with native separators, which is what entrypoints run through `path.resolve`
-// emit (block-specific styles do; block assets are passed through from fast-glob as-is).
-const native = (relativePath) => join(ROOT, relativePath);
 
 describe('entry module function', () => {
 	beforeEach(() => {
@@ -248,8 +244,8 @@ describe('entry module function', () => {
 
 			expect(result).toEqual({
 				existing: 'existing.js',
-				'autoenqueue/example/style': native('assets/css/blocks/example/style.css'),
-				'autoenqueue/nested/block/style': native(
+				'autoenqueue/example/style': p('assets/css/blocks/example/style.css'),
+				'autoenqueue/nested/block/style': p(
 					'assets/css/blocks/nested/block/style.scss',
 				),
 			});
@@ -271,7 +267,7 @@ describe('entry module function', () => {
 			});
 
 			expect(result).toEqual({
-				'autoenqueue/deeply/nested/block/style': native(
+				'autoenqueue/deeply/nested/block/style': p(
 					'assets/css/blocks/deeply/nested/block/style.css',
 				),
 			});
@@ -309,7 +305,7 @@ describe('entry module function', () => {
 			expect(result).toEqual({
 				existing: 'existing.js',
 				'example/editor': p('includes/blocks/example/editor.js'),
-				'autoenqueue/example/style': native('assets/css/blocks/example/style.css'),
+				'autoenqueue/example/style': p('assets/css/blocks/example/style.css'),
 			});
 		});
 	});
