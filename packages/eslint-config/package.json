@@ -46,7 +46,7 @@
 		"prettier": "^3.1.1"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=20"
 	},
 	"peerDependencies": {
 		"@babel/core": "^7.23.7",
