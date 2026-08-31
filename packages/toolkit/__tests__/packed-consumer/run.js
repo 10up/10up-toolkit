@@ -1,13 +1,13 @@
-import { execFileSync } from 'node:child_process';
-import { cpSync, mkdirSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+const { execFileSync } = require('node:child_process');
+const { cpSync, mkdirSync, mkdtempSync, readdirSync, rmSync } = require('node:fs');
+const { tmpdir } = require('node:os');
+const { join, resolve } = require('node:path');
 
-const root = process.cwd();
+const repositoryRoot = resolve(__dirname, '../../../..');
 const temporaryDirectory = mkdtempSync(join(tmpdir(), '10up-toolkit-consumer-'));
 const packageDirectory = join(temporaryDirectory, 'packages');
 const consumerDirectory = join(temporaryDirectory, 'consumer');
-const fixtureDirectory = resolve(root, '.github/fixtures/consumer');
+const fixtureDirectory = join(__dirname, 'fixture');
 const workspaces = [
 	'packages/babel-preset-default',
 	'packages/eslint-config',
@@ -17,7 +17,7 @@ const workspaces = [
 
 const run = (command, args, options = {}) =>
 	execFileSync(command, args, {
-		cwd: root,
+		cwd: repositoryRoot,
 		stdio: 'inherit',
 		...options,
 	});

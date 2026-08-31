@@ -73,7 +73,7 @@ jobs:
         run: npm run test
 
       - name: test packed consumer
-        run: npm run test:consumer
+        run: npm run test:integration -w packages/toolkit
         if: matrix.is_base_os_version
 
       - name: security audit
