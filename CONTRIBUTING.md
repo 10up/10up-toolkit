@@ -30,7 +30,7 @@ The `develop` branch is the development branch which means it contains the next 
 
 ### System requirements
 
-- [Node.js](https://nodejs.org/) >= 20.9.0. Node 24 is the version we develop against — run `nvm use` to pick it up from `.nvmrc`.
+- [Node.js](https://nodejs.org/) >= 20.19.0. Node 24 is the version we develop against — run `nvm use` to pick it up from `.nvmrc`.
 
 ## Get the project running
 1. Clone the project `git@github.com:10up/10up-toolkit.git` somewhere.

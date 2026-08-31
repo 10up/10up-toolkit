@@ -19,12 +19,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      # Test node 20/22/24 on Ubuntu
+      # Test the minimum supported Node release plus Node 22/24 on Ubuntu
       # Test node 24 on macOS/Windows
       # Enable linting only for node 24 & Ubuntu
       matrix:
         os: [ubuntu-latest]
-        node: [20, 22, 24]
+        node: ["20.19", 22, 24]
         include:
           - os: macos-latest
             node: 24
@@ -71,6 +71,14 @@ jobs:
 
       - name: test
         run: npm run test
+
+      - name: test packed consumer
+        run: npm run test:consumer
+        if: matrix.is_base_os_version
+
+      - name: security audit
+        run: npm run audit:security
+        if: matrix.is_base_node_version && matrix.is_base_os_version
 
         # record the current commit for the cache at the end of the job
         # must be the last step

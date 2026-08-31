@@ -14,7 +14,7 @@
     "wp-env": "wp-env"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=20.19.0"
   },
   "devDependencies": {
     "@linaria/babel-preset": "^4.5.4",

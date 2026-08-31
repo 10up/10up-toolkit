@@ -40,7 +40,7 @@
 	},
 	"engineStrict": true,
 	"engines": {
-		"node": ">=20.9.0"
+		"node": ">=20.19.0"
 	},
 	"devDependencies": {
 		"@10up/eslint-config": "^5.0.0-next.0",
@@ -51,7 +51,7 @@
 	},
 	"dependencies": {
 		"stylelint-config-recommended": "^13.0.0",
-		"stylelint-declaration-strict-value": "^1.9.2",
+		"stylelint-declaration-strict-value": "~1.10.11",
 		"stylelint-order": "^6.0.3",
 		"stylelint-stylistic": "^0.4.3"
 	}

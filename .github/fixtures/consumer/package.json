@@ -1,0 +1,12 @@
+{
+  "name": "10up-toolkit-packed-consumer",
+  "private": true,
+  "source": "src/index.js",
+  "main": "dist/index.js",
+  "style": "dist/index.css",
+  "scripts": {
+    "build": "10up-toolkit build",
+    "lint:js": "10up-toolkit lint-js",
+    "lint:style": "10up-toolkit lint-style"
+  }
+}
