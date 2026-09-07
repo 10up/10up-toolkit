@@ -1,5 +1,165 @@
 # Changelog
 
+## 7.0.0
+
+### Major Changes
+
+- e40dc56: Support and default to Node 24
+
+  Node 24 (current Active LTS) is now the version the toolkit is developed, tested and released against, and the minimum supported Node version is now 20. Node 16 and 18 are past end-of-life and have been dropped from the test matrix; CI now covers Node 20, 22 and 24.
+
+  This is a breaking change only in the sense that `engines` no longer permits Node 16/18. No build, config or API behaviour has changed — see `UPGRADING.md` for details.
+
+### Minor Changes
+
+- b08fb3b: Add WordPress Block Metadata Collections API support
+
+  Integrate automatic generation of block metadata manifest files to improve block registration performance in WordPress 6.7+. When enabled, toolkit generates a PHP file (`blocks-manifest.php`) containing all block metadata from a single source, eliminating the need to read multiple `block.json` files at runtime.
+
+  **New Features:**
+  - Add `useBlockManifest` configuration option (boolean, default: `false`)
+  - Add `--block-manifest` CLI flag for one-time manifest generation
+  - Add `BuildBlocksManifestPlugin` webpack plugin that hooks into build completion
+  - Automatic manifest regeneration in watch mode when blocks change
+
+  **Configuration:**
+
+  Enable via package.json:
+
+  ```json
+  {
+    "10up-toolkit": {
+      "useBlockAssets": true,
+      "useBlockManifest": true
+    }
+  }
+  ```
+
+  Or via CLI flag:
+
+  ```bash
+  10up-toolkit build --block-manifest
+  10up-toolkit start --block-manifest
+  10up-toolkit watch --block-manifest
+  ```
+
+  **WordPress Integration:**
+
+  Register the collection and automatically register all blocks:
+
+  ```php
+  $blocks_dir = get_template_directory() . '/dist/blocks';
+  $manifest_path = get_template_directory() . '/dist/blocks-manifest.php';
+
+  wp_register_block_metadata_collection( $blocks_dir, $manifest_path );
+
+  // Automatically register all blocks from the manifest
+  $manifest = require $manifest_path;
+  foreach ( array_keys( $manifest ) as $block_dir ) {
+      register_block_type_from_metadata( $blocks_dir . '/' . $block_dir );
+  }
+  ```
+
+  **Benefits:**
+  - Improved performance for projects with many blocks (50+)
+  - Reduced filesystem I/O operations
+  - Better opcode caching for block metadata
+  - Preserves transformed asset paths from the build process (TS→JS, SCSS→CSS)
+
+  The manifest is generated in `dist/blocks-manifest.php` and works seamlessly with the existing `useBlockAssets` workflow.
+
+- dda2bbd: Security: Fix critical and high severity CVEs in transitive dependencies
+
+  Minimum Node.js version is now 20.9. The major dependency bumps required
+  for the security fixes (copy-webpack-plugin@^14, image-minimizer-webpack-plugin@^5)
+  require Node ≥20.9. Node 16 and 18 are EOL and no longer supported.
+  - Bump `copy-webpack-plugin` from ^11 to ^14 — resolves serialize-javascript RCE (GHSA-5c6j-r48x-rmvq) and CPU exhaustion (GHSA-qj8w-gfj5-8c6v)
+  - Bump `image-minimizer-webpack-plugin` from ^3 to ^5 — same serialize-javascript fix
+  - Downgrade `@linaria/*` from ^5 to ^4.5.4 in 10up-theme — removes happy-dom@10 CVE-2024-53382
+  - Bump `webpackbar` from ^6 to ^7 — webpack 5.96+ added stricter ProgressPlugin schema validation that webpackbar 6 fails by passing non-schema options to its `ProgressPlugin` parent; webpackbar 7 routes those options to a separate instance and is forward-compatible. Avoids needing to pin webpack downstream.
+  - Switch the toolkit's linaria integration from the meta-package `@linaria/webpack-loader` to `@linaria/webpack5-loader` directly. The meta-package always installs **both** the webpack 4 and webpack 5 loaders, dragging webpack@4.47.0 (and a long tail of vulnerable transitive deps — `serialize-javascript@<7.0.5`, `braces@2`, `micromatch@3`, `terser-webpack-plugin@1`, etc.) into every install even though only webpack 5 is used. Importing the webpack5 loader directly drops the webpack 4 chain entirely, fixing those CVEs at the dep-tree level instead of via root-level `overrides` (which don't propagate to consumers of the published `10up-toolkit`).
+
+    **Migration for `10up-toolkit` consumers using linaria:** replace `"@linaria/webpack-loader"` with `"@linaria/webpack5-loader"` in your project's `package.json` and update any `loader: '@linaria/webpack-loader'` references in custom webpack configs. No API changes — the webpack5 loader is the same module the meta-package was delegating to.
+
+  - Bump `engines.node` to `>=20.9.0` across the toolkit, eslint-config, stylelint-config, and 10up-theme workspaces. Update CI matrix to test on Node 20 + 22 only.
+
+  Reduces critical/high vulnerabilities to 0. The serialize-javascript / braces / micromatch fixes propagate to consumers via the linaria webpack5-loader swap. Remaining low/moderate issues are in dev tooling (`@wordpress/env`, `jest-environment-jsdom`, etc.) with no upstream fixes available yet.
+
+  ### Note on remaining monorepo-only `overrides`
+
+  The root `package.json` keeps three `overrides` as documented temporary workarounds. npm only honors `overrides` declared in the top-level project, so these apply only to this monorepo's `npm install` / `npm ci` — they do **not** flow through to consumers installing `10up-toolkit` as a dependency. None of the three are blocking consumer security:
+  - `minimatch: ^9.0.7` — patches a ReDoS in `@typescript-eslint@^6`'s pinned minimatch. Resolved permanently by upgrading `@typescript-eslint` to v8 (deferred — major bump on `@10up/eslint-config` with consumer impact).
+  - `stylelint-declaration-strict-value: ~1.10.11` — keeps the plugin on the stylelint 15 line. The 1.11.x line bumped its peer to stylelint ≥16, conflicting with `@10up/stylelint-config`'s stylelint 15 peer. Resolved by upgrading the stylelint config to v16 (deferred — major bump with consumer impact).
+  - `@types/node: ^20.19.0` — workaround for `@manypkg/find-root@1`'s legacy `@types/node@^12.7.1` declaration, which conflicts with `@inquirer/external-editor`'s `@types/node>=18` peer. Upstream blocker: `@changesets/cli@2.x` still ships with `@manypkg/find-root@1`; only the `@changesets/cli@3.0.0-next.2` pre-release has migrated.
+
+  ### Follow-up security bumps (added when restacking onto Node 24 support)
+
+  New advisories landed against the original set of fixes. Additionally addressed:
+  - Bump `postcss` from `^8.4.31` to `^8.5.26` — resolves path traversal in previous-source-map auto-loading via `sourceMappingURL` (GHSA-6g55-p6wh-862q and its incomplete-fix follow-up).
+  - Bump `svgo` from `^3.2.0` to `^4.0.2` — resolves the `removeScripts` advisory, where the plugin left some executable scripts intact. This is directly relevant since this is the code path that sanitises project SVGs.
+
+    **Migration for consumers with a custom `svgo.config.js`:** svgo 4 removed `removeViewBox` from `preset-default`, and changed parts of the plugin config format. The toolkit's own default config was updated accordingly (viewBox is preserved by default in svgo 4, so the previous `overrides: { removeViewBox: false }` is both unnecessary and no longer valid). Custom svgo configs written for svgo 3 may need updating — see the [svgo 4 release notes](https://github.com/svg/svgo/releases).
+
+  - Bump `@wordpress/env` in `projects/10up-theme` from `^10.10.0` to `^11.13.0` — dev-only, resolves an `extract-zip` symlink path traversal.
+
+  ### Follow-up security bumps (npm_and_yarn dependabot sweep)
+
+  The `sharp` bump this changeset deferred, along with `webpack-dev-server@5.2.6`,
+  `@babel/core@^7.29.6` and a set of patched transitives, landed separately — see the
+  "land the `sharp` bump" changeset for the detail. `npm audit` is now at **0 critical**,
+  with 5 high and 7 moderate remaining; those are covered below.
+
+  ### Known remaining advisories
+
+  `npm audit` still reports issues that are **not** fixable within this PR:
+  - **`webpack-dev-server` (moderate — `http-proxy-middleware`, `sockjs` → `uuid`).** `webpack-dev-server@5.2.6` plus the patched `ws`, `websocket-driver` and `body-parser` transitives clear the criticals that the 5.x line previously carried. What is left is moderate-only and still scoped to the whole 5.x line; clearing it needs `webpack-dev-server@6`, a major upgrade with dev-server config changes (express 5, chokidar 5) that deserves its own PR and HMR testing. These affect the local dev server only, not built output.
+  - **`@wordpress/env` → `@wp-playground/*` → `adm-zip`, `tmp` (dev-only).** `@wordpress/env@11.13.0` is the latest release and still pulls `adm-zip@0.5.x`; needs an upstream fix.
+  - **`postcss@8.5.14` still present in this monorepo's tree**, hoisted via `stylelint@15` / `cssnano` transitives. Consumers of the published `10up-toolkit` are not affected, because the toolkit declares `postcss@^8.5.26` and npm resolves a single satisfying copy for `postcss-loader`. Clearing it here depends on the deferred `stylelint@16` upgrade.
+  - **`js-yaml` (high, via the `eslint@8` chain) and `ajv` (moderate, same chain).** Build/test-time only; both need the deferred `eslint@9` / `@typescript-eslint@8` upgrade. The `immutable`, `brace-expansion`, `form-data` and `ws` advisories previously listed here are fixed by the bumps above.
+  - **`uuid` (moderate) via `sockjs` and `@10up/block-components`.** The advisory is a missing buffer bounds check in `v3`/`v5`/`v6`, and only when an explicit `buf` argument is passed. `sockjs` calls `uuid.v4()` with no arguments, so it is not reachable there. Awaiting upstream bumps to `uuid@>=11.1.1`.
+
+### Patch Changes
+
+- 5e11087: Security: land the `sharp` bump and reconcile the dependabot manifest with its lockfile
+
+  Bumps `sharp` from `0.32.6` to `0.35.3`, resolving the inherited libvips advisories that
+  the previous security sweep had to defer, plus `webpack-dev-server` to `^5.2.6` and the
+  patched transitives `@babel/core@^7.29.6`, `qs@6.15.3`, `brace-expansion@2.1.4`,
+  `esbuild@0.28.2`, `form-data@4.0.6`, `immutable@5.1.9`, `tmp@0.2.7`, `ws@7.5.13`,
+  `websocket-driver@0.7.5` and `body-parser@1.20.6`. `npm audit` goes from 2 critical to 0.
+
+  **AVIF minification fix.** sharp reports `.avif` input as format `heif`, and from 0.35 the
+  heif encoder requires an explicit compression. `config.heif` in `optimization.js` is now
+  `{ ...config.avif, compression: 'av1' }`; without it, `heif()` throws
+  `Expected one of: av1, hevc for compression but received undefined` and every `.avif`
+  asset fails minification. Projects that run `.avif` files through the build are the ones
+  affected — no config change is needed on their side.
+
+  **Why the earlier `sharp` backout no longer applies.** That revert was correct at the time:
+  from 0.33 onward sharp ships its prebuilt binaries as per-platform optional dependencies
+  (`@img/sharp-linux-x64`, `@img/sharp-win32-x64`, …), and the lockfile generated then
+  recorded only the host (darwin-arm64) entries, breaking `npm ci` on Linux and Windows with
+  _"Could not load the `sharp` module using the linux-x64 runtime"_. npm now records every
+  platform's entries regardless of the resolving host — this lockfile carries all 26
+  `@img/sharp-*` entries (darwin, linux, linuxmusl, win32, freebsd, wasm), and a from-scratch
+  re-resolve on macOS reproduces all 26 rather than pruning to darwin. Verified in a real
+  `linux/amd64` container that `npm ci` succeeds and `require('sharp')` loads the linux-x64
+  binary and encodes AVIF on both Node 20 (npm 10.8.2) and Node 24 (npm 11.17).
+
+  Worth a glance after any future lockfile regeneration: the `@img/sharp-*` entry count
+  should stay at 26.
+
+- 1fe01b6: Fix: Update "Dependency Extraction Webpack Plugin" Dependency
+- d22ef93: Fix block entrypoint tests failing on Windows
+
+  The `entry` tests mocked `process.cwd()` with a POSIX path while the module under test derives the blocks directory with `path.resolve`, which is platform-native. On Windows the two never lined up, so the blocks directory prefix was never stripped and every entry name came out as a full absolute path, failing 9 tests on the `windows-latest` CI job.
+
+  Fixtures are now anchored to the same `path.resolve` call as the code under test, so they describe a filesystem that is self-consistent on every platform. Windows path handling additionally gets its own suite that swaps `path` for `path.win32`, so the behaviour is covered on Linux and macOS runs too instead of only when CI happens to run on Windows.
+
+  Test-only change; no runtime behaviour was modified.
+
+- 6cb07e6: Fix: leading slashes in asset generation
+
 ## 7.0.0-next.1
 
 ### Patch Changes
