@@ -18,6 +18,85 @@ if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
 	);
 }
 
+if ( ! function_exists( __NAMESPACE__ . '\\get_block_asset_url' ) ) {
+	function get_block_asset_url( $path ) {
+		static $template_paths_norm = array();
+
+		$template = get_template();
+		if ( ! isset( $template_paths_norm[ $template ] ) ) {
+			$template_paths_norm[ $template ] = wp_normalize_path( get_template_directory() );
+		}
+
+		if ( str_starts_with( $path, trailingslashit( $template_paths_norm[ $template ] ) ) ) {
+			return get_theme_file_uri( str_replace( $template_paths_norm[ $template ], '', $path ) );
+		}
+	}
+
+	add_filter(
+		'block_type_metadata_settings',
+			static function( $settings, $metadata ) {
+				if ( isset( $metadata['editorStyle'] ) && str_starts_with( $metadata['editorStyle'], 'file:' ) ) {
+					$file              = $metadata['file'];
+					$dir               = dirname( $file );
+
+					if ( isset( $metadata['editorStyle'] ) ) {
+						$editor_style_path = $metadata['editorStyle'];
+						$editor_style_file_name = basename( $editor_style_path );
+
+						$js_editor_hmr_file = $dir . '/' . str_replace( '.css', '.js', $editor_style_file_name );
+
+						// TODO: do not enqueue this file if its name ends up being the same as editorScript
+						if ( file_exists( $js_editor_hmr_file ) ) {
+							$editor_script_index = count( $settings['editor_script_handles'] ) ?? 0;
+							$editor_script_handle = generate_block_asset_handle( $metadata['name'], 'editorStyle', $editor_script_index );
+
+							$script_asset = include str_replace( '.js', '.asset.php', $js_editor_hmr_file );
+							$script_url = get_block_asset_url( $js_editor_hmr_file );
+
+							wp_register_script(
+								$editor_script_handle,
+								$script_url,
+								$script_asset['dependencies'],
+								$script_asset['version'],
+								true
+							);
+
+							$settings['editor_script_handles'][] = $editor_script_handle;
+						}
+					}
+
+					if  ( isset( $metadata['style'] ) ) {
+						$style_path = $metadata['style'];
+						$style_file_name = basename( $style_path );
+						$js_style_hmr_file = $dir . '/' . str_replace( '.css', '.js', $style_file_name );
+
+						if ( file_exists( $js_style_hmr_file ) ) {
+							$editor_script_index = count( $settings['editor_script_handles'] ) ?? 0;
+							$script_handle = generate_block_asset_handle( $metadata['name'], 'style', $editor_script_index );
+
+							$script_asset = include str_replace( '.js', '.asset.php', $js_style_hmr_file );
+							$script_url = get_block_asset_url( $js_style_hmr_file );
+
+							wp_register_script(
+								$script_handle,
+								$script_url,
+								$script_asset['dependencies'],
+								$script_asset['version'],
+								true
+							);
+
+							$settings['editor_script_handles'][] = $script_handle;
+						}
+					}
+				}
+
+				return $settings;
+			},
+			10,
+			2
+		);
+}
+
 if ( ! function_exists( __NAMESPACE__ . '\\set_dist_url_path' ) ) {
 	$registry = [];
 
