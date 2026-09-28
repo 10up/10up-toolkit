@@ -63,10 +63,19 @@ jobs:
         run: |
           [[ -f .changeset/pre.json ]] && { git config user.email "github-actions[bot]@users.noreply.github.com"; git config user.name "github-actions[bot]"; npx changeset pre exit; npx changeset version; git add -u; git commit -m "chore: promote from @next" --no-verify; git push --follow-tags; } || echo 'not in pre mode, no need to exit'
 
+      # Only (re-)enter pre mode when there are pending changesets. Right after a stable
+      # "Version Packages" merge, pre.json is gone and no changesets remain — entering
+      # pre mode then would publish the stable versions to @next instead of @latest.
       - name: Enter pre next
         if: github.ref_name == 'develop'
         run: |
-          [[ ! -f .changeset/pre.json ]] && npx changeset pre enter next || echo 'already in pre mode'
+          if [[ -f .changeset/pre.json ]]; then
+            echo 'already in pre mode'
+          elif ! find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | grep -q .; then
+            echo 'no pending changesets, not entering pre mode'
+          else
+            npx changeset pre enter next
+          fi
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -78,6 +87,21 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # changesets creates one GitHub release per package, and GitHub marks whichever
+      # stable release was created last as "Latest". Pin that badge to the toolkit.
+      - name: Mark toolkit release as latest
+        if: steps.changesets.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
+        run: |
+          version="$(node -e 'const p = JSON.parse(process.env.PUBLISHED_PACKAGES).find((p) => p.name === "10up-toolkit"); console.log(p ? p.version : "")')"
+          if [[ -n "$version" && "$version" != *-* ]]; then
+            gh release edit "10up-toolkit@$version" --latest
+          else
+            echo 'no stable toolkit release published'
+          fi
 
       # npm enables provenance silently, so a broken trusted-publisher config would
       # otherwise publish unsigned packages without anyone noticing. Warn rather than
