@@ -12,21 +12,22 @@ A collection of bundled scripts for 10up development.
 8. [10up Projects](PROJECTS.md)
 9. [TypeScript Support](#typescript)
 10. [React & WordPress](#react)
-11. [Linaria (CSS-in-JS)](#linaria)
 
 ## <a id="introduction"></a>Introduction
 
-10up-toolkit is 10up's official asset bundling tool based on Webpack 5. It comes with support for many things commonly
-used across 10up's projects such as:
+10up-toolkit is 10up's official asset bundling tool. Since version 8 it runs on [Vite+](https://viteplus.dev) (Vite 8 with the Rolldown bundler) and [`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins). It comes with support for many things commonly used across 10up's projects such as:
 
-- JavaScript transpilation through babel
-- core-js@3 automatic polyfill injection (project mode)
-- PostCSS, SASS and CSS Modules
-- ESLint, Prettier, and Stylelint
-- Jest
+- JavaScript, TypeScript and JSX (including JSX in `.js` files)
+- `block.json` asset discovery, `.asset.php` dependency files and the blocks manifest
+- Script Modules and the Interactivity API
+- PostCSS and Sass
+- A Vite dev server with hot reloading for WordPress
+- Oxlint, Oxfmt and Stylelint
+- Vitest
 
 With 10up-toolkit, engineers can quickly and easily bundle assets for both production and development without having
-to worry about config files. 10up-toolkit is also easy to extend to project's specifics needs.
+to worry about config files. The `"10up-toolkit"` config in `package.json` works as it did in version 7, and the
+dist layout stays the same. **Upgrading from version 7? Read [UPGRADING.md](./UPGRADING.md).**
 
 `10up-toolkit` is inspired in tools like `react-scripts`, `kcd-scripts` and `wp-scripts`.
 
@@ -38,13 +39,7 @@ To install 10up-toolkit simply run
 npm install --save-dev 10up-toolkit
 ```
 
-#### ⚠️ `peerDependency` warning
-
-If you're using a version of NPM lower than 7 and `10up-toolkit` from version `4.0.0` you'll also need to install the following dependencies manually:
-
-```bash{showPrompt}
-npm install --save-dev stylelint @10up/stylelint-config @10up/eslint-config @10up/babel-preset-default
-```
+Version 8 requires Node.js `^22.18.0` or `>=24.11.0`, the versions Vite+ supports.
 
 ### Setting it up
 
@@ -104,7 +99,7 @@ Here's how a `package.json` would look like for using 10up-toolkit this way:
 		"format-js": "10up-toolkit format-js",
 		"lint-js": "10up-toolkit lint-js",
 		"lint-style": "10up-toolkit lint-style",
-		"test": "10up-toolkit test-unit-jest"
+		"test": "10up-toolkit test"
 	},
 	"devDependencies": {
 		"10up-toolkit": "^1.0.0"
@@ -146,25 +141,6 @@ By default, the compiled assets will be generated on the following directories:
 - `dist/[images,fonts,svg]` - all assets under `assets/images`, `asset/fonts` and `assets/svg` with the following extensions `jpg,jpeg,png,gif,ico,svg,eot,ttf,woff,woff2,otf` are copied, even those not referenced in code (this behavior is specific to building in project mode).
 
 See the [Customizing build paths](#customize-build-paths) section for changing the structure of the dist folder.
-
-### BrowserSync [DEPRECATED]
-
-> Starting with 10up-toolkit@2.2.0 browser-sync has been deprecated. If you wish to continue using it you must install the following packages manually: npm install --save-dev browser-sync browser-sync-webpack-plugin
-
-> It's strongly recommended to use the `--hot` option instead
-
-10up-toolkit has [BrowserSync](https://browsersync.io/) support and can be enabled by adding a devURL property.
-
-```json
- "10up-toolkit": {
-    "devURL": "https://my-project.test",
-    "entry": {
-        //...
-    }
-  }
-```
-
-In the example above, running `10up-toolkit start` or `10up-toolkit build --watch` will start 10up-toolkit in watch mode and start a browser sync session, proxying the *https://my-project.test* url.
 
 ### <a id="customize-build-paths"></a> Customizing build paths
 
@@ -220,7 +196,7 @@ Alternatively, you can set up `process.env.ASSET_PATH` to whatever path (or CDN)
 
 _NOTE: Since 10up-toolkit@6 this `useBlockAssets` is on by default_
 
-If your project includes blocks there are quite a few assets that need to be added to the list of entry points for Webpack to transpile. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys with webpack. In order to handle `scriptModule` and `viewScriptModule` the `useScriptModules` mode needs to be enabled.
+If your project includes blocks there are quite a few assets that need to be added to the list of entry points. This can get quite cumbersome and repetitive. To make this easier toolkit has a special mode where it scans the source path for any `block.json` files and automatically adds any assets that are defined in there via the `script`, `editorScript`, `viewScript`, `style`, `editorStyle` keys. `scriptModule` and `viewScriptModule` assets build in a second pass as Script Modules.
 
 It also automatically moves all files including the `block.json` and PHP files to the `dist/blocks/` folder.
 
@@ -317,8 +293,8 @@ The `wp_register_block_metadata_collection()` function tells WordPress about the
 
 The manifest generation integrates seamlessly with the existing build pipeline:
 
-1. Webpack builds and compiles all blocks (TypeScript, SCSS, etc.)
-2. CopyWebpackPlugin copies `block.json` files to `dist/blocks/` and transforms asset paths (`.ts` → `.js`, `.scss` → `.css`) via the existing `transformBlockJson` utility
+1. Vite builds all blocks (TypeScript, SCSS, etc.)
+2. `@10up/wp-vite-plugins` copies `block.json` files to `dist/blocks/` and rewrites asset paths (`.ts` → `.js`, `.scss` → `.css`)
 3. BuildBlocksManifestPlugin scans `dist/blocks/` for all transformed `block.json` files
 4. Generates `dist/blocks-manifest.php` containing all block metadata with the already-transformed asset paths
 
@@ -352,7 +328,7 @@ With the introduction of block-specific stylesheets, we've started to break out 
 
 One downside to this approach however was that any postcss globals such as custom media queries, custom selectors, variables, and mixins defined in the main css file are not available to all the other block-specific stylesheets.
 
-To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files handled by Webpack. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
+To fix this 10up-toolkit 6.1 introduces a new way to handle these global settings. There are now two special folders that toolkit watches for. `./assets/css/globals/` and `./assets/css/mixins/`. Any CSS files within these folders or nested within these folders get automatically loaded for all CSS files toolkit builds. So if you define your custom breakpoints in a `./assets/css/globals/breakpoints.css` file that breakpoint will be available everywhere.
 
 > [!WARNING]
 > Please note that [PostCSS Global Data](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-global-data) does not add anything to the output of your CSS. It only injects data into PostCSS so that other plugins can actually use it.
@@ -370,224 +346,89 @@ If you need to customize the path of these global folders you can do so by modif
 }
 ```
 
-## <a id="fast-refresh"></a>HMR and Fast Refresh
+## <a id="fast-refresh"></a>Dev server and hot reloading
 
-![react-fast-refresh-toolkit](https://user-images.githubusercontent.com/6104632/155181035-b77a53f8-6a45-454d-934c-5667bbb0f06a.gif)
-
-10up-toolkit provides native support for HMR and Fast Refresh with the `--hot` option. Fast Refresh works for general react development (including block development) and front-end CSS. Front-end vanilla JS will likely cause full-page refresh currently.
-
-```
-10up-toolkit watch --hot
-```
-
-You can also pass the `--hot` flag through npm:
-
-```
-npm run start -- --hot
-```
-
-### Basic Setup
-
-In order to get support for HMR/Fast Refresh follow these steps:
-
-- If you're not using a `.test` domain for your WP instance, make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
-- Set `SCRIPT_DEBUG` to true in `wp-config.php`
-  - `define( 'SCRIPT_DEBUG', true )`
-- In your theme's `functions.php` or your plugin's entry point, load the `fast-refresh.php` file generated by toolkit.
-  - In the example bellow, that file will only load on local environments
-  - We check for `.test` and `.local` urls for convenience, we recommend setting the appropriate env var for [wp_get_environment_type](https://developer.wordpress.org/reference/functions/wp_get_environment_type/).
+`10up-toolkit start --hot` (or `10up-toolkit dev`) starts a Vite dev server instead of rebuilding files. Every build
+writes `dist/dev-server.php`. Load it from your theme's `functions.php` or your plugin's entry point:
 
 ```php
-
-$is_local_env = in_array( wp_get_environment_type(), [ 'local', 'development' ], true );
-$is_local_url = strpos( home_url(), '.test' ) || strpos( home_url(), '.local' );
-$is_local     = $is_local_env || $is_local_url;
-
-if ( $is_local && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
-	require_once __DIR__ . '/dist/fast-refresh.php';
-	TenUpToolkit\set_dist_url_path( basename( __DIR__ ), TENUP_THEME_DIST_URL, TENUP_THEME_DIST_PATH );
+if ( file_exists( __DIR__ . '/dist/dev-server.php' ) ) {
+	require_once __DIR__ . '/dist/dev-server.php';
 }
 ```
 
-Replace `TENUP_THEME_DIST_URL` and `TENUP_THEME_DIST_PATH` with the path to the url and the path to the `dist` folder.
+While the dev server runs, that file points WordPress's script, style and Script Module URLs at it. CSS changes apply
+without a reload. When the dev server stops, WordPress loads the built files again, so the file is safe to ship.
 
-- Then run `10up-toolkit watch --hot`
+The dev server listens on port 8000 by default. Change it with `--port`:
 
-Make sure to reload the page after running 10up-toolkit as the `dist/fast-refresh.php` file is generated by 10up-toolkit
-
-### HTTPS and Certificates
-
-In some setups (such as Laravel Valet), Websocket SSL connections will fail unless you explicitly tell webpack what cert files to use (see issue [290](https://github.com/10up/10up-toolkit/issues/290)).
-
-If you aren't already customizing webpack in your project, create a new `webpack.config.js` file in the root of your project/theme. You need to specify the cert, key, and ca properties for the config.devServer.https object.
-
-```js
-const config = require("10up-toolkit/config/webpack.config.js");
-const fs = require("fs");
-
-// Customize this to the appropriate path to your certificate folder
-const certPath = "/Users/youruser/.config/valet";
-
-// Check if devServer is in use and if so, modify the cert files used
-if (typeof config.devServer === "object") {
-	config.devServer.https = {
-		key: fs.readFileSync(`${certPath}/Certificates/yoursite.test.key`),
-		cert: fs.readFileSync(`${certPath}/Certificates/yoursite.test.crt`),
-		ca: fs.readFileSync(`${certPath}/CA/LaravelValetCASelfSigned.pem`),
-	};
-}
-
-module.exports = config;
+```
+10up-toolkit start --hot --port=5010
 ```
 
-### Troubleshooting
+Projects set up for version 7 load `dist/fast-refresh.php` and call `TenUpToolkit\set_dist_url_path()`. Version 8
+still writes that file as a shim that loads `dev-server.php`, so that code keeps working. Replace it with the snippet
+above when you can.
 
-If HMR/Fast Refresh is not working for you these steps can help you debug the problem:
-
-- Run a regular build (without `--hot`) does your code work properly?
-- Check if `tenup-toolkit-react-refresh-runtime` and `tenup-toolkit-hmr-runtime` are being enqueued on the block editor screen. If they aren't, ensure you're properly including `dist/fast-refresh.php` and setting up the constants properly.
-- Some code changes might cause a full-page refresh (e.g: changing arguments of `registerBlockType`). This is a known limitation.
-- If your CSS is not hot reloading, ensure you're including your block css file (`import './style.css`) from your block's entry point.
-- If you're extending the webpack config, does it work with the original webpack config? If so your changes might be breaking fast refresh.
-- Are you using a `.test` domain? if not make sure to set `devURL` under `10up-toolkit` namespace in `package.json`.
-- If your front-end css is not hot reloading, make sure the CSS is not an entry point on its own (i.e. isn't listed in the entry section in package.json) but instead is imported by a JS file. Both the JS file and the CSS file should be enqueued on the front-end.
-  - Additionally, check if both `tenup-toolkit-hmr-runtime` and `tenup-toolkit-react-refresh-runtime` are enqueued the front-end.
-- If you're overriding `babel.config.js` you will need to make sure it is including `react-refresh/babel` plugin.
-
-```js
-module.exports = (api) => {
-	// This caches the Babel config
-	api.cache.using(() => process.env.NODE_ENV);
-	return {
-		presets: ["@10up/babel-preset-default"],
-		// Applies the react-refresh Babel plugin on non-production modes only
-		...(!api.env("production") && { plugins: ["react-refresh/babel"] }),
-	};
-};
-```
-
-- If you're getting SSL errors for the Websocket connection, you may need to explicitly tell webpack what certificate files to use. See the above section "HTTPS and Certificates"
+If WordPress runs on a different host than the dev server (Docker, a `.test` domain over https), set `server.origin`
+and `server.cors` in a project `vite.config.mjs` (see [Customizing the Vite config](#customizations)). The
+[`wpDevServer` documentation](https://github.com/10up/wp-vite-plugins/blob/trunk/docs/wp-dev-server.md) covers every
+setup.
 
 ## <a id="linting"></a> Linting
 
-10up-toolkit comes with eslint, prettier and stylelint set up out of the box. It uses [10up's eslint config](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config) and [10up's stylelint config](https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config) and exposes the following commands:
-`10up-toolkit lint-js`, `10up-toolkit format-js` and `10up-toolkit lint-style`.
-
-10up-toolkit can lint JavaScript, TypeScript and JSX without any additional configuration. It's recommended to add a npm script to your `package.json`.
+10up-toolkit lints JavaScript and TypeScript with [Oxlint](https://oxc.rs/docs/guide/usage/linter), formats it with
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter), and lints CSS with Stylelint and
+[10up's stylelint config](https://github.com/10up/10up-toolkit/tree/develop/packages/stylelint-config). Oxlint and
+Oxfmt ship with Vite+, so there is nothing else to install.
 
 ```json
 {
-    ...
     "scripts": {
-        "build": "10up-toolkit build",
         "lint-js": "10up-toolkit lint-js",
         "format-js": "10up-toolkit format-js",
         "lint-style": "10up-toolkit lint-style"
     }
-    ...
 }
 ```
 
-Then you can run `npm run lint-js` and `npm run format-js` to lint and format your codebase respectively.
+Which config each command uses:
 
-### IDE Integration
+| Command | Project has a `vite.config.*` | Project has its own tool config | Neither |
+| --- | --- | --- | --- |
+| `lint-js` | `vp lint` (the `lint` block) | `.oxlintrc.json` | toolkit's `config/oxlintrc.json` |
+| `format-js` | `vp fmt` (the `fmt` block) | `.oxfmtrc.json` | toolkit's `config/oxfmtrc.json` (10up house style) |
+| `lint-style` | — | `stylelint.config.js` etc. | toolkit's `config/stylelint.config.js` |
 
-It's not required, but you might want to create a `.eslintrc.js` and `stylelint.config.js` file at the root of your project to better integrate eslint with your code editor or to extend the linting config.
+A project that still has an ESLint config and installs `eslint` itself keeps running ESLint for `lint-js`, and
+`eslint --fix` for `format-js`, so upgrading does not change its rules. Delete the ESLint config to switch to Oxlint.
 
-```javascript
-// .eslintrc.js
-module.exports = {
-	extends: ["@10up/eslint-config/wordpress"],
-};
+For editor integration, install the [Oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)
+and the Stylelint extension.
+
+### Pre-commit hooks
+
+With a root `vite.config.ts`, Vite+ runs checks on staged files with `vp staged` (it replaces lint-staged):
+
+```ts
+import { defineConfig } from 'vite-plus';
+
+export default defineConfig({
+	staged: {
+		'*.{js,jsx,ts,tsx}': 'vp check --fix',
+		'*.css': 'stylelint --fix',
+	},
+});
 ```
 
-You can extend any of the [available configs](https://github.com/10up/10up-toolkit/tree/develop/packages/eslint-config#available-eslint-configs) and enable/disable rules based on your project needs.
+Run `vp staged` from your husky `pre-commit` hook.
 
-```javascript
-// stylelint.config.js
-const config = {
-	extends: ["@10up/stylelint-config"],
-};
+## <a id="testing"></a>Testing
 
-module.exports = config;
-```
-
-### Choosing what to lint
-
-10up-toolkit will lint/format any JavaScript or TypeScript file in your source code directory, you can customize this behavior in two ways:
-
-- Specify the directory manually `10up-toolkit lint-js src/`
-- Create a `.eslintignore`
-
-```ignore
-# Don't forget to exclude node_module and dist/build dirs
-node_modules
-build
-dist
-
-path-to-code-to-be-ignored/*
-
-```
-
-### Setting up Husky and Lint-Staged
-
-We also strongly recommend that you set up `lint-staged` and `husky` to automate linting your code on every commit.
-
-First, create a `.lintstagedrc.json` file
-
-```json
-{
-	"*.css": ["10up-toolkit lint-style"],
-	"*.[tj]s": ["10up-toolkit lint-js"],
-	"*.[tj]sx": ["10up-toolkit lint-js"],
-	// If you have php and phpcs
-	"*.php": ["./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"]
-}
-```
-
-This will instruct lint-staged to run 10up-toolkit to link css, js and jsx files for the staged files in your commit.
-
-To set up git hooks with husky, create a `.husky` dir and a bash script for the git hooks you want, for example to run lint-staged
-on `pre-commit`, create a `pre-commit` bash script with the following contents:
-
-```bash
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-npx lint-staged
-```
-
-Under the `.husky` dir, also add a `.gitgnore` file with the following contents:
-
-```ignore
-_
-```
-
-Then, finally add the husky and lint-staged deps to your project
-
-```bash
-npm install --save-dev husky lint-staged
-```
-
-Whenever you commit your code, husky will run lint-staged which will trigger the appropriate commands to lint the staged files and if any of the commands fails, your commit will be aborted.
-
-### VSCode Integration
-
-It's strongly recommended to enable VSCode settings to format your JavaScript code on save. To do so, make sure you have the [vscode-eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension and add the following settings to your vscode config:
-
-```json
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true,
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-```
-
-10up's eslint config integrated with prettier through an ESLint plugin so having the vscode prettier extension is not needed and in fact, it must be disabled to avoid conflicts when saving and formatting the code.
+`10up-toolkit test` runs unit tests with [Vitest](https://vitest.dev). Without a project Vite or Vitest config it uses
+the jsdom environment, Jest-style globals (`describe`, `it`, `expect`, and `jest` as an alias of `vi`) and the file
+patterns version 7 used: `__tests__/**`, `test/*` and `*.test.*`. Pass `--watch` to keep watching.
+`test-unit-jest` still works as an alias.
 
 ## <a id="libraries"></a>Authoring Libraries/Packages
 
@@ -664,182 +505,54 @@ This behavior is inspired in [how microbundle](https://github.com/developit/micr
 
 ## <a id="customizations"></a>Customizations
 
-10up-toolkit is very extensible and pretty much all config files can be overridden by simply creating a config file at the root of your project.
+### Customizing the Vite config
 
-### Customizing the Webpack config
+Toolkit builds a Vite config from the `"10up-toolkit"` block of `package.json`. To change it, add a `vite.config.mjs`
+to the project and start from toolkit's config:
 
-In general, we don't recommend customizing the webpack config, the default webpack config and the 10up-toolkits options should provide all that's needed
-for most projects. However, in case you need to modify the webpack config you can to so by creating a `webpack.config.js` file at the root of your project.
+```js
+// vite.config.mjs
+import { toolkit } from '10up-toolkit/vite';
 
-The example below will update the webpack config so that 10up-toolkit processes and transpiles `@vendor/your-custom-package`. This would be required you publishing an untranspiled package.
-
-```javascript
-// webpack.config.js
-
-const config = require("10up-toolkit/config/webpack.config.js");
-
-config.module.rules[0].exclude =
-	/node_modules\/(?!(@10up\/block-components)|(@vendor\/your-custom-package)\/).*/;
-
-module.exports = config;
+export default toolkit({
+	server: { port: 5200 },
+});
 ```
 
-The example below will extend the base webpack plugin config to include a custom project specific plugin.
+`toolkit()` takes a Vite config, or a function of `{ mode, command }` that returns one, and merges it on top. The
+build runs twice into one `dist/`: once for classic scripts and styles, and once with `mode === 'modules'` for Script
+Modules. Toolkit uses the project config whenever one exists, and the `--config` flag picks another file.
+
+You can also write a config from scratch with `@10up/wp-vite-plugins`. See its
+[README](https://github.com/10up/wp-vite-plugins#readme).
+
+### Customizing Stylelint
+
+Add a `stylelint.config.js` to the project:
 
 ```javascript
-// webpack.config.js
-const config = require("10up-toolkit/config/webpack.config.js");
-const ProjectSpecificPlugin = require("project-specific-plugin");
-
-config.plugins.push(
-	// Append project specific plugin config.
-	new ProjectSpecificPlugin(),
-);
-
-module.exports = config;
-```
-
-> [!NOTE]
-> When `useScriptModules` mode is enabled the config returned from webpack here changes from an object to an array of two objects. The first one is the scripts config which matches the traditional structure. And the second object is the config for the ESM instance.
-> ```js
-> // webpack.config.js
-> const config = require("10up-toolkit/config/webpack.config.js");
-> const ProjectSpecificPlugin = require("project-specific-plugin");
->
-> // We can now either add it to the first standard config
-> config[0].plugins.push(
-> // Append project specific plugin config.
-> 	new ProjectSpecificPlugin()
-> );
-> 
-> // or to the second module specific config
-> config[1].plugins.push(
-> // Append project specific plugin config.
->  new ProjectSpecificPlugin()
-> );
->
-> module.exports = config;
->```
-
-### Customizing eslint and styling
-
-To customize eslint, create a supported eslint config file at the root of your project. Make sure to extend the `@10up/eslint-config` package.
-
-If you're writing tests with Jest for example, you will need to include the rules for jest.
-
-```javascript
-// .eslintrc.js
-
-module.exports = {
-	extends: ["@10up/eslint-config/wordpress", "@10up/eslint-config/jest"],
-	rules: {
-		/* add or modify rules here */
-	},
-};
-```
-
-Similarly, for customizing stylelint, create a `stylelint.config.js` file.
-
-```javascript
-// stylelint.config.js
 const config = {
-	extends: ["@10up/stylelint-config"],
-	rules: {
-		/* add or modify rules here */
-	},
+	extends: ['@10up/stylelint-config'],
 };
 
 module.exports = config;
 ```
-
-Refer to <Link to="/10up-toolkit/linting">linting docs</Link> for more information.
 
 ### Customizing PostCSS
 
-To customize the PostCSS config, create a `postcss.config.js` at the root of your project. When overriding the PostCSS config, keep in mind
-that the default config is exported as a **function**.
+Without a PostCSS config in the project, toolkit applies the same PostCSS setup as version 7: global data from
+`paths.globalStylesDir`, mixins from `paths.globalMixinsDir`, `postcss-preset-env` at stage 0, and the editor styles
+wrapper for `editor-style.css`. Vite handles `@import` and minification.
 
-The example below modifies the ignored list of the `editor-styles` plugin when processing the `editor-style.css` file.
-
-```javascript
-const baseConfig = require("10up-toolkit/config/postcss.config.js");
-const path = require("path");
-
-module.exports = (props) => {
-	const config = baseConfig(props);
-	const { file } = props;
-
-	if (path.basename(file) === "editor-style.css") {
-		config.plugins["postcss-editor-styles"].ignore = [
-			...config.plugins["postcss-editor-styles"].ignore,
-			".mh-personalization-segment-picker",
-		];
-	}
-	return config;
-};
-```
-
-#### Adding a new PostCSS plugin
-
-By default, `10up-toolkit` includes the following PostCSS plugins:
-
-- [postcss-import](https://github.com/postcss/postcss-import)
-- [postcss-mixins](https://github.com/postcss/postcss-mixins)
-- [postcss-preset-env](https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env)
-- [postcss-editor-styles](https://github.com/m-e-h/postcss-editor-styles)
-
-However, there might be times in which you need to add a new plugin. To do so, follow the steps below:
-
-1. Install the plugin you need, e.g: `npm install @csstools/postcss-design-tokens --save-dev`
-2. Once the plugin is installed, tweak the configuration as follows:
+Add a `postcss.config.js` to replace it completely:
 
 ```javascript
-const baseConfig = require("10up-toolkit/config/postcss.config.js");
-const additionalPlugins = { "@csstools/postcss-design-tokens": {} };
-
-module.exports = (props) => {
-	const config = baseConfig(props);
-
-	config.plugins = { ...config.plugins, ...additionalPlugins };
-
-	return config;
-};
-```
-
-Please note that the order of the plugins is important, so make sure to add the new plugin in the correct position. You
-might want to tweak the order and/or write a different `config.plugins` object with the plugins in the order you need.
-
-### Customizing svgo
-
-> Added in 3.0.4
-
-SVGO options can be customized by creating a `svgo.config.js` file at the root of your project.
-
-```javascript
-// svgo.config.js
 module.exports = {
-	plugins: [
-		{
-			name: "preset-default",
-			params: {
-				overrides: {
-					// customize default plugin options
-					inlineStyles: {
-						onlyMatchedOnce: false,
-					},
-
-					// or disable plugins
-					removeDoctype: false,
-
-					removeViewBox: false,
-				},
-			},
-		},
-	],
+	plugins: {
+		'postcss-preset-env': { stage: 0 },
+	},
 };
 ```
-
-See [SVGO Configuration](https://github.com/svg/svgo#configuration) for more info about this file.
 
 ## <a id="cli"></a> CLI Options
 
@@ -862,7 +575,7 @@ Alternatively, you can set this up in `package.json`.
 		"format-js": "10up-toolkit format-js",
 		"lint-js": "10up-toolkit lint-js",
 		"lint-style": "10up-toolkit lint-style",
-		"test": "10up-toolkit test-unit-jest"
+		"test": "10up-toolkit test"
 	},
 	"devDependencies": {
 		"10up-toolkit": "^6.0.0"
@@ -875,14 +588,6 @@ Alternatively, you can set this up in `package.json`.
 	}
 }
 ```
-
-### Bundle Analyzer
-
-10up-toolkit ships with `webpack-bundle-analyzer` out of the box, and you can enable it by simply passing the `--analyze` option.
-
-`10up-toolkit build --analyze`
-
-It only works with the build command, after finishing the build a new window will be automatically opened with the report.
 
 ### Block Manifest
 
@@ -939,15 +644,7 @@ Then you can instruct 10up-toolkit to use your app.js file and spin up a dev ser
 
 > Released in 3.1.0
 
-The `--target` option can be used to override the default webpack target option.
-
-For instance:
-
-```
-10up-toolkit build --target=node
-```
-
-will target node.js instead of browsers. See [Webpack Target](https://webpack.js.org/configuration/target/) for possible values.
+The `--target` option was a webpack setting and has no effect in version 8. Library builds target modern browsers; set `build.target` in a project `vite.config.mjs` to change it.
 
 ### Dev Server
 
@@ -971,7 +668,7 @@ If you need to override the default html template, create a `index.html` file un
 </html>
 ```
 
-**Note**: You don't need to manually include the css and js in the html template, webpack will handle that for you.
+**Note**: In version 8 the dev server serves an `index.html` at the project root. Reference your script from it with `<script type="module" src="/src/app.js"></script>`.
 
 ### WP Mode
 
@@ -980,7 +677,7 @@ you can pass `--wp=false`.
 
 ### Format
 
-The format option controls how webpack will generate your bundle. The supported options are:
+The format option controls the bundle format. The supported options are:
 
 - all (default)
 - commonjs
@@ -1000,11 +697,11 @@ To override, use the `-f` or `--format` option
 There also is a special mode for outputting both CommonJS and ESM assets at the same time. It can be enabled via the `useScriptModules` flag in the toolkit settings and enables you to define any module entrypoints via the `moduleEntry` key in the settings. At the same time enabling this flag also means that the `scriptModule` & `viewScriptModule` keys in `block.json` files automatically get built as modules.
 
 > [!NOTE]
-> Enabling has the side-effect that toolkit now needs to run two separate webpack instances. So the webpack config changes from an object to an array of objects. This is important to watch out for if you have a custom `webpack.config.js` file in your project and are customizing webpack yourself.
+> Toolkit runs a second Vite build with `mode === 'modules'` for Script Modules. Keep that in mind in a custom `vite.config.mjs`.
 
 ### Externals
 
-This option is only useful in package mode and is used to override the webpack externals definitions. In package mode, the
+This option is only useful in package mode and is used to override the externals. In package mode, the
 default externals will be set based on your dependencies and peer dependencies.
 
 ```bash
@@ -1084,15 +781,7 @@ This can be useful in situations where you're maintaining an internal package, a
 10up-toolkit provides support for TypeScript out of the box. Simply create files with `.ts` or `.tsx` (for react components) and 10up-toolkit will
 compile them just fine as well as lint and format them.
 
-To enable better support for linting with VSCode and other IDE's we recommend the following `.eslintrc.js` file
-
-```javascript
-module.exports = {
-	parser: "@typescript-eslint/parser",
-	extends: ["@10up/eslint-config/react"], // or @10up/eslint-config/wordpress
-	plugins: ["@typescript-eslint"],
-};
-```
+Type checking is not part of the build. Run `tsc --noEmit` (or `tsgo --noEmit`) in CI.
 
 ## <a id="react"></a> React & WordPress
 
@@ -1156,32 +845,6 @@ function remove_deps( $scripts ) {
 ```
 
 By disabling "WordPress" mode, you will need to install both react and react-dom yourself and include in your final bundle.
-
-## <a id="linaria"></a> Linaria (CSS-in-JS)
-
-> Support for Linaria was added in 10up-toolkit 5.1.0.
-
-10up-toolkit supports [Linaria](https://linaria.dev/) without any additional configuration. The main usecase for supporting linaria is to easily compile React components authored using Linaria. This can be useful if you're building a headless site and want to share React components between your front-end and Gutenberg.
-
-If you want 10up-toolkit to compile Linaria first install the following packages:
-
-```bash
-npm install --save-dev @linaria/babel-preset @linaria/webpack-loader
-npm install --save @linaria/core @linaria/react
-```
-
-Once those packages are installed, 10up-toolkit will now look for any Linaria usage in JavaScript files and compile the CSS. The compiled CSS will have the name of the JS entry point (but with a .css extension).
-
-For instance, if you have a block with the following `block.json`
-
-```json
-"editorScript": "file:./index.js",
-"editorStyle": "file:./index.css"
-```
-
-10up-toolkit will compile any Linaria code from the `index.js` entry point to `index.css`. Note that CSS imported by JS entry points always gets generated with the name of the entry point e.g: `index.js => index.css`. So make sure `editorStyle` points to the right CSS file which should be based on `editorScript`.
-
-**IMPORTANT**: We do not currently recommend using Linaria for standard WordPress builds. In a headless build the block rendering and front-end styles are handled outside of WordPress, hence why the `block.json` above only cares about the editor script and style.
 
 ## Support Level
 

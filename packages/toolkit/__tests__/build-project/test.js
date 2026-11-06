@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { describe, it, expect } from 'vite-plus/test';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import path from 'path';
@@ -29,7 +30,7 @@ describe('build a project (without useBlockAssets)', () => {
 			.readFileSync(path.join(__dirname, 'dist', 'js', 'frontend.asset.php'))
 			.toString();
 
-		expect(frontendAssetPHP).toMatch('wp-element');
+		expect(frontendAssetPHP).toMatch('react-jsx-runtime');
 		expect(frontendAssetPHP).toMatch('react-dom');
 		expect(frontendAssetPHP).toMatch('react');
 	});
@@ -66,18 +67,11 @@ describe('build a project (without useBlockAssets)', () => {
 			cwd: __dirname,
 		});
 
-		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'admin.js.map'))).toBeTruthy();
+		// Every JS entry with code gets a map. (admin.js only imports CSS, so it
+		// has no code to map.) Vite does not write source maps for CSS in a build.
 		expect(fs.existsSync(path.join(__dirname, 'dist', 'js', 'frontend.js.map'))).toBeTruthy();
 		expect(
-			fs.existsSync(path.join(__dirname, 'dist', 'css', 'frontend-css.css.map')),
-		).toBeTruthy();
-		expect(
 			fs.existsSync(path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.js.map')),
-		).toBeTruthy();
-		expect(
-			fs.existsSync(
-				path.join(__dirname, 'dist', 'blocks', 'example-block', 'editor.css.map'),
-			),
 		).toBeTruthy();
 	});
 });

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { describe, it, expect, beforeAll } from 'vite-plus/test';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import path from 'path';
@@ -25,7 +26,7 @@ describe('build a project (with useBlockAssets)', () => {
 			.readFileSync(path.join(__dirname, 'dist', 'js', 'frontend.asset.php'))
 			.toString();
 
-		expect(frontendAssetPHP).toMatch('wp-element');
+		expect(frontendAssetPHP).toMatch('react-jsx-runtime');
 		expect(frontendAssetPHP).toMatch('react-dom');
 		expect(frontendAssetPHP).toMatch('react');
 	});

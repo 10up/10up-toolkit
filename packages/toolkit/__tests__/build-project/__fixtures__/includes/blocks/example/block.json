@@ -40,3 +40,5 @@
 	},
 	"editorScript": "file:../../../../dist/editor.js",
 	"editorStyle": "file:../../../../dist/editor.css"
+
+}

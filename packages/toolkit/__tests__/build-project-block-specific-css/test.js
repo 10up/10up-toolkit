@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { describe, it, expect } from 'vite-plus/test';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import path from 'path';
@@ -38,8 +39,8 @@ describe('build a project', () => {
 		const compiledHeadingBlockCSS = fs.readFileSync(headingBlockCSS).toString();
 		const compiledGroupBlockCSS = fs.readFileSync(groupBlockCSS).toString();
 
-		// expect the compiled CSS to contain "min-width: 30em"
-		expect(compiledHeadingBlockCSS).toMatch('min-width: 30em');
-		expect(compiledGroupBlockCSS).toMatch('min-width: 30em');
+		// The global `@custom-media` resolved; Lightning CSS minifies it to `(width>=30em)`.
+		expect(compiledHeadingBlockCSS).toMatch(/\(width>=30em\)|min-width:\s*30em/);
+		expect(compiledGroupBlockCSS).toMatch(/\(width>=30em\)|min-width:\s*30em/);
 	});
 });

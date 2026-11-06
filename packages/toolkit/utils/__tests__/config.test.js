@@ -1,0 +1,274 @@
+import { describe, it, expect, afterEach, vi } from 'vite-plus/test';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
+// Spy before ../config loads: it destructures getPackage from ../package.
+const packageModule = require('../package');
+
+vi.spyOn(packageModule, 'getPackage');
+const { getPackage: getPackageMock } = packageModule;
+
+const {
+	getDefaultConfig,
+	getTenUpScriptsConfig,
+	getTenUpScriptsPackageBuildConfig,
+} = require('../config');
+
+describe('getTenUpScriptsConfig', () => {
+	afterEach(() => {
+		getPackageMock.mockReset();
+	});
+
+	it('returns defaults values if config is not set', () => {
+		getPackageMock.mockReturnValueOnce({});
+
+		expect(getTenUpScriptsConfig()).toEqual(getDefaultConfig());
+	});
+
+	it('overrides and merges config properly', () => {
+		getPackageMock.mockReturnValueOnce({
+			'10up-toolkit': {
+				entry: {
+					'entry1.js': 'dist/output.js',
+				},
+				filenames: {
+					blockCSS: 'blocks/[name]/editor2.css',
+				},
+				paths: {
+					srcDir: './assets2/',
+				},
+			},
+		});
+
+		const defaultConfig = getDefaultConfig();
+
+		expect(getTenUpScriptsConfig()).toEqual({
+			...defaultConfig,
+			entry: {
+				'entry1.js': 'dist/output.js',
+			},
+			filenames: {
+				...defaultConfig.filenames,
+				blockCSS: 'blocks/[name]/editor2.css',
+			},
+			paths: {
+				...defaultConfig.paths,
+				srcDir: './assets2/',
+			},
+		});
+	});
+
+	it('sets useBlockManifest to false by default', () => {
+		getPackageMock.mockReturnValueOnce({});
+		const config = getTenUpScriptsConfig();
+		expect(config.useBlockManifest).toBe(false);
+	});
+
+	it('respects useBlockManifest from package.json config', () => {
+		getPackageMock.mockReturnValueOnce({
+			'10up-toolkit': {
+				useBlockManifest: true,
+			},
+		});
+
+		const config = getTenUpScriptsConfig();
+		expect(config.useBlockManifest).toBe(true);
+	});
+
+	it('respects --block-manifest CLI flag', () => {
+		// Save original argv
+		const originalArgv = process.argv;
+
+		try {
+			// Add the CLI flag
+			process.argv = [...originalArgv, '--block-manifest'];
+
+			getPackageMock.mockReturnValueOnce({});
+
+			const config = getTenUpScriptsConfig();
+			expect(config.useBlockManifest).toBe(true);
+		} finally {
+			// Restore original argv
+			process.argv = originalArgv;
+		}
+	});
+
+	it('CLI flag overrides package.json config for useBlockManifest', () => {
+		const originalArgv = process.argv;
+
+		try {
+			process.argv = [...originalArgv, '--block-manifest'];
+
+			getPackageMock.mockReturnValueOnce({
+				'10up-toolkit': {
+					useBlockManifest: false,
+				},
+			});
+
+			const config = getTenUpScriptsConfig();
+			expect(config.useBlockManifest).toBe(true);
+		} finally {
+			process.argv = originalArgv;
+		}
+	});
+});
+
+describe('getTenUpScriptsPackageBuildConfig', () => {
+	afterEach(() => {
+		getPackageMock.mockReset();
+	});
+
+	it('returns valid package build config', () => {
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'dist/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+		});
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: 'dist/index.umd.js',
+			exports: {},
+			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
+			libraryName: 'componentLibrary',
+			packageType: 'all',
+			target: '',
+		});
+
+		getPackageMock.mockReset();
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'dist/index.umd.js',
+			style: 'dist/index.css',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			exports: {
+				'*': './dist/index.js',
+				'./utils': './dist/utils.js',
+			},
+			'10up-toolkit': {
+				libraryName: 'myComponentLibrary',
+			},
+		});
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: 'dist/index.umd.js',
+			style: 'dist/index.css',
+			exports: {
+				'*': './dist/index.js',
+				'./utils': './dist/utils.js',
+			},
+			externals: ['read-pkg', 'read-pkg-up', 'resolve-bin'],
+			libraryName: 'myComponentLibrary',
+			packageType: 'all',
+			target: '',
+		});
+	});
+
+	it('builds config taking cli args into account', () => {
+		process.argv.push('--external=none');
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'dist/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			'@10up/scripts': {
+				libraryName: 'myComponentLibrary',
+				packageType: 'commonjs',
+			},
+		});
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: false,
+			exports: {},
+			externals: [],
+			libraryName: 'myComponentLibrary',
+			packageType: 'commonjs2',
+			target: '',
+		});
+
+		getPackageMock.mockReturnValue({
+			name: '@10up/component-library',
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			'umd:main': 'dist/index.umd.js',
+			dependencies: {
+				'read-pkg': '^5.2.0',
+				'read-pkg-up': '^1.0.1',
+				'resolve-bin': '^0.4.0',
+			},
+			'@10up/scripts': {
+				libraryName: 'myComponentLibrary',
+				packageType: 'assign-properties',
+			},
+		});
+
+		// override the definated packageType
+		process.argv.push('--format=commonjs');
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: false,
+			exports: {},
+			externals: [],
+			libraryName: 'myComponentLibrary',
+			packageType: 'commonjs2',
+			target: '',
+		});
+
+		process.argv.pop();
+		process.argv.push('-f=commonjs');
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.js',
+			main: 'dist/index.js',
+			umd: false,
+			exports: {},
+			externals: [],
+			libraryName: 'myComponentLibrary',
+			packageType: 'commonjs2',
+			target: '',
+		});
+
+		process.argv.push('-i=src/index.umd.js');
+		process.argv.push('-o=dist/index.umd.js');
+		process.argv.push('--name=ComponentLibrary');
+		process.argv.push('--target=node');
+
+		expect(getTenUpScriptsPackageBuildConfig()).toEqual({
+			source: 'src/index.umd.js',
+			main: 'dist/index.umd.js',
+			umd: false,
+			exports: {},
+			externals: [],
+			libraryName: 'ComponentLibrary',
+			packageType: 'commonjs2',
+			target: 'node',
+		});
+	});
+});

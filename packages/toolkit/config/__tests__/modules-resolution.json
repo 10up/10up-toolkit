@@ -1,4 +1,0 @@
-{
-    "./utils-fake-module": "./utils-fake-module.js",
-    "./config-fake-module": "./config-fake-module.js"
-}

@@ -1,0 +1,54 @@
+{
+	"$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+	"plugins": [
+		"typescript",
+		"react",
+		"jsx-a11y",
+		"import",
+		"unicorn",
+		"jsdoc"
+	],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn"
+	},
+	"env": {
+		"browser": true,
+		"es2024": true
+	},
+	"globals": {
+		"wp": "readonly",
+		"jQuery": "readonly"
+	},
+	"settings": {
+		"react": {
+			"version": "18.3"
+		}
+	},
+	"rules": {
+		"no-console": [
+			"warn",
+			{
+				"allow": [
+					"warn",
+					"error"
+				]
+			}
+		],
+		"no-unused-vars": [
+			"warn",
+			{
+				"argsIgnorePattern": "^_",
+				"varsIgnorePattern": "^_"
+			}
+		],
+		"react/react-in-jsx-scope": "off",
+		"import/no-unassigned-import": "off",
+		"unicorn/no-empty-file": "off"
+	},
+	"ignorePatterns": [
+		"dist/**",
+		"vendor/**",
+		"node_modules/**"
+	]
+}

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { describe, it, expect } from 'vite-plus/test';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import path from 'path';

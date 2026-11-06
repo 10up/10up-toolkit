@@ -1,5 +1,91 @@
 # Upgrade Guide
 
+## Upgrading from 7 to 8
+
+Version 8 replaces webpack with [Vite+](https://viteplus.dev) (Vite 8 and Rolldown) and
+[`@10up/wp-vite-plugins`](https://github.com/10up/wp-vite-plugins). The CLI and the `"10up-toolkit"` config in
+`package.json` stay the same, and so does the dist layout: `dist/js/<entry>.js`, `dist/css/<entry>.css`,
+`dist/blocks/<block>/…`, `dist/blocks/autoenqueue/…`, and an `.asset.php` file next to every script and stylesheet.
+Most projects upgrade by bumping the version and running a build.
+
+### Node version
+
+Node `^22.18.0` or `>=24.11.0` is required, the versions Vite+ supports. Node 20 is no longer supported.
+
+### What to check after upgrading
+
+1. **Run `npm run build` and compare `dist/`** with a build from version 7. Expect the same files. Extra files you will
+   see: `dist/dev-server.php` and `dist/fast-refresh.php`, plus an `.asset.php` for every CSS-only entry.
+2. **JSX now uses the automatic runtime.** Scripts with JSX depend on `react-jsx-runtime` instead of `wp-element`.
+   WordPress 6.6 and later provide it.
+3. **`@wordpress/*` packages.** A package you import but did not install is still treated as provided by WordPress,
+   as before. Install the packages you import anyway: installed packages give you TypeScript types, and Script
+   Module packages such as `@wordpress/interactivity` are then detected from their own metadata.
+4. **Hot reloading.** `start --hot` now starts a Vite dev server. Replace the `fast-refresh.php` code in your theme or
+   plugin with:
+
+   ```php
+   if ( file_exists( __DIR__ . '/dist/dev-server.php' ) ) {
+   	require_once __DIR__ . '/dist/dev-server.php';
+   }
+   ```
+
+   Until you do, toolkit writes a `dist/fast-refresh.php` shim that loads `dev-server.php`, and
+   `TenUpToolkit\set_dist_url_path()` does nothing. The `devURL`, `hot` and `devServer` settings for webpack-dev-server
+   no longer apply. The dev server listens on port 8000; change it with `--port`.
+5. **Minified CSS looks different.** Lightning CSS minifies the output, so `@media (min-width: 30em)` ships as
+   `@media (width>=30em)`. Browsers read both the same way.
+
+### Removed
+
+- **A project `webpack.config.js`.** Toolkit ignores it. Move customizations to a `vite.config.mjs`:
+
+  ```js
+  import { toolkit } from '10up-toolkit/vite';
+
+  export default toolkit({
+  	// Any Vite config, merged on top of toolkit's.
+  });
+  ```
+
+- **Linaria and vanilla-extract.** Toolkit no longer compiles them. Add their Vite plugins in a `vite.config.mjs`
+  if you still need them.
+- **Image and SVG minification** (`image-minimizer-webpack-plugin`, `svgo.config.js`). Images, fonts and SVG files
+  are copied to `dist/` unchanged. Optimize them before you commit them.
+- **`--analyze`** (webpack-bundle-analyzer), **`--target`**, **`--include`** and the core-js polyfills. Vite compiles
+  dependencies as needed and targets modern browsers.
+- **CSS source maps in production builds.** `--sourcemap` still writes maps for scripts.
+- **Babel.** A project `babel.config.js` is ignored. `@10up/babel-preset-default` is no longer a peer dependency.
+
+### Linting, formatting and tests
+
+- `lint-js` runs [Oxlint](https://oxc.rs/docs/guide/usage/linter) and `format-js` runs Oxfmt, with toolkit's default
+  configs (`config/oxlintrc.json`, and the 10up house style in `config/oxfmtrc.json`). A project with its own
+  `.oxlintrc.json` / `.oxfmtrc.json`, or a `vite.config.*` with `lint` / `fmt` blocks, uses that instead.
+- A project that keeps an ESLint config and installs `eslint` itself still runs ESLint, so its rules do not change
+  until you remove the ESLint config. `@10up/eslint-config` is no longer a peer dependency.
+- `lint-style` is unchanged.
+- `test` runs [Vitest](https://vitest.dev) with the jsdom environment and Jest-style globals. `jest` is an alias of
+  `vi`, so `jest.fn()` and `jest.spyOn()` keep working. `test-unit-jest` and `test-unit-js` are aliases of `test`. Jest
+  config files are ignored; move settings to the `test` block of a `vitest.config.mjs`.
+- Replace lint-staged with `vp staged` and a `staged` block in a root `vite.config.ts`. See the README.
+
+### Optional: install Vite+ for the whole project
+
+To use `vp check`, `vp test` and `vp run` across a monorepo, install `vite-plus` at the root and add this override so
+npm installs one copy of Vite:
+
+```json
+{
+	"devDependencies": {
+		"vite-plus": "^1.5.0"
+	},
+	"overrides": {
+		"vite": "npm:@voidzero-dev/vite-plus-core@^1.5.0"
+	}
+}
+```
+
 ## Upgrading from 6 to 7
 
 ### Node version

@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { describe, it, expect } from 'vite-plus/test';
 import spawn from 'cross-spawn';
 import fs from 'fs';
 import path from 'path';
@@ -19,7 +20,7 @@ describe('build a project with moduleEntry', () => {
 
 		// ensure admin is a module
 		const adminJs = fs.readFileSync(adminJsPath).toString();
-		expect(adminJs).toMatch(/export {.*};/);
+		expect(adminJs).toMatch(/export\s*\{.*\}/);
 	});
 
 	it('extracts css imported in js files', () => {
