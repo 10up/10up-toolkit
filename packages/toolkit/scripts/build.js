@@ -1,46 +1,15 @@
 /**
- * External dependencies
+ * `10up-toolkit build` — production build with Vite+.
+ *
+ * `10up-toolkit build --watch` is the same as `10up-toolkit watch`.
  */
+const { hasArgInCLI } = require('../utils');
+const { runVite } = require('../utils/vite');
 
-const webpack = require('webpack');
-
-/**
- * Internal dependencies
- */
-const {
-	hasArgInCLI,
-	fromConfigRoot,
-	fromProjectRoot,
-	hasWebpackConfig,
-	displayWebpackStats,
-} = require('../utils');
-
-if (hasArgInCLI('--watch')) {
-	require('./start');
-} else {
-	process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-
-	let configPath = fromConfigRoot('webpack.config.js');
-
-	if (hasWebpackConfig()) {
-		configPath = fromProjectRoot('webpack.config.js');
-	}
-
-	const config = require(configPath);
-	const compiler = webpack(config);
-
-	compiler.run((err, stats) => {
-		displayWebpackStats(err, stats);
-
-		compiler.close((closedErr) => {
-			if (closedErr) {
-				// eslint-disable-next-line no-console
-				console.error(closedErr);
-			}
-		});
-
-		if (err || stats.hasErrors()) {
-			process.exit(1);
-		}
+runVite(hasArgInCLI('--watch') ? 'watch' : 'build')
+	.then((code) => process.exit(code))
+	.catch((error) => {
+		// eslint-disable-next-line no-console
+		console.error(error);
+		process.exit(1);
 	});
-}

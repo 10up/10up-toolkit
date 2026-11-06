@@ -9,7 +9,7 @@
   "source": "src/index.js",
   "style": "./dist/index.css",
   "scripts": {
-    "test": "npm run build && 10up-toolkit test-unit-jest",
+    "test": "npm run build && 10up-toolkit test",
     "start": "10up-toolkit start -i=src/app.js --dev-server",
     "lint": "10up-toolkit lint-js",
     "build": "npm run build:modern && npm run build:umd",

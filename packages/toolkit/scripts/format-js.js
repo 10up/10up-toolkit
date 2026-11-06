@@ -1,55 +1,56 @@
 /**
- * External dependencies
+ * `10up-toolkit format-js` — format JavaScript and TypeScript with Oxfmt.
+ *
+ * - A project with its own `vite.config.*` runs `vp fmt`, which reads the
+ *   `fmt` block of that config.
+ * - Otherwise Oxfmt runs with the project's `.oxfmtrc.json`, or with
+ *   toolkit's default config (`config/oxfmtrc.json`, the 10up house style).
+ * - A project that still carries an ESLint config and installs `eslint`
+ *   itself keeps running `eslint --fix`, as toolkit 7 did.
  */
 const { sync: spawn } = require('cross-spawn');
-const { sync: resolveBin } = require('resolve-bin');
+const path = require('path');
 
-/**
- * Internal dependencies
- */
 const {
 	fromConfigRoot,
+	fromProjectRoot,
 	getArgsFromCLI,
-	hasArgInCLI,
 	hasFileArgInCLI,
-	hasPackageProp,
-	hasProjectFile,
+	hasEslintConfig,
+	hasOxfmtConfig,
 } = require('../utils');
+const {
+	getVitePlusBin,
+	getVitePlusToolBin,
+	hasViteConfig,
+	resolveFromProject,
+} = require('../utils/vite');
 
 const args = getArgsFromCLI();
+const files = hasFileArgInCLI() ? [] : ['.'];
+const cwd = path.dirname(fromProjectRoot('package.json'));
 
-const defaultFilesArgs = hasFileArgInCLI() ? [] : ['.'];
+const run = (bin, binArgs) => spawn(bin, binArgs, { stdio: 'inherit', cwd }).status;
 
-// See: https://eslint.org/docs/user-guide/configuring#using-configuration-files-1.
-const hasLintConfig =
-	hasArgInCLI('-c') ||
-	hasArgInCLI('--config') ||
-	hasProjectFile('.eslintrc.js') ||
-	hasProjectFile('.eslintrc.json') ||
-	hasProjectFile('.eslintrc.yaml') ||
-	hasProjectFile('.eslintrc.yml') ||
-	hasProjectFile('eslintrc.config.js') ||
-	hasProjectFile('.eslintrc') ||
-	hasPackageProp('eslintConfig');
+let status;
+const eslintPackage = hasEslintConfig() && resolveFromProject('eslint/package.json');
 
-// When a configuration is not provided by the project, use from the default
-// provided with the scripts module. Instruct ESLint to avoid discovering via
-// the `--no-eslintrc` flag, as otherwise it will still merge with inherited.
-const defaultConfigArgs = !hasLintConfig
-	? ['--no-eslintrc', '--config', fromConfigRoot('.eslintrc.js')]
-	: [];
+if (eslintPackage) {
+	// eslint-disable-next-line no-console
+	console.log(
+		'10up-toolkit: running ESLint because this project has an ESLint config. ' +
+			'Remove it to format with Oxfmt.',
+	);
+	status = run(path.join(path.dirname(eslintPackage), 'bin', 'eslint.js'), [
+		'--fix',
+		...args,
+		...files,
+	]);
+} else if (hasViteConfig()) {
+	status = run(getVitePlusBin(), ['fmt', ...args]);
+} else {
+	const configArgs = hasOxfmtConfig() ? [] : ['-c', fromConfigRoot('oxfmtrc.json')];
+	status = run(getVitePlusToolBin('oxfmt'), [...configArgs, ...args, ...files]);
+}
 
-// See: https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories.
-const hasIgnoredFiles = hasArgInCLI('--ignore-path') || hasProjectFile('.eslintignore');
-
-const defaultIgnoreArgs = !hasIgnoredFiles
-	? ['--ignore-path', fromConfigRoot('.eslintignore')]
-	: [];
-
-const result = spawn(
-	resolveBin('eslint'),
-	['--fix', ...defaultConfigArgs, ...defaultIgnoreArgs, ...args, ...defaultFilesArgs],
-	{ stdio: 'inherit' },
-);
-
-process.exit(result.status);
+process.exit(status ?? 1);

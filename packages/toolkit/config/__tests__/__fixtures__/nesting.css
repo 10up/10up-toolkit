@@ -1,7 +1,0 @@
-a, b {
-  color: red;
-
-  & c, & d {
-    color: white;
-  }
-}

@@ -8,31 +8,6 @@ const { hasArgInCLI, getArgFromCLI } = require('./cli');
 const { fromConfigRoot, fromProjectRoot, hasProjectFile } = require('./file');
 const { hasPackageProp, getPackage } = require('./package');
 
-// See https://babeljs.io/docs/en/config-files#configuration-file-types
-const hasBabelConfig = () =>
-	hasProjectFile('.babelrc.js') ||
-	hasProjectFile('.babelrc.json') ||
-	hasProjectFile('babel.config.js') ||
-	hasProjectFile('babel.config.json') ||
-	hasProjectFile('.babelrc') ||
-	hasPackageProp('babel');
-
-// See https://prettier.io/docs/en/configuration.html.
-const hasPrettierConfig = () =>
-	hasProjectFile('.prettierrc.js') ||
-	hasProjectFile('.prettierrc.json') ||
-	hasProjectFile('.prettierrc.toml') ||
-	hasProjectFile('.prettierrc.yaml') ||
-	hasProjectFile('.prettierrc.yml') ||
-	hasProjectFile('prettier.config.js') ||
-	hasProjectFile('.prettierrc') ||
-	hasPackageProp('prettier');
-
-const hasWebpackConfig = () =>
-	hasArgInCLI('--config') ||
-	hasProjectFile('webpack.config.js') ||
-	hasProjectFile('webpack.config.babel.js');
-
 // See https://github.com/michael-ciniawsky/postcss-load-config#usage (used by postcss-loader).
 const hasPostCSSConfig = () =>
 	hasProjectFile('postcss.config.js') ||
@@ -53,52 +28,28 @@ const hasStylelintConfig = () =>
 	hasPackageProp('stylelint');
 
 const hasEslintConfig = () =>
+	hasProjectFile('eslint.config.js') ||
+	hasProjectFile('eslint.config.mjs') ||
+	hasProjectFile('eslint.config.cjs') ||
 	hasProjectFile('.eslintrc.js') ||
+	hasProjectFile('.eslintrc.cjs') ||
 	hasProjectFile('.eslintrc.json') ||
 	hasProjectFile('.eslintrc.yaml') ||
 	hasProjectFile('.eslintrc.yml') ||
-	hasProjectFile('eslintrc.config.js') ||
 	hasProjectFile('.eslintrc') ||
 	hasPackageProp('eslintConfig');
 
-const hasJestConfig = () =>
-	hasProjectFile('jest.config.js') ||
-	hasProjectFile('jest.config.json') ||
-	hasPackageProp('jest');
+const hasOxlintConfig = () =>
+	hasProjectFile('.oxlintrc.json') ||
+	hasProjectFile('.oxlintrc.jsonc') ||
+	hasProjectFile('oxlint.config.ts');
+
+const hasOxfmtConfig = () =>
+	hasProjectFile('.oxfmtrc.json') ||
+	hasProjectFile('.oxfmtrc.jsonc') ||
+	hasProjectFile('oxfmt.config.ts');
 
 const hasTsConfig = () => hasProjectFile('tsconfig.json');
-
-/**
- * Returns path to a Jest configuration which should be provided as the explicit
- * configuration when there is none available for discovery by Jest in the
- * project environment. Returns undefined if Jest should be allowed to discover
- * an available configuration.
- *
- * This can be used in cases where multiple possible configurations are
- * supported. Since Jest will only discover `jest.config.js`, or `jest` package
- * directive, such custom configurations must be specified explicitly.
- *
- * @param {"e2e"|"unit"} suffix Suffix of configuration file to accept.
- *
- * @returns {string} Override or fallback configuration file path.
- */
-function getJestOverrideConfigFile(suffix) {
-	if (hasArgInCLI('-c') || hasArgInCLI('--config')) {
-		return undefined;
-	}
-
-	if (hasProjectFile(`jest-${suffix}.config.js`)) {
-		return fromProjectRoot(`jest-${suffix}.config.js`);
-	}
-
-	if (!hasJestConfig()) {
-		return fromConfigRoot(`jest-${suffix}.config.js`);
-	}
-
-	return undefined;
-}
-
-const hasEslintignoreConfig = () => hasProjectFile('.eslintignore');
 
 const getDefaultConfig = () => {
 	const wpMode = getArgFromCLI('--wp');
@@ -182,7 +133,7 @@ const getTenUpScriptsConfig = () => {
 		...config,
 		include,
 		publicPath,
-		sourcemap: Boolean(config.sourcemap),
+		sourcemap: defaultConfig.sourcemap || Boolean(config.sourcemap),
 		// CLI flags should always override package.json config
 		useBlockManifest: hasArgInCLI('--block-manifest') || config.useBlockManifest || false,
 		// these properties must be merged
@@ -318,19 +269,15 @@ const getModuleBuildFiles = () => {
 };
 
 module.exports = {
-	hasBabelConfig,
-	getJestOverrideConfigFile,
-	hasJestConfig,
-	hasPrettierConfig,
 	hasPostCSSConfig,
 	hasStylelintConfig,
 	getBuildFiles,
 	getModuleBuildFiles,
-	hasEslintignoreConfig,
 	hasEslintConfig,
+	hasOxlintConfig,
+	hasOxfmtConfig,
 	getTenUpScriptsConfig,
 	getDefaultConfig,
 	getTenUpScriptsPackageBuildConfig,
-	hasWebpackConfig,
 	hasTsConfig,
 };
