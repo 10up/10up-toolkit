@@ -10,5 +10,5 @@
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true
   },
-  "ignore": ["tenup-theme", "@10up/component-accordion", "@10up/library-ts-test", "@10up/stylelint-config"]
+  "ignore": ["tenup-theme", "@10up/component-accordion", "@10up/library-ts-test"]
 }
