@@ -1,5 +1,8 @@
 # 10up-toolkit
 
+> [!WARNING]
+> **10up-toolkit is in maintenance mode.** It will get security fixes for now, and will later be deprecated and archived. New projects should build with [Vite+](https://viteplus.dev) and [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins) from [10up/wp-tooling](https://github.com/10up/wp-tooling). To move an existing project, follow [Migrating from 10up-toolkit](https://github.com/10up/wp-tooling/blob/trunk/packages/wp-vite-plugins/docs/migrating-from-toolkit.md).
+
 A collection of bundled scripts for 10up development.
 
 1. [Introduction](#introduction)
@@ -1185,7 +1188,7 @@ For instance, if you have a block with the following `block.json`
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress. Bug reports, feature requests, questions, and pull requests are welcome.
+**Maintenance:** 10up only fixes security issues and bugs that block builds. No new features are planned. New work happens in [10up/wp-tooling](https://github.com/10up/wp-tooling).
 
 ## Like what you see?
 

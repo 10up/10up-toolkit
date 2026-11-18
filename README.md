@@ -2,7 +2,10 @@
 
 > A collection of tools for building projects at 10up.
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![License: GPL 2.0 or later](https://img.shields.io/badge/License-GPL%202.0%20or%20later-yellow.svg)](https://spdx.org/licenses/GPL-2.0-or-later.html)
+> [!WARNING]
+> **10up-toolkit is in maintenance mode.** It will get security fixes for now, and will later be deprecated and archived. New projects should build with [Vite+](https://viteplus.dev) and [`@10up/wp-vite-plugins`](https://github.com/10up/wp-tooling/tree/trunk/packages/wp-vite-plugins) from [10up/wp-tooling](https://github.com/10up/wp-tooling). To move an existing project, follow [Migrating from 10up-toolkit](https://github.com/10up/wp-tooling/blob/trunk/packages/wp-vite-plugins/docs/migrating-from-toolkit.md).
+
+[![Support Level](https://img.shields.io/badge/support-maintenance-blue.svg)](#support-level) [![License: GPL 2.0 or later](https://img.shields.io/badge/License-GPL%202.0%20or%20later-yellow.svg)](https://spdx.org/licenses/GPL-2.0-or-later.html)
 
 [![projects builds](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/build-test-projects.yml) [![tests](https://github.com/10up/10up-toolkit/actions/workflows/test.yml/badge.svg)](https://github.com/10up/10up-toolkit/actions/workflows/test.yml) 
 
@@ -19,7 +22,7 @@ Check out the documentation in [10up-toolkit](packages/toolkit/README.md) README
 
 ## Support Level
 
-**Active:** 10up is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.
+**Maintenance:** 10up only fixes security issues and bugs that block builds. No new features are planned. New work happens in [10up/wp-tooling](https://github.com/10up/wp-tooling).
 
 ## Repository Structure and Engineering Guidelines
 Visit the [CONTRIBUTING](/CONTRIBUTING.md) page for initial contribution, engineering guidance, and details on how to get set up properly.
